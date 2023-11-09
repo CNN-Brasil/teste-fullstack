@@ -1,0 +1,31 @@
+.modalLoteriasPlugin {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modalLoteriasPlugin .content {
+    border: solid 2 grey;
+    margin: 15% auto; 
+    padding: 20px;
+    border-radius: 5px;
+    width: 70%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mce-i-loteria-icon::before{
+    content: url('../img/bilhete.png');
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-style: normal;
+    font-size: 1.5rem;
+    color: #fff;
+}
