@@ -1,5 +1,4 @@
 <?php
-// wp-content/plugins/loterias-plugin/src/LoteriasPluginInit.php
 
 namespace LoteriasPlugin;
 
