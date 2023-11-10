@@ -120,7 +120,21 @@ class LoteriasPlugin {
     }
 
     public function addLoteriaButtonScript($plugin_array) {
+
         $plugin_array['loteria_button'] = plugin_dir_url(__DIR__) . 'assets/admin/js/loteria-button.js';
+        wp_register_script( 'loterias-select-options', '', [], '', true );
+        wp_enqueue_script( 'loterias-select-options'  );
+
+        $tipo_concurso = get_terms( array(
+            'taxonomy'   => 'tipo_concurso',
+            'hide_empty' => false,
+        ) );
+
+        foreach ($tipo_concurso as $index => $term) {
+            $selectLoterias[] = '"'.$term->name.'"';
+        }
+        wp_add_inline_script( 'loterias-select-options', 'let selectLoterias = ['.implode(",", $selectLoterias).'];');
+
         return $plugin_array;
     }
 
