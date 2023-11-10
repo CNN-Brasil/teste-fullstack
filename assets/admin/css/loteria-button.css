@@ -21,7 +21,9 @@
     align-items: center;
     background: white;
     max-width: 300px;
-    min-height: 200px;;
+    min-height: 200px;
+    position: relative;
+    font-size: 13px;
 }
 
 .mce-i-loteria-icon::before{
@@ -31,4 +33,45 @@
     font-style: normal;
     font-size: 1.5rem;
     color: #fff;
+}
+
+.modalLoteriasPlugin span{
+    font-size: 13px;
+    font-weight: normal;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    padding: 9px 20px;
+    text-align: left;
+    width: 88%;
+    display: none;
+    background: red;
+}
+
+.modalLoteriasPlugin span.error{
+    display: block;
+}
+
+.modalLoteriasPlugin .separador{
+    background: rgb(236, 237, 242);
+    width: 100%;
+    height: 2px;
+    margin: 32px 0;
+    position: relative;
+}
+
+.modalLoteriasPlugin .separador::before{
+    content: "ou";
+    background: rgb(255, 255, 255);
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    left: 41%;
+    padding: 0 10px;
+    transform: translateY(-50%);
+    color: rgb(174, 174, 186);
+}
+
+.modalLoteriasPlugin select, .modalLoteriasPlugin input[type="number"]{
+    margin: 10px 0 20px 10px;
 }
