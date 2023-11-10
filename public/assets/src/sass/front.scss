@@ -1,0 +1,305 @@
+$img_src: '../images/';
+
+$megasena: #2D976A;
+$quina: #261383;
+$lotofacil: #921788;
+$lotomania: #F58123;
+$timemania: #3DAF3E;
+$duplasena: #A41628;
+$federal: #133497;
+$diadesorte: #CA8536;
+$supersete: #A9CF50;
+
+.lottery {
+  max-width: 870px;
+  margin: 0 auto 1rem auto;
+  background: #FFF;
+
+  .lottery-header {
+    background: #999;
+    padding: 1rem;
+    margin-bottom: 2rem;
+
+    h3 {
+      font-size: 1.6rem;
+      color: #FFF;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      letter-spacing: .1rem;
+
+      .divider {
+        margin: 0 .5rem;
+      }
+
+      .week-day {
+        margin: 0 .5rem 0 0;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .lottery-numbers {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    span {
+      background: #999;
+      color: #FFF;
+      display: inline-flex;
+      width: 67px;
+      height: 67px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+      margin: 0 .6rem 1rem .6rem;
+      font-weight: 600;
+    }
+  }
+
+  .lottery-prize {
+    text-align: center;
+    border-top: 1px solid #CBCBCB;
+    border-bottom: 1px solid #CBCBCB;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+
+    strong {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+  }
+
+  .lottery-winners {
+    table {
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
+      table-layout: fixed;
+
+      thead {
+        color: #999;
+        font-size: 1.3rem;
+      }
+
+      th, td {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid #CBCBCB;
+      }
+
+      td {
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 1rem;
+      }
+
+      tr {
+        &:last-child {
+          td {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+  &.megasena {
+    .lottery-header {
+      background: $megasena;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $megasena;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $megasena;
+      }
+    }
+  }
+
+  &.maismilionaria {
+    .lottery-header {
+      background: $megasena;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $megasena;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $megasena;
+      }
+    }
+  }
+
+  &.lotofacil {
+    .lottery-header {
+      background: $lotofacil;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $lotofacil;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $lotofacil;
+      }
+    }
+  }
+
+  &.quina {
+    .lottery-header {
+      background: $quina;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $quina;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $quina;
+      }
+    }
+  }
+
+  &.lotomania {
+    .lottery-header {
+      background: $lotomania;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $lotomania;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $lotomania;
+      }
+    }
+  }
+
+  &.timemania {
+    .lottery-header {
+      background: $timemania;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $timemania;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $timemania;
+      }
+    }
+  }
+
+  &.duplasena {
+    .lottery-header {
+      background: $duplasena;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $duplasena;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $duplasena;
+      }
+    }
+  }
+
+  &.federal {
+    .lottery-header {
+      background: $federal;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $federal;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $federal;
+      }
+    }
+  }
+
+  &.diadesorte {
+    .lottery-header {
+      background: $diadesorte;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $diadesorte;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $diadesorte;
+      }
+    }
+  }
+
+  &.supersete {
+    .lottery-header {
+      background: $supersete;
+    }
+
+    .lottery-numbers {
+      span {
+        background: $supersete;
+      }
+    }
+
+    .lottery-winners {
+      thead {
+        color: $supersete;
+      }
+    }
+  }
+}
+
+.lottery-empty {
+  background: #489aee;
+  color: #FFF;
+  text-align: center;
+  font-size: 1.3rem;
+  padding: 1rem;
+  max-width: 670px;
+  margin: 1rem auto;
+}
