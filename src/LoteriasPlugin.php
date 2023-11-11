@@ -2,98 +2,55 @@
 
 namespace LoteriasPlugin;
 
+require_once __DIR__ . '/LoteriasPostType.php';
+require_once __DIR__ . '/LoteriasTaxonomy.php';
+require_once __DIR__ . '/LoteriasCheckPost.php';
+require_once __DIR__ . '/LoteriasInsertPost.php';
+require_once __DIR__ . '/LoteriasTinyMCE.php';
+
 class LoteriasPlugin {
+
+    protected int $id_post;
+    protected string $data_post;
+
     public function __construct() {
-        add_action('init', [$this, 'registerLoteriasPostType']);
-        add_action('init', [$this, 'registerLoteriasTaxonomy']);
         
+        add_action('init', [$this, 'init']);
         add_shortcode('loteria', [$this, 'loteriaShortcode']);
-        add_action('admin_init', [$this, 'addLoteriaButton']);
 
     }
 
-    public function registerLoteriasPostType() {
-        $labels = [
-            'name' => 'Loterias',
-            'singular_name' => 'Loteria',
-            'menu_name' => 'Loterias',
-        ];
+    public function init() {
 
-        $args = [
-            'labels' => $labels,
-            'public' => true,
-            'has_archive' => false,
-            'rewrite' => ['slug' => 'loterias'],
-        ];
+        $loteriasTinyMCE = new LoteriasTinyMCE();
+        $loteriasPostType = new LoteriasPostType();
+        $loteriasTaxonomy = new LoteriasTaxonomy();
 
-        register_post_type('loterias', $args);
+        $loteriasPostType->register();
+        $loteriasTaxonomy->register();
     }
 
-    public function registerLoteriasTaxonomy() {
-        $labels = [
-            'name'                       => _x('Concursos', 'taxonomy general name'),
-            'singular_name'              => _x('Concurso', 'taxonomy singular name'),
-            'search_items'               => __('Buscar Concursos'),
-            'all_items'                  => __('Todos os Concursos'),
-            'edit_item'                  => __('Editar Consurso'),
-            'update_item'                => __('Atualizar Consurso'),
-            'add_new_item'               => __('Adicionar novo Consurso'),
-            'new_item_name'              => __('Novo Consurso'),
-            'menu_name'                  => __('Concursos'),
-            'popular_items'              => __('Popular Concursos'),
-            'separate_items_with_commas' => null,
-            'add_or_remove_items'        => __('Adicionar ou remover concursos'),
-            'choose_from_most_used'      => __('Choose from the most used concursos'),
-            'not_found'                  => __('Nenhum concurso encontrado'),
-            'back_to_items'              => __('Voltar para Concursos'),
-        ];
+    private function getDataAPI($api_url) {
 
-        $args = [
-            'hierarchical'      => false,
-            'labels'            => $labels,
-            'show_ui'           => false,
-            'show_admin_column' => false,
-            'query_var'         => true,
-            'rewrite'           => ['slug' => 'tipo_concurso'],
-            'show_in_rest'      => false,
-            'rest_base'         => 'tipo_concurso',
-            'rest_controller_class' => 'WP_REST_Terms_Controller',
-        ];
-
-        register_taxonomy('tipo_concurso', ['loterias'], $args);
-        
-        $tipo_concurso = get_terms( array(
-            'taxonomy'   => 'tipo_concurso',
-            'hide_empty' => false,
-        ) );
-
-        if(count($tipo_concurso) === 0) {
-            $this->addDefaultTerms();            
-        }
-
-    }
-
-    private function addDefaultTerms() {
-
-
-        $api_url = 'https://loteriascaixa-api.herokuapp.com/api';
         $response = wp_remote_get($api_url);
 
         if (!is_wp_error($response) && $response['response']['code'] === 200) {
             $data = json_decode($response['body'], true);
-
-            foreach ($data as $term) {
-                wp_insert_term($term, 'tipo_concurso');
-            }
+            return $data;
         } 
+        return false;
+
     }
 
     public function loteriaShortcode($atts) {
 
+         $checkPost = new LoteriasCheckPost();
+         $insertPost = new LoteriasInsertPost();
+
          // Definindo os valores padrão para os atributos
          $atts = shortcode_atts(
             [
-                'concurso'      => 'last',
+                'concurso'      => 'latest',
                 'tipo_concurso' => 'megasena',
             ],
             $atts,
@@ -101,41 +58,43 @@ class LoteriasPlugin {
         );
 
         // Obtendo os valores dos atributos
-        $concurso = $atts['concurso'] === 'ultimo' ? 'last' : (int) $atts['concurso'];
+        $concurso = $atts['concurso'] === 'ultimo' ? 'latest' : (int) $atts['concurso'];
         $tipo_concurso = $atts['tipo_concurso'];
+        $transient_loterias = 'loterias_concurso_'.$tipo_concurso;
+        $api_url = 'https://loteriascaixa-api.herokuapp.com/api/'.$tipo_concurso.'/'.$concurso;
 
-    }
 
-    public function addLoteriaButton() {
-        if (current_user_can('edit_posts') && current_user_can('edit_pages')) {
-            add_filter('mce_buttons', [$this, 'registerLoteriaButton']);
-            add_filter('mce_external_plugins', [$this, 'addLoteriaButtonScript']);
-            wp_enqueue_style( 'admin-loteria-plugin',  plugin_dir_url(__DIR__) . 'assets/admin/css/loteria-button.css', array(), "1.0", 'all' );
+        if ($concurso === 'latest') {
+
+            $getTransientLoterias = get_transient($transient_loterias);
+
+            if ($getTransientLoterias === false) {
+                $getTransientLoterias = $this->getDataAPI($api_url);
+                $time_transient = strtotime($getTransientLoterias['dataProximoConcurso']) - strtotime($getTransientLoterias['data']);
+                set_transient($transient_loterias, json_encode($getTransientLoterias), $time_transient);
+                $this->data_post = $checkPost->check($getTransientLoterias) ===  false ? get_post_field('post_content',$insertPost->add($getTransientLoterias)) : $getTransientLoterias ;
+            
+            } else {
+                
+                return $getTransientLoterias;
+                
+            }
+            
+        } else {
+
+            $this->id_post = $checkPost->check(array('loteria' => $tipo_concurso, 'concurso' => $concurso));
+                
+            if ($this->id_post !== false && $this->id_post > 0 ) {
+                $this->data_post = get_post_field('post_content',$this->id_post);
+            } else {
+                $getDataLoterias = $this->getDataAPI($api_url);
+                $this->data_post = get_post_field('post_content',$insertPost->add($getDataLoterias));
+            }
+
         }
-    }
 
-    public function registerLoteriaButton($buttons) {
-        array_push($buttons, 'loteria_button');
-        return $buttons;
-    }
+        return $this->data_post;
 
-    public function addLoteriaButtonScript($plugin_array) {
-
-        $plugin_array['loteria_button'] = plugin_dir_url(__DIR__) . 'assets/admin/js/loteria-button.js';
-        wp_register_script( 'loterias-select-options', '', [], '', true );
-        wp_enqueue_script( 'loterias-select-options'  );
-
-        $tipo_concurso = get_terms( array(
-            'taxonomy'   => 'tipo_concurso',
-            'hide_empty' => false,
-        ) );
-
-        foreach ($tipo_concurso as $index => $term) {
-            $selectLoterias[] = '"'.$term->name.'"';
-        }
-        wp_add_inline_script( 'loterias-select-options', 'let selectLoterias = ['.implode(",", $selectLoterias).'];');
-
-        return $plugin_array;
     }
 
 }

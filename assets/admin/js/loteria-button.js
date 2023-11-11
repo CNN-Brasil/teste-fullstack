@@ -15,7 +15,7 @@
         const loteria = document.querySelector('#modal_loteria_select').value;
         const checkbox = document.querySelector('#modal_loteria_checkbox').checked;
         const concurso = checkbox ? 'ultimo' : document.querySelector('#modal_loteria_concurso').value;
-        const shortcode = `[loteria loteria="${loteria}" concurso="${concurso}"]`;
+        const shortcode = `[loteria tipo_concurso="${loteria}" concurso="${concurso}"]`;
         
         if (loteria !== '' && concurso !== '' && concurso !== null) {
             tinymce.activeEditor.execCommand('mceInsertContent', false, shortcode);
