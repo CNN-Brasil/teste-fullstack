@@ -14,6 +14,7 @@ class Loterias {
     {
         
         add_action( 'init', array( $this, 'registerLoteriasPostType' ) );
+        add_action( 'init', array( $this, 'registerTablesColumns' ) );
         add_shortcode( 'loteriasResultados', array( $this, 'renderLoteriasResultados' ) );
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
     }
@@ -140,5 +141,49 @@ class Loterias {
             "diadesorte",
             "supersete"
         );
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function registerTablesColumns()
+    {
+
+        /** */
+        add_filter( "manage_{$this->slug}_posts_columns", function ( $defaults ) {
+            $defaults['loteria']    = 'Loteria';
+            $defaults['concurso']   = 'Concurso';
+            $defaults['data']       = 'Data';
+            $defaults['shotcodes']  = 'Shortcodes';
+            unset($defaults['date']);
+            return $defaults;
+        } );
+
+        /** */
+        add_action( "manage_{$this->slug}_posts_custom_column", function ( $column_name, $post_id ) {
+
+            $loteria    = get_post_meta( $post_id, 'loteria', true );
+            $concurso   = get_post_meta( $post_id, 'concurso', true);
+            $date       = get_post_meta( $post_id, 'data', true);
+            
+            if ( $column_name == 'loteria' ) {
+                echo esc_html($loteria);
+            }
+
+            if ( $column_name == 'concurso' ) {
+                echo esc_html($concurso);
+            }
+
+            if ( $column_name == 'data' ) {
+                echo esc_html($date);
+            }
+
+            if ( $column_name == 'shotcodes' ) {
+                echo esc_attr("[loteriasResultados loteria=\"{$loteria}\" concurso=\"{$concurso}\"]");
+            }
+            
+        }, 1, 2 );
     }
 }

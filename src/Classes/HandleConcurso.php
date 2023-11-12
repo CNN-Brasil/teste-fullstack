@@ -78,7 +78,8 @@ abstract class HandleConcurso {
      */
     public function hasExistConcurso()
     {
-        
+        // Warning:message
+        // phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
         $query = new WP_Query(array(
             'post_type' => 'loterias',
             'posts_per_page' => 1,
