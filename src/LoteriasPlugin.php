@@ -7,6 +7,7 @@ require_once __DIR__ . '/LoteriasTaxonomy.php';
 require_once __DIR__ . '/LoteriasCheckPost.php';
 require_once __DIR__ . '/LoteriasInsertPost.php';
 require_once __DIR__ . '/LoteriasTinyMCE.php';
+require_once __DIR__ . '/LoteriasReturnHtml.php';
 
 class LoteriasPlugin {
 
@@ -35,8 +36,7 @@ class LoteriasPlugin {
     function loteriaShortcodeScripts() {
         global $post;
         if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'loteria') ) {
-            wp_enqueue_style( 'loterias-shortcode-plugin',  plugin_dir_url(__DIR__) . 'assets/css/loteria.css', array(), "1.0", 'all' );
-            wp_enqueue_script( 'loterias-shortcode-plugin',  plugin_dir_url(__DIR__) . 'assets/css/loteria.js', array(), "1.0", 'all' );
+            wp_enqueue_style( 'loterias-shortcode-plugin',  plugin_dir_url(__DIR__) . 'assets/css/loterias.css', array(), "1.0", 'all' );
         }
     }
 
@@ -56,6 +56,7 @@ class LoteriasPlugin {
 
          $checkPost = new LoteriasCheckPost();
          $insertPost = new LoteriasInsertPost();
+         $returnHtml = new LoteriasReturnHtml();
 
          // Definindo os valores padrão para os atributos
          $atts = shortcode_atts(
@@ -85,7 +86,7 @@ class LoteriasPlugin {
                 $this->data_post = $checkPost->check($getTransientLoterias) ===  false ? get_post_field('post_content',$insertPost->add($getTransientLoterias)) : json_encode($getTransientLoterias) ;
             
             } else {
-                return $getTransientLoterias;
+                $this->data_post = $getTransientLoterias;
             }
             
         } else {
@@ -101,7 +102,7 @@ class LoteriasPlugin {
 
         }
 
-        return $this->data_post;
+        return $returnHtml->html($this->data_post);
 
     }
 
