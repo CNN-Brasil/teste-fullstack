@@ -9,7 +9,7 @@ class LoteriasInsertPost {
             'post_title' => wp_strip_all_tags($data['loteria'].' concurso '.$data['concurso']. ' - '.$data['data']),
             'post_type' => 'loterias',
             'post_status' => 'publish',
-            'post_content'  => json_encode($data),
+            'post_content'  => json_encode($data, JSON_UNESCAPED_UNICODE),
             'meta_input' => array(
                 'concurso' => $data['concurso']
             ),
