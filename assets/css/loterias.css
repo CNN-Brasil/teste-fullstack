@@ -1,0 +1,925 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap');
+
+:root {
+    --loteria-color-maismilionaria:#d21e66;
+    --loteria-color-megasena:#2D976A;
+    --loteria-color-lotofacil:#921788;
+    --loteria-color-quina:#261383;
+    --loteria-color-lotomania:#F58123;
+    --loteria-color-timemania:#3DAF3E;
+    --loteria-color-duplasena:#A41628;
+    --loteria-color-federal:#133497;
+    --loteria-color-diadesorte:#CA8536;
+    --loteria-color-supersete:#A9CF50;
+
+}
+.loteria_maismilionaria{ color: var(--loteria-color-maismilionaria)}
+.loteria_megasena{ color: var(--loteria-color-megasena)}
+.loteria_lotofacil{ color: var(--loteria-color-lotofacil)}
+.loteria_quina{ color: var(--loteria-color-quina)}
+.loteria_lotomania{ color: var(--loteria-color-lotomania)}
+.loteria_timemania{ color: var(--loteria-color-timemania)}
+.loteria_duplasena{ color: var(--loteria-color-duplasena);}
+.loteria_federal{ color: var(--loteria-color-federal);}
+.loteria_diadesorte{ color: var(--loteria-color-diadesorte);}
+.loteria_supersete{ color: var(--loteria-color-supersete);}
+
+
+.loteria-concourse-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 45px;
+}
+
+.loteria-concourse-wrapper * {
+    font-display: swap;
+    font-family: 'Inter', sans-serif!important;
+}
+
+.loteria-concourse-wrapper .loteria-concourse {
+    background: red;
+    padding: 0;
+}
+
+.loteria-concourse-wrapper .loteria-concourse:first-child {
+    margin-top: 25px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-concourse-title {
+    margin: 0 20px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-concourse-title
+    h2 {
+    font-size: 28px;
+    text-transform: capitalize;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.megasena
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-megasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.quina
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-quina);
+}
+
+.lottery__main__title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--clr-cnn-grey-4);
+    margin: 8px 0;
+    line-height: 40px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotofacil
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-lotofacil);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotomania
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-lotomania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.duplasena
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-duplasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.federal
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-federal);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.timemania
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-timemania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.loteca
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-loteca);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.diadesorte
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-diadesorte);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.supersete
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-supersete);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-concourse-title
+    p {
+    font-style: normal;
+    font-size: 14px;
+    color: #000000;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-concourse-title
+    a {
+    display: inline-block;
+    font-style: normal;
+    font-size: 16px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.lottery .loteria-concourse-wrapper .loteria-card {
+    border: 1px solid #d1d1d1;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header {
+    display: inline-grid;
+    align-items: center;
+    min-height: 68px;
+    text-align: center;
+    width: 100%;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.megasena
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-megasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.quina
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-quina);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotofacil
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-lotofacil);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotomania
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-lotomania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.duplasena
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-duplasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.federal
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-federal);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.timemania
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-timemania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.loteca
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.diadesorte
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-diadesorte);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.supersete
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-supersete);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    h3 {
+    margin: 0px;
+    text-align: center;
+    font-size: 20px!important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    color: #ffffff!important;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    a,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    button {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    padding: 8px 10px 8px 15px;
+    margin-right: 14px;
+    background: none;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    a
+    span,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    button
+    span {
+    padding-right: 14px;
+    transition: all 0.2s linear;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    a:hover,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    button:hover {
+    background: #ffffff;
+    color: #8c8c8c;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    a:hover
+    span,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    button:hover
+    span {
+    padding-right: 24px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    a:hover
+    svg
+    path,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    button:hover
+    svg
+    path {
+    stroke: #8c8c8c;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 0px 17px 0px;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-container.ds {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 0px 20px 0px;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-container.ds
+    div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* padding: 40px 0px 20px 0px; */
+    background: #ffffff;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-container.ds
+    div
+    h3 {
+    font-size: 24px;
+    color: #000000;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-number {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-number
+    li {
+    display: flex;
+    justify-content: center;
+    width: calc(100% / 6);
+    margin-bottom: 20px;
+    list-style: none;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotofacil
+    .loteria-card
+    .loteria-card-number
+    li {
+    width: calc(100% / 5);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotomania
+    .loteria-card
+    .loteria-card-number
+    li {
+    width: calc(100% / 5);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.timemania
+    .loteria-card
+    .loteria-card-number
+    li {
+    width: calc(100% / 7);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.diadesorte
+    .loteria-card
+    .loteria-card-number
+    li {
+    width: calc(100% / 7);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.supersete
+    .loteria-card
+    .loteria-card-number
+    li {
+    width: calc(100% / 7);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 67px;
+    height: 67px;
+    border: 1px solid #d1d1d1;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: capitalize;
+    color: #ffffff;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-number
+    li:last-child {
+    margin-right: 0px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.megasena
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-megasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.quina
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-quina);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotofacil
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-lotofacil);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotomania
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-lotomania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.duplasena
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-duplasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.federal
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-federal);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.timemania
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-timemania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.loteca
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.diadesorte
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-diadesorte);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.supersete
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-supersete);
+}
+
+.loteria-concourse-wrapper
+    .loteria-card
+    .loteria-card-number
+    li:first-child {
+    margin-left: 0px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-prize-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 39px 0px;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-prize {
+    color: #1E1E1E;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-prize
+    p,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-prize
+    strong {
+    color: #1E1E1E;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-prize
+    strong {
+    margin-bottom: 0px;
+    font-size: 24px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: white;
+    padding: 50px 0px;
+    overflow: hidden;
+}
+
+.loteria-concourse-wrapper table th{
+    background: none;
+    box-shadow: none;
+    border:none;
+    border-bottom:1px solid #CBCBCB;
+}
+
+.loteria-concourse-wrapper table tr:nth-child(2n) td, .loteria-concourse-wrapper table tr:nth-child(1n) td{
+    background: none;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table-container.loteca {
+    flex-direction: column;
+    align-items: center;
+}
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table-container.loteca
+    div {
+    width: 100%;
+    max-width: 600px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table-container.ds {
+    flex-direction: column;
+    align-items: center;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table-container.ds
+    .loteria-card-table {
+    border-top: 1px solid #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table-container.ds
+    h3 {
+    margin: 30px 0px 20px 0px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    font-style: normal;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.megasena
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-megasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.quina
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-quina);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotofacil
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-lotofacil);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.lotomania
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-lotomania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.duplasena
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-duplasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.federal
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-federal);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.timemania
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-timemania);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.loteca
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.diadesorte
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-diadesorte);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.supersete
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-supersete);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    text-transform: capitalize;
+    color: var(--loteria-color-megasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    tr {
+        border-bottom:1px solid #CBCBCB;
+    }
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    td {
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #000000;
+    text-align: center;
+    border: none;
+    font-weight: 500;
+}
+.lottery .loteria-concourse-wrapper .loteria-concourse .loteria-card .loteria-card-table tr td:nth-child(2) {
+    white-space: nowrap;
+}
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    td,
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    th {
+    padding: 15px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-previous-results-title {
+    font-style: normal;
+    font-size: 24px;
+    color: var(--loteria-color-megasena);
+    margin: 24px 0px;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-previus-list
+    li {
+    list-style: none;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-previus-list
+    li
+    a {
+    display: inline-block;
+    padding: 10px;
+    background: white;
+    text-decoration: none;
+    border-bottom: 1px solid #d0d0d0;
+    font-style: normal;
+    font-size: 16px;
+    color: #000000;
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-previus-list
+    li
+    a
+    span {
+    display: inline-block;
+    margin-left: 10px;
+}
