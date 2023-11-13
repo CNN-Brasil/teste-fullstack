@@ -37,7 +37,6 @@
 }
 
 .loteria-concourse-wrapper .loteria-concourse {
-    background: red;
     padding: 0;
 }
 
@@ -69,18 +68,17 @@
 }
 
 .loteria-concourse-wrapper
+    .loteria-concourse.maismilionaria
+    .loteria-concourse-title
+    h2 {
+    color: var(--loteria-color-maismilionaria);
+}
+
+.loteria-concourse-wrapper
     .loteria-concourse.quina
     .loteria-concourse-title
     h2 {
     color: var(--loteria-color-quina);
-}
-
-.lottery__main__title {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--clr-cnn-grey-4);
-    margin: 8px 0;
-    line-height: 40px;
 }
 
 .loteria-concourse-wrapper
@@ -166,10 +164,6 @@
     display: none;
 }
 
-.lottery .loteria-concourse-wrapper .loteria-card {
-    border: 1px solid #d1d1d1;
-}
-
 .loteria-concourse-wrapper
     .loteria-concourse
     .loteria-card
@@ -186,6 +180,13 @@
     .loteria-card
     .loteria-card-header {
     background: var(--loteria-color-megasena);
+}
+
+.loteria-concourse-wrapper
+    .loteria-concourse.maismilionaria
+    .loteria-card
+    .loteria-card-header {
+    background: var(--loteria-color-maismilionaria);
 }
 
 .loteria-concourse-wrapper
@@ -505,6 +506,16 @@
     background: var(--loteria-color-megasena);
 }
 
+
+.loteria-concourse-wrapper
+    .loteria-concourse.maismilionaria
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+    background: var(--loteria-color-maismilionaria);
+}
+
 .loteria-concourse-wrapper
     .loteria-concourse.quina
     .loteria-card
@@ -744,6 +755,16 @@
 }
 
 .loteria-concourse-wrapper
+    .loteria-concourse.maismilionaria
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-maismilionaria);
+}
+
+.loteria-concourse-wrapper
     .loteria-concourse.quina
     .loteria-card
     .loteria-card-table
@@ -834,6 +855,16 @@
 }
 
 .loteria-concourse-wrapper
+    .loteria-concourse.maismilionaria
+    .loteria-card
+    .loteria-card-table
+    thead
+    tr
+    th {
+    color: var(--loteria-color-maismilionaria);
+}
+
+.loteria-concourse-wrapper
     .loteria-concourse
     .loteria-card
     .loteria-card-table
@@ -846,6 +877,7 @@
     text-transform: capitalize;
     color: var(--loteria-color-megasena);
 }
+
 
 .loteria-concourse-wrapper
     .loteria-concourse
@@ -867,7 +899,7 @@
     border: none;
     font-weight: 500;
 }
-.lottery .loteria-concourse-wrapper .loteria-concourse .loteria-card .loteria-card-table tr td:nth-child(2) {
+.loteria-concourse-wrapper .loteria-concourse .loteria-card .loteria-card-table tr td:nth-child(2) {
     white-space: nowrap;
 }
 .loteria-concourse-wrapper
@@ -881,15 +913,6 @@
     .loteria-card-table
     th {
     padding: 15px;
-}
-
-.loteria-concourse-wrapper
-    .loteria-concourse
-    .loteria-previous-results-title {
-    font-style: normal;
-    font-size: 24px;
-    color: var(--loteria-color-megasena);
-    margin: 24px 0px;
 }
 
 .loteria-concourse-wrapper
@@ -922,4 +945,105 @@
     span {
     display: inline-block;
     margin-left: 10px;
+}
+
+@media (max-width: 650px) {
+    html {
+        scroll-padding: 150px;
+    }
+
+    .loteria-concourse-wrapper .loteria-concourse .loteria-concourse-title p {
+        display: none;
+    }
+    
+    .loteria-concourse-wrapper .loteria-concourse .loteria-concourse-title p:first-of-type {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+    }
+
+    .loteria-concourse-wrapper .loteria-concourse .loteria-concourse-title.show p {
+        display: -webkit-box;
+        -webkit-line-clamp: initial;
+    }
+
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    h2 {
+        width: 95%;
+    }
+
+
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-number {
+        margin: 0 20px;
+    }
+}
+
+@media (max-width: 425px) {
+   
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-header
+    h2 {
+        font-size: 16px;
+    }
+
+    .container-loteria .wrapper-loteria .loteria .loteria-filter {
+        justify-content: space-around;
+    }
+
+    .loteria-concourse-wrapper .loteria-concourse:first-child {
+        margin-top: 0px;
+    }
+
+
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-concourse-title
+    h2 {
+        margin-top: 20px;
+    }
+
+
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-number
+    li
+    span {
+        width: 45px;
+        height: 45px;
+        font-size: 13px;
+    }
+
+
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    td {
+        font-size: 14px;
+        padding: 18px 10px;
+    }
+}
+
+@media (max-width: 375px) {
+
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    td,
+    .loteria-concourse-wrapper
+    .loteria-concourse
+    .loteria-card
+    .loteria-card-table
+    th {
+        padding: 18px 0px;
+    }
 }
