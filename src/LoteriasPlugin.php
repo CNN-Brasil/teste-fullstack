@@ -64,9 +64,8 @@ class LoteriasPlugin {
                 'concurso'      => 'latest',
                 'tipo_concurso' => 'megasena',
             ],
-            $atts,
-            'loteria'
-        );
+            $atts        
+         );
 
         // Obtendo os valores dos atributos
         $concurso = $atts['concurso'] === 'ultimo' ? 'latest' : (int) $atts['concurso'];

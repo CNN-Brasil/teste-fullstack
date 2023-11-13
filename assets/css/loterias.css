@@ -668,7 +668,7 @@
     justify-content: center;
     width: 100%;
     background: white;
-    padding: 50px 0px;
+    padding: 50px 0 0 0;
     overflow: hidden;
 }
 
@@ -875,6 +875,7 @@
     font-weight: 800;
     font-size: 20px;
     text-transform: capitalize;
+    text-align: center;
     color: var(--loteria-color-megasena);
 }
 
