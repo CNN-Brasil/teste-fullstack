@@ -2,6 +2,7 @@
 
 namespace LoteriasPlugin;
 
+// Carregamento das classes necessárias
 require_once __DIR__ . '/LoteriasPostType.php';
 require_once __DIR__ . '/LoteriasTaxonomy.php';
 require_once __DIR__ . '/LoteriasCheckPost.php';
@@ -9,30 +10,46 @@ require_once __DIR__ . '/LoteriasInsertPost.php';
 require_once __DIR__ . '/LoteriasTinyMCE.php';
 require_once __DIR__ . '/LoteriasReturnHtml.php';
 
+/**
+ * Classe principal do plugin LoteriasPlugin.
+ */
 class LoteriasPlugin {
 
+    // Propriedades da classe
     protected int $id_post;
     protected string $data_post;
     protected int $default_time_transient = 1800;
 
+    /**
+     * Construtor da classe.
+     */
     public function __construct() {
         
+        // Adiciona ações e filtros do WordPress
         add_action('init', [$this, 'init']);
         add_shortcode('loteria', [$this, 'loteriaShortcode']);
         add_action( 'wp_enqueue_scripts', [$this, 'loteriaShortcodeScripts']);
 
     }
 
+    /**
+     * Inicializa o plugin.
+     */
     public function init() {
 
+        // Instancia as classes necessárias
         $loteriasTinyMCE = new LoteriasTinyMCE();
         $loteriasPostType = new LoteriasPostType();
         $loteriasTaxonomy = new LoteriasTaxonomy();
 
+        // Registra o tipo de postagem e a taxonomia
         $loteriasPostType->register();
         $loteriasTaxonomy->register();
     }
-
+    
+    /**
+     * Adiciona scripts necessários para o shortcode.
+     */
     function loteriaShortcodeScripts() {
         global $post;
         if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'loteria') ) {
@@ -40,6 +57,12 @@ class LoteriasPlugin {
         }
     }
 
+    /**
+     * Obtém dados da API para o shortcode.
+     *
+     * @param string $api_url URL da API.
+     * @return array|false Dados da API ou false em caso de erro.
+     */
     private function getDataAPI($api_url) {
 
         $response = wp_remote_get($api_url);
@@ -52,6 +75,12 @@ class LoteriasPlugin {
 
     }
 
+    /**
+     * Implementa o shortcode 'loteria'.
+     *
+     * @param array $atts Atributos do shortcode.
+     * @return string HTML gerado pelo shortcode.
+     */
     public function loteriaShortcode($atts) {
 
          $checkPost = new LoteriasCheckPost();
