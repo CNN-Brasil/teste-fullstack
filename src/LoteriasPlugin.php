@@ -80,7 +80,8 @@ class LoteriasPlugin {
             
             if ($getTransientLoterias === false) {
                 $getTransientLoterias = $this->getDataAPI($api_url);
-                $time_transient = strtotime($getTransientLoterias['dataProximoConcurso']) - strtotime("today");
+                $explodeDate = explode('/', $contentData['dataProximoConcurso']);
+                $time_transient = strtotime($explodeDate[2].'-'.$explodeDate[1].'-'.$explodeDate[0]) - strtotime("today");
                 set_transient($transient_loterias, json_encode($getTransientLoterias), $time_transient > $this->default_time_transient ? $time_transient : $this->default_time_transient);
                 $this->data_post = $checkPost->check($getTransientLoterias) ===  false ? get_post_field('post_content',$insertPost->add($getTransientLoterias)) : json_encode($getTransientLoterias) ;
             

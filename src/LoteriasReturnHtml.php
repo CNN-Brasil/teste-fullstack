@@ -10,7 +10,8 @@ class LoteriasReturnHtml {
     public function html($contentData) {
 
         $contentData = json_decode($contentData);
-        $date = date("N",strtotime($contentData->data));
+        $explodeDate = explode('/', $contentData->data);
+        $date = gmdate("N",strtotime($explodeDate[2].'-'.$explodeDate[1].'-'.$explodeDate[0]));
         
         if ($contentData->acumulou === false) {
 
@@ -57,7 +58,6 @@ class LoteriasReturnHtml {
             $this->html .= '</tbody>';
             $this->html .= '</table>';
         
-
         $this->html .= '</div>';
 
         $this->html .= '</div>';
