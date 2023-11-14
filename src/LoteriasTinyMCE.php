@@ -9,7 +9,7 @@ class LoteriasTinyMCE {
 
     public function addLoteriaButton() {
         if (current_user_can('edit_posts') && current_user_can('edit_pages')) {
-            add_filter('mce_buttons', [$this, 'registerLoteriaButton']);
+            add_filter('mce_buttons_2', [$this, 'registerLoteriaButton']);
             add_filter('mce_external_plugins', [$this, 'addLoteriaButtonScript']);
             wp_enqueue_style( 'admin-loteria-plugin',  plugin_dir_url(__DIR__) . 'assets/admin/css/loteria-button.css', array(), "1.0", 'all' );
         }
