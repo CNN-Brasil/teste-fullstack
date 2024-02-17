@@ -1,5 +1,5 @@
 <?php
-class Meu_loterias_caixas
+class Meu_Loterias_Caixas
 {
   public function __construct()
   {
