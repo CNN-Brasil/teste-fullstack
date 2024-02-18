@@ -18,6 +18,7 @@ function converterDecimal($numeroCientifico)
   $numeroDecimal = floatval($numeroCientifico);
   return number_format($numeroDecimal, 2, ',', '.');
 }
+
 function formatarNumeroSemDecimal($numero)
 {
   return number_format($numero, 0, ',', '.');

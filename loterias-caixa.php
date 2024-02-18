@@ -5,7 +5,6 @@ Description: Exibir os resultados das loterias da Caixa Econômica Federal
 Version: 1.0
 Author: Henrique Oliveira
 */
-
 // Evitar que o arquivo seja acessado diretamente
 if (!defined('ABSPATH')) {
   exit; // Sai se o WordPress não estiver carregado
