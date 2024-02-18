@@ -44,9 +44,9 @@ wp_enqueue_style('loterias-shortcode', plugin_dir_url(__FILE__) . '../templates/
 </section>
 <hr />
 <section class="grid grid-auto-rows-6">
-  <div class="item item-2 premio-color">Prêmio <br />R$ <?= $valorPremio ?></div>
+  <div class="item item-2 premio-color">PRÊMIO <br />R$ <?= $valorPremio ?></div>
 </section>
-<hr />
+<hr class="premiohr" />
 <section class="grid grid-auto-rows-3">
   <div class="item text-<?= $loteria ?>">Faixas</div>
   <div class="item text-<?= $loteria ?>">Ganhadores</div>
@@ -55,9 +55,9 @@ wp_enqueue_style('loterias-shortcode', plugin_dir_url(__FILE__) . '../templates/
 <hr />
 <?php foreach ($premiacoes as $i => $premiacao) : ?>
   <section class="grid grid-auto-rows-3">
-    <div class="item premio-color"><?= $premiacao['descricao'] ?></div>
-    <div class="item premio-color"><?= formatarNumeroSemDecimal($premiacao['ganhadores']) ?></div>
-    <div class="item premio-color">R$ <?= converterDecimal($premiacao['valorPremio']) ?></div>
+    <div class="item premio-color-black"><?= $premiacao['descricao'] ?></div>
+    <div class="item premio-color-black"><?= formatarNumeroSemDecimal($premiacao['ganhadores']) ?></div>
+    <div class="item premio-color-black">R$ <?= converterDecimal($premiacao['valorPremio']) ?></div>
   </section>
 
   <?php if (count($premiacoes) != $i + 1) {
