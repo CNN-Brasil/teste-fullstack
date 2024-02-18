@@ -1,0 +1,30 @@
+{
+    "name": "cnnbr/teste-fullstack",
+    "description": "Desafio prático para desenvolvedores Fullstack com PHP",
+    "type": "project",
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "sirbrillig/phpcs-variable-analysis": "^2.11",
+        "automattic/vipwpcs": "^3.0"
+    },
+    "license": "GPL-2.0",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cnnbr\\TesteFullstack\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "phpcs": [
+            "./vendor/squizlabs/php_codesniffer/bin/phpcs -d memory_limit=4096M"
+        ]
+    }
+}

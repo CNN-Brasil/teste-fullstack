@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset
+        name="CNNBr"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <description>PHPCS rules for CNNBr.</description>
+
+    <!-- Configurações do scan -->
+    <arg value="sp"/> <!-- Exibe o progresso -->
+    <arg name="colors"/> <!-- Retorna os resultados com cores -->
+    <arg name="basepath" value="."/> <!-- Diminui o caminho dos arquivos -->
+    <arg name="parallel" value="8"/> <!-- Habilita scan paralelo, para ser mais rápido -->
+    <arg name="extensions" value="php,js"/> <!-- Escaneia apenas PHP e JS -->
+
+    <!-- Versão mínima do PHP -->
+    <rule ref="PHPCompatibilityWP"/>
+    <config name="testVersion" value="8.0-"/>
+
+    <!-- VIP Coding Standards - https://github.com/Automattic/VIP-Coding-Standards -->
+    <rule ref="WordPress-VIP-Go"/>
+    <rule ref="WordPressVIPMinimum"/>
+
+    <!-- Versão mínima do WP -->
+    <config name="minimum_supported_wp_version" value="6.0"/>
+</ruleset>
