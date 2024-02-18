@@ -6,8 +6,6 @@ Version: 1.0
 Author: Henrique Oliveira
 */
 
-// Desabilitar atualizações automáticas durante a ativação do plugin
-define('WP_AUTO_UPDATE_CORE', false);
 
 function ativar_loterias_caixa()
 {
@@ -18,7 +16,7 @@ register_activation_hook(__FILE__, 'ativar_loterias_caixa');
 require_once(plugin_dir_path(__FILE__) . 'includes/class-loterias-shortcode.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/class-loterias-api.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/class-loterias-post-type.php');
-require_once(plugin_dir_path(__FILE__) . 'includes/frontend-handler.php');
+
 
 new Loterias_Post_Type();
 
