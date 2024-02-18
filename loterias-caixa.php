@@ -6,24 +6,37 @@ Version: 1.0
 Author: Henrique Oliveira
 */
 
+// Desabilitar atualizações automáticas durante a ativação do plugin
+define('WP_AUTO_UPDATE_CORE', false);
+
 function ativar_loterias_caixa()
 {
 }
 
 register_activation_hook(__FILE__, 'ativar_loterias_caixa');
 
-
-require_once(plugin_dir_path(__FILE__) . 'includes/class-meu-loterias-caixas.php');
-require_once(plugin_dir_path(__FILE__) . 'includes/api-handler.php');
+require_once(plugin_dir_path(__FILE__) . 'includes/class-loterias-shortcode.php');
+require_once(plugin_dir_path(__FILE__) . 'includes/class-loterias-api.php');
+require_once(plugin_dir_path(__FILE__) . 'includes/class-loterias-post-type.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/frontend-handler.php');
 
-
-if (class_exists('Meu_Loterias_Caixas')) {
-  $meu_loterias_caixas = new Meu_Loterias_Caixas();
-}
+new Loterias_Post_Type();
 
 
-function shortcode_meu_plugin_loterias($atts)
+new Loterias_Shortcode();
+
+
+add_action('init', 'loterias_activate_cache');
+
+function loterias_activate_cache()
 {
+  wp_cache_add_global_groups(array('loterias'));
 }
-add_shortcode('meu_loterias_caixas', 'shortcode_meu_loterias_caixas');
+
+
+function loterias_load_textdomain()
+{
+  load_plugin_textdomain('loterias', false, plugin_dir_path(__FILE__) . 'languages');
+}
+
+add_action('plugins_loaded', 'loterias_load_textdomain');
