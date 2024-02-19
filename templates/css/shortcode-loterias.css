@@ -1,31 +1,44 @@
+/* Importação da fonte externa */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-/* Grid */
+/* Estilos do Grid */
 .grid {
-	display: grid;  
+  max-width: 400px;
+  margin: 0 auto;
+  display: grid;
 }
 
 .grid-auto-rows-3 {
-  grid-template-columns: repeat(3, 1fr); 
-  grid-auto-flow: dense;  
-}
-
-.premiohr{
-  margin-bottom: 60px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: dense;
 }
 
 .grid-auto-rows-6 {
-  grid-template-columns: repeat(6, 1fr); 
+  grid-template-columns: repeat(6, 1fr);
   grid-auto-flow: dense;
 }
 
 .item-2 {
-	grid-column: span 6;
+  grid-column: span 6;
 }
+
+/* Responsividade para telas menores */
+@media only screen and (max-width: 600px) {
+  .item-2 {
+    grid-column: span 3;
+  }
+
+  .grid-auto-rows-6 {
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-flow: dense;
+  }
+}
+
+/* Estilos dos Círculos */
 .circulo {
   border-radius: 50%;
   width: 67px;
-  height: 67px; 
+  height: 67px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,56 +47,65 @@
   font-weight: bold;
   font-family: "Inter", sans-serif;
 }
-.sorteio{
-  padding: 30px;
-}
-.item-4 {
-	grid-column: span 3;
+
+/* Estilos dos Prêmios */
+.premiohr {
+  margin-bottom: 60px;
 }
 
-/* Grid Item */
-.item {
-	margin: 5px;	
-	text-align: center;
-	font-size: 1rem;
-  padding: 10px;
-  color: white;
-  font-family: "Inter", sans-serif;
-}
-.premio-color{
+.premio-color {
   color: black;
   font-weight: 800;
   font-size: 1.5rem;
   font-family: "Inter", sans-serif;
   padding: 30px;
-
 }
-.premio-color-black{
+
+.premio-color-black {
   color: black;
   font-weight: 500;
   font-size: 1.25rem;
   font-family: "Inter", sans-serif;
 }
+
+/* Estilos dos Sorteios */
+.sorteio {
+  padding: 30px;
+}
+
+.item-4 {
+  grid-column: span 3;
+}
+
+/* Estilos dos Grid Items */
+.item {
+  margin: 5px;
+  text-align: center;
+  font-size: 1rem;
+  padding: 10px;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+/* Estilos das Linhas de Separação */
 hr {
   margin: 0;
 }
 
-.grid {
-	max-width: 400px;
-	margin: 0 auto;	
-}
+/* Estilos dos Jogos */
 .lotomania {
   background: #F58123;
 }
+
 .item.text-lotomania {
   color: #F58123;
   font-weight: bold;
-  
 }
 
 .megasena {
   background: #2D976A;
 }
+
 .item.text-megasena {
   color: #2D976A;
   font-weight: bold;
@@ -92,6 +114,7 @@ hr {
 .quina {
   background: #261383;
 }
+
 .item.text-quina {
   color: #261383;
   font-weight: bold;
@@ -100,6 +123,7 @@ hr {
 .lotofacil {
   background: #921788;
 }
+
 .item.text-lotofacil {
   color: #921788;
   font-weight: bold;
@@ -108,6 +132,7 @@ hr {
 .timemania {
   background: #3DAF3E;
 }
+
 .item.text-timemania {
   color: #3DAF3E;
   font-weight: bold;
@@ -116,6 +141,7 @@ hr {
 .duplasena {
   background: #A41628;
 }
+
 .item.text-duplasena {
   color: #A41628;
   font-weight: bold;
@@ -124,6 +150,7 @@ hr {
 .federal {
   background: #133497;
 }
+
 .item.text-federal {
   color: #133497;
   font-weight: bold;
@@ -132,14 +159,16 @@ hr {
 .diadesorte {
   background: #CA8536;
 }
+
 .item.text-diadesorte {
   color: #CA8536;
   font-weight: bold;
 }
 
 .supersete {
-  background: #A9CF50
+  background: #A9CF50;
 }
+
 .item.text-supersete {
   color: #A9CF50;
   font-weight: bold;
