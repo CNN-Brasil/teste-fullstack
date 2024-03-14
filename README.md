@@ -1,6 +1,24 @@
 ## Desafio Fullstack - CNN Brasil - Realizado
 ### Instruções para utilização
-Baixe e instale o plugin e insira o shortcode em sua página ou post do Wordpress.
+Baixe o plugin, descompacte-o e copie para dentro da pasta plugin de seu site Wordpress.
+
+Como eu coloquei a pasta vendor no gitignore, é necessário rodar o composer install.
+Navegue até a pasta do plugin, e digite o seguinte comando:
+
+```bash
+  composer install
+```
+
+Agora basta inserir o shortcode na página ou post. Se preferir insira via código php.
+
+```bash
+  [loterias loteria="lotomania" concurso="ultimo"]
+```
+Para incluir o shortcode em um arquivo php, use o comando abaixo.
+
+```bash
+ <?php echo do_shortcode('[loterias loteria="lotomania" concurso="ultimo"]'); ?>
+```
 
 Você pode substituir para qual loteria quiser, basta alterar o valor de loteria="nome_da_loteria" a seguir temos todas as loterias compatíveis: 
   "maismilionaria",
@@ -15,15 +33,6 @@ Você pode substituir para qual loteria quiser, basta alterar o valor de loteria
   "supersete"
 
 Você pode substituir para o concurso que quiser, basta alerar concurso="ultimo" para concurso="numero_do_concurso".
-
-```bash
-  [loterias loteria="lotomania" concurso="ultimo"]
-```
-Para incluir o shortcode em um arquivo php, use o comando abaixo.
-
-```bash
- <?php echo do_shortcode('[loterias loteria="lotomania" concurso="ultimo"]'); ?>
-```
 
 ### Instruções para o PHP CodeSniffer
 
