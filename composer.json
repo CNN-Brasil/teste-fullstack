@@ -24,7 +24,7 @@
     },
     "scripts": {
         "phpcs": [
-            "./vendor/squizlabs/php_codesniffer/bin/phpcs -d memory_limit=4096M"
+            "vendor/bin/phpcs --standard=WordPress src/"
         ]
     }
 }
