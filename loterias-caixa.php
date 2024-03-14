@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: AQUI Loterias Caixa FINALlllllllllll
- * Plugin URI:  http://www.aldodeveloper.com.br/loterias-caixa
+ * Plugin Name: Loterias Caixa
+ * Plugin URI:  http://www.aldodeveloper.com.br
  * Description: Exibe os resultados das Loterias da Caixa via shortcode.
  * Version: 1.0
  * Author: Aldo Oliveira
