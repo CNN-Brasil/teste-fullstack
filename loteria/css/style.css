@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Estilos para a grade */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas de largura igual */
+    gap: 5px; /* Espaço entre as células */
+}
+
+/* Estilos para as células */
+.titulo_grid {
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 24.2px;
+    text-align: center;
+}
+
+.dados {
+    padding: 10px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24.2px;
+    text-align: center;
+    color: #1E1E1E;
+}
+
+.resultados {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    line-height: 4em;
+    padding: 20px 0 20px 0;
+}
+
+.titulo_do_concurso {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    padding: 12px;
+}
+
+.item_dezenas {
+    margin: 10px;
+    border-radius: 100px;
+    padding: 10px;
+    color: #fff;
+    width: 67px;
+    height: 67px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    text-align: center;
+}
+
+.box_premio {
+    padding: 40px 0 40px 0;
+    border-top: 1px solid #CBCBCB;
+    border-bottom: 1px solid #CBCBCB;
+    margin-bottom: 80px;
+}
+
+.titulo_premio {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 24.2px;
+    text-align: center;
+    color: #1E1E1E;
+}
+
+.valor_premio {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29.05px;
+    margin-top: 20px;
+    color: #1E1E1E;
+}
