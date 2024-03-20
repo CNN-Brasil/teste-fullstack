@@ -36,7 +36,7 @@ function loterias_caixa_shortcode($atts) {
     //DEBUG
     //var_dump($dados);
 
-        //Valida loteria
+        //Verificar se o parâmetro "concurso" foi fornecido
         if ($atts['loteria'] !== '0') {
 
             $html = '<div>';
@@ -45,7 +45,11 @@ function loterias_caixa_shortcode($atts) {
             $html .= '<p>Local: ' . $dados->local . '</p>';
             $html .= '<p>Dezenas Sorteadas: ' . implode(', ', $dados->dezenasOrdemSorteio) . '</p>';
             $html .= '<p>Premiações:</p>';
-            $html .= '<ul><li>PREMIAÇÕES</li></ul>';
+            $html .= '<ul>';
+            foreach ($dados->premiacoes as $premiacao) {
+                $html .= '<li>' . $premiacao->descricao . ': ' . $premiacao->ganhadores . ' ganhador(es), valor por ganhador: R$ ' . number_format($premiacao->valorPremio, 2, ',', '.') . '</li>';
+            }
+            $html .= '</ul>';
             $html .= '<p>Valor Arrecadado: R$ ' . number_format($dados->valorArrecadado, 2, ',', '.') . '</p>';
             $html .= '<p>Acumulou: ' . ($dados->acumulou ? 'Sim' : 'Não') . '</p>';
             $html .= '<p>Próximo Concurso: ' . $dados->proximoConcurso . ' - Data: ' . $dados->dataProximoConcurso . '</p>';
