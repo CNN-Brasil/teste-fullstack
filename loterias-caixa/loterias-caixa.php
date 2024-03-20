@@ -18,6 +18,19 @@ function loterias_caixa_shortcode($atts) {
     $loteria = $atts['loteria'];
     $concurso = $atts['concurso'];
 
+    $url = 'https://loteriascaixa-api.herokuapp.com/api/'. $loteria .'/' . $concurso;
+
+    $args = array(
+        'method' => 'GET',
+    );
+
+    $response = wp_remote_get($url, $args);
+
+    //DEBUG
+    echo '<pre>';
+    var_dump(wp_remote_retrieve_body($response));
+    echo '</pre>';
+
     $html = '<div class="loterias-caixa">';
     $html .= '<h2>Resultados das Loterias CAIXA</h2>';
     $html .= '<p>Loteria:</p>' . $loteria;
