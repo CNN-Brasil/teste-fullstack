@@ -1,0 +1,107 @@
+.card-header {
+    text-align: center;
+    color: #fff;
+    background-color: #298C5F;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 0;
+}
+.card-premio{
+    width: 100%;
+    display: block;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 30px 0;
+}
+.card-premio p{
+    margin: 0;
+}
+.card-dezenas{
+    width: 100%;
+    display: block;
+    border-top: 1px solid #ccc;
+    padding: 30px 0;
+}
+.card-dezenas {
+    text-align: center;
+}
+.card-dezenas ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto; 
+    display: inline-block; 
+}
+.card-dezenas li {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 800;
+    display: inline-block; 
+    margin-right: 30px; 
+    background-color: #298C5F; 
+    color: #fff; 
+    border-radius: 50%; 
+    width: 30px; 
+    height: 30px; 
+    text-align: center; 
+    line-height: 30px; 
+    padding: 20px;
+}
+.card-dezenas li:last-child {
+    margin-right: 0;
+}
+
+.loterias-caixa table {
+    width: 100%;
+    border-spacing: 0;
+    font-size: 20px;
+}
+
+.loterias-caixa table th,
+.loterias-caixa table td,
+.loterias-caixa table tr,
+.loterias-caixa table thead,
+.loterias-caixa table tbody { display: block; }
+
+.loterias-caixa table thead tr {
+    width: 97%;
+    width: -webkit-calc(100% - 16px);
+    width:    -moz-calc(100% - 16px);
+    width:         calc(100% - 16px);
+    padding-top: 60px;
+    padding-bottom: 8px;
+} 
+
+.loterias-caixa table tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.loterias-caixa table tbody td,
+.loterias-caixa table thead th {
+    width: 33%;
+    float: left;
+    text-align: center;
+}
+
+thead tr th { 
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #298C5F;
+    font-weight: 800;
+}
+
+.loterias-caixa table tbody tr {
+    border-top: 1px solid #ccc;
+    padding: 8px 0
+}
+
+tbody td:last-child, thead th:last-child {
+    border-right: none !important;
+}
