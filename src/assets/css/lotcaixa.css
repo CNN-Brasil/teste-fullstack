@@ -1,0 +1,199 @@
+.error{
+    color: red;
+    font-size: 1.3em;
+    line-height: 1.4em;
+    text-align: center;
+    margin: 10px;
+}
+#loteria{
+    padding: 0px;
+    width: 100%;
+    max-width: 906px;
+    margin: 30px auto 60px;
+    background: transparent;
+    border: none;
+}
+#concurso{
+    padding: 0;
+    width: 100%;
+    max-width: 1080px;
+    margin: 40px auto;
+    background: white;
+    border: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+} 
+#loteria .cabecalho{
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    padding: 20px;
+}
+#loteria .dezenas{
+    display: flex;
+    width: 100%;
+    padding: 40px;    
+}
+#loteria .dezenas-itens{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 10px 10px;
+    flex-wrap: wrap;
+}
+#loteria .dezenas-itens li{
+    color: #fff;
+    padding: 0;
+    margin: 10px;
+    border-radius: 100%;
+    width: 67px;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 800;
+    text-align: center;
+}
+#loteria .premiacao{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 40px 30px;
+    flex-direction: column;
+    border-bottom: 1px solid #CBCBCB;
+    border-top: 1px solid #CBCBCB;
+    margin-bottom: 40px;
+}
+#loteria .premiacao p{
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24px;
+    text-align: center;
+    color: #1E1E1E;
+}
+#loteria .premiacao p:last-child{
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 28px;
+    text-align: center;
+    color: #1E1E1E;
+}
+#loteria #table-premiacoes{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+#loteria #table-premiacoes th{
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 800;
+    text-align: center;
+    text-transform: none !important;
+}
+#loteria #table-premiacoes tr{
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;    
+    color: #1E1E1E;
+}
+#loteria #table-premiacoes td{
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;    
+    color: #1E1E1E;
+    text-align: center;
+}
+#loteria #table-premiacoes tr:last-child td{
+    border-bottom: none !important;
+}
+/* megasena */
+.loteria-megasena .cabecalho,
+.loteria-megasena .dezenas .dezenas-itens li{
+    background-color: #2D976A;
+}
+.loteria-megasena #table-premiacoes th{
+    color: #2D976A;
+}
+/* lotofacil */
+.loteria-lotofacil .cabecalho,
+.loteria-lotofacil .dezenas .dezenas-itens li{
+    background-color: #921788;
+}
+.loteria-lotofacil #table-premiacoes th{
+    color: #921788;
+}
+/* quina */
+.loteria-quina .cabecalho,
+.loteria-quina .dezenas .dezenas-itens li{
+    background-color: #261383;
+}
+.loteria-quina #table-premiacoes th{
+    color: #261383;
+}
+/* lotomania */
+.loteria-lotomania .cabecalho,
+.loteria-lotomania .dezenas .dezenas-itens li{
+    background-color: #F58123;
+}
+.loteria-lotomania #table-premiacoes th{
+    color: #F58123;
+}
+/* timemania */
+.loteria-timemania .cabecalho,
+.loteria-timemania .dezenas .dezenas-itens li{
+    background-color: #3DAF3E;
+}
+.loteria-timemania #table-premiacoes th{
+    color: #3DAF3E;
+}
+/* duplasena */
+.loteria-duplasena .cabecalho,
+.loteria-duplasena .dezenas .dezenas-itens li{
+    background-color: #A41628;
+}
+.loteria-duplasena #table-premiacoes th{
+    color: #A41628;
+}
+/* federal */
+.loteria-federal .cabecalho,
+.loteria-federal .dezenas .dezenas-itens li{
+    background-color: #133497;
+}
+.loteria-federal .dezenas .dezenas-itens li{
+    width: 94px !important;
+    height: 94px !important;
+}
+.loteria-federal #table-premiacoes th{
+    color: #133497;
+}
+/* federal */
+.loteria-diadesorte .cabecalho,
+.loteria-diadesorte .dezenas .dezenas-itens li{
+    background-color: #CA8536;
+}
+.loteria-diadesorte #table-premiacoes th{
+    color: #CA8536;
+}
+/* supersete */
+.loteria-supersete .cabecalho,
+.loteria-supersete .dezenas .dezenas-itens li{
+    background-color: #A9CF50;
+}
+.loteria-supersete #table-premiacoes th{
+    color: #A9CF50;
+}
+
