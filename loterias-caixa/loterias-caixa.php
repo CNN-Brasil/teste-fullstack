@@ -36,30 +36,50 @@ function loterias_caixa_shortcode($atts) {
     //DEBUG
     //var_dump($dados);
 
-        //Verificar se o parâmetro "concurso" foi fornecido
         if ($atts['loteria'] !== '0') {
 
-            $html = '<div>';
-            $html .= '<h2>Resultado do Concurso ' . $dados->concurso . ' da ' . $dados->loteria . '</h2>';
-            $html .= '<p>Data: ' . $dados->data . '</p>';
-            $html .= '<p>Local: ' . $dados->local . '</p>';
-            $html .= '<p>Dezenas Sorteadas: ' . implode(', ', $dados->dezenasOrdemSorteio) . '</p>';
-            $html .= '<p>Premiações:</p>';
+            $html = '<div class="loterias-caixa">';
+            $html .= '<div class="card-header">Concurso ' . $dados->concurso . ' • ' . $dados->data . '</div>';
+            $html .= '<div class="card-dezenas">';
             $html .= '<ul>';
-            foreach ($dados->premiacoes as $premiacao) {
-                $html .= '<li>' . $premiacao->descricao . ': ' . $premiacao->ganhadores . ' ganhador(es), valor por ganhador: R$ ' . number_format($premiacao->valorPremio, 2, ',', '.') . '</li>';
+            foreach ($dados->dezenas as $dezena) {
+                $html .= "<li>$dezena</li>";
             }
             $html .= '</ul>';
-            $html .= '<p>Valor Arrecadado: R$ ' . number_format($dados->valorArrecadado, 2, ',', '.') . '</p>';
-            $html .= '<p>Acumulou: ' . ($dados->acumulou ? 'Sim' : 'Não') . '</p>';
-            $html .= '<p>Próximo Concurso: ' . $dados->proximoConcurso . ' - Data: ' . $dados->dataProximoConcurso . '</p>';
-            $html .= '<p>Valor Estimado do Próximo Concurso: R$ ' . number_format($dados->valorEstimadoProximoConcurso, 2, ',', '.') . '</p>';
+            $html .= '</div>';
+            $html .= '<div class="card-premio">
+                <p>Prêmio</p>
+                R$ ' . number_format($dados->valorArrecadado, 2, ',', '.') . 
+            '</div>';
+            $html .= '<table>
+                <thead>
+                    <tr>
+                        <th>Faixas</th>
+                        <th>Ganhadores</th>
+                        <th>Prêmio</th>
+                    </tr>
+                </thead>
+                <tbody>';
+                    foreach ($dados->premiacoes as $premiacao) {
+                        $html .= '<tr>';
+                        $html .= '<td>' . $premiacao->descricao . '</td>';
+                        $html .= '<td>'. $premiacao->ganhadores . '</td>';
+                        $html .= '<td> R$ ' . number_format($premiacao->valorPremio, 2, ',', '.') . '</td>';
+                        $html .= '</tr>';
+                    }
+            $html .= '</tbody></table>';
             $html .= '</div>';
         } else {
             $html = '<div class="loterias-caixa">';
             $html .= '<p>Por favor, especifique o número do concurso usando o parâmetro "concurso".</p>';
             $html .= '</div>';
         }
+ 
     return $html;
 }
 add_shortcode('loterias_caixa', 'loterias_caixa_shortcode');
+
+function loterias_caixa_custom_styles() {
+    wp_enqueue_style('styles', plugins_url('css/styles.css', __FILE__));
+}
+add_action('wp_enqueue_scripts', 'loterias_caixa_custom_styles');
