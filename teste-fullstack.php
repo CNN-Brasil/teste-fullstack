@@ -44,8 +44,6 @@ $loterias_validas = array(
 );  
 define('LOTERIAS_VALIDAS', $loterias_validas);
 
-require_once __DIR__ . '/vendor/autoload.php';
-
 require_once( 'src/includes/functions.php' );
 require_once( 'class.php' );
 require_once( 'src/includes/api-loteria.php' );
