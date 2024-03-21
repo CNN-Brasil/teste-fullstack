@@ -11,6 +11,8 @@ Author URI: https://github.com/adomoraes/
 define('LOTERIASCAIXA_PATH', plugin_dir_path( __FILE__ ));
 include_once( LOTERIASCAIXA_PATH . 'includes/lc-functions.php');
 
+add_action( 'init', 'lc_postTypeRegister' );
+
 function lc_shortcode($atts) {
 
     $atts = shortcode_atts(array(
@@ -35,16 +37,22 @@ function lc_shortcode($atts) {
     // echo '</pre>';
 
     $dados = json_decode(wp_remote_retrieve_body($response));
-    
-    //DEBUG
-    //var_dump($dados);
 
-    $dia_da_semana = lc_formatDateName($dados->data);
+    $post_id = lc_createPost($dados);
+
+    //DEBUG
+    // if (!is_wp_error($post_id)) {
+    //     echo 'Post inserido com sucesso! ID: ' . $post_id;
+    // } else {
+    //     echo 'Erro ao inserir post: ' . $post_id->get_error_message();
+    // }
+
+    $weekDay = lc_formatDateName($dados->data);
 
     if ($atts['concurso'] !== '0') {
 
         $html = '<div class="loterias-caixa">';
-        $html .= '<div class="card-header">Concurso ' . $dados->concurso . ' • ' . $dia_da_semana . ' ' . $dados->data . '</div>';
+        $html .= '<div class="card-header">Concurso ' . $dados->concurso . ' • ' . $weekDay . ' ' . $dados->data . '</div>';
         $html .= '<div class="card-dezenas">';
         $html .= '<ul>';
         foreach ($dados->dezenas as $dezena) {
