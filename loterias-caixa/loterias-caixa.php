@@ -52,11 +52,11 @@ function lc_shortcode($atts) {
     if ($atts['concurso'] !== '0') {
 
         $html = '<div class="loterias-caixa">';
-        $html .= '<div class="card-header">Concurso ' . $dados->concurso . ' • ' . $weekDay . ' ' . $dados->data . '</div>';
+        $html .= '<div class="card-header color-theme ' . $atts['loteria'] . '">Concurso ' . $dados->concurso . ' • ' . $weekDay . ' ' . $dados->data . '</div>';
         $html .= '<div class="card-dezenas">';
         $html .= '<ul>';
         foreach ($dados->dezenas as $dezena) {
-            $html .= "<li>$dezena</li>";
+            $html .= '<li class="color-theme ' . $atts['loteria'] . '">' . $dezena . '</li>';
         }
         $html .= '</ul>';
         $html .= '</div>';
@@ -67,9 +67,9 @@ function lc_shortcode($atts) {
         $html .= '<table>
             <thead>
                 <tr>
-                    <th>Faixas</th>
-                    <th>Ganhadores</th>
-                    <th>Prêmio</th>
+                    <th class="color-theme ' . $atts['loteria'] . '">Faixas</th>
+                    <th class="color-theme ' . $atts['loteria'] . '">Ganhadores</th>
+                    <th class="color-theme ' . $atts['loteria'] . '">Prêmio</th>
                 </tr>
             </thead>
             <tbody>';

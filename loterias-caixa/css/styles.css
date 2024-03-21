@@ -1,7 +1,63 @@
+:root {
+    --megasena-color: #298C5F;
+    --lotofacil-color: #921788;
+    --quina-color: #261383;
+    --lotomania-color: #F58123;
+    --timemania-color: #3DAF3E;
+    --duplasena-color: #A41628;
+    --federal-color: #133497;
+    --diadesorte-color: #CA8536;
+    --supersete-color: #A9CF50;
+  }
+/* START COLORS SCHEMA */
+.color-theme {
+    background-color: var(--color);
+    color: var(--color);
+}
+
+.megasena {
+    --color: var(--megasena-color);
+}
+
+.lotofacil {
+    --color: var(--lotofacil-color);
+}
+
+.quina {
+    --color: var(--quina-color);
+}
+
+.lotomania {
+    --color: var(--lotomania-color);
+}
+
+.timemania {
+    --color: var(--timemania-color);
+}
+
+.duplasena {
+    --color: var(--duplasena-color);
+}
+
+.federal {
+    --color: var(--federal-color);
+}
+
+.diadesorte {
+    --color: var(--diadesorte-color);
+}
+
+.supersete {
+    --color: var(--supersete-color);
+}
+.loterias-caixa{
+    background-color: #fff;
+}
+/* END COLORS SCHEMA */
+
 .card-header {
     text-align: center;
     color: #fff;
-    background-color: #298C5F;
     font-size: 20px;
     font-weight: 400;
     padding: 10px 0;
@@ -41,7 +97,6 @@
     font-weight: 800;
     display: inline-block; 
     margin-right: 30px; 
-    background-color: #298C5F; 
     color: #fff; 
     border-radius: 50%; 
     width: 30px; 
@@ -93,7 +148,7 @@ thead tr th {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    color: #298C5F;
+    background-color: #fff !important;
     font-weight: 800;
 }
 
