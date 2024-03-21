@@ -66,6 +66,9 @@ Abaixo estão exemplos de shortcodes testados durante o desenvolvimento, demonst
 ```bash
   [loterias loteria="megasena" concurso="ultimo"]
 ```
+```bash
+  [loterias loteria="megasena" concurso="2698"]
+```
 
 - Shortcodes quebrados :fire:
 
