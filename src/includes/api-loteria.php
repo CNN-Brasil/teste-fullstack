@@ -13,11 +13,9 @@ class LoteriasCaixa_API {
         }
 
         $cache_key = "loterias_{$loteria}_{$concurso}"; 
-        $resultado = wp_cache_get( $cache_key );  
-        
-        var_dump( $resultado );
+        $result = wp_cache_get( $cache_key );     
 
-        if ( $resultado  === false ) {
+        if ( $result  === false ) {
             $url = $this->base_api_url . "/{$loteria}/" . ( $concurso === 'ultimo' ? 'latest' : $concurso );
 
             $response = wp_remote_get( $url );
@@ -34,14 +32,14 @@ class LoteriasCaixa_API {
             if ( ! is_null( $dados ) && isset( $dados['concurso'] ) ) {
                 $concurso_numero = $dados['concurso'];
 
-                $resultado = $body;
-                wp_cache_set( $cache_key, $resultado, '', 3600 ); // Cache de uma hora
+                $result = $body;
+                wp_cache_set( $cache_key, $result, '', 3600 ); // Cache de uma hora
             } else {
                 return "<p class='error'>Não foi possível obter os dados para a loteria {$loteria} e concurso {$concurso}.</p>";
             }
         }
 
-        return $resultado;
+        return $result;
     }
 }
 

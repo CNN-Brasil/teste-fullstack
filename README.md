@@ -1,43 +1,90 @@
-## Desafio Fullstack - CNN Brasil
-O teste consiste em criar um plugin WordPress com um shortcode que exibirá os resultados dos jogos das Loterias Caixa.
+## Desafio Fullstack - CNN Brasil - Estevão Acioli
+### Instruções para utilização
+Baixe o plugin, descompacte-o e copie para dentro da pasta plugin de seu site Wordpress.
 
-### Índice
-1. [Funcionamento do plugin](#funcionamento-do-plugin)
-2. [Instruções para o teste](#instruções-para-o-teste)
-3. [Requisitos](#requisitos)
+A pasta vendor foi adicionada ao gitignore, portanto, é necessário rodar o composer install.
+Navegue até a pasta do plugin, e digite o seguinte comando:
 
-#### Funcionamento do plugin
-- Ao ativar o plugin, ele já deve estar funcional, não deve ser necessário nenhum tipo de configuração ou ajuste prévio;
-- Deve ser criado um post-type chamado "Loterias", em que os resultados já buscados deverão ser salvos.
-- O shortcode deve poder ser utilizado em qualquer tema WordPress, em qualquer página ou post, inclusive via back-end com PHP;
-- Caso o parâmetro "concurso" do shortcode seja o número de um concurso e não "ultimo", deve-se primeiro verificar se o concurso já está cadastrado no post-type "Loterias", e seja consultada a API de loterias apenas caso o concurso não esteja registrado no post-type;
-- Caso o parâmetro "concurso" do shortcode seja "ultimo", deve-se acessar diretamente a API, e após isso, verificar se o concurso já está registrado no post-type, e caso não esteja, cadastrar ele;
-- Após fazer as buscas pelo concurso, o resultado será exibido no front-end com um layout personalizado.
+```bash
+  composer install
+```
 
-#### Instruções para o teste
-A avaliação do teste será feita aqui no GitHub, então não se esqueça de seguir esses passos:
-- Faça um fork deste repositório;
-- Desenvolva todo o projeto na branch master;
-- Após finalizado, abra uma PR com o código para este repositório;
+Agora basta inserir o shortcode na página ou post. Se preferir insira via código php.
 
-A API que deve ser consultada é a seguinte:
-- https://github.com/guto-alves/loterias-api
+```bash
+  [loterias loteria="lotomania" concurso="ultimo"]
+```
+Para incluir o shortcode em um arquivo php, use o comando abaixo. Com esta função nativa do WordPress vocêce consegue executar um shortcode diretamente no seu PHP
 
-O layout do Figma está no seguinte arquivo:
-- https://www.figma.com/file/F7T7TCcoObWXdjUyngIENl/Desafio-Fullstack---CNN-Brasil
+```bash
+ <?php echo do_shortcode('[loterias loteria="lotomania" concurso="ultimo"]'); ?>
+```
 
-O repositório utiliza composer para validação do código. Você está livre para utilizar as ferramentas do composer, como autoload caso queira, porém, não utilize outras dependências do PHP.
+Você pode substituir para qual loteria quiser, basta alterar o valor de loteria="nome_da_loteria" a seguir temos todas as loterias compatíveis: 
+  "maismilionaria",
+  "megasena",
+  "lotofacil",
+  "quina",
+  "lotomania",
+  "timemania",
+  "duplasena",
+  "federal",
+  "diadesorte",
+  "supersete"
 
-#### Requisitos
-- O plugin deve ser compatível com a versão mais recente do WordPress;
-- Deve-se usar preferencialmente funções e hooks nativos do WordPress ao invés de funções nativas do PHP;
-- Todo tipo de query ou chamada de API deve ser cacheada;
-- O código deve seguir os padrões estabelecidos pelo WordPress Coding Standards e WP VIP Coding Standards;
-- O código deve ser orientado a objetos;
-- O código deve ser validado utilizando PHPCS;
-- O layout do front-end do shortcode deve seguir o que foi apresentado no Figma;
-- Todo o código do projeto deve estar em um único plugin.
+Você pode substituir para o concurso que quiser, basta alerar concurso="ultimo" para concurso="numero_do_concurso".
 
-O shortcode deverá aceitar os seguintes parâmetros:
-- loteria: O nome da loteria, por exemplo, "megasena"
-- concurso: O número do concurso da loteria, podendo ser um número ou "ultimo", caso não seja preenchido, considerar sempre "ultimo" como padrão
+### Instruções para o PHP CodeSniffer
+
+Navegue até a plasta do plugin e digite o seguinte comando:
+
+```bash
+ vendor/bin/phpcs src/
+```
+### Observações
+
+Criei uma regra para impedir que os dados salvos no CPT loterias sejam editados no backend.
+Também existe um aviso para que os CPT loterias nao sejam criados diretamente pelo backend, isto não impedi mas pelo menos avisa ao usuário para não fazer isto.
+Foram acrescentadas colunas na pagina de listagem do CPT loterias para exibir dados importantes
+O plugin também conta com uma página de documentação.
+
+### Shotcodes & Teste
+
+Abaixo listo alguns exemplos de shortcodes que foram testados durante o desenvolvimento, assim você pode ter ideia de todas a spossibilidades que o plugin suporta
+
+:::success
+Shortcodes funcionais :tada:
+:::
+
+```bash
+  [loterias loteria="megasena"]
+```
+```bash
+  [loterias loteria="megasena" concurso=""]
+```
+```bash
+  [loterias loteria="megasena" concurso="ultimo"]
+```
+
+:::danger
+Shortcodes quebrados :fire:
+:::
+
+```bash
+  [loterias loteria="megasena" concurso="opa"]
+```
+```bash
+  [loterias loteria="bicho" concurso="teste"]
+```
+```bash
+  [loterias loteria="tigrinho" concurso="teste"]
+```
+```bash
+  [loterias loteria="" concurso="teste"]
+```
+```bash
+  [loterias concurso="teste"]
+```
+
+
+Se tiver alguma dúvida ou solicitação por favor me avise pelo e-mail: estevaoaciolice@gmail.com ou pelo WhatsApp (85)98552-9837.
