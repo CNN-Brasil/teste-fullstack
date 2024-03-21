@@ -9,18 +9,19 @@ Navegue até a pasta do plugin, e digite o seguinte comando:
   composer install
 ```
 
-Agora basta inserir o shortcode na página ou post. Se preferir insira via código php.
+Agora você pode inserir o shortcode na página ou post desejado. Se preferir, insira o shortcode via código PHP.
 
 ```bash
   [loterias loteria="lotomania" concurso="ultimo"]
 ```
-Para incluir o shortcode em um arquivo php, use o comando abaixo. Com esta função nativa do WordPress vocêce consegue executar um shortcode diretamente no seu PHP
+Para incluir o shortcode em um arquivo PHP, utilize a seguinte função nativa do WordPress:
 
 ```bash
  <?php echo do_shortcode('[loterias loteria="lotomania" concurso="ultimo"]'); ?>
 ```
 
-Você pode substituir para qual loteria quiser, basta alterar o valor de loteria="nome_da_loteria" a seguir temos todas as loterias compatíveis: 
+Substitua "lotomania" pelo nome da loteria desejada. Abaixo estão todas as loterias compatíveis:
+
   "maismilionaria",
   "megasena",
   "lotofacil",
@@ -32,7 +33,7 @@ Você pode substituir para qual loteria quiser, basta alterar o valor de loteria
   "diadesorte",
   "supersete"
 
-Você pode substituir para o concurso que quiser, basta alerar concurso="ultimo" para concurso="numero_do_concurso".
+Você também pode substituir "ultimo" pelo número do concurso desejado.
 
 ### Instruções para o PHP CodeSniffer
 
@@ -43,18 +44,18 @@ Navegue até a plasta do plugin e digite o seguinte comando:
 ```
 ### Observações
 
-Criei uma regra para impedir que os dados salvos no CPT loterias sejam editados no backend.
-Também existe um aviso para que os CPT loterias nao sejam criados diretamente pelo backend, isto não impedi mas pelo menos avisa ao usuário para não fazer isto.
-Foram acrescentadas colunas na pagina de listagem do CPT loterias para exibir dados importantes
-O plugin também conta com uma página de documentação.
+O plugin possui as seguintes características:
 
-### Shotcodes & Teste
+- Foi implementada uma regra para impedir a edição dos dados salvos no CPT (Custom Post Type) "loterias" pelo backend.
+- Existe um aviso para evitar a criação direta dos CPT "loterias" pelo backend.
+- Foram adicionadas colunas na página de listagem do CPT "loterias" para exibir dados importantes.
+- O plugin conta com uma página de documentação.
 
-Abaixo listo alguns exemplos de shortcodes que foram testados durante o desenvolvimento, assim você pode ter ideia de todas a spossibilidades que o plugin suporta
+### Testes de Shortcodes
 
-:::success
-Shortcodes funcionais :tada:
-:::
+Abaixo estão exemplos de shortcodes testados durante o desenvolvimento, demonstrando as possibilidades do plugin:
+
+- Shortcodes Funcionais :tada:
 
 ```bash
   [loterias loteria="megasena"]
@@ -66,9 +67,7 @@ Shortcodes funcionais :tada:
   [loterias loteria="megasena" concurso="ultimo"]
 ```
 
-:::danger
-Shortcodes quebrados :fire:
-:::
+- Shortcodes quebrados :fire:
 
 ```bash
   [loterias loteria="megasena" concurso="opa"]
@@ -80,7 +79,7 @@ Shortcodes quebrados :fire:
   [loterias loteria="tigrinho" concurso="teste"]
 ```
 ```bash
-  [loterias loteria="" concurso="teste"]
+  [loterias loteria="" concurso="123teste"]
 ```
 ```bash
   [loterias concurso="teste"]
