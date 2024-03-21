@@ -12,15 +12,15 @@ Navegue até a pasta do plugin, e digite o seguinte comando:
 Agora você pode inserir o shortcode na página ou post desejado. Se preferir, insira o shortcode via código PHP.
 
 ```bash
-  [loterias loteria="lotomania" concurso="ultimo"]
+  [loterias loteria="lotofacil" concurso="ultimo"]
 ```
 Para incluir o shortcode em um arquivo PHP, utilize a seguinte função nativa do WordPress:
 
 ```bash
- <?php echo do_shortcode('[loterias loteria="lotomania" concurso="ultimo"]'); ?>
+ <?php echo do_shortcode('[loterias loteria="lotofacil" concurso="ultimo"]'); ?>
 ```
 
-Substitua "lotomania" pelo nome da loteria desejada. Abaixo estão todas as loterias compatíveis:
+Substitua "lotofacil" pelo nome da loteria desejada. Abaixo estão todas as loterias compatíveis:
 
   "maismilionaria",
   "megasena",

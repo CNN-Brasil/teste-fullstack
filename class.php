@@ -18,7 +18,7 @@ class LoteriasCaixa{
     }
 
 	public function lotcaixa_documentation_page() {
-		lotcaixa_documentation_page_content(); 
+		echo lotcaixa_documentation_page_content(); 
 	}
 
     /*
@@ -40,7 +40,7 @@ class LoteriasCaixa{
 		$currentScreen = get_current_screen();
 		$current_page = $currentScreen->id;
 		$pages = array(			
-			'loterias_page_lotcaixa_documentation_page',			
+			'loterias_page_lotcaixa_documentation_page',            		
 	    );
 
 		if ( in_array( $current_page, $pages) || $typenow === 'loterias') {			

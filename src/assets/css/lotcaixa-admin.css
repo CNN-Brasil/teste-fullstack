@@ -62,3 +62,38 @@ p.error{
 #table-premiacoes tr:nth-child(odd) {
     background-color: #ffffff;
 }
+#page-documentation{
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+#page-documentation h1{
+    font-size: 32px;
+    color: #555;
+    font-weight: 400;
+}
+#page-documentation h2{
+    font-size: 32px;
+    font-weight: 700;
+}
+#page-documentation p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 1em 0;
+}
+#page-documentation code{
+    background-color: #1d2327;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+#page-documentation span.line {
+    height: 20px;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #777777;
+}
