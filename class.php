@@ -18,7 +18,7 @@ class LoteriasCaixa{
     }
 
 	public function lotcaixa_documentation_page() {
-		echo lotcaixa_documentation_page_content(); 
+		lotcaixa_documentation_page_content(); 
 	}
 
     /*

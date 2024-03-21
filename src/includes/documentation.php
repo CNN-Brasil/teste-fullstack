@@ -2,8 +2,7 @@
 if (!defined('ABSPATH')) {
     exit();
 }
-function lotcaixa_documentation_page_content(){
-    ob_start();
+function lotcaixa_documentation_page_content(){   
     ?>
     <div id="page-documentation" class="container">
         <h1>#Documentação - Version: 1.0</h1>
@@ -87,9 +86,5 @@ function lotcaixa_documentation_page_content(){
 
     </div>
     <?php
-    $object = ob_get_contents();
-    /* Clean buffer */
-    ob_end_clean();
-    /* Return the content */
-    return $object;
+   
 }
