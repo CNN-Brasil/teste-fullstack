@@ -38,14 +38,14 @@ function lc_shortcode($atts) {
 
     $dados = json_decode(wp_remote_retrieve_body($response));
 
-    $post_id = lc_createPost($dados);
+    $postId = lc_createPost($dados);
 
     //DEBUG
-    // if (!is_wp_error($post_id)) {
-    //     echo 'Post inserido com sucesso! ID: ' . $post_id;
-    // } else {
-    //     echo 'Erro ao inserir post: ' . $post_id->get_error_message();
-    // }
+    if (!is_wp_error($postId)) {
+        echo 'Post inserido com sucesso! ID: ' . $postId;
+    } else {
+        echo 'Erro ao inserir post: ' . $postId->get_error_message();
+    }
 
     $weekDay = lc_formatDateName($dados->data);
 
