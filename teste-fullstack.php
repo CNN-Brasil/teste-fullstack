@@ -31,7 +31,7 @@ define('LOTCAIXA_PATH', plugin_dir_path(__FILE__));
 define('LOTCAIXA_URL', plugin_dir_url(__FILE__));
 
 $loterias_validas = array(
-    //"maismilionaria",
+    "maismilionaria",
     "megasena",
     "lotofacil",
     "quina",
@@ -46,7 +46,10 @@ define('LOTERIAS_VALIDAS', $loterias_validas);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+require_once( 'src/includes/functions.php' );
 require_once( 'class.php' );
 require_once( 'src/includes/api-loteria.php' );
 require_once( 'src/includes/cpt-loteria.php' );
+require_once( 'src/includes/documentation.php' );
+require_once( 'src/views/view-resultado.php' );
 

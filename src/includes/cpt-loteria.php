@@ -2,7 +2,6 @@
 if (!defined('ABSPATH')) {
     exit();
 }
-
 class LoteriaCaixaCpt {
 
     public function __construct() {
@@ -10,10 +9,7 @@ class LoteriaCaixaCpt {
         add_action('init', array($this, 'lotcaixa_register_lottery_post_type'));
         
         // Adicionar metabox para os metadados
-        add_action('add_meta_boxes', array($this, 'lotcaixa_add_lottery_meta_box'));
-
-        // Salvar os valores dos metadados
-        add_action('save_post', array($this, 'lotcaixa_save_lottery_meta_data'));
+        add_action('add_meta_boxes', array($this, 'lotcaixa_add_lottery_meta_box'));        
         
         // Adicionar colunas personalizadas na página de administração
         add_filter('manage_loterias_posts_columns', array($this, 'lotcaixa_add_custom_columns'));
@@ -46,7 +42,7 @@ class LoteriaCaixaCpt {
             'show_ui' => current_user_can('manage_options'),
             'labels' => $labels,
             'supports' => array('title'),
-            'menu_icon' => 'dashicons-tickets-alt' // Ícone mais apropriado
+            'menu_icon' => esc_url(LOTCAIXA_URL).'src/assets/images/icon-caixa-25.png',
         );
     
         register_post_type('loterias', $args);
@@ -59,63 +55,60 @@ class LoteriaCaixaCpt {
 
     // Renderizar o conteúdo do metabox
     public function lotcaixa_render_lottery_meta_box($post) {
-        global $post;
-        $post_id = $post->ID;
-        wp_nonce_field('lotcaixa_meta_box_nonce', 'lotcaixa_meta_box_nonce');	
-
+        $post_id = $post->ID;  
         $loteria = get_post_meta($post_id, 'loteria', true);
         $concurso = get_post_meta($post_id, 'concurso', true);
-        $data_concurso = get_post_meta($post_id, 'data_concurso', true);        
-
-        echo '<div class="row">';
-
-        echo '<div class="col">';
-        echo '<label for="loteria">Loteria:</label><br>';
-        echo '<select id="loteria" name="loteria" required >';
-        foreach (LOTERIAS_VALIDAS as $loteria_option) {
-            echo '<option value="' . esc_attr($loteria_option) . '" ' . selected($loteria, $loteria_option, false) . '>' . esc_html($loteria_option) . '</option>';
+        $data_concurso = get_post_meta($post_id, 'data_concurso', true);  
+        $valor_estimado = get_post_meta($post_id, 'valor_estimado', true);  
+        $dezenas = get_post_meta($post_id, 'dezenas', true);
+        $premiacoes = get_post_meta($post_id, 'premiacoes', true);   
+    
+        if ($post->post_status == 'publish') {           
+            ?>
+            <div id="loteria">
+                <div class="loteria-row">
+                    <p><?php esc_html_e( 'Loteria', 'loterias-caixa' ); ?>: <strong><?php echo esc_html($loteria); ?></strong></p>
+                    <p><?php esc_html_e( 'Concurso', 'loterias-caixa' ); ?>: <strong><?php echo esc_html($concurso); ?></strong></p>
+                    <p><?php esc_html_e( 'Dada do concurso', 'loterias-caixa' ); ?>: <strong><?php echo esc_html($data_concurso); ?></strong></p>
+                    <p><?php esc_html_e( 'Prêmio estimado', 'loterias-caixa' ); ?>: <strong>R$ <?php echo esc_html($valor_estimado); ?></strong></p>
+                </div>
+                <div class="loteria-row">
+                    <?php
+                    if(!empty($dezenas)){  
+                        echo "<h3>Números Sorteados</h3>";
+                        echo '<ul id="numeros">';
+                        foreach ( $dezenas as $dezena ) {
+                            echo '<li>'.esc_html($dezena).'</li>';
+                        }
+                        echo '</ul>';            
+                    } 
+                    ?>
+                </div>
+                <div class="loteria-row">
+                    <?php 
+                    if(!empty($premiacoes)){
+                        echo "<h3>Premiações</h3>";
+                        echo '<table id="table-premiacoes">';
+                        echo '<tr><th>Faixas</th><th>Ganhadores</th><th>Prêmio</th></tr>';
+                        foreach ( $premiacoes as $premiacao => $value ) {
+                            echo '<tr><td>' . esc_html($value['descricao']) . '</td>';
+                            echo '<td>' . esc_html($value['ganhadores']) . '</td>';
+                            echo '<td>' . esc_html($value['valorPremio']) . '</td></tr>';
+                        }
+                        echo '</table>';
+                    }
+                    ?>               
+                </div>
+            </div>
+            <?php
+        } else {
+            echo '<p class="error">';
+            esc_html_e('Não é recomendado criar uma loteria por aqui, recomendamos que faça uso do nosso shortcode em alguma página do seu site.', 'loterias-caixa');
+            echo ' ' . esc_html__('Em caso de dúvidas, favor verificar nossa documentação no link abaixo', 'loterias-caixa') . '</p>';
+            echo '<p><a href="' . esc_url(admin_url('edit.php?post_type=loterias&page=lotcaixa_documentation_page')) . '">' . esc_html__('clicando aqui', 'loterias-caixa') . '</a></p>';            
         }
-        echo '</select><br>';
-        echo '</div>';
-
-        echo '<div class="col">';
-        echo '<label for="concurso">Concurso:</label><br>';
-        echo '<input type="number" id="concurso" name="concurso" value="' . esc_attr($concurso) . '" required /><br>';
-        echo '</div>';
-
-        echo '<div class="col">';
-        echo '<label for="data_concurso">Data do Concurso:</label><br>';
-        echo '<input type="date" id="data_concurso" name="data_concurso" value="' . esc_attr($data_concurso) . '" required />';
-        echo '</div>';
-
-        echo '</div>';
     }
-
-    // Salvar os valores dos metadados
-    public function lotcaixa_save_lottery_meta_data($post_id) {
-        global $post;
-
-        // Checks save status
-        $is_autosave = wp_is_post_autosave($post_id);
-        $is_revision = wp_is_post_revision($post_id);  
-        $is_valid_nonce = ( isset($_POST['lotcaixa_meta_box_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['lotcaixa_meta_box_nonce'])), basename(__FILE__)) ) ? 'true' : 'false';
-
-        // Exits script depending on save status
-        if ($is_autosave || $is_revision || !$is_valid_nonce) {
-            return;
-        }    
-        // Salvar os valores dos metadados
-        if (isset($_POST['loteria'])) {
-            update_post_meta($post_id, 'loteria', sanitize_text_field($_POST['loteria']));
-        }
-        if (isset($_POST['concurso'])) {
-            update_post_meta($post_id, 'concurso', sanitize_text_field($_POST['concurso']));
-        }
-        if (isset($_POST['data_concurso'])) {
-            update_post_meta($post_id, 'data_concurso', sanitize_text_field($_POST['data_concurso']));
-        }
-    }
-
+    
     // Adicionar colunas personalizadas na página de administração
     public function lotcaixa_add_custom_columns($columns) {
         $columns['loteria'] = 'Loteria';
@@ -129,22 +122,20 @@ class LoteriaCaixaCpt {
     public function lotcaixa_populate_custom_columns($column, $post_id) {
         switch ($column) {
             case 'loteria':
-                echo get_post_meta($post_id, 'loteria', true);
+                echo esc_html( get_post_meta($post_id, 'loteria', true) );
                 break;
             case 'concurso':
-                echo get_post_meta($post_id, 'concurso', true);
+                echo esc_html( get_post_meta($post_id, 'concurso', true) );
                 break;
-            case 'data_concurso':
-                $data_concurso = get_post_meta($post_id, 'data_concurso', true);
-                if ($data_concurso) {
-                    $data_concurso_formatada = date('d/m/Y', strtotime($data_concurso));
-                    echo esc_html($data_concurso_formatada);
-                }
+            case 'data_concurso':  
+                    echo esc_html(get_post_meta($post_id, 'data_concurso', true));                
                 break;
             case 'code':
                 $loteria = get_post_meta($post_id, 'loteria', true);
                 $concurso = get_post_meta($post_id, 'concurso', true);
-                echo '[loterias loteria="'.$loteria.'" concurso="'.$concurso.'"]';
+                $code = '[loterias loteria="'.$loteria.'" concurso="'.$concurso.'"]';
+                echo '<input type="text" class="cpyvalue" value=\''.esc_attr($code).'\' readonly onclick="lotcaixaCopyThisValue(this)">';
+				echo '<div class="response-copy"></div>';                
                 break;
         }
     }
