@@ -29,7 +29,8 @@ class LoteriasCaixa{
     public function lotcaixa_front_scripts() {			
         // Registrar CSS
         wp_register_style( 'lotcaixa-root-style', esc_url(LOTCAIXA_URL).'src/assets/css/root.css', array(), esc_html(LOTCAIXA_VERSION) );	
-        wp_register_style( 'lotcaixa-style', esc_url(LOTCAIXA_URL).'src/assets/css/lotcaixa.css', array(), esc_html(LOTCAIXA_VERSION) );				
+        wp_register_style( 'lotcaixa-style', esc_url(LOTCAIXA_URL).'src/assets/css/lotcaixa.css', array(), esc_html(LOTCAIXA_VERSION) );
+        wp_register_style( 'fonte-inter', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap' );        			
         
         // Registrar JS		
         //wp_register_script( 'lotcaixa-script', esc_url(LOTCAIXA_URL).'src/assets/js/lotcaixa.js', array(), esc_html(LOTCAIXA_VERSION), true );		       

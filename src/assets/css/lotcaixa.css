@@ -1,5 +1,6 @@
 .error{
     color: red;
+    font-family: "Inter", sans-serif;
     font-size: 1.3em;
     line-height: 1.4em;
     text-align: center;
@@ -33,6 +34,7 @@
     width: 100%;
     text-align: center;
     color: #fff;
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
@@ -68,6 +70,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     line-height: 24px;
     font-weight: 800;
@@ -87,6 +90,7 @@
 }
 
 #loteria .premiacao p{
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     font-weight: 800;
     line-height: 24px;
@@ -95,6 +99,7 @@
 }
 
 #loteria .premiacao p:last-child{
+    font-family: "Inter", sans-serif;
     font-size: 24px;
     font-weight: 800;
     line-height: 28px;
@@ -109,6 +114,7 @@
 }
 
 #loteria #table-premiacoes th{
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     line-height: 24px;
     font-weight: 800;
@@ -117,6 +123,7 @@
 }
 
 #loteria #table-premiacoes tr{
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     line-height: 24px;
     font-weight: 500;    
@@ -124,6 +131,7 @@
 }
 
 #loteria #table-premiacoes td{
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     line-height: 24px;
     font-weight: 500;    

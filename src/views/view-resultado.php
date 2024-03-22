@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 function lotcaixa_view_loteria_resultado($args) {
     // Assets do plugins        
     wp_enqueue_style('lotcaixa-root-style');  
+    wp_enqueue_style('fonte-inter'); 
     wp_enqueue_style('lotcaixa-style');    
 
     // Inicialize a variável $html
