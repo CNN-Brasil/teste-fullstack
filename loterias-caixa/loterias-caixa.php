@@ -33,67 +33,67 @@ function lc_shortcode($atts) {
 
     $args = array(
         'method' => 'GET',
+        'timeout' => 30,
     );
-
     $response = wp_remote_get($url, $args);
 
-    //DEBUG
-    // echo '<pre>';
-    // var_dump(wp_remote_retrieve_body($response));
-    // echo '</pre>';
-
-    $dados = json_decode(wp_remote_retrieve_body($response));
-
-    $postId = lc_createPost($dados);
-
-    //DEBUG
-    if (!is_wp_error($postId)) {
-        echo 'Post inserido com sucesso! ID: ' . $postId;
+    if (is_wp_error($response)) {
+        $error_message = $response->get_error_message();
+        echo "Ocorreu um erro ao tentar acessar a API: $error_message";
     } else {
-        echo 'Erro ao inserir post: ' . $postId->get_error_message();
-    }
 
-    $weekDay = lc_formatDateName($dados->data);
+        $dados = json_decode(wp_remote_retrieve_body($response));
+        $postId = lc_createPost($dados);
 
-    if ($atts['concurso'] !== '0') {
-
-        $html = '<div class="loterias-caixa">';
-        $html .= '<div class="card-header color-theme ' . $atts['loteria'] . '">Concurso ' . $dados->concurso . ' • ' . $weekDay . ' ' . $dados->data . '</div>';
-        $html .= '<div class="card-dezenas">';
-        $html .= '<ul>';
-        foreach ($dados->dezenas as $dezena) {
-            $html .= '<li class="color-theme ' . $atts['loteria'] . '">' . $dezena . '</li>';
+        //DEBUG
+        if (!is_wp_error($postId)) {
+            echo 'Post inserido com sucesso! ID: ' . $postId;
+        } else {
+            echo 'Erro ao inserir post: ' . $postId->get_error_message();
         }
-        $html .= '</ul>';
-        $html .= '</div>';
-        $html .= '<div class="card-premio">
-            <p>Prêmio</p>
-            R$ ' . number_format($dados->valorArrecadado, 2, ',', '.') . 
-        '</div>';
-        $html .= '<table>
-            <thead>
-                <tr>
-                    <th class="color-theme ' . $atts['loteria'] . '">Faixas</th>
-                    <th class="color-theme ' . $atts['loteria'] . '">Ganhadores</th>
-                    <th class="color-theme ' . $atts['loteria'] . '">Prêmio</th>
-                </tr>
-            </thead>
-            <tbody>';
-                foreach ($dados->premiacoes as $premiacao) {
-                    $faixaName = lc_formatFaixasName($premiacao->faixa,$premiacao->descricao);
 
-                    $html .= '<tr>';
-                    $html .= '<td>' . $faixaName . '</td>';
-                    $html .= '<td>'. $premiacao->ganhadores . '</td>';
-                    $html .= '<td> R$ ' . number_format($premiacao->valorPremio, 2, ',', '.') . '</td>';
-                    $html .= '</tr>';
-                }
-        $html .= '</tbody></table>';
-        $html .= '</div>';
-    } else {
-        $html = '<div class="loterias-caixa">';
-        $html .= '<p>Por favor, especifique o número do concurso usando o parâmetro "concurso".</p>';
-        $html .= '</div>';
+        $weekDay = lc_formatDateName($dados->data);
+
+        if ($atts['concurso'] !== '0') {
+
+            $html = '<div class="loterias-caixa">';
+            $html .= '<div class="card-header color-theme ' . $atts['loteria'] . '">Concurso ' . $dados->concurso . ' • ' . $weekDay . ' ' . $dados->data . '</div>';
+            $html .= '<div class="card-dezenas">';
+            $html .= '<ul>';
+            foreach ($dados->dezenas as $dezena) {
+                $html .= '<li class="color-theme ' . $atts['loteria'] . '">' . $dezena . '</li>';
+            }
+            $html .= '</ul>';
+            $html .= '</div>';
+            $html .= '<div class="card-premio">
+                <p>Prêmio</p>
+                R$ ' . number_format($dados->valorArrecadado, 2, ',', '.') . 
+            '</div>';
+            $html .= '<table>
+                <thead>
+                    <tr>
+                        <th class="color-theme ' . $atts['loteria'] . '">Faixas</th>
+                        <th class="color-theme ' . $atts['loteria'] . '">Ganhadores</th>
+                        <th class="color-theme ' . $atts['loteria'] . '">Prêmio</th>
+                    </tr>
+                </thead>
+                <tbody>';
+                    foreach ($dados->premiacoes as $premiacao) {
+                        $faixaName = lc_formatFaixasName($premiacao->faixa,$premiacao->descricao);
+
+                        $html .= '<tr>';
+                        $html .= '<td>' . $faixaName . '</td>';
+                        $html .= '<td>'. $premiacao->ganhadores . '</td>';
+                        $html .= '<td> R$ ' . number_format($premiacao->valorPremio, 2, ',', '.') . '</td>';
+                        $html .= '</tr>';
+                    }
+            $html .= '</tbody></table>';
+            $html .= '</div>';
+        } else {
+            $html = '<div class="loterias-caixa">';
+            $html .= '<p>Por favor, especifique o número do concurso usando o parâmetro "concurso".</p>';
+            $html .= '</div>';
+        }
     }
  
     return $html;
