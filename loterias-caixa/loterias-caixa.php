@@ -20,8 +20,14 @@ function lc_shortcode($atts) {
         'concurso' => '0',
     ), $atts);
 
-    $loteria = $atts['loteria'];
-    $concurso = $atts['concurso'];
+    if ($atts['loteria'] !== '0') {
+        $loteria = $atts['loteria'];
+        if ($atts['concurso'] === 'ultimo') {
+            $concurso = 'latest';
+        } else {
+            $concurso = $atts['concurso'] !== '0' ? $atts['concurso'] : 'latest';
+        }
+    }
 
     $url = 'https://loteriascaixa-api.herokuapp.com/api/'. $loteria .'/' . $concurso;
 
