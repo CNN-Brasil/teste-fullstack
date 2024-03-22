@@ -22,7 +22,7 @@ function lc_shortcode($atts) {
 
     if ($atts['loteria'] !== '0') {
         $loteria = $atts['loteria'];
-        if ($atts['concurso'] === 'ultimo') {
+        if ($atts['concurso'] === 'ultimo' || $atts['concurso'] == NULL) {
             $concurso = 'latest';
         } else {
             $concurso = $atts['concurso'] !== '0' ? $atts['concurso'] : 'latest';
