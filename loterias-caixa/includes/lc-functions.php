@@ -28,7 +28,6 @@ function lc_postTypeRegister() {
 
     register_post_type( 'loterias', $args );
 }
-
 // Criando post
 function lc_createPost($data) {
     global $wpdb;
@@ -67,8 +66,8 @@ function lc_createPost($data) {
 
     return $postId;
 }
-
-function lc_formatFaixasName($data) {
+// Formata faixas de premiação
+function lc_formatFaixasName($data, $dataReturn) {
 
     switch ($data) {
         case 1:
@@ -77,13 +76,23 @@ function lc_formatFaixasName($data) {
             return "Quina";
         case 3:
             return "Quadra";
+        case 4:
+            return "Terno";
+        case 5:
+            return "Sena";
+        case 6:
+            return "Quina";
+        case 7:
+            return "Quadra";
+        case 8:
+            return "Terno";
         default:
-            return "Faixa não encontrada";
+            return $dataReturn;
     }
 
     return "Faixa não encontrada";
 }
-
+// Cria e formata o nome do dia da semana
 function lc_formatDateName($data) {
 
     $dataObj = DateTime::createFromFormat('d/m/Y', $data);

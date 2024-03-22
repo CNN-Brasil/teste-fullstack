@@ -74,7 +74,7 @@ function lc_shortcode($atts) {
             </thead>
             <tbody>';
                 foreach ($dados->premiacoes as $premiacao) {
-                    $faixaName = lc_formatFaixasName($premiacao->faixa);
+                    $faixaName = lc_formatFaixasName($premiacao->faixa,$premiacao->descricao);
 
                     $html .= '<tr>';
                     $html .= '<td>' . $faixaName . '</td>';
