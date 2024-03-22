@@ -3,30 +3,30 @@
 // Registrando post type
 function lc_postTypeRegister() {
     $labels = array(
-        'name'               => _x( 'Loterias', 'post type general name', 'loterias' ),
-        'singular_name'      => _x( 'Loteria', 'post type singular name', 'loterias' ),
-        'menu_name'          => _x( 'Loterias', 'admin menu', 'loterias' ),
-        'name_admin_bar'     => _x( 'Loteria', 'add new on admin bar', 'loterias' ),
-        'add_new'            => _x( 'Adicionar Nova', 'loteria', 'loterias' ),
-        'add_new_item'       => __( 'Adicionar Nova Loteria', 'loterias' ),
-        'new_item'           => __( 'Nova Loteria', 'loterias' ),
-        'edit_item'          => __( 'Editar Loteria', 'loterias' ),
-        'view_item'          => __( 'Ver Loteria', 'loterias' ),
-        'all_items'          => __( 'Todas as Loterias', 'loterias' ),
-        'search_items'       => __( 'Buscar Loterias', 'loterias' ),
-        'parent_item_colon'  => __( 'Loteria Pai:', 'loterias' ),
-        'not_found'          => __( 'Nenhuma loteria encontrada.', 'loterias' ),
-        'not_found_in_trash' => __( 'Nenhuma loteria encontrada na lixeira.', 'loterias' )
+        'name'               => _x('Loterias', 'post type general name', 'loterias'),
+        'singular_name'      => _x('Loteria', 'post type singular name', 'loterias'),
+        'menu_name'          => _x('Loterias', 'admin menu', 'loterias'),
+        'name_admin_bar'     => _x('Loteria', 'add new on admin bar', 'loterias'),
+        'add_new'            => _x('Adicionar Nova', 'loteria', 'loterias'),
+        'add_new_item'       => __('Adicionar Nova Loteria', 'loterias'),
+        'new_item'           => __('Nova Loteria', 'loterias'),
+        'edit_item'          => __('Editar Loteria', 'loterias'),
+        'view_item'          => __('Ver Loteria', 'loterias'),
+        'all_items'          => __('Todas as Loterias', 'loterias'),
+        'search_items'       => __('Buscar Loterias', 'loterias'),
+        'parent_item_colon'  => __('Loteria Pai:', 'loterias'),
+        'not_found'          => __('Nenhuma loteria encontrada.', 'loterias'),
+        'not_found_in_trash' => __('Nenhuma loteria encontrada na lixeira.', 'loterias')
     );
 
     $args = array(
         'labels'             => $labels,
         'public'             => true,
-        'rewrite'            => array( 'slug' => 'loterias' ),
-        'supports'           => array( 'title', 'editor' )
+        'rewrite'            => array('slug' => 'loterias'),
+        'supports'           => array('title', 'editor')
     );
 
-    register_post_type( 'loterias', $args );
+    register_post_type('loterias', $args);
 }
 // Criando post
 function lc_createPost($data) {
@@ -97,7 +97,7 @@ function lc_formatDateName($data) {
 
     $dataObj = DateTime::createFromFormat('d/m/Y', $data);
     $dayWeekNumber = $dataObj->format('w');
-    
+
     $dayWeekName = array(
         'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'
     );
