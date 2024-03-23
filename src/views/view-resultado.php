@@ -35,7 +35,7 @@ function lotcaixa_view_loteria_resultado($args) {
     }
 
     $html .= '</table>';
-    $html .= '</div></div></div>';
+    $html .= '</div></div>';    
 
     // Retorna a variável $html
     return $html;
