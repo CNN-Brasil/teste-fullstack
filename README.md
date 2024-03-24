@@ -9,7 +9,7 @@ Navegue até a pasta do plugin, e digite o seguinte comando:
   composer install
 ```
 
-Agora você pode inserir o shortcode na página ou post desejado. Se preferir, insira o shortcode via código PHP.
+Utilize o shortcode na página ou post desejado. Se preferir, insira o shortcode via código PHP.
 
 ```bash
   [loterias loteria="lotofacil" concurso="ultimo"]
