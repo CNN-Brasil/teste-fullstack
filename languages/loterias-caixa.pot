@@ -1,0 +1,120 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Loterias Caixa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-22 12:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.3\n"
+"X-Domain: loterias-caixa"
+
+#: src/includes/cpt-loteria.php:29
+msgid "Adicionar Nova"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:28
+msgid "Adicionar Nova Loteria"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:32
+msgid "Atualizar Loteria"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:34
+msgid "Buscar Loteria"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:108
+msgid "clicando aqui"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:71
+msgid "Concurso"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:72
+msgid "Dada do concurso"
+msgstr ""
+
+#: class.php:17
+msgid "Documentação"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:31
+msgid "Editar Loteria"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:107
+msgid "Em caso de dúvidas, favor verificar nossa documentação no link abaixo"
+msgstr ""
+
+#. Author of the plugin
+msgid "Estevao Acioli"
+msgstr ""
+
+#. Description of the plugin
+msgid "Exibe os resultados das Loterias da Caixa via shortcode."
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/estevaoacioli/teste-fullstack"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.linkedin.com/in/estevao-acioli-ce/"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:23 src/includes/cpt-loteria.php:24
+#: src/includes/cpt-loteria.php:25 src/includes/cpt-loteria.php:70
+msgid "Loteria"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:22
+msgid "Loterias"
+msgstr ""
+
+#. Name of the plugin
+msgid "Loterias Caixa"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:30
+msgid "Nova Loteria"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:35
+msgid "Não encontrado"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:36
+msgid "Não encontrado na Lixeira"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:106
+msgid ""
+"Não é recomendado criar uma loteria por aqui, recomendamos que faça uso do "
+"nosso shortcode em alguma página do seu site."
+msgstr ""
+
+#: src/includes/cpt-loteria.php:26
+msgid "Parent Item:"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:73
+msgid "Prêmio estimado"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:27
+msgid "Todas as Loterias"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:33
+msgid "Ver Loteria"
+msgstr ""
