@@ -24,8 +24,6 @@ class TesteFullstack {
     }
 
     public function shortcode_handler($atts, $content = null, $tag = '') {
-
-
     
         $contest_name = esc_html($tag);
 
