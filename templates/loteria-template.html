@@ -1,4 +1,249 @@
-<div class="loteria-component">
-    <h2>Informações da Loteria</h2>
-    <p>Esta é o concurso número: {{concurso}}</p>
+<div class="loteria-component" id="{{concurso_type}}">
+
+    <div class="title">
+        <p>{{concurso_name}} {{concurso_id}} • {{concurso_date_week}} {{concurso_date}}</p>
+    </div>
+
+    <div class="dozens">
+        <div>
+            {{dezenas_template}}
+        </div>
+    </div>
+
+    <div class="award">
+        <p class="label">PRÊMIO</p>
+        <p class="amount">{{concurso_total_value}}</p>
+    </div>
+
+    <div class="winners">
+        <table>
+            <tr>
+                <th>Faixas</th>
+                <th>Ganhadores</th>
+                <th>Prêmio</th>
+            </tr>
+            <tr class="border-lines">
+                <td>Sena</td>
+                <td>{{concurso_premiacoes_1_ganhadores}}</td>
+                <td>{{concurso_premiacoes_1_premio}}</td>
+            </tr>
+            <tr class="border-lines">
+                <td>Quina</td>
+                <td>{{concurso_premiacoes_2_ganhadores}}</td>
+                <td>{{concurso_premiacoes_2_premio}}</td>
+            </tr>
+            <tr class="border-lines">
+                <td>Quadra</td>
+                <td>{{concurso_premiacoes_3_ganhadores}}</td>
+                <td>{{concurso_premiacoes_3_premio}}</td>
+            </tr>
+        </table>
+
+    </div>
+
 </div>
+
+
+<style>
+    .loteria-component {
+        margin-bottom: 50px;
+        border: 5px solid #000;
+        border-radius: 25px;
+    }
+
+    #megasena .title,
+    #megasena .dozens span {
+        background-color: #2D976A;
+    }
+
+    #megasena .winners th {
+        color: #2D976A;
+    }
+
+    #megasena {
+        border-color: #2D976A;
+    }
+
+    #quina .title,
+    #quina .dozens span {
+        background-color: #261383;
+    }
+
+    #quina .winners th {
+        color: #261383;
+    }
+
+    #quina {
+        border-color: #261383;
+    }
+
+    #lotofacil .title,
+    #lotofacil .dozens span {
+        background-color: #921788;
+    }
+
+    #lotofacil .winners th {
+        color: #921788;
+    }
+
+    #lotofacil {
+        border-color: #921788;
+    }
+
+    #lotomania .title,
+    #lotomania .dozens span {
+        background-color: #F58123;
+    }
+
+    #lotomania .winners th {
+        color: #F58123;
+    }
+
+    #lotomania {
+        border-color: #F58123;
+    }
+
+    #timemania .title,
+    #timemania .dozens span {
+        background-color: #3DAF3E;
+    }
+
+    #timemania .winners th {
+        color: #3DAF3E;
+    }
+
+    #timemania {
+        border-color: #3DAF3E;
+    }
+
+    #duplasena .title,
+    #duplasena .dozens span {
+        background-color: #A41628;
+    }
+
+    #duplasena .winners th {
+        color: #A41628;
+    }
+
+    #duplasena {
+        border-color: #A41628;
+    }
+
+    #federal .title,
+    #federal .dozens span {
+        background-color: #133497;
+    }
+
+    #federal .winners th {
+        color: #133497;
+    }
+
+    #federal {
+        border-color: #133497;
+    }
+
+    #diadesorte .title,
+    #diadesorte .dozens span {
+        background-color: #CA8536;
+    }
+
+    #diadesorte .winners th {
+        color: #CA8536;
+    }
+
+    #diadesorte {
+        border-color: #CA8536;
+    }
+
+    #supersete .title,
+    #supersete .dozens span {
+        background-color: #A9CF50;
+    }
+
+    #supersete .winners th {
+        color: #A9CF50;
+    }
+
+    #supersete {
+        border-color: #A9CF50;
+    }
+
+    .title {
+        color: #fff;
+        width: 100%;
+        text-align: center;
+        border-top-right-radius: 18px;
+        border-top-left-radius: 18px;
+    }
+
+    .title p {
+        padding: 8px 0;
+        margin: 0;
+        font-size: 20px;
+        font-family: "Inter";
+    }
+
+    .dozens span {
+        display: inline-block;
+        width: 68px;
+        height: 68px;
+        line-height: 68px;
+        text-align: center;
+        border-radius: 50%;
+        color: white;
+        font-weight: bold;
+    }
+
+    .dozens > div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin: 32px 0px;
+    }
+
+    .award .label {
+        font-weight: 800;
+        font-size: 20px;
+        line-height: 24.2px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .award .amount {
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 29px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .award {
+        padding: 32px 0px;
+        border-top: #CBCBCB 1px solid; 
+        border-bottom: #CBCBCB 1px solid; 
+    }
+
+    .winners {
+        padding: 32px 0px;
+    }
+
+    .winners>table {
+        width: 100%;
+        padding: 32px 0px;
+        text-align: center;
+        border-collapse: collapse; 
+        font-size: 20px;
+    }
+
+    .winners table tr.border-lines {
+        border-top: #CBCBCB 1px solid; 
+        border-bottom: #CBCBCB 1px solid;
+    }
+
+    .winners th,
+    .winners td {
+        width: 33.33%;
+        padding: 6px 0;
+    }
+</style>
