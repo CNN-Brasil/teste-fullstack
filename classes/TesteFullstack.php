@@ -25,13 +25,11 @@ class TesteFullstack {
 
     public function shortcode_handler($atts, $content = null, $tag = '') {
 
-        if (empty($atts[0])) {
-            return "<p>Erro: O shortcode requer um argumento identificador do sorteio.</p>";
-        }
+
     
         $contest_name = esc_html($tag);
 
-        if(esc_html($atts[0]) == "ultimo"){
+        if(empty($atts[0]) || esc_html($atts[0]) == "ultimo"){
             $contest_id = $this->get_latest_contest_id($contest_name);
         } else {
             $contest_id = esc_html($atts[0]);
