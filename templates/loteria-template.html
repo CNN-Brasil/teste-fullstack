@@ -1,18 +1,18 @@
-<div class="loteria-component" id="{{concurso_type}}">
+<div class="loteria-component" id="{{contest_type}}">
 
     <div class="title">
-        <p>{{concurso_name}} {{concurso_id}} • {{concurso_date_week}} {{concurso_date}}</p>
+        <p>{{contest_name}} {{contest_id}} • {{contest_date_week}} {{contest_date}}</p>
     </div>
 
     <div class="dozens">
         <div>
-            {{dezenas_template}}
+            {{dozens_template}}
         </div>
     </div>
 
     <div class="award">
         <p class="label">PRÊMIO</p>
-        <p class="amount">{{concurso_total_value}}</p>
+        <p class="amount">{{contest_total_value}}</p>
     </div>
 
     <div class="winners">
@@ -24,18 +24,18 @@
             </tr>
             <tr class="border-lines">
                 <td>Sena</td>
-                <td>{{concurso_premiacoes_1_ganhadores}}</td>
-                <td>{{concurso_premiacoes_1_premio}}</td>
+                <td>{{contest_1_winners}}</td>
+                <td>{{contest_1_award}}</td>
             </tr>
             <tr class="border-lines">
                 <td>Quina</td>
-                <td>{{concurso_premiacoes_2_ganhadores}}</td>
-                <td>{{concurso_premiacoes_2_premio}}</td>
+                <td>{{contest_2_winners}}</td>
+                <td>{{contest_2_award}}</td>
             </tr>
             <tr class="border-lines">
                 <td>Quadra</td>
-                <td>{{concurso_premiacoes_3_ganhadores}}</td>
-                <td>{{concurso_premiacoes_3_premio}}</td>
+                <td>{{contest_3_winners}}</td>
+                <td>{{contest_3_award}}</td>
             </tr>
         </table>
 

@@ -29,17 +29,17 @@ class TesteFullstack {
             return "<p>Erro: O shortcode requer um argumento identificador do sorteio.</p>";
         }
     
-        $concurso_name = esc_html($tag);
+        $contest_name = esc_html($tag);
 
         if(esc_html($atts[0]) == "ultimo"){
-            $concurso_id = $this->get_latest_concurso_id($concurso_name);
+            $contest_id = $this->get_latest_contest_id($contest_name);
         } else {
-            $concurso_id = esc_html($atts[0]);
+            $contest_id = esc_html($atts[0]);
         }
 
-        $post_name = "{$concurso_name}-{$concurso_id}";
+        $post_name = "{$contest_name}-{$contest_id}";
     
-        $post_data = $this->find_loterias_post($concurso_name, $concurso_id);
+        $post_data = $this->find_loterias_post($contest_name, $contest_id);
     
         if ($post_data) {
 
@@ -48,7 +48,7 @@ class TesteFullstack {
             return $template;
         } else {
 
-            $api_data = $this->fetch_data_from_api($concurso_name, $concurso_id);
+            $api_data = $this->fetch_data_from_api($contest_name, $contest_id);
     
             if ($api_data) {
                 $new_post_id = $this->create_loterias_post($post_name, $api_data);
@@ -82,45 +82,59 @@ class TesteFullstack {
         return $days_of_week[$day_of_week_num];
     }
 
-    public function fill_template($json_content){
-
+    public function fill_template($json_content) {
         $template = $this->load_template("loteria-template.html");
-
+    
         $json_decoded = json_decode($json_content, true);
-
-        $concurso_name = ucfirst($json_decoded["loteria"]);
-        $concurso_type = $json_decoded["loteria"];
-        $concurso_date = $json_decoded["data"];
-        $concurso_date_week = $this->get_day_of_week($concurso_date);
-        $concurso_id = $json_decoded["concurso"];
-        $concurso_total_value = $this->real_formatter($json_decoded["valorArrecadado"]);
-
-        $concurso_premiacoes_1_ganhadores = $json_decoded["premiacoes"][0]["ganhadores"];
-        $concurso_premiacoes_1_premio = $this->real_formatter($json_decoded["premiacoes"][0]["valorPremio"]);
-
-        $concurso_premiacoes_2_ganhadores = $json_decoded["premiacoes"][1]["ganhadores"];
-        $concurso_premiacoes_2_premio = $this->real_formatter($json_decoded["premiacoes"][1]["valorPremio"]);
-
-        $concurso_premiacoes_3_ganhadores = $json_decoded["premiacoes"][2]["ganhadores"];
-        $concurso_premiacoes_3_premio = $this->real_formatter($json_decoded["premiacoes"][2]["valorPremio"]);
-
-        $dezenas = $json_decoded["dezenas"];
-        $dezenas_template = '';
-        foreach ($dezenas as $dezena) {
-            $dezenas_template .= "<span>{$dezena}</span>";
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new InvalidArgumentException("Conteúdo JSON inválido");
         }
     
-        $output = str_replace(
-            ["{{concurso_type}}", "{{concurso_name}}", "{{concurso_date}}", "{{concurso_date_week}}", "{{concurso_id}}", "{{dezenas_template}}","{{concurso_total_value}}","{{concurso_premiacoes_1_ganhadores}}","{{concurso_premiacoes_1_premio}}","{{concurso_premiacoes_2_ganhadores}}","{{concurso_premiacoes_2_premio}}","{{concurso_premiacoes_3_ganhadores}}","{{concurso_premiacoes_3_premio}}"],
-            [$concurso_type, $concurso_name, $concurso_date, $concurso_date_week, $concurso_id, $dezenas_template, $concurso_total_value, $concurso_premiacoes_1_ganhadores, $concurso_premiacoes_1_premio, $concurso_premiacoes_2_ganhadores, $concurso_premiacoes_2_premio, $concurso_premiacoes_3_ganhadores, $concurso_premiacoes_3_premio],
-            $template
-        );
-
+        $contest_name = ucfirst($json_decoded["loteria"] ?? 'N/A');
+        $contest_type = $json_decoded["loteria"] ?? 'N/A';
+        $contest_date = $json_decoded["data"] ?? 'N/A';
+        $contest_date_week = $this->get_day_of_week($contest_date);
+        $contest_id = $json_decoded["concurso"] ?? 'N/A';
+        $contest_total_value = $this->real_formatter($json_decoded["valorArrecadado"] ?? 0);
+    
+        $dozens = $json_decoded["dezenas"] ?? [];
+        $dozens_template = '';
+        foreach ($dozens as $dozen) {
+            $dozens_template .= "<span>" . htmlspecialchars($dozen) . "</span>";
+        }
+    
+        $premiacoes = [];
+        if (isset($json_decoded["premiacoes"]) && is_array($json_decoded["premiacoes"])) {
+            foreach ($json_decoded["premiacoes"] as $premiacao) {
+                $ganhadores = $premiacao["ganhadores"] ?? 0;
+                $premio = $this->real_formatter($premiacao["valorPremio"] ?? 0);
+                $premiacoes[] = ["ganhadores" => $ganhadores, "premio" => $premio];
+            }
+        }
+    
+        $replacements = [
+            '{{contest_type}}' => esc_html($contest_type),
+            '{{contest_name}}' => esc_html($contest_name),
+            '{{contest_date}}' => esc_html($contest_date),
+            '{{contest_date_week}}' => esc_html($contest_date_week),
+            '{{contest_id}}' => esc_html($contest_id),
+            '{{dozens_template}}' => $dozens_template,
+            '{{contest_total_value}}' => esc_html($contest_total_value),
+        ];
+    
+        foreach ($premiacoes as $index => $premiacao) {
+            $replacements["{{contest_" . ($index + 1) . "_winners}}"] = esc_html($premiacao["ganhadores"]);
+            $replacements["{{contest_" . ($index + 1) . "_award}}"] = esc_html($premiacao["premio"]);
+        }
+    
+        $output = str_replace(array_keys($replacements), array_values($replacements), $template);
+    
         return $output;
     }
     
-    public function find_loterias_post($concurso_name, $concurso_id) {
-        $post_name = "{$concurso_name}-{$concurso_id}";
+    
+    public function find_loterias_post($contest_name, $contest_id) {
+        $post_name = "{$contest_name}-{$contest_id}";
     
         $query = new WP_Query(array(
             'post_type' => 'loterias',
@@ -164,8 +178,8 @@ class TesteFullstack {
         register_post_type('loterias', $args);
     }
 
-    public function fetch_data_from_api($concurso_name, $concurso_id) {
-        $api_url = "https://loteriascaixa-api.herokuapp.com/api/$concurso_name/$concurso_id";
+    public function fetch_data_from_api($contest_name, $contest_id) {
+        $api_url = "https://loteriascaixa-api.herokuapp.com/api/$contest_name/$contest_id";
         $response = wp_remote_get($api_url);
     
         if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
@@ -177,8 +191,8 @@ class TesteFullstack {
         return json_decode($body, true);
     }
     
-    public function get_latest_concurso_id($concurso_name) {
-        $api_url = "https://loteriascaixa-api.herokuapp.com/api/$concurso_name/latest";
+    public function get_latest_contest_id($contest_name) {
+        $api_url = "https://loteriascaixa-api.herokuapp.com/api/$contest_name/latest";
         $response = wp_remote_get($api_url);
     
         if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
