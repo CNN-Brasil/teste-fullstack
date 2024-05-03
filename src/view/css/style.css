@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --maismilionaria: #2E3078;
+    --megasena: #209869;
+    --lotofacil: #930089;
+    --quina: #260085;
+    --lotomania: #f78100;
+    --timemania: #00ff48;
+    --duplasena: #a61324;
+    --federal: #103099;
+    --loteca: #fb1f00;
+    --diadesorte: #cb852b;
+    --supersete: #a8cf45;
+}
+
+.lcnn-content{
+    font-family: "Inter", sans-serif;
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.lcnn-content__sorted-numbers{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.lcnn-content hr {
+    border-top: 1px solid #ccc;
+}
+
+.lcnn-bold{
+    font-weight: bold;
+}
+
+.grid {
+    margin: 0 auto;
+    display: grid;
+}
+
+.grid-auto-rows-3 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: dense;
+}
+
+.grid-auto-rows-6 {
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-flow: dense;
+}
+
+.item-2 {
+    grid-column: span 6;
+}
+
+@media only screen and (max-width: 600px) {
+    .item-2 {
+        grid-column: span 3;
+    }
+
+    .grid-auto-rows-6 {
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-flow: dense;
+    }
+}
+
+.circulo {
+    border-radius: 50%;
+    width: 67px;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+
+}
+
+.premio-color {
+    color: black;
+    font-weight: 800;
+    font-size: 1.5rem;
+    padding: 30px;
+}
+
+.premio-color-black {
+    color: black;
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+
+.sorteio {
+    padding: 30px;
+}
+
+.item-4 {
+    grid-column: span 3;
+}
+
+.item {
+    margin: 5px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px;
+    color: black;
+}
+
+hr {
+    margin: 0;
+}
+
+.premio {
+    margin-bottom: 60px;
+}
+
+/* Estilos dos Jogos */
+.lotomania {
+    background: var(--lotomania);
+}
+
+.text-lotomania {
+    color: var(--lotomania);
+}
+
+.megasena {
+    background: var(--megasena);
+}
+
+.item.text-megasena {
+    color: var(--megasena);
+    font-weight: bold;
+}
+
+.quina {
+    background: var(--quina);
+}
+
+.text-quina {
+    color: var(--quina);
+}
+
+.lotofacil {
+    background: var(--lotofacil);
+}
+
+.text-lotofacil {
+    color: var(--lotofacil);
+}
+
+.timemania {
+    background: var(--timemania);
+}
+
+.text-timemania {
+    color: var(--timemania);
+}
+
+.duplasena {
+    background: var(--duplasena);
+}
+
+.text-duplasena {
+    color: var(--duplasena);
+}
+
+.federal {
+    background: var(--federal);
+}
+
+.text-federal {
+    color: var(--federal);
+}
+
+.diadesorte {
+    background: var(--diadesorte);
+}
+
+.text-diadesorte {
+    color: var(--diadesorte);
+}
+
+.supersete {
+    background: var(--supersete);
+}
+
+.text-supersete {
+    color: var(--supersete);
+}
+
+.white-colour{
+    color: white;
+}
