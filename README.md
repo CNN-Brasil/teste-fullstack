@@ -17,13 +17,13 @@ Baixe o plugin, copie para dentro da pasta de plugins do Wordpress, e ative.
 
 ## Exemplo de uso
 
-```bash
+```php
 [loterias loteria="megasena" concurso="2500"]
 ```
 
 Para incluir o shortcode em um arquivo PHP, utilize a seguinte função nativa do WordPress:
 
-```bash
+```php
  <?php echo do_shortcode('[loterias loteria="lotofacil" concurso="2500"]'); ?>
 ```
 
