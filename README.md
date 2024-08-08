@@ -2,9 +2,20 @@
 O teste consiste em criar um plugin WordPress com um shortcode que exibirá os resultados dos jogos das Loterias Caixa.
 
 ### Índice
+
+0. [(Novidade) Instruções de execução](#novidade-instruções-de-execução)
 1. [Funcionamento do plugin](#funcionamento-do-plugin)
 2. [Instruções para o teste](#instruções-para-o-teste)
 3. [Requisitos](#requisitos)
+
+#### (Novidade) Instruções de execução
+- Para executar o projeto é necessário ter o composer e o docker-compose instalados
+- Após clonar o repositório deve-se executar os seguintes comandos na raiz do projeto:
+```
+$ docker-composer up -d
+$ composer composer-reinstall
+```
+- O projeto poderá ser acessado através do endereço: http://localhost:8080
 
 #### Funcionamento do plugin
 - Ao ativar o plugin, ele já deve estar funcional, não deve ser necessário nenhum tipo de configuração ou ajuste prévio;

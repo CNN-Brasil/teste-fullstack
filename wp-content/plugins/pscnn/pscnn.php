@@ -44,8 +44,8 @@ class PSCNN {
         Post_Types::init();
         Shortcodes::init();
         add_action('wp_enqueue_scripts', self::class . '::add_scripts');
+        add_action('rest_api_init', API::class . '::init');
     }
 }
 
-add_action('rest_api_init', API::class . '::init');
 add_action('init', PSCNN::class . '::init');

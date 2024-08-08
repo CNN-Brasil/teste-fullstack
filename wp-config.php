@@ -43,8 +43,8 @@ if (!function_exists('getenv_docker')) {
 /** The name of the database for WordPress */
 
 /** Altera url de acesso sem precisar mudar no banco */
-$localhost = 'http://localhost:8003';
-define('SITEURL', $localhost);
+$localhost = 'http://localhost:8080';
+define('WP_SITEURL', $localhost);
 define('WP_HOME', $localhost);
 define('FS_METHOD', 'direct');
 

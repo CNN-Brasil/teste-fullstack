@@ -24,6 +24,12 @@
         }
     },
     "scripts": {
+        "post-update-cmd": [
+            "cp .git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
+        ],
+        "composer-reinstall": [
+            "rm -rf ./vendor && rm ./composer.lock && composer install"
+        ],
         "phpcs": [
             "./vendor/squizlabs/php_codesniffer/bin/phpcs -d memory_limit=4096M"
         ]

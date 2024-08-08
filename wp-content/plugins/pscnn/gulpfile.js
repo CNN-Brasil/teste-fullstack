@@ -10,16 +10,16 @@ const rename = require('gulp-rename');
 
 sass.compiler = require('node-sass');
 
-gulp.task('build-styles', () => {
+const styles = () => {
     return gulp.src('assets-src/styles/main.scss')
         .pipe(sass({
             outputStyle: 'compressed',
         }))
         .pipe(rename('main.min.css'))
         .pipe(gulp.dest('assets/styles'));
-});
+};
 
-gulp.task('build-scripts', () => {
+const scripts = () => {
     return gulp.src(['assets-src/scripts/components/*.js', 'assets-src/scripts/main.js'])
         .pipe(concat('main.min.js'))
         .pipe(babel({
@@ -27,6 +27,7 @@ gulp.task('build-scripts', () => {
         }))
         .pipe(uglify())
         .pipe(gulp.dest('assets/scripts'));
-});
+};
 
-gulp.task('default', gulp.series('build-styles', 'build-scripts'));
+
+exports.default = gulp.series(styles, scripts);
