@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.5.8
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - default
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8083:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+      UPLOAD_LIMIT: 300M
+    networks:
+      - default
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - '8003:80'
+    restart: always
+    volumes: ['./:/var/www/html']
+    environment:
+      WORDPRESS_REDIS_ADDRESS: redis:6379
+      WORDPRESS_REDIS_PASSWORD: password
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - default
+  redis:
+    image: bitnami/redis:latest
+    ports:
+      - '6379:6379'
+    restart: always
+    environment:
+      REDIS_PASSWORD: password
+    networks:
+      - default
+networks:
+  default:
+volumes:
+  db_data:
