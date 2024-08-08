@@ -1,0 +1,19 @@
+div.pscnn-loteria table.list {
+    tr:last-of-type td { border-bottom: none; }
+
+    thead th {
+        color: #298c5f;
+        padding-top: 76px;
+        padding-bottom: 16px;
+    }
+
+    tbody td { padding: 16px 0; }
+
+    thead th:first-of-type,
+    tbody td:first-of-type { padding-left: 134px; }
+
+    thead th:last-of-type,
+    tbody td:last-of-type { padding-right: 134px; }
+
+    tbody tr:last-of-type td { padding-bottom: 39px; }
+}
