@@ -1,0 +1,113 @@
+.cnn-loteria-result {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	text-align: center;
+	font-family: Arial, sans-serif;
+}
+
+.cnn-loteria-result .header {
+	color: #fff;
+	padding: 10px;
+	border-radius: 5px 5px 0 0;
+}
+
+.cnn-loteria-result .header h2 {
+	color: #fff;
+}
+
+.cnn-loteria-result h2 {
+	margin: 0;
+	font-size: 20px;
+}
+
+.divider {
+	border: none;
+	border-top: 1px solid #ddd;
+	margin: 10px 0;
+}
+
+.dezenas {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 20px 0;
+}
+
+.dezena {
+	color: #fff;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	margin: 5px;
+	border-radius: 50%;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.premio-area {
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.premio-area p {
+	margin: 0;
+	font-size: 18px;
+	color: #000;
+	font-weight: bold;
+}
+
+.premio-area h3 {
+	margin: 5px 0 0 0;
+	font-size: 24px;
+	color: #000;
+	font-weight: bold;
+}
+
+.premiacoes-titles {
+	display: flex;
+	justify-content: space-between;
+	font-size: 16px;
+	color: #298C5F;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.premiacoes-titles span {
+	flex: 1;
+	text-align: center;
+}
+
+.premiacoes {
+	margin-top: 10px;
+	text-align: left;
+}
+
+.premiacao-row {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
+}
+
+.premiacao-row span {
+	flex: 1;
+	text-align: center;
+}
+
+.premiacao-row .descricao {
+	text-align: center;
+	color: #000;
+	font-weight: bold;
+}
+
+.premiacao-row .ganhadores {
+	text-align: center;
+	color: #000;
+}
+
+.premiacao-row .valor-premio {
+	text-align: center;
+	color: #000;
+}
