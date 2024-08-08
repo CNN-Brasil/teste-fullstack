@@ -62,6 +62,7 @@ class Loterias {
     }
 
     static protected function get_data_for_cache($data) {
+        // phpcs:ignore
         return json_encode($data);
     }
 
@@ -72,6 +73,7 @@ class Loterias {
             return $from_cache;
         }
 
+        // phpcs:disable
         $posts = get_posts([
             'post_type' => Post_Types::LOTERIAS,
             'post_status' => 'publish',
@@ -90,6 +92,7 @@ class Loterias {
             ],
 
         ]);
+        // phpcs:enable
 
         $data = get_post_meta($posts[0]->ID, 'dados_concurso', true);
         Redis::set(["{$loteria}:{$concurso}" => self::get_data_for_cache($data)]);
@@ -105,6 +108,7 @@ class Loterias {
         }
 
         $url = "https://loteriascaixa-api.herokuapp.com/api/{$loteria}/{$concurso}";
+        // phpcs:ignore
         $data = wp_remote_get($url);
 
         $data = json_decode($data['body'], true);

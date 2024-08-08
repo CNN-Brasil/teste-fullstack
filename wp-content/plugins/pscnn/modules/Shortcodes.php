@@ -13,7 +13,7 @@ class Shortcodes {
         $concurso = $atts['concurso'] ?? 'ultimo';
 
         return Renderer::renderFile(
-            __DIR__ . '/../views/main.pug.php',
+            __DIR__ . '/../views/main.php.pug',
             compact('concurso', 'loteria'),
         );
     }
