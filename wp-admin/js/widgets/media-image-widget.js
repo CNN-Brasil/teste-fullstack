@@ -3,7 +3,7 @@
  */
 
 /* eslint consistent-this: [ "error", "control" ] */
-(function( component, $ ) {
+(function ( component, $ ) {
 	'use strict';
 
 	var ImageWidgetModel, ImageWidgetControl;
@@ -16,7 +16,7 @@
 	 * @class    wp.mediaWidgets.modelConstructors.media_image
 	 * @augments wp.mediaWidgets.MediaWidgetModel
 	 */
-	ImageWidgetModel = component.MediaWidgetModel.extend({});
+	ImageWidgetModel = component.MediaWidgetModel.extend( {} );
 
 	/**
 	 * Image widget control.
@@ -26,16 +26,21 @@
 	 * @class    wp.mediaWidgets.controlConstructors.media_audio
 	 * @augments wp.mediaWidgets.MediaWidgetControl
 	 */
-	ImageWidgetControl = component.MediaWidgetControl.extend(/** @lends wp.mediaWidgets.controlConstructors.media_image.prototype */{
+	ImageWidgetControl = component.MediaWidgetControl.extend(
+		/** @lends wp.mediaWidgets.controlConstructors.media_image.prototype */        {
 
-		/**
-		 * View events.
-		 *
-		 * @type {object}
-		 */
-		events: _.extend( {}, component.MediaWidgetControl.prototype.events, {
-			'click .media-widget-preview.populated': 'editMedia'
-		} ),
+			/**
+			 * View events.
+			 *
+			 * @type {object}
+			 */
+			events: _.extend(
+				{},
+				component.MediaWidgetControl.prototype.events,
+				{
+					'click .media-widget-preview.populated': 'editMedia'
+				}
+			),
 
 		/**
 		 * Render preview.
@@ -49,14 +54,14 @@
 			}
 
 			previewContainer = control.$el.find( '.media-widget-preview' );
-			previewTemplate = wp.template( 'wp-media-widget-image-preview' );
+			previewTemplate  = wp.template( 'wp-media-widget-image-preview' );
 			previewContainer.html( previewTemplate( control.previewTemplateProps.toJSON() ) );
 			previewContainer.addClass( 'populated' );
 
 			linkInput = control.$el.find( '.link' );
 			if ( ! linkInput.is( document.activeElement ) ) {
 				fieldsContainer = control.$el.find( '.media-widget-fields' );
-				fieldsTemplate = wp.template( 'wp-media-widget-image-fields' );
+				fieldsTemplate  = wp.template( 'wp-media-widget-image-fields' );
 				fieldsContainer.html( fieldsTemplate( control.previewTemplateProps.toJSON() ) );
 			}
 		},
@@ -77,41 +82,48 @@
 			}
 
 			// Set up the media frame.
-			mediaFrame = wp.media({
-				frame: 'image',
-				state: 'image-details',
-				metadata: metadata
-			});
+			mediaFrame = wp.media(
+				{
+					frame: 'image',
+					state: 'image-details',
+					metadata: metadata
+				}
+			);
 			mediaFrame.$el.addClass( 'media-widget' );
 
-			updateCallback = function() {
+			updateCallback = function () {
 				var mediaProps, linkType;
 
 				// Update cached attachment object to avoid having to re-fetch. This also triggers re-rendering of preview.
-				mediaProps = mediaFrame.state().attributes.image.toJSON();
-				linkType = mediaProps.link;
+				mediaProps      = mediaFrame.state().attributes.image.toJSON();
+				linkType        = mediaProps.link;
 				mediaProps.link = mediaProps.linkUrl;
 				control.selectedAttachment.set( mediaProps );
 				control.displaySettings.set( 'link', linkType );
 
-				control.model.set( _.extend(
-					control.mapMediaToModelProps( mediaProps ),
-					{ error: false }
-				) );
+				control.model.set(
+					_.extend(
+						control.mapMediaToModelProps( mediaProps ),
+						{ error: false }
+					)
+				);
 			};
 
 			mediaFrame.state( 'image-details' ).on( 'update', updateCallback );
 			mediaFrame.state( 'replace-image' ).on( 'replace', updateCallback );
 
 			// Disable syncing of attachment changes back to server. See <https://core.trac.wordpress.org/ticket/40403>.
-			defaultSync = wp.media.model.Attachment.prototype.sync;
+			defaultSync                              = wp.media.model.Attachment.prototype.sync;
 			wp.media.model.Attachment.prototype.sync = function rejectedSync() {
 				return $.Deferred().rejectWith( this ).promise();
 			};
-			mediaFrame.on( 'close', function onClose() {
+			mediaFrame.on(
+				'close',
+				function onClose() {
 				mediaFrame.detach();
 				wp.media.model.Attachment.prototype.sync = defaultSync;
-			});
+				}
+			);
 
 			mediaFrame.open();
 		},
@@ -154,17 +166,18 @@
 		 * @return {Object} Preview template props.
 		 */
 		mapModelToPreviewTemplateProps: function mapModelToPreviewTemplateProps() {
-			var control = this, previewTemplateProps, url;
-			url = control.model.get( 'url' );
-			previewTemplateProps = component.MediaWidgetControl.prototype.mapModelToPreviewTemplateProps.call( control );
+			var control                          = this, previewTemplateProps, url;
+			url                                  = control.model.get( 'url' );
+			previewTemplateProps                 = component.MediaWidgetControl.prototype.mapModelToPreviewTemplateProps.call( control );
 			previewTemplateProps.currentFilename = url ? url.replace( /\?.*$/, '' ).replace( /^.+\//, '' ) : '';
-			previewTemplateProps.link_url = control.model.get( 'link_url' );
+			previewTemplateProps.link_url        = control.model.get( 'link_url' );
 			return previewTemplateProps;
 		}
-	});
+		}
+	);
 
 	// Exports.
 	component.controlConstructors.media_image = ImageWidgetControl;
-	component.modelConstructors.media_image = ImageWidgetModel;
+	component.modelConstructors.media_image   = ImageWidgetModel;
 
 })( wp.mediaWidgets, jQuery );

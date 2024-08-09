@@ -15,7 +15,7 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 	window.wp.codeEditor = {};
 }
 
-( function( $, wp ) {
+( function ( $, wp ) {
 	'use strict';
 
 	/**
@@ -29,10 +29,10 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 		csslint: {},
 		htmlhint: {},
 		jshint: {},
-		onTabNext: function() {},
-		onTabPrevious: function() {},
-		onChangeLintingErrors: function() {},
-		onUpdateErrorNotice: function() {}
+		onTabNext: function () {},
+		onTabPrevious: function () {},
+		onChangeLintingErrors: function () {},
+		onUpdateErrorNotice: function () {}
 	};
 
 	/**
@@ -46,7 +46,8 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 	 *
 	 * @return {void}
 	 */
-	function configureLinting( editor, settings ) { // eslint-disable-line complexity
+	function configureLinting( editor, settings ) {
+		// eslint-disable-line complexity
 		var currentErrorAnnotations = [], previouslyShownErrorAnnotations = [];
 
 		/**
@@ -66,7 +67,8 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 		 *
 		 * @return {Object} Lint options.
 		 */
-		function getLintOptions() { // eslint-disable-line complexity
+		function getLintOptions() {
+			// eslint-disable-line complexity
 			var options = editor.getOption( 'lint' );
 
 			if ( ! options ) {
@@ -80,7 +82,7 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 			}
 
 			/*
-			 * Note that rules must be sent in the "deprecated" lint.options property 
+			 * Note that rules must be sent in the "deprecated" lint.options property
 			 * to prevent linter from complaining about unrecognized options.
 			 * See <https://github.com/codemirror/CodeMirror/pull/4944>.
 			 */
@@ -111,11 +113,14 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 			}
 
 			// Wrap the onUpdateLinting CodeMirror event to route to onChangeLintingErrors and onUpdateErrorNotice.
-			options.onUpdateLinting = (function( onUpdateLintingOverridden ) {
-				return function( annotations, annotationsSorted, cm ) {
-					var errorAnnotations = _.filter( annotations, function( annotation ) {
-						return 'error' === annotation.severity;
-					} );
+			options.onUpdateLinting = (function ( onUpdateLintingOverridden ) {
+				return function ( annotations, annotationsSorted, cm ) {
+					var errorAnnotations = _.filter(
+						annotations,
+						function ( annotation ) {
+							return 'error' === annotation.severity;
+						}
+					);
 
 					if ( onUpdateLintingOverridden ) {
 						onUpdateLintingOverridden.apply( annotations, annotationsSorted, cm );
@@ -150,49 +155,61 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 		editor.setOption( 'lint', getLintOptions() );
 
 		// Keep lint options populated.
-		editor.on( 'optionChange', function( cm, option ) {
-			var options, gutters, gutterName = 'CodeMirror-lint-markers';
-			if ( 'lint' !== option ) {
-				return;
-			}
-			gutters = editor.getOption( 'gutters' ) || [];
-			options = editor.getOption( 'lint' );
-			if ( true === options ) {
-				if ( ! _.contains( gutters, gutterName ) ) {
-					editor.setOption( 'gutters', [ gutterName ].concat( gutters ) );
+		editor.on(
+			'optionChange',
+			function ( cm, option ) {
+				var options, gutters, gutterName = 'CodeMirror-lint-markers';
+				if ( 'lint' !== option ) {
+					return;
 				}
-				editor.setOption( 'lint', getLintOptions() ); // Expand to include linting options.
-			} else if ( ! options ) {
-				editor.setOption( 'gutters', _.without( gutters, gutterName ) );
-			}
+				gutters = editor.getOption( 'gutters' ) || [];
+				options = editor.getOption( 'lint' );
+				if ( true === options ) {
+					if ( ! _.contains( gutters, gutterName ) ) {
+						editor.setOption( 'gutters', [ gutterName ].concat( gutters ) );
+					}
+					editor.setOption( 'lint', getLintOptions() ); // Expand to include linting options.
+				} else if ( ! options ) {
+					editor.setOption( 'gutters', _.without( gutters, gutterName ) );
+				}
 
-			// Force update on error notice to show or hide.
-			if ( editor.getOption( 'lint' ) ) {
-				editor.performLint();
-			} else {
-				currentErrorAnnotations = [];
-				updateErrorNotice();
+				// Force update on error notice to show or hide.
+				if ( editor.getOption( 'lint' ) ) {
+					editor.performLint();
+				} else {
+					currentErrorAnnotations = [];
+					updateErrorNotice();
+				}
 			}
-		} );
+		);
 
 		// Update error notice when leaving the editor.
 		editor.on( 'blur', updateErrorNotice );
 
 		// Work around hint selection with mouse causing focus to leave editor.
-		editor.on( 'startCompletion', function() {
-			editor.off( 'blur', updateErrorNotice );
-		} );
-		editor.on( 'endCompletion', function() {
-			var editorRefocusWait = 500;
-			editor.on( 'blur', updateErrorNotice );
+		editor.on(
+			'startCompletion',
+			function () {
+				editor.off( 'blur', updateErrorNotice );
+			}
+		);
+		editor.on(
+			'endCompletion',
+			function () {
+				var editorRefocusWait = 500;
+				editor.on( 'blur', updateErrorNotice );
 
-			// Wait for editor to possibly get re-focused after selection.
-			_.delay( function() {
-				if ( ! editor.state.focused ) {
-					updateErrorNotice();
-				}
-			}, editorRefocusWait );
-		});
+				// Wait for editor to possibly get re-focused after selection.
+				_.delay(
+					function () {
+						if ( ! editor.state.focused ) {
+								updateErrorNotice();
+						}
+					},
+					editorRefocusWait
+				);
+			}
+		);
 
 		/*
 		 * Make sure setting validities are set if the user tries to click Publish
@@ -202,11 +219,14 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 		 * blurred the field and cause onUpdateErrorNotice to have already been
 		 * called.
 		 */
-		$( document.body ).on( 'mousedown', function( event ) {
-			if ( editor.state.focused && ! $.contains( editor.display.wrapper, event.target ) && ! $( event.target ).hasClass( 'CodeMirror-hint' ) ) {
-				updateErrorNotice();
+		$( document.body ).on(
+			'mousedown',
+			function ( event ) {
+				if ( editor.state.focused && ! $.contains( editor.display.wrapper, event.target ) && ! $( event.target ).hasClass( 'CodeMirror-hint' ) ) {
+					updateErrorNotice();
+				}
 			}
-		});
+		);
 	}
 
 	/**
@@ -223,10 +243,15 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 	function configureTabbing( codemirror, settings ) {
 		var $textarea = $( codemirror.getTextArea() );
 
-		codemirror.on( 'blur', function() {
-			$textarea.data( 'next-tab-blurs', false );
-		});
-		codemirror.on( 'keydown', function onKeydown( editor, event ) {
+		codemirror.on(
+			'blur',
+			function () {
+				$textarea.data( 'next-tab-blurs', false );
+			}
+		);
+		codemirror.on(
+			'keydown',
+			function onKeydown( editor, event ) {
 			var tabKeyCode = 9, escKeyCode = 27;
 
 			// Take note of the ESC keypress so that the next TAB can focus outside the editor.
@@ -252,7 +277,8 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 
 			// Prevent tab character from being added.
 			event.preventDefault();
-		});
+			}
+		);
 	}
 
 	/**
@@ -287,7 +313,7 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 			$textarea = $( textarea );
 		}
 
-		instanceSettings = $.extend( {}, wp.codeEditor.defaultSettings, settings );
+		instanceSettings            = $.extend( {}, wp.codeEditor.defaultSettings, settings );
 		instanceSettings.codemirror = $.extend( {}, instanceSettings.codemirror );
 
 		codemirror = wp.CodeMirror.fromTextArea( $textarea[0], instanceSettings.codemirror );
@@ -300,41 +326,45 @@ if ( 'undefined' === typeof window.wp.codeEditor ) {
 		};
 
 		if ( codemirror.showHint ) {
-			codemirror.on( 'keyup', function( editor, event ) { // eslint-disable-line complexity
-				var shouldAutocomplete, isAlphaKey = /^[a-zA-Z]$/.test( event.key ), lineBeforeCursor, innerMode, token;
-				if ( codemirror.state.completionActive && isAlphaKey ) {
-					return;
-				}
+			codemirror.on(
+				'keyup',
+				function ( editor, event ) {
+					// eslint-disable-line complexity
+					var shouldAutocomplete, isAlphaKey = /^[a-zA-Z]$/.test( event.key ), lineBeforeCursor, innerMode, token;
+					if ( codemirror.state.completionActive && isAlphaKey ) {
+						return;
+					}
 
-				// Prevent autocompletion in string literals or comments.
-				token = codemirror.getTokenAt( codemirror.getCursor() );
-				if ( 'string' === token.type || 'comment' === token.type ) {
-					return;
-				}
+					// Prevent autocompletion in string literals or comments.
+					token = codemirror.getTokenAt( codemirror.getCursor() );
+					if ( 'string' === token.type || 'comment' === token.type ) {
+						return;
+					}
 
-				innerMode = wp.CodeMirror.innerMode( codemirror.getMode(), token.state ).mode.name;
-				lineBeforeCursor = codemirror.doc.getLine( codemirror.doc.getCursor().line ).substr( 0, codemirror.doc.getCursor().ch );
-				if ( 'html' === innerMode || 'xml' === innerMode ) {
-					shouldAutocomplete =
+					innerMode        = wp.CodeMirror.innerMode( codemirror.getMode(), token.state ).mode.name;
+					lineBeforeCursor = codemirror.doc.getLine( codemirror.doc.getCursor().line ).substr( 0, codemirror.doc.getCursor().ch );
+					if ( 'html' === innerMode || 'xml' === innerMode ) {
+						shouldAutocomplete =
 						'<' === event.key ||
 						'/' === event.key && 'tag' === token.type ||
 						isAlphaKey && 'tag' === token.type ||
 						isAlphaKey && 'attribute' === token.type ||
 						'=' === token.string && token.state.htmlState && token.state.htmlState.tagName;
-				} else if ( 'css' === innerMode ) {
-					shouldAutocomplete =
+					} else if ( 'css' === innerMode ) {
+						shouldAutocomplete =
 						isAlphaKey ||
 						':' === event.key ||
 						' ' === event.key && /:\s+$/.test( lineBeforeCursor );
-				} else if ( 'javascript' === innerMode ) {
-					shouldAutocomplete = isAlphaKey || '.' === event.key;
-				} else if ( 'clike' === innerMode && 'php' === codemirror.options.mode ) {
-					shouldAutocomplete = 'keyword' === token.type || 'variable' === token.type;
+					} else if ( 'javascript' === innerMode ) {
+						shouldAutocomplete = isAlphaKey || '.' === event.key;
+					} else if ( 'clike' === innerMode && 'php' === codemirror.options.mode ) {
+						shouldAutocomplete = 'keyword' === token.type || 'variable' === token.type;
+					}
+					if ( shouldAutocomplete ) {
+						codemirror.showHint( { completeSingle: false } );
+					}
 				}
-				if ( shouldAutocomplete ) {
-					codemirror.showHint( { completeSingle: false } );
-				}
-			});
+			);
 		}
 
 		// Facilitate tabbing out of the editor.

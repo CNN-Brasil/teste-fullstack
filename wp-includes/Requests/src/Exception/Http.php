@@ -37,15 +37,15 @@ class Http extends Exception {
 	 * subclass used. Reason phrases can vary, however.
 	 *
 	 * @param string|null $reason Reason phrase
-	 * @param mixed $data Associated data
+	 * @param mixed       $data Associated data
 	 */
-	public function __construct($reason = null, $data = null) {
-		if ($reason !== null) {
+	public function __construct( $reason = null, $data = null ) {
+		if ( $reason !== null ) {
 			$this->reason = $reason;
 		}
 
-		$message = sprintf('%d %s', $this->code, $this->reason);
-		parent::__construct($message, 'httpresponse', $data, $this->code);
+		$message = sprintf( '%d %s', $this->code, $this->reason );
+		parent::__construct( $message, 'httpresponse', $data, $this->code );
 	}
 
 	/**
@@ -63,13 +63,13 @@ class Http extends Exception {
 	 * @param int|bool $code HTTP status code, or false if unavailable
 	 * @return string Exception class name to use
 	 */
-	public static function get_class($code) {
-		if (!$code) {
+	public static function get_class( $code ) {
+		if ( ! $code ) {
 			return StatusUnknown::class;
 		}
 
-		$class = sprintf('\WpOrg\Requests\Exception\Http\Status%d', $code);
-		if (class_exists($class)) {
+		$class = sprintf( '\WpOrg\Requests\Exception\Http\Status%d', $code );
+		if ( class_exists( $class ) ) {
 			return $class;
 		}
 

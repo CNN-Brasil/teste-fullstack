@@ -44,13 +44,11 @@ class WP_Widget_Tag_Cloud extends WP_Widget {
 
 		if ( ! empty( $instance['title'] ) ) {
 			$title = $instance['title'];
-		} else {
-			if ( 'post_tag' === $current_taxonomy ) {
+		} elseif ( 'post_tag' === $current_taxonomy ) {
 				$title = __( 'Tags' );
-			} else {
-				$tax   = get_taxonomy( $current_taxonomy );
-				$title = $tax->labels->name;
-			}
+		} else {
+			$tax   = get_taxonomy( $current_taxonomy );
+			$title = $tax->labels->name;
 		}
 
 		$default_title = $title;

@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -48,8 +48,8 @@
  * @package SimplePie
  * @subpackage Parsing
  */
-class SimplePie_XML_Declaration_Parser
-{
+class SimplePie_XML_Declaration_Parser {
+
 	/**
 	 * XML Version
 	 *
@@ -112,10 +112,9 @@ class SimplePie_XML_Declaration_Parser
 	 * @access public
 	 * @param string $data Input data
 	 */
-	public function __construct($data)
-	{
-		$this->data = $data;
-		$this->data_length = strlen($this->data);
+	public function __construct( $data ) {
+		$this->data        = $data;
+		$this->data_length = strlen( $this->data );
 	}
 
 	/**
@@ -124,21 +123,18 @@ class SimplePie_XML_Declaration_Parser
 	 * @access public
 	 * @return bool true on success, false on failure
 	 */
-	public function parse()
-	{
-		while ($this->state && $this->state !== 'emit' && $this->has_data())
-		{
+	public function parse() {
+		while ( $this->state && $this->state !== 'emit' && $this->has_data() ) {
 			$state = $this->state;
 			$this->$state();
 		}
 		$this->data = '';
-		if ($this->state === 'emit')
-		{
+		if ( $this->state === 'emit' ) {
 			return true;
 		}
 
-		$this->version = '';
-		$this->encoding = '';
+		$this->version    = '';
+		$this->encoding   = '';
 		$this->standalone = '';
 		return false;
 	}
@@ -149,9 +145,8 @@ class SimplePie_XML_Declaration_Parser
 	 * @access private
 	 * @return bool true if there is further data, false if not
 	 */
-	public function has_data()
-	{
-		return (bool) ($this->position < $this->data_length);
+	public function has_data() {
+		return (bool) ( $this->position < $this->data_length );
 	}
 
 	/**
@@ -159,9 +154,8 @@ class SimplePie_XML_Declaration_Parser
 	 *
 	 * @return int Number of whitespace characters passed
 	 */
-	public function skip_whitespace()
-	{
-		$whitespace = strspn($this->data, "\x09\x0A\x0D\x20", $this->position);
+	public function skip_whitespace() {
+		$whitespace      = strspn( $this->data, "\x09\x0A\x0D\x20", $this->position );
 		$this->position += $whitespace;
 		return $whitespace;
 	}
@@ -169,16 +163,13 @@ class SimplePie_XML_Declaration_Parser
 	/**
 	 * Read value
 	 */
-	public function get_value()
-	{
-		$quote = substr($this->data, $this->position, 1);
-		if ($quote === '"' || $quote === "'")
-		{
-			$this->position++;
-			$len = strcspn($this->data, $quote, $this->position);
-			if ($this->has_data())
-			{
-				$value = substr($this->data, $this->position, $len);
+	public function get_value() {
+		$quote = substr( $this->data, $this->position, 1 );
+		if ( $quote === '"' || $quote === "'" ) {
+			++$this->position;
+			$len = strcspn( $this->data, $quote, $this->position );
+			if ( $this->has_data() ) {
+				$value           = substr( $this->data, $this->position, $len );
 				$this->position += $len + 1;
 				return $value;
 			}
@@ -186,148 +177,103 @@ class SimplePie_XML_Declaration_Parser
 		return false;
 	}
 
-	public function before_version_name()
-	{
-		if ($this->skip_whitespace())
-		{
+	public function before_version_name() {
+		if ( $this->skip_whitespace() ) {
 			$this->state = 'version_name';
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function version_name()
-	{
-		if (substr($this->data, $this->position, 7) === 'version')
-		{
+	public function version_name() {
+		if ( substr( $this->data, $this->position, 7 ) === 'version' ) {
 			$this->position += 7;
 			$this->skip_whitespace();
 			$this->state = 'version_equals';
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function version_equals()
-	{
-		if (substr($this->data, $this->position, 1) === '=')
-		{
-			$this->position++;
+	public function version_equals() {
+		if ( substr( $this->data, $this->position, 1 ) === '=' ) {
+			++$this->position;
 			$this->skip_whitespace();
 			$this->state = 'version_value';
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function version_value()
-	{
-		if ($this->version = $this->get_value())
-		{
+	public function version_value() {
+		if ( $this->version = $this->get_value() ) {
 			$this->skip_whitespace();
-			if ($this->has_data())
-			{
+			if ( $this->has_data() ) {
 				$this->state = 'encoding_name';
-			}
-			else
-			{
+			} else {
 				$this->state = 'emit';
 			}
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function encoding_name()
-	{
-		if (substr($this->data, $this->position, 8) === 'encoding')
-		{
+	public function encoding_name() {
+		if ( substr( $this->data, $this->position, 8 ) === 'encoding' ) {
 			$this->position += 8;
 			$this->skip_whitespace();
 			$this->state = 'encoding_equals';
-		}
-		else
-		{
+		} else {
 			$this->state = 'standalone_name';
 		}
 	}
 
-	public function encoding_equals()
-	{
-		if (substr($this->data, $this->position, 1) === '=')
-		{
-			$this->position++;
+	public function encoding_equals() {
+		if ( substr( $this->data, $this->position, 1 ) === '=' ) {
+			++$this->position;
 			$this->skip_whitespace();
 			$this->state = 'encoding_value';
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function encoding_value()
-	{
-		if ($this->encoding = $this->get_value())
-		{
+	public function encoding_value() {
+		if ( $this->encoding = $this->get_value() ) {
 			$this->skip_whitespace();
-			if ($this->has_data())
-			{
+			if ( $this->has_data() ) {
 				$this->state = 'standalone_name';
-			}
-			else
-			{
+			} else {
 				$this->state = 'emit';
 			}
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function standalone_name()
-	{
-		if (substr($this->data, $this->position, 10) === 'standalone')
-		{
+	public function standalone_name() {
+		if ( substr( $this->data, $this->position, 10 ) === 'standalone' ) {
 			$this->position += 10;
 			$this->skip_whitespace();
 			$this->state = 'standalone_equals';
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function standalone_equals()
-	{
-		if (substr($this->data, $this->position, 1) === '=')
-		{
-			$this->position++;
+	public function standalone_equals() {
+		if ( substr( $this->data, $this->position, 1 ) === '=' ) {
+			++$this->position;
 			$this->skip_whitespace();
 			$this->state = 'standalone_value';
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
 
-	public function standalone_value()
-	{
-		if ($standalone = $this->get_value())
-		{
-			switch ($standalone)
-			{
+	public function standalone_value() {
+		if ( $standalone = $this->get_value() ) {
+			switch ( $standalone ) {
 				case 'yes':
 					$this->standalone = true;
 					break;
@@ -342,17 +288,12 @@ class SimplePie_XML_Declaration_Parser
 			}
 
 			$this->skip_whitespace();
-			if ($this->has_data())
-			{
+			if ( $this->has_data() ) {
 				$this->state = false;
-			}
-			else
-			{
+			} else {
 				$this->state = 'emit';
 			}
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}

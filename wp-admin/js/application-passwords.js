@@ -2,160 +2,206 @@
  * @output wp-admin/js/application-passwords.js
  */
 
-( function( $ ) {
-	var $appPassSection = $( '#application-passwords-section' ),
-		$newAppPassForm = $appPassSection.find( '.create-application-password' ),
-		$newAppPassField = $newAppPassForm.find( '.input' ),
+( function ( $ ) {
+	var $appPassSection   = $( '#application-passwords-section' ),
+		$newAppPassForm   = $appPassSection.find( '.create-application-password' ),
+		$newAppPassField  = $newAppPassForm.find( '.input' ),
 		$newAppPassButton = $newAppPassForm.find( '.button' ),
-		$appPassTwrapper = $appPassSection.find( '.application-passwords-list-table-wrapper' ),
-		$appPassTbody = $appPassSection.find( 'tbody' ),
+		$appPassTwrapper  = $appPassSection.find( '.application-passwords-list-table-wrapper' ),
+		$appPassTbody     = $appPassSection.find( 'tbody' ),
 		$appPassTrNoItems = $appPassTbody.find( '.no-items' ),
-		$removeAllBtn = $( '#revoke-all-application-passwords' ),
-		tmplNewAppPass = wp.template( 'new-application-password' ),
-		tmplAppPassRow = wp.template( 'application-password-row' ),
-		userId = $( '#user_id' ).val();
+		$removeAllBtn     = $( '#revoke-all-application-passwords' ),
+		tmplNewAppPass    = wp.template( 'new-application-password' ),
+		tmplAppPassRow    = wp.template( 'application-password-row' ),
+		userId            = $( '#user_id' ).val();
 
-	$newAppPassButton.on( 'click', function( e ) {
-		e.preventDefault();
+	$newAppPassButton.on(
+		'click',
+		function ( e ) {
+			e.preventDefault();
 
-		if ( $newAppPassButton.prop( 'aria-disabled' ) ) {
-			return;
-		}
+			if ( $newAppPassButton.prop( 'aria-disabled' ) ) {
+				return;
+			}
 
-		var name = $newAppPassField.val();
+			var name = $newAppPassField.val();
 
-		if ( 0 === name.length ) {
-			$newAppPassField.trigger( 'focus' );
-			return;
-		}
+			if ( 0 === name.length ) {
+				$newAppPassField.trigger( 'focus' );
+				return;
+			}
 
-		clearNotices();
-		$newAppPassButton.prop( 'aria-disabled', true ).addClass( 'disabled' );
+			clearNotices();
+			$newAppPassButton.prop( 'aria-disabled', true ).addClass( 'disabled' );
 
-		var request = {
-			name: name
-		};
-
-		/**
-		 * Filters the request data used to create a new Application Password.
-		 *
-		 * @since 5.6.0
-		 *
-		 * @param {Object} request The request data.
-		 * @param {number} userId  The id of the user the password is added for.
-		 */
-		request = wp.hooks.applyFilters( 'wp_application_passwords_new_password_request', request, userId );
-
-		wp.apiRequest( {
-			path: '/wp/v2/users/' + userId + '/application-passwords?_locale=user',
-			method: 'POST',
-			data: request
-		} ).always( function() {
-			$newAppPassButton.removeProp( 'aria-disabled' ).removeClass( 'disabled' );
-		} ).done( function( response ) {
-			$newAppPassField.val( '' );
-			$newAppPassButton.prop( 'disabled', false );
-
-			$newAppPassForm.after( tmplNewAppPass( {
-				name: response.name,
-				password: response.password
-			} ) );
-			$( '.new-application-password-notice' ).attr( 'tabindex', '-1' ).trigger( 'focus' );
-
-			$appPassTbody.prepend( tmplAppPassRow( response ) );
-
-			$appPassTwrapper.show();
-			$appPassTrNoItems.remove();
+			var request = {
+				name: name
+			};
 
 			/**
-			 * Fires after an application password has been successfully created.
+			 * Filters the request data used to create a new Application Password.
 			 *
 			 * @since 5.6.0
 			 *
-			 * @param {Object} response The response data from the REST API.
-			 * @param {Object} request  The request data used to create the password.
+			 * @param {Object} request The request data.
+			 * @param {number} userId  The id of the user the password is added for.
 			 */
-			wp.hooks.doAction( 'wp_application_passwords_created_password', response, request );
-		} ).fail( handleErrorResponse );
-	} );
+			request = wp.hooks.applyFilters( 'wp_application_passwords_new_password_request', request, userId );
 
-	$appPassTbody.on( 'click', '.delete', function( e ) {
-		e.preventDefault();
-
-		if ( ! window.confirm( wp.i18n.__( 'Are you sure you want to revoke this password? This action cannot be undone.' ) ) ) {
-			return;
-		}
-
-		var $submitButton = $( this ),
-			$tr = $submitButton.closest( 'tr' ),
-			uuid = $tr.data( 'uuid' );
-
-		clearNotices();
-		$submitButton.prop( 'disabled', true );
-
-		wp.apiRequest( {
-			path: '/wp/v2/users/' + userId + '/application-passwords/' + uuid + '?_locale=user',
-			method: 'DELETE'
-		} ).always( function() {
-			$submitButton.prop( 'disabled', false );
-		} ).done( function( response ) {
-			if ( response.deleted ) {
-				if ( 0 === $tr.siblings().length ) {
-					$appPassTwrapper.hide();
+			wp.apiRequest(
+				{
+					path: '/wp/v2/users/' + userId + '/application-passwords?_locale=user',
+					method: 'POST',
+					data: request
 				}
-				$tr.remove();
+			).always(
+				function () {
+					$newAppPassButton.removeProp( 'aria-disabled' ).removeClass( 'disabled' );
+				}
+			).done(
+				function ( response ) {
+					$newAppPassField.val( '' );
+					$newAppPassButton.prop( 'disabled', false );
 
-				addNotice( wp.i18n.__( 'Application password revoked.' ), 'success' ).trigger( 'focus' );
-			}
-		} ).fail( handleErrorResponse );
-	} );
+					$newAppPassForm.after(
+						tmplNewAppPass(
+							{
+								name: response.name,
+								password: response.password
+							}
+						)
+					);
+					$( '.new-application-password-notice' ).attr( 'tabindex', '-1' ).trigger( 'focus' );
 
-	$removeAllBtn.on( 'click', function( e ) {
-		e.preventDefault();
+					$appPassTbody.prepend( tmplAppPassRow( response ) );
 
-		if ( ! window.confirm( wp.i18n.__( 'Are you sure you want to revoke all passwords? This action cannot be undone.' ) ) ) {
-			return;
+					$appPassTwrapper.show();
+					$appPassTrNoItems.remove();
+
+					/**
+					 * Fires after an application password has been successfully created.
+					 *
+					 * @since 5.6.0
+					 *
+					 * @param {Object} response The response data from the REST API.
+					 * @param {Object} request  The request data used to create the password.
+					 */
+					wp.hooks.doAction( 'wp_application_passwords_created_password', response, request );
+				}
+			).fail( handleErrorResponse );
 		}
+	);
 
-		var $submitButton = $( this );
-
-		clearNotices();
-		$submitButton.prop( 'disabled', true );
-
-		wp.apiRequest( {
-			path: '/wp/v2/users/' + userId + '/application-passwords?_locale=user',
-			method: 'DELETE'
-		} ).always( function() {
-			$submitButton.prop( 'disabled', false );
-		} ).done( function( response ) {
-			if ( response.deleted ) {
-				$appPassTbody.children().remove();
-				$appPassSection.children( '.new-application-password' ).remove();
-				$appPassTwrapper.hide();
-
-				addNotice( wp.i18n.__( 'All application passwords revoked.' ), 'success' ).trigger( 'focus' );
-			}
-		} ).fail( handleErrorResponse );
-	} );
-
-	$appPassSection.on( 'click', '.notice-dismiss', function( e ) {
-		e.preventDefault();
-		var $el = $( this ).parent();
-		$el.removeAttr( 'role' );
-		$el.fadeTo( 100, 0, function () {
-			$el.slideUp( 100, function () {
-				$el.remove();
-				$newAppPassField.trigger( 'focus' );
-			} );
-		} );
-	} );
-
-	$newAppPassField.on( 'keypress', function ( e ) {
-		if ( 13 === e.which ) {
+	$appPassTbody.on(
+		'click',
+		'.delete',
+		function ( e ) {
 			e.preventDefault();
-			$newAppPassButton.trigger( 'click' );
+
+			if ( ! window.confirm( wp.i18n.__( 'Are you sure you want to revoke this password? This action cannot be undone.' ) ) ) {
+				return;
+			}
+
+			var $submitButton = $( this ),
+			$tr               = $submitButton.closest( 'tr' ),
+			uuid              = $tr.data( 'uuid' );
+
+			clearNotices();
+			$submitButton.prop( 'disabled', true );
+
+			wp.apiRequest(
+				{
+					path: '/wp/v2/users/' + userId + '/application-passwords/' + uuid + '?_locale=user',
+					method: 'DELETE'
+				}
+			).always(
+				function () {
+					$submitButton.prop( 'disabled', false );
+				}
+			).done(
+				function ( response ) {
+					if ( response.deleted ) {
+						if ( 0 === $tr.siblings().length ) {
+							$appPassTwrapper.hide();
+						}
+						$tr.remove();
+
+						addNotice( wp.i18n.__( 'Application password revoked.' ), 'success' ).trigger( 'focus' );
+					}
+				}
+			).fail( handleErrorResponse );
 		}
-	} );
+	);
+
+	$removeAllBtn.on(
+		'click',
+		function ( e ) {
+			e.preventDefault();
+
+			if ( ! window.confirm( wp.i18n.__( 'Are you sure you want to revoke all passwords? This action cannot be undone.' ) ) ) {
+				return;
+			}
+
+			var $submitButton = $( this );
+
+			clearNotices();
+			$submitButton.prop( 'disabled', true );
+
+			wp.apiRequest(
+				{
+					path: '/wp/v2/users/' + userId + '/application-passwords?_locale=user',
+					method: 'DELETE'
+				}
+			).always(
+				function () {
+					$submitButton.prop( 'disabled', false );
+				}
+			).done(
+				function ( response ) {
+					if ( response.deleted ) {
+							$appPassTbody.children().remove();
+							$appPassSection.children( '.new-application-password' ).remove();
+							$appPassTwrapper.hide();
+
+							addNotice( wp.i18n.__( 'All application passwords revoked.' ), 'success' ).trigger( 'focus' );
+					}
+				}
+			).fail( handleErrorResponse );
+		}
+	);
+
+	$appPassSection.on(
+		'click',
+		'.notice-dismiss',
+		function ( e ) {
+			e.preventDefault();
+			var $el = $( this ).parent();
+			$el.removeAttr( 'role' );
+			$el.fadeTo(
+				100,
+				0,
+				function () {
+					$el.slideUp(
+						100,
+						function () {
+							$el.remove();
+							$newAppPassField.trigger( 'focus' );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	$newAppPassField.on(
+		'keypress',
+		function ( e ) {
+			if ( 13 === e.which ) {
+				e.preventDefault();
+				$newAppPassButton.trigger( 'click' );
+			}
+		}
+	);
 
 	// If there are no items, don't display the table yet.  If there are, show it.
 	if ( 0 === $appPassTbody.children( 'tr' ).not( $appPassTrNoItems ).length ) {

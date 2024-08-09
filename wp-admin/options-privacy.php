@@ -126,8 +126,7 @@ if ( ! empty( $privacy_policy_page_id ) ) {
 			__( 'The currently selected Privacy Policy page does not exist. Please create or select a new page.' ),
 			'error'
 		);
-	} else {
-		if ( 'trash' === $privacy_policy_page->post_status ) {
+	} elseif ( 'trash' === $privacy_policy_page->post_status ) {
 			add_settings_error(
 				'page_for_privacy_policy',
 				'page_for_privacy_policy',
@@ -138,9 +137,8 @@ if ( ! empty( $privacy_policy_page_id ) ) {
 				),
 				'error'
 			);
-		} else {
-			$privacy_policy_page_exists = true;
-		}
+	} else {
+		$privacy_policy_page_exists = true;
 	}
 }
 

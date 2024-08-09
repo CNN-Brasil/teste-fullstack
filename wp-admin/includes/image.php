@@ -942,12 +942,10 @@ function wp_read_image_metadata( $file ) {
 			if ( empty( $meta['caption'] ) && $exif_description && $exif_usercomment ) {
 				if ( ! empty( $meta['title'] ) && $exif_description === $meta['title'] ) {
 					$caption = $exif_usercomment;
-				} else {
-					if ( $exif_description === $exif_usercomment ) {
+				} elseif ( $exif_description === $exif_usercomment ) {
 						$caption = $exif_description;
-					} else {
-						$caption = trim( $exif_description . ' ' . $exif_usercomment );
-					}
+				} else {
+					$caption = trim( $exif_description . ' ' . $exif_usercomment );
 				}
 				$meta['caption'] = $caption;
 			}

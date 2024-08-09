@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------
-  14.0 - Media Screen
+	14.0 - Media Screen
 ------------------------------------------------------------------------------*/
 
 .media-item .describe {
@@ -252,7 +252,7 @@
 }
 
 /*------------------------------------------------------------------------------
-  14.1 - Media Library
+	14.1 - Media Library
 ------------------------------------------------------------------------------*/
 
 .find-box {
@@ -827,7 +827,7 @@ border color while dragging a file over the uploader drop area */
 }
 
 /*------------------------------------------------------------------------------
-  14.2 - Image Editor
+	14.2 - Image Editor
 ------------------------------------------------------------------------------*/
 .wp_attachment_details .attachment-alt-text {
 	margin-bottom: 5px;
@@ -943,7 +943,7 @@ border color while dragging a file over the uploader drop area */
 .media-disabled,
 .image-editor .disabled {
 	/* WCAG 1.4.3 Text or images of text that are part of an inactive user
-	   interface component ... have no contrast requirement. */
+		interface component ... have no contrast requirement. */
 	color: #a7aaad;
 }
 
@@ -1255,7 +1255,7 @@ audio, video {
  * HiDPI Displays
  */
 @media print,
-  (min-resolution: 120dpi) {
+	(min-resolution: 120dpi) {
 	.imgedit-wait:before {
 		background-image: url(../images/spinner-2x.gif);
 	}
@@ -1266,7 +1266,7 @@ audio, video {
 	.edit-attachment-frame textarea {
 		line-height: 1.5;
 	}
-	
+
 	.wp_attachment_details label[for="content"] {
 		font-size: 14px;
 		line-height: 1.5;

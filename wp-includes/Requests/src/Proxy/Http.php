@@ -64,24 +64,24 @@ final class Http implements Proxy {
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not an array, a string or null.
 	 * @throws \WpOrg\Requests\Exception\ArgumentCount On incorrect number of arguments (`proxyhttpbadargs`)
 	 */
-	public function __construct($args = null) {
-		if (is_string($args)) {
+	public function __construct( $args = null ) {
+		if ( is_string( $args ) ) {
 			$this->proxy = $args;
-		} elseif (is_array($args)) {
-			if (count($args) === 1) {
+		} elseif ( is_array( $args ) ) {
+			if ( count( $args ) === 1 ) {
 				list($this->proxy) = $args;
-			} elseif (count($args) === 3) {
+			} elseif ( count( $args ) === 3 ) {
 				list($this->proxy, $this->user, $this->pass) = $args;
 				$this->use_authentication                    = true;
 			} else {
 				throw ArgumentCount::create(
 					'an array with exactly one element or exactly three elements',
-					count($args),
+					count( $args ),
 					'proxyhttpbadargs'
 				);
 			}
-		} elseif ($args !== null) {
-			throw InvalidArgument::create(1, '$args', 'array|string|null', gettype($args));
+		} elseif ( $args !== null ) {
+			throw InvalidArgument::create( 1, '$args', 'array|string|null', gettype( $args ) );
 		}
 	}
 
@@ -95,13 +95,13 @@ final class Http implements Proxy {
 	 * @see \WpOrg\Requests\Proxy\Http::fsockopen_header()
 	 * @param \WpOrg\Requests\Hooks $hooks Hook system
 	 */
-	public function register(Hooks $hooks) {
-		$hooks->register('curl.before_send', [$this, 'curl_before_send']);
+	public function register( Hooks $hooks ) {
+		$hooks->register( 'curl.before_send', array( $this, 'curl_before_send' ) );
 
-		$hooks->register('fsockopen.remote_socket', [$this, 'fsockopen_remote_socket']);
-		$hooks->register('fsockopen.remote_host_path', [$this, 'fsockopen_remote_host_path']);
-		if ($this->use_authentication) {
-			$hooks->register('fsockopen.after_headers', [$this, 'fsockopen_header']);
+		$hooks->register( 'fsockopen.remote_socket', array( $this, 'fsockopen_remote_socket' ) );
+		$hooks->register( 'fsockopen.remote_host_path', array( $this, 'fsockopen_remote_host_path' ) );
+		if ( $this->use_authentication ) {
+			$hooks->register( 'fsockopen.after_headers', array( $this, 'fsockopen_header' ) );
 		}
 	}
 
@@ -111,13 +111,13 @@ final class Http implements Proxy {
 	 * @since 1.6
 	 * @param resource|\CurlHandle $handle cURL handle
 	 */
-	public function curl_before_send(&$handle) {
-		curl_setopt($handle, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
-		curl_setopt($handle, CURLOPT_PROXY, $this->proxy);
+	public function curl_before_send( &$handle ) {
+		curl_setopt( $handle, CURLOPT_PROXYTYPE, CURLPROXY_HTTP );
+		curl_setopt( $handle, CURLOPT_PROXY, $this->proxy );
 
-		if ($this->use_authentication) {
-			curl_setopt($handle, CURLOPT_PROXYAUTH, CURLAUTH_ANY);
-			curl_setopt($handle, CURLOPT_PROXYUSERPWD, $this->get_auth_string());
+		if ( $this->use_authentication ) {
+			curl_setopt( $handle, CURLOPT_PROXYAUTH, CURLAUTH_ANY );
+			curl_setopt( $handle, CURLOPT_PROXYUSERPWD, $this->get_auth_string() );
 		}
 	}
 
@@ -127,7 +127,7 @@ final class Http implements Proxy {
 	 * @since 1.6
 	 * @param string $remote_socket Socket connection string
 	 */
-	public function fsockopen_remote_socket(&$remote_socket) {
+	public function fsockopen_remote_socket( &$remote_socket ) {
 		$remote_socket = $this->proxy;
 	}
 
@@ -138,7 +138,7 @@ final class Http implements Proxy {
 	 * @param string $path Path to send in HTTP request string ("GET ...")
 	 * @param string $url Full URL we're requesting
 	 */
-	public function fsockopen_remote_host_path(&$path, $url) {
+	public function fsockopen_remote_host_path( &$path, $url ) {
 		$path = $url;
 	}
 
@@ -148,8 +148,8 @@ final class Http implements Proxy {
 	 * @since 1.6
 	 * @param string $out HTTP header string
 	 */
-	public function fsockopen_header(&$out) {
-		$out .= sprintf("Proxy-Authorization: Basic %s\r\n", base64_encode($this->get_auth_string()));
+	public function fsockopen_header( &$out ) {
+		$out .= sprintf( "Proxy-Authorization: Basic %s\r\n", base64_encode( $this->get_auth_string() ) );
 	}
 
 	/**

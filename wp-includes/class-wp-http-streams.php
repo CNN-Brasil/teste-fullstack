@@ -177,8 +177,7 @@ class WP_Http_Streams {
 			if ( $secure_transport ) {
 				error_reporting( $error_reporting );
 			}
-		} else {
-			if ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) ) {
+		} elseif ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) ) {
 				$handle = stream_socket_client(
 					'tcp://' . $proxy->host() . ':' . $proxy->port(),
 					$connection_error,
@@ -187,16 +186,15 @@ class WP_Http_Streams {
 					STREAM_CLIENT_CONNECT,
 					$context
 				);
-			} else {
-				$handle = stream_socket_client(
-					$connect_host . ':' . $parsed_url['port'],
-					$connection_error,
-					$connection_error_str,
-					$connect_timeout,
-					STREAM_CLIENT_CONNECT,
-					$context
-				);
-			}
+		} else {
+			$handle = stream_socket_client(
+				$connect_host . ':' . $parsed_url['port'],
+				$connection_error,
+				$connection_error_str,
+				$connect_timeout,
+				STREAM_CLIENT_CONNECT,
+				$context
+			);
 		}
 
 		if ( false === $handle ) {

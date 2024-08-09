@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -55,112 +55,122 @@
  * @author     Paul L. McNeely
  * @uses       Memcached
  */
-class SimplePie_Cache_Memcached implements SimplePie_Cache_Base
-{
-    /**
-     * Memcached instance
-     * @var Memcached
-     */
-    protected $cache;
+class SimplePie_Cache_Memcached implements SimplePie_Cache_Base {
 
-    /**
-     * Options
-     * @var array
-     */
-    protected $options;
+	/**
+	 * Memcached instance
+	 *
+	 * @var Memcached
+	 */
+	protected $cache;
 
-    /**
-     * Cache name
-     * @var string
-     */
-    protected $name;
+	/**
+	 * Options
+	 *
+	 * @var array
+	 */
+	protected $options;
 
-    /**
-     * Create a new cache object
-     * @param string $location Location string (from SimplePie::$cache_location)
-     * @param string $name     Unique ID for the cache
-     * @param string $type     Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data
-     */
-    public function __construct($location, $name, $type) {
-        $this->options = array(
-            'host'   => '127.0.0.1',
-            'port'   => 11211,
-            'extras' => array(
-                'timeout' => 3600, // one hour
-                'prefix'  => 'simplepie_',
-            ),
-        );
-        $this->options = SimplePie_Misc::array_merge_recursive($this->options, SimplePie_Cache::parse_URL($location));
+	/**
+	 * Cache name
+	 *
+	 * @var string
+	 */
+	protected $name;
 
-        $this->name = $this->options['extras']['prefix'] . md5("$name:$type");
+	/**
+	 * Create a new cache object
+	 *
+	 * @param string $location Location string (from SimplePie::$cache_location)
+	 * @param string $name     Unique ID for the cache
+	 * @param string $type     Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data
+	 */
+	public function __construct( $location, $name, $type ) {
+		$this->options = array(
+			'host'   => '127.0.0.1',
+			'port'   => 11211,
+			'extras' => array(
+				'timeout' => 3600, // one hour
+				'prefix'  => 'simplepie_',
+			),
+		);
+		$this->options = SimplePie_Misc::array_merge_recursive( $this->options, SimplePie_Cache::parse_URL( $location ) );
 
-        $this->cache = new Memcached();
-        $this->cache->addServer($this->options['host'], (int)$this->options['port']);
-    }
+		$this->name = $this->options['extras']['prefix'] . md5( "$name:$type" );
 
-    /**
-     * Save data to the cache
-     * @param array|SimplePie $data Data to store in the cache. If passed a SimplePie object, only cache the $data property
-     * @return bool Successfulness
-     */
-    public function save($data) {
-        if ($data instanceof SimplePie) {
-            $data = $data->data;
-        }
+		$this->cache = new Memcached();
+		$this->cache->addServer( $this->options['host'], (int) $this->options['port'] );
+	}
 
-        return $this->setData(serialize($data));
-    }
+	/**
+	 * Save data to the cache
+	 *
+	 * @param array|SimplePie $data Data to store in the cache. If passed a SimplePie object, only cache the $data property
+	 * @return bool Successfulness
+	 */
+	public function save( $data ) {
+		if ( $data instanceof SimplePie ) {
+			$data = $data->data;
+		}
 
-    /**
-     * Retrieve the data saved to the cache
-     * @return array Data for SimplePie::$data
-     */
-    public function load() {
-        $data = $this->cache->get($this->name);
+		return $this->setData( serialize( $data ) );
+	}
 
-        if ($data !== false) {
-            return unserialize($data);
-        }
-        return false;
-    }
+	/**
+	 * Retrieve the data saved to the cache
+	 *
+	 * @return array Data for SimplePie::$data
+	 */
+	public function load() {
+		$data = $this->cache->get( $this->name );
 
-    /**
-     * Retrieve the last modified time for the cache
-     * @return int Timestamp
-     */
-    public function mtime() {
-        $data = $this->cache->get($this->name . '_mtime');
-        return (int) $data;
-    }
+		if ( $data !== false ) {
+			return unserialize( $data );
+		}
+		return false;
+	}
 
-    /**
-     * Set the last modified time to the current time
-     * @return bool Success status
-     */
-    public function touch() {
-        $data = $this->cache->get($this->name);
-        return $this->setData($data);
-    }
+	/**
+	 * Retrieve the last modified time for the cache
+	 *
+	 * @return int Timestamp
+	 */
+	public function mtime() {
+		$data = $this->cache->get( $this->name . '_mtime' );
+		return (int) $data;
+	}
 
-    /**
-     * Remove the cache
-     * @return bool Success status
-     */
-    public function unlink() {
-        return $this->cache->delete($this->name, 0);
-    }
+	/**
+	 * Set the last modified time to the current time
+	 *
+	 * @return bool Success status
+	 */
+	public function touch() {
+		$data = $this->cache->get( $this->name );
+		return $this->setData( $data );
+	}
 
-    /**
-     * Set the last modified time and data to Memcached
-     * @return bool Success status
-     */
-    private function setData($data) {
+	/**
+	 * Remove the cache
+	 *
+	 * @return bool Success status
+	 */
+	public function unlink() {
+		return $this->cache->delete( $this->name, 0 );
+	}
 
-        if ($data !== false) {
-            $this->cache->set($this->name . '_mtime', time(), (int)$this->options['extras']['timeout']);
-            return $this->cache->set($this->name, $data, (int)$this->options['extras']['timeout']);
-        }
+	/**
+	 * Set the last modified time and data to Memcached
+	 *
+	 * @return bool Success status
+	 */
+	private function setData( $data ) {
 
-        return false;
-    }
+		if ( $data !== false ) {
+			$this->cache->set( $this->name . '_mtime', time(), (int) $this->options['extras']['timeout'] );
+			return $this->cache->set( $this->name, $data, (int) $this->options['extras']['timeout'] );
+		}
+
+		return false;
+	}
 }

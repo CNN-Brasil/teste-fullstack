@@ -534,8 +534,8 @@ function _image_get_preview_ratio( $w, $h ) {
  * @see WP_Image_Editor::rotate()
  *
  * @ignore
- * @param resource|GdImage  $img   Image resource.
- * @param float|int         $angle Image rotation angle, in degrees.
+ * @param resource|GdImage $img   Image resource.
+ * @param float|int        $angle Image rotation angle, in degrees.
  * @return resource|GdImage|false GD image resource or GdImage instance, false otherwise.
  */
 function _rotate_image_resource( $img, $angle ) {

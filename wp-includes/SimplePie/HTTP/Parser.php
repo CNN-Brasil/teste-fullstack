@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -48,8 +48,8 @@
  * @package SimplePie
  * @subpackage HTTP
  */
-class SimplePie_HTTP_Parser
-{
+class SimplePie_HTTP_Parser {
+
 	/**
 	 * HTTP Version
 	 *
@@ -132,10 +132,9 @@ class SimplePie_HTTP_Parser
 	 *
 	 * @param string $data Input data
 	 */
-	public function __construct($data)
-	{
-		$this->data = $data;
-		$this->data_length = strlen($this->data);
+	public function __construct( $data ) {
+		$this->data        = $data;
+		$this->data_length = strlen( $this->data );
 	}
 
 	/**
@@ -143,24 +142,21 @@ class SimplePie_HTTP_Parser
 	 *
 	 * @return bool true on success, false on failure
 	 */
-	public function parse()
-	{
-		while ($this->state && $this->state !== 'emit' && $this->has_data())
-		{
+	public function parse() {
+		while ( $this->state && $this->state !== 'emit' && $this->has_data() ) {
 			$state = $this->state;
 			$this->$state();
 		}
 		$this->data = '';
-		if ($this->state === 'emit' || $this->state === 'body')
-		{
+		if ( $this->state === 'emit' || $this->state === 'body' ) {
 			return true;
 		}
 
 		$this->http_version = '';
-		$this->status_code = '';
-		$this->reason = '';
-		$this->headers = array();
-		$this->body = '';
+		$this->status_code  = '';
+		$this->reason       = '';
+		$this->headers      = array();
+		$this->body         = '';
 		return false;
 	}
 
@@ -169,9 +165,8 @@ class SimplePie_HTTP_Parser
 	 *
 	 * @return bool true if there is further data, false if not
 	 */
-	protected function has_data()
-	{
-		return (bool) ($this->position < $this->data_length);
+	protected function has_data() {
+		return (bool) ( $this->position < $this->data_length );
 	}
 
 	/**
@@ -179,38 +174,30 @@ class SimplePie_HTTP_Parser
 	 *
 	 * @return bool true if the next character is LWS, false if not
 	 */
-	protected function is_linear_whitespace()
-	{
-		return (bool) ($this->data[$this->position] === "\x09"
-			|| $this->data[$this->position] === "\x20"
-			|| ($this->data[$this->position] === "\x0A"
-				&& isset($this->data[$this->position + 1])
-				&& ($this->data[$this->position + 1] === "\x09" || $this->data[$this->position + 1] === "\x20")));
+	protected function is_linear_whitespace() {
+		return (bool) ( $this->data[ $this->position ] === "\x09"
+			|| $this->data[ $this->position ] === "\x20"
+			|| ( $this->data[ $this->position ] === "\x0A"
+				&& isset( $this->data[ $this->position + 1 ] )
+				&& ( $this->data[ $this->position + 1 ] === "\x09" || $this->data[ $this->position + 1 ] === "\x20" ) ) );
 	}
 
 	/**
 	 * Parse the HTTP version
 	 */
-	protected function http_version()
-	{
-		if (strpos($this->data, "\x0A") !== false && strtoupper(substr($this->data, 0, 5)) === 'HTTP/')
-		{
-			$len = strspn($this->data, '0123456789.', 5);
-			$this->http_version = substr($this->data, 5, $len);
-			$this->position += 5 + $len;
-			if (substr_count($this->http_version, '.') <= 1)
-			{
+	protected function http_version() {
+		if ( strpos( $this->data, "\x0A" ) !== false && strtoupper( substr( $this->data, 0, 5 ) ) === 'HTTP/' ) {
+			$len                = strspn( $this->data, '0123456789.', 5 );
+			$this->http_version = substr( $this->data, 5, $len );
+			$this->position    += 5 + $len;
+			if ( substr_count( $this->http_version, '.' ) <= 1 ) {
 				$this->http_version = (float) $this->http_version;
-				$this->position += strspn($this->data, "\x09\x20", $this->position);
-				$this->state = 'status';
-			}
-			else
-			{
+				$this->position    += strspn( $this->data, "\x09\x20", $this->position );
+				$this->state        = 'status';
+			} else {
 				$this->state = false;
 			}
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
@@ -218,16 +205,12 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parse the status code
 	 */
-	protected function status()
-	{
-		if ($len = strspn($this->data, '0123456789', $this->position))
-		{
-			$this->status_code = (int) substr($this->data, $this->position, $len);
-			$this->position += $len;
-			$this->state = 'reason';
-		}
-		else
-		{
+	protected function status() {
+		if ( $len = strspn( $this->data, '0123456789', $this->position ) ) {
+			$this->status_code = (int) substr( $this->data, $this->position, $len );
+			$this->position   += $len;
+			$this->state       = 'reason';
+		} else {
 			$this->state = false;
 		}
 	}
@@ -235,47 +218,36 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parse the reason phrase
 	 */
-	protected function reason()
-	{
-		$len = strcspn($this->data, "\x0A", $this->position);
-		$this->reason = trim(substr($this->data, $this->position, $len), "\x09\x0D\x20");
+	protected function reason() {
+		$len             = strcspn( $this->data, "\x0A", $this->position );
+		$this->reason    = trim( substr( $this->data, $this->position, $len ), "\x09\x0D\x20" );
 		$this->position += $len + 1;
-		$this->state = 'new_line';
+		$this->state     = 'new_line';
 	}
 
 	/**
 	 * Deal with a new line, shifting data around as needed
 	 */
-	protected function new_line()
-	{
-		$this->value = trim($this->value, "\x0D\x20");
-		if ($this->name !== '' && $this->value !== '')
-		{
-			$this->name = strtolower($this->name);
+	protected function new_line() {
+		$this->value = trim( $this->value, "\x0D\x20" );
+		if ( $this->name !== '' && $this->value !== '' ) {
+			$this->name = strtolower( $this->name );
 			// We should only use the last Content-Type header. c.f. issue #1
-			if (isset($this->headers[$this->name]) && $this->name !== 'content-type')
-			{
-				$this->headers[$this->name] .= ', ' . $this->value;
-			}
-			else
-			{
-				$this->headers[$this->name] = $this->value;
+			if ( isset( $this->headers[ $this->name ] ) && $this->name !== 'content-type' ) {
+				$this->headers[ $this->name ] .= ', ' . $this->value;
+			} else {
+				$this->headers[ $this->name ] = $this->value;
 			}
 		}
-		$this->name = '';
+		$this->name  = '';
 		$this->value = '';
-		if (substr($this->data[$this->position], 0, 2) === "\x0D\x0A")
-		{
+		if ( substr( $this->data[ $this->position ], 0, 2 ) === "\x0D\x0A" ) {
 			$this->position += 2;
+			$this->state     = 'body';
+		} elseif ( $this->data[ $this->position ] === "\x0A" ) {
+			++$this->position;
 			$this->state = 'body';
-		}
-		elseif ($this->data[$this->position] === "\x0A")
-		{
-			$this->position++;
-			$this->state = 'body';
-		}
-		else
-		{
+		} else {
 			$this->state = 'name';
 		}
 	}
@@ -283,25 +255,18 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parse a header name
 	 */
-	protected function name()
-	{
-		$len = strcspn($this->data, "\x0A:", $this->position);
-		if (isset($this->data[$this->position + $len]))
-		{
-			if ($this->data[$this->position + $len] === "\x0A")
-			{
+	protected function name() {
+		$len = strcspn( $this->data, "\x0A:", $this->position );
+		if ( isset( $this->data[ $this->position + $len ] ) ) {
+			if ( $this->data[ $this->position + $len ] === "\x0A" ) {
 				$this->position += $len;
-				$this->state = 'new_line';
-			}
-			else
-			{
-				$this->name = substr($this->data, $this->position, $len);
+				$this->state     = 'new_line';
+			} else {
+				$this->name      = substr( $this->data, $this->position, $len );
 				$this->position += $len + 1;
-				$this->state = 'value';
+				$this->state     = 'value';
 			}
-		}
-		else
-		{
+		} else {
 			$this->state = false;
 		}
 	}
@@ -309,52 +274,41 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parse LWS, replacing consecutive LWS characters with a single space
 	 */
-	protected function linear_whitespace()
-	{
-		do
-		{
-			if (substr($this->data, $this->position, 2) === "\x0D\x0A")
-			{
+	protected function linear_whitespace() {
+		do {
+			if ( substr( $this->data, $this->position, 2 ) === "\x0D\x0A" ) {
 				$this->position += 2;
+			} elseif ( $this->data[ $this->position ] === "\x0A" ) {
+				++$this->position;
 			}
-			elseif ($this->data[$this->position] === "\x0A")
-			{
-				$this->position++;
-			}
-			$this->position += strspn($this->data, "\x09\x20", $this->position);
-		} while ($this->has_data() && $this->is_linear_whitespace());
+			$this->position += strspn( $this->data, "\x09\x20", $this->position );
+		} while ( $this->has_data() && $this->is_linear_whitespace() );
 		$this->value .= "\x20";
 	}
 
 	/**
 	 * See what state to move to while within non-quoted header values
 	 */
-	protected function value()
-	{
-		if ($this->is_linear_whitespace())
-		{
+	protected function value() {
+		if ( $this->is_linear_whitespace() ) {
 			$this->linear_whitespace();
-		}
-		else
-		{
-			switch ($this->data[$this->position])
-			{
+		} else {
+			switch ( $this->data[ $this->position ] ) {
 				case '"':
 					// Workaround for ETags: we have to include the quotes as
 					// part of the tag.
-					if (strtolower($this->name) === 'etag')
-					{
+					if ( strtolower( $this->name ) === 'etag' ) {
 						$this->value .= '"';
-						$this->position++;
+						++$this->position;
 						$this->state = 'value_char';
 						break;
 					}
-					$this->position++;
+					++$this->position;
 					$this->state = 'quote';
 					break;
 
 				case "\x0A":
-					$this->position++;
+					++$this->position;
 					$this->state = 'new_line';
 					break;
 
@@ -368,39 +322,33 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parse a header value while outside quotes
 	 */
-	protected function value_char()
-	{
-		$len = strcspn($this->data, "\x09\x20\x0A\"", $this->position);
-		$this->value .= substr($this->data, $this->position, $len);
+	protected function value_char() {
+		$len             = strcspn( $this->data, "\x09\x20\x0A\"", $this->position );
+		$this->value    .= substr( $this->data, $this->position, $len );
 		$this->position += $len;
-		$this->state = 'value';
+		$this->state     = 'value';
 	}
 
 	/**
 	 * See what state to move to while within quoted header values
 	 */
-	protected function quote()
-	{
-		if ($this->is_linear_whitespace())
-		{
+	protected function quote() {
+		if ( $this->is_linear_whitespace() ) {
 			$this->linear_whitespace();
-		}
-		else
-		{
-			switch ($this->data[$this->position])
-			{
+		} else {
+			switch ( $this->data[ $this->position ] ) {
 				case '"':
-					$this->position++;
+					++$this->position;
 					$this->state = 'value';
 					break;
 
 				case "\x0A":
-					$this->position++;
+					++$this->position;
 					$this->state = 'new_line';
 					break;
 
 				case '\\':
-					$this->position++;
+					++$this->position;
 					$this->state = 'quote_escaped';
 					break;
 
@@ -414,37 +362,31 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parse a header value while within quotes
 	 */
-	protected function quote_char()
-	{
-		$len = strcspn($this->data, "\x09\x20\x0A\"\\", $this->position);
-		$this->value .= substr($this->data, $this->position, $len);
+	protected function quote_char() {
+		$len             = strcspn( $this->data, "\x09\x20\x0A\"\\", $this->position );
+		$this->value    .= substr( $this->data, $this->position, $len );
 		$this->position += $len;
-		$this->state = 'value';
+		$this->state     = 'value';
 	}
 
 	/**
 	 * Parse an escaped character within quotes
 	 */
-	protected function quote_escaped()
-	{
-		$this->value .= $this->data[$this->position];
-		$this->position++;
+	protected function quote_escaped() {
+		$this->value .= $this->data[ $this->position ];
+		++$this->position;
 		$this->state = 'quote';
 	}
 
 	/**
 	 * Parse the body
 	 */
-	protected function body()
-	{
-		$this->body = substr($this->data, $this->position);
-		if (!empty($this->headers['transfer-encoding']))
-		{
-			unset($this->headers['transfer-encoding']);
+	protected function body() {
+		$this->body = substr( $this->data, $this->position );
+		if ( ! empty( $this->headers['transfer-encoding'] ) ) {
+			unset( $this->headers['transfer-encoding'] );
 			$this->state = 'chunked';
-		}
-		else
-		{
+		} else {
 			$this->state = 'emit';
 		}
 	}
@@ -452,10 +394,8 @@ class SimplePie_HTTP_Parser
 	/**
 	 * Parsed a "Transfer-Encoding: chunked" body
 	 */
-	protected function chunked()
-	{
-		if (!preg_match('/^([0-9a-f]+)[^\r\n]*\r\n/i', trim($this->body)))
-		{
+	protected function chunked() {
+		if ( ! preg_match( '/^([0-9a-f]+)[^\r\n]*\r\n/i', trim( $this->body ) ) ) {
 			$this->state = 'emit';
 			return;
 		}
@@ -463,33 +403,29 @@ class SimplePie_HTTP_Parser
 		$decoded = '';
 		$encoded = $this->body;
 
-		while (true)
-		{
+		while ( true ) {
 			$is_chunked = (bool) preg_match( '/^([0-9a-f]+)[^\r\n]*\r\n/i', $encoded, $matches );
-			if (!$is_chunked)
-			{
+			if ( ! $is_chunked ) {
 				// Looks like it's not chunked after all
 				$this->state = 'emit';
 				return;
 			}
 
-			$length = hexdec(trim($matches[1]));
-			if ($length === 0)
-			{
+			$length = hexdec( trim( $matches[1] ) );
+			if ( $length === 0 ) {
 				// Ignore trailer headers
 				$this->state = 'emit';
-				$this->body = $decoded;
+				$this->body  = $decoded;
 				return;
 			}
 
-			$chunk_length = strlen($matches[0]);
-			$decoded .= $part = substr($encoded, $chunk_length, $length);
-			$encoded = substr($encoded, $chunk_length + $length + 2);
+			$chunk_length = strlen( $matches[0] );
+			$decoded     .= $part = substr( $encoded, $chunk_length, $length );
+			$encoded      = substr( $encoded, $chunk_length + $length + 2 );
 
-			if (trim($encoded) === '0' || empty($encoded))
-			{
+			if ( trim( $encoded ) === '0' || empty( $encoded ) ) {
 				$this->state = 'emit';
-				$this->body = $decoded;
+				$this->body  = $decoded;
 				return;
 			}
 		}
@@ -503,17 +439,16 @@ class SimplePie_HTTP_Parser
 	 *
 	 * @return string
 	 */
-	static public function prepareHeaders($headers, $count = 1)
-	{
-		$data = explode("\r\n\r\n", $headers, $count);
-		$data = array_pop($data);
-		if (false !== stripos($data, "HTTP/1.0 200 Connection established\r\n")) {
-			$exploded = explode("\r\n\r\n", $data, 2);
-			$data = end($exploded);
+	public static function prepareHeaders( $headers, $count = 1 ) {
+		$data = explode( "\r\n\r\n", $headers, $count );
+		$data = array_pop( $data );
+		if ( false !== stripos( $data, "HTTP/1.0 200 Connection established\r\n" ) ) {
+			$exploded = explode( "\r\n\r\n", $data, 2 );
+			$data     = end( $exploded );
 		}
-		if (false !== stripos($data, "HTTP/1.1 200 Connection established\r\n")) {
-			$exploded = explode("\r\n\r\n", $data, 2);
-			$data = end($exploded);
+		if ( false !== stripos( $data, "HTTP/1.1 200 Connection established\r\n" ) ) {
+			$exploded = explode( "\r\n\r\n", $data, 2 );
+			$data     = end( $exploded );
 		}
 		return $data;
 	}

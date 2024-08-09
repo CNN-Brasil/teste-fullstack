@@ -426,32 +426,30 @@ final class WP_Interactivity_API {
 					// Remove the last tag from the stack.
 					array_pop( $tag_stack );
 				}
-			} else {
-				if ( 0 !== count( $p->get_attribute_names_with_prefix( 'data-wp-each-child' ) ) ) {
+			} elseif ( 0 !== count( $p->get_attribute_names_with_prefix( 'data-wp-each-child' ) ) ) {
 					/*
 					 * If the tag has a `data-wp-each-child` directive, jump to its closer
 					 * tag because those tags have already been processed.
 					 */
 					$p->next_balanced_tag_closer_tag();
 					continue;
-				} else {
-					$directives_prefixes = array();
+			} else {
+				$directives_prefixes = array();
 
-					// Checks if there is a server directive processor registered for each directive.
-					foreach ( $p->get_attribute_names_with_prefix( 'data-wp-' ) as $attribute_name ) {
-						list( $directive_prefix ) = $this->extract_prefix_and_suffix( $attribute_name );
-						if ( array_key_exists( $directive_prefix, self::$directive_processors ) ) {
-							$directives_prefixes[] = $directive_prefix;
-						}
+				// Checks if there is a server directive processor registered for each directive.
+				foreach ( $p->get_attribute_names_with_prefix( 'data-wp-' ) as $attribute_name ) {
+					list( $directive_prefix ) = $this->extract_prefix_and_suffix( $attribute_name );
+					if ( array_key_exists( $directive_prefix, self::$directive_processors ) ) {
+						$directives_prefixes[] = $directive_prefix;
 					}
+				}
 
-					/*
-					 * If this tag will visit its closer tag, it adds it to the tag stack
-					 * so it can process its closing tag and check for unbalanced tags.
-					 */
-					if ( $p->has_and_visits_its_closer_tag() ) {
-						$tag_stack[] = array( $tag_name, $directives_prefixes );
-					}
+				/*
+				 * If this tag will visit its closer tag, it adds it to the tag stack
+				 * so it can process its closing tag and check for unbalanced tags.
+				 */
+				if ( $p->has_and_visits_its_closer_tag() ) {
+					$tag_stack[] = array( $tag_name, $directives_prefixes );
 				}
 			}
 			/*

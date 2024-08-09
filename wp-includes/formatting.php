@@ -4968,12 +4968,10 @@ function sanitize_option( $option, $value ) {
 			$value = $wpdb->strip_invalid_text_for_column( $wpdb->options, 'option_value', $value );
 			if ( is_wp_error( $value ) ) {
 				$error = $value->get_error_message();
-			} else {
-				if ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
+			} elseif ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
 					$value = sanitize_url( $value );
-				} else {
-					$error = __( 'The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
-				}
+			} else {
+				$error = __( 'The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
 			}
 			break;
 
@@ -4981,12 +4979,10 @@ function sanitize_option( $option, $value ) {
 			$value = $wpdb->strip_invalid_text_for_column( $wpdb->options, 'option_value', $value );
 			if ( is_wp_error( $value ) ) {
 				$error = $value->get_error_message();
-			} else {
-				if ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
+			} elseif ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
 					$value = sanitize_url( $value );
-				} else {
-					$error = __( 'The Site address you entered did not appear to be a valid URL. Please enter a valid URL.' );
-				}
+			} else {
+				$error = __( 'The Site address you entered did not appear to be a valid URL. Please enter a valid URL.' );
 			}
 			break;
 
@@ -5675,7 +5671,7 @@ function wp_basename( $path, $suffix = '' ) {
 
 // phpcs:disable WordPress.WP.CapitalPDangit.MisspelledInComment,WordPress.WP.CapitalPDangit.MisspelledInText,WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid -- 8-)
 /**
- * Forever eliminate "Wordpress" from the planet (or at least the little bit we can influence).
+ * Forever eliminate "WordPress" from the planet (or at least the little bit we can influence).
  *
  * Violating our coding standards for a good function name.
  *
@@ -5688,7 +5684,7 @@ function capital_P_dangit( $text ) {
 	// Simple replacement for titles.
 	$current_filter = current_filter();
 	if ( 'the_title' === $current_filter || 'wp_title' === $current_filter ) {
-		return str_replace( 'Wordpress', 'WordPress', $text );
+		return str_replace( 'WordPress', 'WordPress', $text );
 	}
 	// Still here? Use the more judicious replacement.
 	static $dblq = false;

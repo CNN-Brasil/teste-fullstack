@@ -33,7 +33,7 @@
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	margin: 20px 0;
+	margin-bottom: -70px;
 }
 
 .dezena {
@@ -111,3 +111,6 @@
 	text-align: center;
 	color: #000;
 }
+.cnn-loteria-result .header {
+	background-color: var(--loteria-color);
+	}

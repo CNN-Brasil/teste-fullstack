@@ -51,21 +51,21 @@ final class Curl extends Transport {
 	 * @param mixed  $data    Associated data, if applicable.
 	 * @param int    $code    Exception numerical code, if applicable.
 	 */
-	public function __construct($message, $type, $data = null, $code = 0) {
-		if ($type !== null) {
+	public function __construct( $message, $type, $data = null, $code = 0 ) {
+		if ( $type !== null ) {
 			$this->type = $type;
 		}
 
-		if ($code !== null) {
+		if ( $code !== null ) {
 			$this->code = (int) $code;
 		}
 
-		if ($message !== null) {
+		if ( $message !== null ) {
 			$this->reason = $message;
 		}
 
-		$message = sprintf('%d %s', $this->code, $this->reason);
-		parent::__construct($message, $this->type, $data, $this->code);
+		$message = sprintf( '%d %s', $this->code, $this->reason );
+		parent::__construct( $message, $this->type, $data, $this->code );
 	}
 
 	/**
@@ -76,5 +76,4 @@ final class Curl extends Transport {
 	public function getReason() {
 		return $this->reason;
 	}
-
 }

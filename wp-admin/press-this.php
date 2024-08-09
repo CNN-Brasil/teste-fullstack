@@ -43,8 +43,7 @@ function wp_load_press_this() {
 				esc_url( $url ),
 				__( 'Activate Press This' )
 			);
-		} else {
-			if ( is_main_site() ) {
+		} elseif ( is_main_site() ) {
 				$url    = wp_nonce_url(
 					add_query_arg(
 						array(
@@ -62,13 +61,12 @@ function wp_load_press_this() {
 					esc_attr( $plugin_slug ),
 					_x( 'Install Now', 'plugin' )
 				);
-			} else {
-				$action = sprintf(
-					/* translators: %s: URL to Press This bookmarklet on the main site. */
-					__( 'Press This is not installed. Please install Press This from <a href="%s">the main site</a>.' ),
-					get_admin_url( get_current_network_id(), 'press-this.php' )
-				);
-			}
+		} else {
+			$action = sprintf(
+				/* translators: %s: URL to Press This bookmarklet on the main site. */
+				__( 'Press This is not installed. Please install Press This from <a href="%s">the main site</a>.' ),
+				get_admin_url( get_current_network_id(), 'press-this.php' )
+			);
 		}
 		wp_die(
 			__( 'The Press This plugin is required.' ) . '<br />' . $action,

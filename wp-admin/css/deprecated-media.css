@@ -404,7 +404,7 @@ table.not-image tr.image-only {
  * HiDPI Displays
  */
 @media print,
-  (min-resolution: 120dpi) {
+	(min-resolution: 120dpi) {
 
 	.image-align-none-label {
 		background-image: url(../images/align-none-2x.png?ver=20120916);

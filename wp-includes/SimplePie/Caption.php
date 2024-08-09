@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -52,8 +52,8 @@
  * @package SimplePie
  * @subpackage API
  */
-class SimplePie_Caption
-{
+class SimplePie_Caption {
+
 	/**
 	 * Content type
 	 *
@@ -100,13 +100,12 @@ class SimplePie_Caption
 	 * For documentation on all the parameters, see the corresponding
 	 * properties and their accessors
 	 */
-	public function __construct($type = null, $lang = null, $startTime = null, $endTime = null, $text = null)
-	{
-		$this->type = $type;
-		$this->lang = $lang;
+	public function __construct( $type = null, $lang = null, $startTime = null, $endTime = null, $text = null ) {
+		$this->type      = $type;
+		$this->lang      = $lang;
 		$this->startTime = $startTime;
-		$this->endTime = $endTime;
-		$this->text = $text;
+		$this->endTime   = $endTime;
+		$this->text      = $text;
 	}
 
 	/**
@@ -114,10 +113,9 @@ class SimplePie_Caption
 	 *
 	 * @return string
 	 */
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
-		return md5(serialize($this));
+		return md5( serialize( $this ) );
 	}
 
 	/**
@@ -125,10 +123,8 @@ class SimplePie_Caption
 	 *
 	 * @return string|null Time in the format 'hh:mm:ss.SSS'
 	 */
-	public function get_endtime()
-	{
-		if ($this->endTime !== null)
-		{
+	public function get_endtime() {
+		if ( $this->endTime !== null ) {
 			return $this->endTime;
 		}
 
@@ -141,10 +137,8 @@ class SimplePie_Caption
 	 * @link http://tools.ietf.org/html/rfc3066
 	 * @return string|null Language code as per RFC 3066
 	 */
-	public function get_language()
-	{
-		if ($this->lang !== null)
-		{
+	public function get_language() {
+		if ( $this->lang !== null ) {
 			return $this->lang;
 		}
 
@@ -156,10 +150,8 @@ class SimplePie_Caption
 	 *
 	 * @return string|null Time in the format 'hh:mm:ss.SSS'
 	 */
-	public function get_starttime()
-	{
-		if ($this->startTime !== null)
-		{
+	public function get_starttime() {
+		if ( $this->startTime !== null ) {
 			return $this->startTime;
 		}
 
@@ -171,10 +163,8 @@ class SimplePie_Caption
 	 *
 	 * @return string|null
 	 */
-	public function get_text()
-	{
-		if ($this->text !== null)
-		{
+	public function get_text() {
+		if ( $this->text !== null ) {
 			return $this->text;
 		}
 
@@ -186,10 +176,8 @@ class SimplePie_Caption
 	 *
 	 * @return string|null Either 'text' or 'html'
 	 */
-	public function get_type()
-	{
-		if ($this->type !== null)
-		{
+	public function get_type() {
+		if ( $this->type !== null ) {
 			return $this->type;
 		}
 

@@ -30,7 +30,7 @@ interface Capability {
 	 *
 	 * @var string[]
 	 */
-	const ALL = [
+	const ALL = array(
 		self::SSL,
-	];
+	);
 }

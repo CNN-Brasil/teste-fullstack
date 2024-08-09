@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -51,8 +51,8 @@
  * @package SimplePie
  * @subpackage API
  */
-class SimplePie_Category
-{
+class SimplePie_Category {
+
 	/**
 	 * Category identifier
 	 *
@@ -79,7 +79,7 @@ class SimplePie_Category
 
 	/**
 	 * Category type
-	 * 
+	 *
 	 * category for <category>
 	 * subject for <dc:subject>
 	 *
@@ -96,12 +96,11 @@ class SimplePie_Category
 	 * @param string|null $label
 	 * @param string|null $type
 	 */
-	public function __construct($term = null, $scheme = null, $label = null, $type = null)
-	{
-		$this->term = $term;
+	public function __construct( $term = null, $scheme = null, $label = null, $type = null ) {
+		$this->term   = $term;
 		$this->scheme = $scheme;
-		$this->label = $label;
-		$this->type = $type;
+		$this->label  = $label;
+		$this->type   = $type;
 	}
 
 	/**
@@ -109,10 +108,9 @@ class SimplePie_Category
 	 *
 	 * @return string
 	 */
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
-		return md5(serialize($this));
+		return md5( serialize( $this ) );
 	}
 
 	/**
@@ -120,8 +118,7 @@ class SimplePie_Category
 	 *
 	 * @return string|null
 	 */
-	public function get_term()
-	{
+	public function get_term() {
 		return $this->term;
 	}
 
@@ -130,8 +127,7 @@ class SimplePie_Category
 	 *
 	 * @return string|null
 	 */
-	public function get_scheme()
-	{
+	public function get_scheme() {
 		return $this->scheme;
 	}
 
@@ -141,10 +137,8 @@ class SimplePie_Category
 	 * @param bool $strict
 	 * @return string|null
 	 */
-	public function get_label($strict = false)
-	{
-		if ($this->label === null && $strict !== true)
-		{
+	public function get_label( $strict = false ) {
+		if ( $this->label === null && $strict !== true ) {
 			return $this->get_term();
 		}
 		return $this->label;
@@ -155,9 +149,7 @@ class SimplePie_Category
 	 *
 	 * @return string|null
 	 */
-	public function get_type()
-	{
+	public function get_type() {
 		return $this->type;
 	}
 }
-

@@ -7,62 +7,74 @@
  * https://jquery.org/license
  */
 
-//>>label: Clip Effect
-//>>group: Effects
-//>>description: Clips the element on and off like an old TV.
-//>>docs: https://api.jqueryui.com/clip-effect/
-//>>demos: https://jqueryui.com/effect/
+// >>label: Clip Effect
+// >>group: Effects
+// >>description: Clips the element on and off like an old TV.
+// >>docs: https://api.jqueryui.com/clip-effect/
+// >>demos: https://jqueryui.com/effect/
 
-( function( factory ) {
+( function ( factory ) {
 	"use strict";
 
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( [
+		define(
+			[
 			"jquery",
 			"../version",
 			"../effect"
-		], factory );
+			],
+			factory
+		);
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-} )( function( $ ) {
-"use strict";
+} )(
+	function ( $ ) {
+		"use strict";
 
-return $.effects.define( "clip", "hide", function( options, done ) {
-	var start,
-		animate = {},
-		element = $( this ),
-		direction = options.direction || "vertical",
-		both = direction === "both",
-		horizontal = both || direction === "horizontal",
-		vertical = both || direction === "vertical";
+		return $.effects.define(
+			"clip",
+			"hide",
+			function ( options, done ) {
+					var start,
+					animate    = {},
+					element    = $( this ),
+					direction  = options.direction || "vertical",
+					both       = direction === "both",
+					horizontal = both || direction === "horizontal",
+					vertical   = both || direction === "vertical";
 
-	start = element.cssClip();
-	animate.clip = {
-		top: vertical ? ( start.bottom - start.top ) / 2 : start.top,
-		right: horizontal ? ( start.right - start.left ) / 2 : start.right,
-		bottom: vertical ? ( start.bottom - start.top ) / 2 : start.bottom,
-		left: horizontal ? ( start.right - start.left ) / 2 : start.left
-	};
+					start        = element.cssClip();
+					animate.clip = {
+						top: vertical ? ( start.bottom - start.top ) / 2 : start.top,
+						right: horizontal ? ( start.right - start.left ) / 2 : start.right,
+						bottom: vertical ? ( start.bottom - start.top ) / 2 : start.bottom,
+						left: horizontal ? ( start.right - start.left ) / 2 : start.left
+				};
 
-	$.effects.createPlaceholder( element );
+					$.effects.createPlaceholder( element );
 
-	if ( options.mode === "show" ) {
-		element.cssClip( animate.clip );
-		animate.clip = start;
+				if ( options.mode === "show" ) {
+					element.cssClip( animate.clip );
+					animate.clip = start;
+				}
+
+				element.animate(
+					animate,
+					{
+						queue: false,
+						duration: options.duration,
+						easing: options.easing,
+						complete: done
+					}
+				);
+
+			}
+		);
+
 	}
-
-	element.animate( animate, {
-		queue: false,
-		duration: options.duration,
-		easing: options.easing,
-		complete: done
-	} );
-
-} );
-
-} );
+);

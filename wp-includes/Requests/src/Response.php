@@ -42,7 +42,7 @@ class Response {
 	 *
 	 * @var \WpOrg\Requests\Response\Headers Array-like object representing headers
 	 */
-	public $headers = [];
+	public $headers = array();
 
 	/**
 	 * Status code, false if non-blocking
@@ -84,14 +84,14 @@ class Response {
 	 *
 	 * @var array Array of \WpOrg\Requests\Response objects
 	 */
-	public $history = [];
+	public $history = array();
 
 	/**
 	 * Cookies from the request
 	 *
 	 * @var \WpOrg\Requests\Cookie\Jar Array-like object representing a cookie jar
 	 */
-	public $cookies = [];
+	public $cookies = array();
 
 	/**
 	 * Constructor
@@ -108,7 +108,7 @@ class Response {
 	 */
 	public function is_redirect() {
 		$code = $this->status_code;
-		return in_array($code, [300, 301, 302, 303, 307], true) || $code > 307 && $code < 400;
+		return in_array( $code, array( 300, 301, 302, 303, 307 ), true ) || $code > 307 && $code < 400;
 	}
 
 	/**
@@ -119,14 +119,14 @@ class Response {
 	 * @throws \WpOrg\Requests\Exception If `$allow_redirects` is false, and code is 3xx (`response.no_redirects`)
 	 * @throws \WpOrg\Requests\Exception\Http On non-successful status code. Exception class corresponds to "Status" + code (e.g. {@see \WpOrg\Requests\Exception\Http\Status404})
 	 */
-	public function throw_for_status($allow_redirects = true) {
-		if ($this->is_redirect()) {
-			if ($allow_redirects !== true) {
-				throw new Exception('Redirection not allowed', 'response.no_redirects', $this);
+	public function throw_for_status( $allow_redirects = true ) {
+		if ( $this->is_redirect() ) {
+			if ( $allow_redirects !== true ) {
+				throw new Exception( 'Redirection not allowed', 'response.no_redirects', $this );
 			}
-		} elseif (!$this->success) {
-			$exception = Http::get_class($this->status_code);
-			throw new $exception(null, $this);
+		} elseif ( ! $this->success ) {
+			$exception = Http::get_class( $this->status_code );
+			throw new $exception( null, $this );
 		}
 	}
 
@@ -152,12 +152,12 @@ class Response {
 	 *
 	 * @throws \WpOrg\Requests\Exception If `$this->body` is not valid json.
 	 */
-	public function decode_body($associative = true, $depth = 512, $options = 0) {
-		$data = json_decode($this->body, $associative, $depth, $options);
+	public function decode_body( $associative = true, $depth = 512, $options = 0 ) {
+		$data = json_decode( $this->body, $associative, $depth, $options );
 
-		if (json_last_error() !== JSON_ERROR_NONE) {
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
 			$last_error = json_last_error_msg();
-			throw new Exception('Unable to parse JSON data: ' . $last_error, 'response.invalid', $this);
+			throw new Exception( 'Unable to parse JSON data: ' . $last_error, 'response.invalid', $this );
 		}
 
 		return $data;

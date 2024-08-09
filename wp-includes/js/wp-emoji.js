@@ -5,7 +5,7 @@
  * @output wp-includes/js/wp-emoji.js
  */
 
-( function( window, settings ) {
+( function ( window, settings ) {
 	/**
 	 * Replaces emoji with images when browsers don't support emoji.
 	 *
@@ -28,8 +28,8 @@
 		// Private.
 		twemoji, timer,
 		loaded = false,
-		count = 0,
-		ie11 = window.navigator.userAgent.indexOf( 'Trident/7.0' ) > 0;
+		count  = 0,
+		ie11   = window.navigator.userAgent.indexOf( 'Trident/7.0' ) > 0;
 
 		/**
 		 * Detect if the browser supports SVG.
@@ -43,7 +43,7 @@
 		 * @return {boolean} True if the browser supports svg, false if not.
 		 */
 		function browserSupportsSvgAsImage() {
-			if ( !! document.implementation.hasFeature ) {
+			if ( ! ! document.implementation.hasFeature ) {
 				return document.implementation.hasFeature( 'http://www.w3.org/TR/SVG11/feature#Image', '1.1' );
 			}
 
@@ -83,77 +83,82 @@
 			}
 
 			twemoji = window.twemoji;
-			loaded = true;
+			loaded  = true;
 
 			// Initialize the mutation observer, which checks all added nodes for
 			// replaceable emoji characters.
 			if ( MutationObserver ) {
-				new MutationObserver( function( mutationRecords ) {
-					var i = mutationRecords.length,
+				new MutationObserver(
+					function ( mutationRecords ) {
+						var i = mutationRecords.length,
 						addedNodes, removedNodes, ii, node;
 
-					while ( i-- ) {
-						addedNodes = mutationRecords[ i ].addedNodes;
-						removedNodes = mutationRecords[ i ].removedNodes;
-						ii = addedNodes.length;
+						while ( i-- ) {
+								addedNodes   = mutationRecords[ i ].addedNodes;
+								removedNodes = mutationRecords[ i ].removedNodes;
+								ii           = addedNodes.length;
 
-						/*
-						 * Checks if an image has been replaced by a text element
-						 * with the same text as the alternate description of the replaced image.
-						 * (presumably because the image could not be loaded).
-						 * If it is, do absolutely nothing.
-						 *
-						 * Node type 3 is a TEXT_NODE.
-						 *
-						 * @link https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
-						 */
-						if (
+								/*
+									* Checks if an image has been replaced by a text element
+									* with the same text as the alternate description of the replaced image.
+									* (presumably because the image could not be loaded).
+									* If it is, do absolutely nothing.
+									*
+									* Node type 3 is a TEXT_NODE.
+									*
+									* @link https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+									*/
+							if (
 							ii === 1 && removedNodes.length === 1 &&
 							addedNodes[0].nodeType === 3 &&
 							removedNodes[0].nodeName === 'IMG' &&
 							addedNodes[0].data === removedNodes[0].alt &&
 							'load-failed' === removedNodes[0].getAttribute( 'data-error' )
-						) {
-							return;
-						}
-
-						// Loop through all the added nodes.
-						while ( ii-- ) {
-							node = addedNodes[ ii ];
-
-							// Node type 3 is a TEXT_NODE.
-							if ( node.nodeType === 3 ) {
-								if ( ! node.parentNode ) {
-									continue;
-								}
-
-								if ( ie11 ) {
-									/*
-									 * IE 11's implementation of MutationObserver is buggy.
-									 * It unnecessarily splits text nodes when it encounters a HTML
-									 * template interpolation symbol ( "{{", for example ). So, we
-									 * join the text nodes back together as a work-around.
-									 *
-									 * Node type 3 is a TEXT_NODE.
-									 */
-									while( node.nextSibling && 3 === node.nextSibling.nodeType ) {
-										node.nodeValue = node.nodeValue + node.nextSibling.nodeValue;
-										node.parentNode.removeChild( node.nextSibling );
-									}
-								}
-
-								node = node.parentNode;
+								) {
+									return;
 							}
 
-							if ( test( node.textContent ) ) {
-								parse( node );
+							// Loop through all the added nodes.
+							while ( ii-- ) {
+								node = addedNodes[ ii ];
+
+								// Node type 3 is a TEXT_NODE.
+								if ( node.nodeType === 3 ) {
+									if ( ! node.parentNode ) {
+										continue;
+									}
+
+									if ( ie11 ) {
+										/*
+											* IE 11's implementation of MutationObserver is buggy.
+											* It unnecessarily splits text nodes when it encounters a HTML
+											* template interpolation symbol ( "{{", for example ). So, we
+											* join the text nodes back together as a work-around.
+											*
+											* Node type 3 is a TEXT_NODE.
+											*/
+										while ( node.nextSibling && 3 === node.nextSibling.nodeType ) {
+											node.nodeValue = node.nodeValue + node.nextSibling.nodeValue;
+											node.parentNode.removeChild( node.nextSibling );
+										}
+									}
+
+									node = node.parentNode;
+								}
+
+								if ( test( node.textContent ) ) {
+									parse( node );
+								}
 							}
 						}
 					}
-				} ).observe( document.body, {
-					childList: true,
-					subtree: true
-				} );
+				).observe(
+					document.body,
+					{
+						childList: true,
+						subtree: true
+						}
+				);
 			}
 
 			parse( document.body );
@@ -214,12 +219,12 @@
 			}
 
 			// Compose the params for the twitter emoji library.
-			args = args || {};
+			args   = args || {};
 			params = {
 				base: browserSupportsSvgAsImage() ? settings.svgUrl : settings.baseUrl,
 				ext:  browserSupportsSvgAsImage() ? settings.svgExt : settings.ext,
 				className: args.className || 'emoji',
-				callback: function( icon, options ) {
+				callback: function ( icon, options ) {
 					// Ignore some standard characters that TinyMCE recommends in its character map.
 					switch ( icon ) {
 						case 'a9':
@@ -242,18 +247,18 @@
 
 					return ''.concat( options.base, icon, options.ext );
 				},
-				attributes: function() {
+				attributes: function () {
 					return {
 						role: 'img'
 					};
 				},
-				onerror: function() {
+				onerror: function () {
 					if ( twemoji.parentNode ) {
 						this.setAttribute( 'data-error', 'load-failed' );
 						twemoji.parentNode.replaceChild( document.createTextNode( twemoji.alt ), twemoji );
 					}
 				},
-				doNotParse: function( node ) {
+				doNotParse: function ( node ) {
 					if (
 						node &&
 						node.className &&
@@ -269,7 +274,7 @@
 			};
 
 			if ( typeof args.imgAttr === 'object' ) {
-				params.attributes = function() {
+				params.attributes = function () {
 					return args.imgAttr;
 				};
 			}

@@ -36,13 +36,11 @@ if ( isset( $_REQUEST['action'] ) && 'adduser' === $_REQUEST['action'] ) {
 	$user_email   = wp_unslash( $_REQUEST['email'] );
 	if ( str_contains( $user_email, '@' ) ) {
 		$user_details = get_user_by( 'email', $user_email );
-	} else {
-		if ( current_user_can( 'manage_network_users' ) ) {
+	} elseif ( current_user_can( 'manage_network_users' ) ) {
 			$user_details = get_user_by( 'login', $user_email );
-		} else {
-			wp_redirect( add_query_arg( array( 'update' => 'enter_email' ), 'user-new.php' ) );
-			die();
-		}
+	} else {
+		wp_redirect( add_query_arg( array( 'update' => 'enter_email' ), 'user-new.php' ) );
+		die();
 	}
 
 	if ( ! $user_details ) {
@@ -65,8 +63,7 @@ if ( isset( $_REQUEST['action'] ) && 'adduser' === $_REQUEST['action'] ) {
 	$user_id        = $user_details->ID;
 	if ( null != $username && array_key_exists( $blog_id, get_blogs_of_user( $user_id ) ) ) {
 		$redirect = add_query_arg( array( 'update' => 'addexisting' ), 'user-new.php' );
-	} else {
-		if ( isset( $_POST['noconfirmation'] ) && current_user_can( 'manage_network_users' ) ) {
+	} elseif ( isset( $_POST['noconfirmation'] ) && current_user_can( 'manage_network_users' ) ) {
 			$result = add_existing_user_to_blog(
 				array(
 					'user_id' => $user_id,
@@ -74,109 +71,107 @@ if ( isset( $_REQUEST['action'] ) && 'adduser' === $_REQUEST['action'] ) {
 				)
 			);
 
-			if ( ! is_wp_error( $result ) ) {
-				$redirect = add_query_arg(
-					array(
-						'update'  => 'addnoconfirmation',
-						'user_id' => $user_id,
-					),
-					'user-new.php'
-				);
-			} else {
-				$redirect = add_query_arg( array( 'update' => 'could_not_add' ), 'user-new.php' );
-			}
-		} else {
-			$newuser_key = wp_generate_password( 20, false );
-			add_option(
-				'new_user_' . $newuser_key,
+		if ( ! is_wp_error( $result ) ) {
+			$redirect = add_query_arg(
 				array(
+					'update'  => 'addnoconfirmation',
 					'user_id' => $user_id,
-					'email'   => $user_details->user_email,
-					'role'    => $_REQUEST['role'],
-				)
+				),
+				'user-new.php'
 			);
+		} else {
+			$redirect = add_query_arg( array( 'update' => 'could_not_add' ), 'user-new.php' );
+		}
+	} else {
+		$newuser_key = wp_generate_password( 20, false );
+		add_option(
+			'new_user_' . $newuser_key,
+			array(
+				'user_id' => $user_id,
+				'email'   => $user_details->user_email,
+				'role'    => $_REQUEST['role'],
+			)
+		);
 
-			$roles = get_editable_roles();
-			$role  = $roles[ $_REQUEST['role'] ];
+		$roles = get_editable_roles();
+		$role  = $roles[ $_REQUEST['role'] ];
 
-			/**
-			 * Fires immediately after an existing user is invited to join the site, but before the notification is sent.
-			 *
-			 * @since 4.4.0
-			 *
-			 * @param int    $user_id     The invited user's ID.
-			 * @param array  $role        Array containing role information for the invited user.
-			 * @param string $newuser_key The key of the invitation.
-			 */
-			do_action( 'invite_user', $user_id, $role, $newuser_key );
+		/**
+		 * Fires immediately after an existing user is invited to join the site, but before the notification is sent.
+		 *
+		 * @since 4.4.0
+		 *
+		 * @param int    $user_id     The invited user's ID.
+		 * @param array  $role        Array containing role information for the invited user.
+		 * @param string $newuser_key The key of the invitation.
+		 */
+		do_action( 'invite_user', $user_id, $role, $newuser_key );
 
-			$switched_locale = switch_to_user_locale( $user_id );
+		$switched_locale = switch_to_user_locale( $user_id );
 
-			if ( '' !== get_option( 'blogname' ) ) {
-				$site_title = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-			} else {
-				$site_title = parse_url( home_url(), PHP_URL_HOST );
-			}
+		if ( '' !== get_option( 'blogname' ) ) {
+			$site_title = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+		} else {
+			$site_title = parse_url( home_url(), PHP_URL_HOST );
+		}
 
-			/* translators: 1: Site title, 2: Site URL, 3: User role, 4: Activation URL. */
-			$message = __(
-				'Hi,
+		/* translators: 1: Site title, 2: Site URL, 3: User role, 4: Activation URL. */
+		$message = __(
+			'Hi,
 
 You\'ve been invited to join \'%1$s\' at
 %2$s with the role of %3$s.
 
 Please click the following link to confirm the invite:
 %4$s'
-			);
+		);
 
-			$new_user_email['to']      = $user_details->user_email;
-			$new_user_email['subject'] = sprintf(
-				/* translators: Joining confirmation notification email subject. %s: Site title. */
-				__( '[%s] Joining Confirmation' ),
-				$site_title
-			);
-			$new_user_email['message'] = sprintf(
-				$message,
-				get_option( 'blogname' ),
-				home_url(),
-				wp_specialchars_decode( translate_user_role( $role['name'] ) ),
-				home_url( "/newbloguser/$newuser_key/" )
-			);
-			$new_user_email['headers'] = '';
+		$new_user_email['to']      = $user_details->user_email;
+		$new_user_email['subject'] = sprintf(
+			/* translators: Joining confirmation notification email subject. %s: Site title. */
+			__( '[%s] Joining Confirmation' ),
+			$site_title
+		);
+		$new_user_email['message'] = sprintf(
+			$message,
+			get_option( 'blogname' ),
+			home_url(),
+			wp_specialchars_decode( translate_user_role( $role['name'] ) ),
+			home_url( "/newbloguser/$newuser_key/" )
+		);
+		$new_user_email['headers'] = '';
 
-			/**
-			 * Filters the contents of the email sent when an existing user is invited to join the site.
-			 *
-			 * @since 5.6.0
-			 *
-			 * @param array $new_user_email {
-			 *     Used to build wp_mail().
-			 *
-			 *     @type string $to      The email address of the invited user.
-			 *     @type string $subject The subject of the email.
-			 *     @type string $message The content of the email.
-			 *     @type string $headers Headers.
-			 * }
-			 * @param int    $user_id     The invited user's ID.
-			 * @param array  $role        Array containing role information for the invited user.
-			 * @param string $newuser_key The key of the invitation.
-			 *
-			 */
-			$new_user_email = apply_filters( 'invited_user_email', $new_user_email, $user_id, $role, $newuser_key );
+		/**
+		 * Filters the contents of the email sent when an existing user is invited to join the site.
+		 *
+		 * @since 5.6.0
+		 *
+		 * @param array $new_user_email {
+		 *     Used to build wp_mail().
+		 *
+		 *     @type string $to      The email address of the invited user.
+		 *     @type string $subject The subject of the email.
+		 *     @type string $message The content of the email.
+		 *     @type string $headers Headers.
+		 * }
+		 * @param int    $user_id     The invited user's ID.
+		 * @param array  $role        Array containing role information for the invited user.
+		 * @param string $newuser_key The key of the invitation.
+		 */
+		$new_user_email = apply_filters( 'invited_user_email', $new_user_email, $user_id, $role, $newuser_key );
 
-			wp_mail(
-				$new_user_email['to'],
-				$new_user_email['subject'],
-				$new_user_email['message'],
-				$new_user_email['headers']
-			);
+		wp_mail(
+			$new_user_email['to'],
+			$new_user_email['subject'],
+			$new_user_email['message'],
+			$new_user_email['headers']
+		);
 
-			if ( $switched_locale ) {
-				restore_previous_locale();
-			}
-
-			$redirect = add_query_arg( array( 'update' => 'add' ), 'user-new.php' );
+		if ( $switched_locale ) {
+			restore_previous_locale();
 		}
+
+		$redirect = add_query_arg( array( 'update' => 'add' ), 'user-new.php' );
 	}
 	wp_redirect( $redirect );
 	die();
@@ -363,10 +358,8 @@ if ( isset( $_GET['update'] ) ) {
 				$add_user_errors = new WP_Error( 'enter_email', __( 'Please enter a valid email address.' ) );
 				break;
 		}
-	} else {
-		if ( 'add' === $_GET['update'] ) {
+	} elseif ( 'add' === $_GET['update'] ) {
 			$messages[] = __( 'User added.' );
-		}
 	}
 }
 ?>

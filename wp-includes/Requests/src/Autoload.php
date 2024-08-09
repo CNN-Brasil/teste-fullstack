@@ -18,7 +18,7 @@ namespace WpOrg\Requests;
  * and this file being required unconditionally could easily cause
  * fatal "Class already declared" errors.
  */
-if (class_exists('WpOrg\Requests\Autoload') === false) {
+if ( class_exists( 'WpOrg\Requests\Autoload' ) === false ) {
 
 	/**
 	 * Autoloader for Requests for PHP.
@@ -37,7 +37,7 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 		 *
 		 * @var array
 		 */
-		private static $deprecated_classes = [
+		private static $deprecated_classes = array(
 			// Interfaces.
 			'requests_auth'                              => '\WpOrg\Requests\Auth',
 			'requests_hooker'                            => '\WpOrg\Requests\HookManager',
@@ -98,7 +98,7 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 			'requests_exception_http_505'                => '\WpOrg\Requests\Exception\Http\Status505',
 			'requests_exception_http_511'                => '\WpOrg\Requests\Exception\Http\Status511',
 			'requests_exception_http_unknown'            => '\WpOrg\Requests\Exception\Http\StatusUnknown',
-		];
+		);
 
 		/**
 		 * Register the autoloader.
@@ -115,9 +115,9 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 		 * @return void
 		 */
 		public static function register() {
-			if (defined('REQUESTS_AUTOLOAD_REGISTERED') === false) {
-				spl_autoload_register([self::class, 'load'], true);
-				define('REQUESTS_AUTOLOAD_REGISTERED', true);
+			if ( defined( 'REQUESTS_AUTOLOAD_REGISTERED' ) === false ) {
+				spl_autoload_register( array( self::class, 'load' ), true );
+				define( 'REQUESTS_AUTOLOAD_REGISTERED', true );
 			}
 		}
 
@@ -128,25 +128,25 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 		 *
 		 * @return bool Whether a class was loaded or not.
 		 */
-		public static function load($class_name) {
+		public static function load( $class_name ) {
 			// Check that the class starts with "Requests" (PSR-0) or "WpOrg\Requests" (PSR-4).
-			$psr_4_prefix_pos = strpos($class_name, 'WpOrg\\Requests\\');
+			$psr_4_prefix_pos = strpos( $class_name, 'WpOrg\\Requests\\' );
 
-			if (stripos($class_name, 'Requests') !== 0 && $psr_4_prefix_pos !== 0) {
+			if ( stripos( $class_name, 'Requests' ) !== 0 && $psr_4_prefix_pos !== 0 ) {
 				return false;
 			}
 
-			$class_lower = strtolower($class_name);
+			$class_lower = strtolower( $class_name );
 
-			if ($class_lower === 'requests') {
+			if ( $class_lower === 'requests' ) {
 				// Reference to the original PSR-0 Requests class.
-				$file = dirname(__DIR__) . '/library/Requests.php';
-			} elseif ($psr_4_prefix_pos === 0) {
+				$file = dirname( __DIR__ ) . '/library/Requests.php';
+			} elseif ( $psr_4_prefix_pos === 0 ) {
 				// PSR-4 classname.
-				$file = __DIR__ . '/' . strtr(substr($class_name, 15), '\\', '/') . '.php';
+				$file = __DIR__ . '/' . strtr( substr( $class_name, 15 ), '\\', '/' ) . '.php';
 			}
 
-			if (isset($file) && file_exists($file)) {
+			if ( isset( $file ) && file_exists( $file ) ) {
 				include $file;
 				return true;
 			}
@@ -156,14 +156,14 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 			 * If this is one of the deprecated/renamed PSR-0 classes being requested,
 			 * let's alias it to the new name and throw a deprecation notice.
 			 */
-			if (isset(self::$deprecated_classes[$class_lower])) {
+			if ( isset( self::$deprecated_classes[ $class_lower ] ) ) {
 				/*
 				 * Integrators who cannot yet upgrade to the PSR-4 class names can silence deprecations
 				 * by defining a `REQUESTS_SILENCE_PSR0_DEPRECATIONS` constant and setting it to `true`.
 				 * The constant needs to be defined before the first deprecated class is requested
 				 * via this autoloader.
 				 */
-				if (!defined('REQUESTS_SILENCE_PSR0_DEPRECATIONS') || REQUESTS_SILENCE_PSR0_DEPRECATIONS !== true) {
+				if ( ! defined( 'REQUESTS_SILENCE_PSR0_DEPRECATIONS' ) || REQUESTS_SILENCE_PSR0_DEPRECATIONS !== true ) {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 					trigger_error(
 						'The PSR-0 `Requests_...` class names in the Requests library are deprecated.'
@@ -172,13 +172,13 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 					);
 
 					// Prevent the deprecation notice from being thrown twice.
-					if (!defined('REQUESTS_SILENCE_PSR0_DEPRECATIONS')) {
-						define('REQUESTS_SILENCE_PSR0_DEPRECATIONS', true);
+					if ( ! defined( 'REQUESTS_SILENCE_PSR0_DEPRECATIONS' ) ) {
+						define( 'REQUESTS_SILENCE_PSR0_DEPRECATIONS', true );
 					}
 				}
 
 				// Create an alias and let the autoloader recursively kick in to load the PSR-4 class.
-				return class_alias(self::$deprecated_classes[$class_lower], $class_name, true);
+				return class_alias( self::$deprecated_classes[ $class_lower ], $class_name, true );
 			}
 
 			return false;

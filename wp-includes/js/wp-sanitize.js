@@ -20,7 +20,7 @@
 		 *
 		 * @return  Stripped text.
 		 */
-		stripTags: function( text ) {
+		stripTags: function ( text ) {
 			text = text || '';
 
 			// Do the replacement.
@@ -46,14 +46,15 @@
 		 *
 		 * @return Sanitized text. False on failure.
 		 */
-		stripTagsAndEncodeText: function( text ) {
-			var _text = wp.sanitize.stripTags( text ),
+		stripTagsAndEncodeText: function ( text ) {
+			var _text    = wp.sanitize.stripTags( text ),
 				textarea = document.createElement( 'textarea' );
 
 			try {
 				textarea.textContent = _text;
-				_text = wp.sanitize.stripTags( textarea.value );
-			} catch ( er ) {}
+				_text                = wp.sanitize.stripTags( textarea.value );
+			} catch ( er ) {
+			}
 
 			return _text;
 		}

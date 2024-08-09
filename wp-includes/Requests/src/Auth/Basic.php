@@ -46,18 +46,18 @@ class Basic implements Auth {
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not an array or null.
 	 * @throws \WpOrg\Requests\Exception\ArgumentCount   On incorrect number of array elements (`authbasicbadargs`).
 	 */
-	public function __construct($args = null) {
-		if (is_array($args)) {
-			if (count($args) !== 2) {
-				throw ArgumentCount::create('an array with exactly two elements', count($args), 'authbasicbadargs');
+	public function __construct( $args = null ) {
+		if ( is_array( $args ) ) {
+			if ( count( $args ) !== 2 ) {
+				throw ArgumentCount::create( 'an array with exactly two elements', count( $args ), 'authbasicbadargs' );
 			}
 
 			list($this->user, $this->pass) = $args;
 			return;
 		}
 
-		if ($args !== null) {
-			throw InvalidArgument::create(1, '$args', 'array|null', gettype($args));
+		if ( $args !== null ) {
+			throw InvalidArgument::create( 1, '$args', 'array|null', gettype( $args ) );
 		}
 	}
 
@@ -68,9 +68,9 @@ class Basic implements Auth {
 	 * @see \WpOrg\Requests\Auth\Basic::fsockopen_header()
 	 * @param \WpOrg\Requests\Hooks $hooks Hook system
 	 */
-	public function register(Hooks $hooks) {
-		$hooks->register('curl.before_send', [$this, 'curl_before_send']);
-		$hooks->register('fsockopen.after_headers', [$this, 'fsockopen_header']);
+	public function register( Hooks $hooks ) {
+		$hooks->register( 'curl.before_send', array( $this, 'curl_before_send' ) );
+		$hooks->register( 'fsockopen.after_headers', array( $this, 'fsockopen_header' ) );
 	}
 
 	/**
@@ -78,9 +78,9 @@ class Basic implements Auth {
 	 *
 	 * @param resource|\CurlHandle $handle cURL handle
 	 */
-	public function curl_before_send(&$handle) {
-		curl_setopt($handle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		curl_setopt($handle, CURLOPT_USERPWD, $this->getAuthString());
+	public function curl_before_send( &$handle ) {
+		curl_setopt( $handle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
+		curl_setopt( $handle, CURLOPT_USERPWD, $this->getAuthString() );
 	}
 
 	/**
@@ -88,8 +88,8 @@ class Basic implements Auth {
 	 *
 	 * @param string $out HTTP header string
 	 */
-	public function fsockopen_header(&$out) {
-		$out .= sprintf("Authorization: Basic %s\r\n", base64_encode($this->getAuthString()));
+	public function fsockopen_header( &$out ) {
+		$out .= sprintf( "Authorization: Basic %s\r\n", base64_encode( $this->getAuthString() ) );
 	}
 
 	/**

@@ -156,18 +156,17 @@ if ( $iis7_permalinks ) {
 	}
 } elseif ( $is_nginx || $is_caddy ) {
 	$writable = false;
-} else {
-	if ( ( ! file_exists( $home_path . '.htaccess' )
+} elseif ( ( ! file_exists( $home_path . '.htaccess' )
 		&& is_writable( $home_path ) ) || is_writable( $home_path . '.htaccess' )
 	) {
-		$writable = true;
-	} else {
-		$writable       = false;
-		$existing_rules = array_filter( extract_from_markers( $home_path . '.htaccess', 'WordPress' ) );
-		$new_rules      = array_filter( explode( "\n", $wp_rewrite->mod_rewrite_rules() ) );
 
-		$htaccess_update_required = ( $new_rules !== $existing_rules );
-	}
+		$writable = true;
+} else {
+	$writable       = false;
+	$existing_rules = array_filter( extract_from_markers( $home_path . '.htaccess', 'WordPress' ) );
+	$new_rules      = array_filter( explode( "\n", $wp_rewrite->mod_rewrite_rules() ) );
+
+	$htaccess_update_required = ( $new_rules !== $existing_rules );
 }
 
 $using_index_permalinks = $wp_rewrite->using_index_permalinks();

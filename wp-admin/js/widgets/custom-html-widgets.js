@@ -10,7 +10,7 @@
  * @namespace wp.customHtmlWidget
  * @memberOf wp
  */
-wp.customHtmlWidgets = ( function( $ ) {
+wp.customHtmlWidgets = ( function ( $ ) {
 	'use strict';
 
 	var component = {
@@ -24,252 +24,292 @@ wp.customHtmlWidgets = ( function( $ ) {
 		}
 	};
 
-	component.CustomHtmlWidgetControl = Backbone.View.extend(/** @lends wp.customHtmlWidgets.CustomHtmlWidgetControl.prototype */{
+	component.CustomHtmlWidgetControl = Backbone.View.extend(
+		/** @lends wp.customHtmlWidgets.CustomHtmlWidgetControl.prototype */        {
 
-		/**
-		 * View events.
-		 *
-		 * @type {Object}
-		 */
-		events: {},
-
-		/**
-		 * Text widget control.
-		 *
-		 * @constructs wp.customHtmlWidgets.CustomHtmlWidgetControl
-		 * @augments Backbone.View
-		 * @abstract
-		 *
-		 * @param {Object} options - Options.
-		 * @param {jQuery} options.el - Control field container element.
-		 * @param {jQuery} options.syncContainer - Container element where fields are synced for the server.
-		 *
-		 * @return {void}
-		 */
-		initialize: function initialize( options ) {
-			var control = this;
-
-			if ( ! options.el ) {
-				throw new Error( 'Missing options.el' );
-			}
-			if ( ! options.syncContainer ) {
-				throw new Error( 'Missing options.syncContainer' );
-			}
-
-			Backbone.View.prototype.initialize.call( control, options );
-			control.syncContainer = options.syncContainer;
-			control.widgetIdBase = control.syncContainer.parent().find( '.id_base' ).val();
-			control.widgetNumber = control.syncContainer.parent().find( '.widget_number' ).val();
-			control.customizeSettingId = 'widget_' + control.widgetIdBase + '[' + String( control.widgetNumber ) + ']';
-
-			control.$el.addClass( 'custom-html-widget-fields' );
-			control.$el.html( wp.template( 'widget-custom-html-control-fields' )( { codeEditorDisabled: component.codeEditorSettings.disabled } ) );
-
-			control.errorNoticeContainer = control.$el.find( '.code-editor-error-container' );
-			control.currentErrorAnnotations = [];
-			control.saveButton = control.syncContainer.add( control.syncContainer.parent().find( '.widget-control-actions' ) ).find( '.widget-control-save, #savewidget' );
-			control.saveButton.addClass( 'custom-html-widget-save-button' ); // To facilitate style targeting.
-
-			control.fields = {
-				title: control.$el.find( '.title' ),
-				content: control.$el.find( '.content' )
-			};
-
-			// Sync input fields to hidden sync fields which actually get sent to the server.
-			_.each( control.fields, function( fieldInput, fieldName ) {
-				fieldInput.on( 'input change', function updateSyncField() {
-					var syncInput = control.syncContainer.find( '.sync-input.' + fieldName );
-					if ( syncInput.val() !== fieldInput.val() ) {
-						syncInput.val( fieldInput.val() );
-						syncInput.trigger( 'change' );
-					}
-				});
-
-				// Note that syncInput cannot be re-used because it will be destroyed with each widget-updated event.
-				fieldInput.val( control.syncContainer.find( '.sync-input.' + fieldName ).val() );
-			});
-		},
-
-		/**
-		 * Update input fields from the sync fields.
-		 *
-		 * This function is called at the widget-updated and widget-synced events.
-		 * A field will only be updated if it is not currently focused, to avoid
-		 * overwriting content that the user is entering.
-		 *
-		 * @return {void}
-		 */
-		updateFields: function updateFields() {
-			var control = this, syncInput;
-
-			if ( ! control.fields.title.is( document.activeElement ) ) {
-				syncInput = control.syncContainer.find( '.sync-input.title' );
-				control.fields.title.val( syncInput.val() );
-			}
-
-			/*
-			 * Prevent updating content when the editor is focused or if there are current error annotations,
-			 * to prevent the editor's contents from getting sanitized as soon as a user removes focus from
-			 * the editor. This is particularly important for users who cannot unfiltered_html.
+			/**
+			 * View events.
+			 *
+			 * @type {Object}
 			 */
-			control.contentUpdateBypassed = control.fields.content.is( document.activeElement ) || control.editor && control.editor.codemirror.state.focused || 0 !== control.currentErrorAnnotations.length;
-			if ( ! control.contentUpdateBypassed ) {
-				syncInput = control.syncContainer.find( '.sync-input.content' );
-				control.fields.content.val( syncInput.val() );
-			}
-		},
+			events: {},
 
-		/**
-		 * Show linting error notice.
-		 *
-		 * @param {Array} errorAnnotations - Error annotations.
-		 * @return {void}
-		 */
-		updateErrorNotice: function( errorAnnotations ) {
-			var control = this, errorNotice, message = '', customizeSetting;
+			/**
+			 * Text widget control.
+			 *
+			 * @constructs wp.customHtmlWidgets.CustomHtmlWidgetControl
+			 * @augments Backbone.View
+			 * @abstract
+			 *
+			 * @param {Object} options - Options.
+			 * @param {jQuery} options.el - Control field container element.
+			 * @param {jQuery} options.syncContainer - Container element where fields are synced for the server.
+			 *
+			 * @return {void}
+			 */
+			initialize: function initialize( options ) {
+				var control = this;
 
-			if ( 1 === errorAnnotations.length ) {
-				message = component.l10n.errorNotice.singular.replace( '%d', '1' );
-			} else if ( errorAnnotations.length > 1 ) {
-				message = component.l10n.errorNotice.plural.replace( '%d', String( errorAnnotations.length ) );
-			}
-
-			if ( control.fields.content[0].setCustomValidity ) {
-				control.fields.content[0].setCustomValidity( message );
-			}
-
-			if ( wp.customize && wp.customize.has( control.customizeSettingId ) ) {
-				customizeSetting = wp.customize( control.customizeSettingId );
-				customizeSetting.notifications.remove( 'htmlhint_error' );
-				if ( 0 !== errorAnnotations.length ) {
-					customizeSetting.notifications.add( 'htmlhint_error', new wp.customize.Notification( 'htmlhint_error', {
-						message: message,
-						type: 'error'
-					} ) );
+				if ( ! options.el ) {
+					throw new Error( 'Missing options.el' );
 				}
-			} else if ( 0 !== errorAnnotations.length ) {
-				errorNotice = $( '<div class="inline notice notice-error notice-alt" role="alert"></div>' );
-				errorNotice.append( $( '<p></p>', {
-					text: message
-				} ) );
-				control.errorNoticeContainer.empty();
-				control.errorNoticeContainer.append( errorNotice );
-				control.errorNoticeContainer.slideDown( 'fast' );
-				wp.a11y.speak( message );
-			} else {
-				control.errorNoticeContainer.slideUp( 'fast' );
-			}
-		},
-
-		/**
-		 * Initialize editor.
-		 *
-		 * @return {void}
-		 */
-		initializeEditor: function initializeEditor() {
-			var control = this, settings;
-
-			if ( component.codeEditorSettings.disabled ) {
-				return;
-			}
-
-			settings = _.extend( {}, component.codeEditorSettings, {
-
-				/**
-				 * Handle tabbing to the field before the editor.
-				 *
-				 * @ignore
-				 *
-				 * @return {void}
-				 */
-				onTabPrevious: function onTabPrevious() {
-					control.fields.title.focus();
-				},
-
-				/**
-				 * Handle tabbing to the field after the editor.
-				 *
-				 * @ignore
-				 *
-				 * @return {void}
-				 */
-				onTabNext: function onTabNext() {
-					var tabbables = control.syncContainer.add( control.syncContainer.parent().find( '.widget-position, .widget-control-actions' ) ).find( ':tabbable' );
-					tabbables.first().focus();
-				},
-
-				/**
-				 * Disable save button and store linting errors for use in updateFields.
-				 *
-				 * @ignore
-				 *
-				 * @param {Array} errorAnnotations - Error notifications.
-				 * @return {void}
-				 */
-				onChangeLintingErrors: function onChangeLintingErrors( errorAnnotations ) {
-					control.currentErrorAnnotations = errorAnnotations;
-				},
-
-				/**
-				 * Update error notice.
-				 *
-				 * @ignore
-				 *
-				 * @param {Array} errorAnnotations - Error annotations.
-				 * @return {void}
-				 */
-				onUpdateErrorNotice: function onUpdateErrorNotice( errorAnnotations ) {
-					control.saveButton.toggleClass( 'validation-blocked disabled', errorAnnotations.length > 0 );
-					control.updateErrorNotice( errorAnnotations );
+				if ( ! options.syncContainer ) {
+					throw new Error( 'Missing options.syncContainer' );
 				}
-			});
 
-			control.editor = wp.codeEditor.initialize( control.fields.content, settings );
+				Backbone.View.prototype.initialize.call( control, options );
+				control.syncContainer      = options.syncContainer;
+				control.widgetIdBase       = control.syncContainer.parent().find( '.id_base' ).val();
+				control.widgetNumber       = control.syncContainer.parent().find( '.widget_number' ).val();
+				control.customizeSettingId = 'widget_' + control.widgetIdBase + '[' + String( control.widgetNumber ) + ']';
 
-			// Improve the editor accessibility.
-			$( control.editor.codemirror.display.lineDiv )
-				.attr({
-					role: 'textbox',
-					'aria-multiline': 'true',
-					'aria-labelledby': control.fields.content[0].id + '-label',
-					'aria-describedby': 'editor-keyboard-trap-help-1 editor-keyboard-trap-help-2 editor-keyboard-trap-help-3 editor-keyboard-trap-help-4'
-				});
+				control.$el.addClass( 'custom-html-widget-fields' );
+				control.$el.html( wp.template( 'widget-custom-html-control-fields' )( { codeEditorDisabled: component.codeEditorSettings.disabled } ) );
 
-			// Focus the editor when clicking on its label.
-			$( '#' + control.fields.content[0].id + '-label' ).on( 'click', function() {
-				control.editor.codemirror.focus();
-			});
+				control.errorNoticeContainer    = control.$el.find( '.code-editor-error-container' );
+				control.currentErrorAnnotations = [];
+				control.saveButton              = control.syncContainer.add( control.syncContainer.parent().find( '.widget-control-actions' ) ).find( '.widget-control-save, #savewidget' );
+				control.saveButton.addClass( 'custom-html-widget-save-button' ); // To facilitate style targeting.
 
-			control.fields.content.on( 'change', function() {
-				if ( this.value !== control.editor.codemirror.getValue() ) {
-					control.editor.codemirror.setValue( this.value );
-				}
-			});
-			control.editor.codemirror.on( 'change', function() {
-				var value = control.editor.codemirror.getValue();
-				if ( value !== control.fields.content.val() ) {
-					control.fields.content.val( value ).trigger( 'change' );
-				}
-			});
+				control.fields = {
+					title: control.$el.find( '.title' ),
+					content: control.$el.find( '.content' )
+				};
 
-			// Make sure the editor gets updated if the content was updated on the server (sanitization) but not updated in the editor since it was focused.
-			control.editor.codemirror.on( 'blur', function() {
-				if ( control.contentUpdateBypassed ) {
-					control.syncContainer.find( '.sync-input.content' ).trigger( 'change' );
-				}
-			});
+				// Sync input fields to hidden sync fields which actually get sent to the server.
+				_.each(
+					control.fields,
+					function ( fieldInput, fieldName ) {
+						fieldInput.on(
+							'input change',
+							function updateSyncField() {
+								var syncInput = control.syncContainer.find( '.sync-input.' + fieldName );
+							if ( syncInput.val() !== fieldInput.val() ) {
+								syncInput.val( fieldInput.val() );
+								syncInput.trigger( 'change' );
+							}
+							}
+						);
 
-			// Prevent hitting Esc from collapsing the widget control.
-			if ( wp.customize ) {
-				control.editor.codemirror.on( 'keydown', function onKeydown( codemirror, event ) {
-					var escKeyCode = 27;
-					if ( escKeyCode === event.keyCode ) {
-						event.stopPropagation();
+						// Note that syncInput cannot be re-used because it will be destroyed with each widget-updated event.
+						fieldInput.val( control.syncContainer.find( '.sync-input.' + fieldName ).val() );
 					}
-				});
+				);
+			},
+
+			/**
+			 * Update input fields from the sync fields.
+			 *
+			 * This function is called at the widget-updated and widget-synced events.
+			 * A field will only be updated if it is not currently focused, to avoid
+			 * overwriting content that the user is entering.
+			 *
+			 * @return {void}
+			 */
+			updateFields: function updateFields() {
+				var control = this, syncInput;
+
+				if ( ! control.fields.title.is( document.activeElement ) ) {
+					syncInput = control.syncContainer.find( '.sync-input.title' );
+					control.fields.title.val( syncInput.val() );
+				}
+
+				/*
+				 * Prevent updating content when the editor is focused or if there are current error annotations,
+				 * to prevent the editor's contents from getting sanitized as soon as a user removes focus from
+				 * the editor. This is particularly important for users who cannot unfiltered_html.
+				 */
+				control.contentUpdateBypassed = control.fields.content.is( document.activeElement ) || control.editor && control.editor.codemirror.state.focused || 0 !== control.currentErrorAnnotations.length;
+				if ( ! control.contentUpdateBypassed ) {
+					syncInput = control.syncContainer.find( '.sync-input.content' );
+					control.fields.content.val( syncInput.val() );
+				}
+			},
+
+			/**
+			 * Show linting error notice.
+			 *
+			 * @param {Array} errorAnnotations - Error annotations.
+			 * @return {void}
+			 */
+			updateErrorNotice: function ( errorAnnotations ) {
+				var control = this, errorNotice, message = '', customizeSetting;
+
+				if ( 1 === errorAnnotations.length ) {
+					message = component.l10n.errorNotice.singular.replace( '%d', '1' );
+				} else if ( errorAnnotations.length > 1 ) {
+					message = component.l10n.errorNotice.plural.replace( '%d', String( errorAnnotations.length ) );
+				}
+
+				if ( control.fields.content[0].setCustomValidity ) {
+					control.fields.content[0].setCustomValidity( message );
+				}
+
+				if ( wp.customize && wp.customize.has( control.customizeSettingId ) ) {
+					customizeSetting = wp.customize( control.customizeSettingId );
+					customizeSetting.notifications.remove( 'htmlhint_error' );
+					if ( 0 !== errorAnnotations.length ) {
+						customizeSetting.notifications.add(
+							'htmlhint_error',
+							new wp.customize.Notification(
+								'htmlhint_error',
+								{
+									message: message,
+									type: 'error'
+								}
+							)
+						);
+					}
+				} else if ( 0 !== errorAnnotations.length ) {
+					errorNotice = $( '<div class="inline notice notice-error notice-alt" role="alert"></div>' );
+					errorNotice.append(
+						$(
+							'<p></p>',
+							{
+								text: message
+							}
+						)
+					);
+					control.errorNoticeContainer.empty();
+					control.errorNoticeContainer.append( errorNotice );
+					control.errorNoticeContainer.slideDown( 'fast' );
+					wp.a11y.speak( message );
+				} else {
+					control.errorNoticeContainer.slideUp( 'fast' );
+				}
+			},
+
+			/**
+			 * Initialize editor.
+			 *
+			 * @return {void}
+			 */
+			initializeEditor: function initializeEditor() {
+				var control = this, settings;
+
+				if ( component.codeEditorSettings.disabled ) {
+					return;
+				}
+
+				settings = _.extend(
+					{},
+					component.codeEditorSettings,
+					{
+
+						/**
+						 * Handle tabbing to the field before the editor.
+						 *
+						 * @ignore
+						 *
+						 * @return {void}
+						 */
+						onTabPrevious: function onTabPrevious() {
+							control.fields.title.focus();
+						},
+
+						/**
+						 * Handle tabbing to the field after the editor.
+						 *
+						 * @ignore
+						 *
+						 * @return {void}
+						 */
+						onTabNext: function onTabNext() {
+							var tabbables = control.syncContainer.add( control.syncContainer.parent().find( '.widget-position, .widget-control-actions' ) ).find( ':tabbable' );
+							tabbables.first().focus();
+						},
+
+						/**
+						 * Disable save button and store linting errors for use in updateFields.
+						 *
+						 * @ignore
+						 *
+						 * @param {Array} errorAnnotations - Error notifications.
+						 * @return {void}
+						 */
+						onChangeLintingErrors: function onChangeLintingErrors( errorAnnotations ) {
+							control.currentErrorAnnotations = errorAnnotations;
+						},
+
+						/**
+						 * Update error notice.
+						 *
+						 * @ignore
+						 *
+						 * @param {Array} errorAnnotations - Error annotations.
+						 * @return {void}
+						 */
+						onUpdateErrorNotice: function onUpdateErrorNotice( errorAnnotations ) {
+							control.saveButton.toggleClass( 'validation-blocked disabled', errorAnnotations.length > 0 );
+							control.updateErrorNotice( errorAnnotations );
+						}
+					}
+				);
+
+				control.editor = wp.codeEditor.initialize( control.fields.content, settings );
+
+				// Improve the editor accessibility.
+				$( control.editor.codemirror.display.lineDiv )
+				.attr(
+					{
+						role: 'textbox',
+						'aria-multiline': 'true',
+						'aria-labelledby': control.fields.content[0].id + '-label',
+						'aria-describedby': 'editor-keyboard-trap-help-1 editor-keyboard-trap-help-2 editor-keyboard-trap-help-3 editor-keyboard-trap-help-4'
+					}
+				);
+
+				// Focus the editor when clicking on its label.
+				$( '#' + control.fields.content[0].id + '-label' ).on(
+					'click',
+					function () {
+						control.editor.codemirror.focus();
+					}
+				);
+
+				control.fields.content.on(
+					'change',
+					function () {
+						if ( this.value !== control.editor.codemirror.getValue() ) {
+							control.editor.codemirror.setValue( this.value );
+						}
+					}
+				);
+				control.editor.codemirror.on(
+					'change',
+					function () {
+						var value = control.editor.codemirror.getValue();
+						if ( value !== control.fields.content.val() ) {
+							control.fields.content.val( value ).trigger( 'change' );
+						}
+					}
+				);
+
+				// Make sure the editor gets updated if the content was updated on the server (sanitization) but not updated in the editor since it was focused.
+				control.editor.codemirror.on(
+					'blur',
+					function () {
+						if ( control.contentUpdateBypassed ) {
+							control.syncContainer.find( '.sync-input.content' ).trigger( 'change' );
+						}
+					}
+				);
+
+				// Prevent hitting Esc from collapsing the widget control.
+				if ( wp.customize ) {
+					control.editor.codemirror.on(
+						'keydown',
+						function onKeydown( codemirror, event ) {
+							var escKeyCode = 27;
+						if ( escKeyCode === event.keyCode ) {
+							event.stopPropagation();
+						}
+						}
+					);
+				}
 			}
 		}
-	});
+	);
 
 	/**
 	 * Mapping of widget ID to instances of CustomHtmlWidgetControl subclasses.
@@ -317,13 +357,15 @@ wp.customHtmlWidgets = ( function( $ ) {
 		 * container.
 		 */
 		fieldContainer = $( '<div></div>' );
-		syncContainer = widgetContainer.find( '.widget-content:first' );
+		syncContainer  = widgetContainer.find( '.widget-content:first' );
 		syncContainer.before( fieldContainer );
 
-		widgetControl = new component.CustomHtmlWidgetControl({
-			el: fieldContainer,
-			syncContainer: syncContainer
-		});
+		widgetControl = new component.CustomHtmlWidgetControl(
+			{
+				el: fieldContainer,
+				syncContainer: syncContainer
+			}
+		);
 
 		component.widgetControls[ widgetId ] = widgetControl;
 
@@ -332,7 +374,7 @@ wp.customHtmlWidgets = ( function( $ ) {
 		 * as the widget-added event fires with a slideDown of the container.
 		 * This ensures that the textarea is visible and the editor can be initialized.
 		 */
-		renderWhenAnimationDone = function() {
+		renderWhenAnimationDone = function () {
 			if ( ! ( wp.customize ? widgetContainer.parent().hasClass( 'expanded' ) : widgetContainer.hasClass( 'open' ) ) ) { // Core merge: The wp.customize condition can be eliminated with this change being in core: https://github.com/xwp/wordpress-develop/pull/247/commits/5322387d
 				setTimeout( renderWhenAnimationDone, animatedCheckDelay );
 			} else {
@@ -362,13 +404,15 @@ wp.customHtmlWidgets = ( function( $ ) {
 		}
 
 		fieldContainer = $( '<div></div>' );
-		syncContainer = widgetForm.find( '> .widget-inside' );
+		syncContainer  = widgetForm.find( '> .widget-inside' );
 		syncContainer.before( fieldContainer );
 
-		widgetControl = new component.CustomHtmlWidgetControl({
-			el: fieldContainer,
-			syncContainer: syncContainer
-		});
+		widgetControl = new component.CustomHtmlWidgetControl(
+			{
+				el: fieldContainer,
+				syncContainer: syncContainer
+			}
+		);
 
 		widgetControl.initializeEditor();
 	};
@@ -395,7 +439,7 @@ wp.customHtmlWidgets = ( function( $ ) {
 			return;
 		}
 
-		widgetId = widgetForm.find( '> .widget-id' ).val();
+		widgetId      = widgetForm.find( '> .widget-id' ).val();
 		widgetControl = component.widgetControls[ widgetId ];
 		if ( ! widgetControl ) {
 			return;
@@ -434,16 +478,20 @@ wp.customHtmlWidgets = ( function( $ ) {
 		 * the same for the widgets admin screen, to invoke the widget-added
 		 * handler when a pre-existing media widget is expanded.
 		 */
-		$( function initializeExistingWidgetContainers() {
+		$(
+			function initializeExistingWidgetContainers() {
 			var widgetContainers;
 			if ( 'widgets' !== window.pagenow ) {
 				return;
 			}
 			widgetContainers = $( '.widgets-holder-wrap:not(#available-widgets)' ).find( 'div.widget' );
-			widgetContainers.one( 'click.toggle-widget-expanded', function toggleWidgetExpanded() {
+			widgetContainers.one(
+				'click.toggle-widget-expanded',
+				function toggleWidgetExpanded() {
 				var widgetContainer = $( this );
 				component.handleWidgetAdded( new jQuery.Event( 'widget-added' ), widgetContainer );
-			});
+				}
+			);
 
 			// Accessibility mode.
 			if ( document.readyState === 'complete' ) {
@@ -451,11 +499,15 @@ wp.customHtmlWidgets = ( function( $ ) {
 				component.setupAccessibleMode();
 			} else {
 				// Page is still loading.
-				$( window ).on( 'load', function() {
-					component.setupAccessibleMode();
-				});
+				$( window ).on(
+					'load',
+					function () {
+						component.setupAccessibleMode();
+					}
+				);
 			}
-		});
+			}
+		);
 	};
 
 	return component;

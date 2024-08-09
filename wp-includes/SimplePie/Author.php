@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -51,8 +51,8 @@
  * @package SimplePie
  * @subpackage API
  */
-class SimplePie_Author
-{
+class SimplePie_Author {
+
 	/**
 	 * Author's name
 	 *
@@ -84,10 +84,9 @@ class SimplePie_Author
 	 * @param string $link
 	 * @param string $email
 	 */
-	public function __construct($name = null, $link = null, $email = null)
-	{
-		$this->name = $name;
-		$this->link = $link;
+	public function __construct( $name = null, $link = null, $email = null ) {
+		$this->name  = $name;
+		$this->link  = $link;
 		$this->email = $email;
 	}
 
@@ -96,10 +95,9 @@ class SimplePie_Author
 	 *
 	 * @return string
 	 */
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
-		return md5(serialize($this));
+		return md5( serialize( $this ) );
 	}
 
 	/**
@@ -107,10 +105,8 @@ class SimplePie_Author
 	 *
 	 * @return string|null
 	 */
-	public function get_name()
-	{
-		if ($this->name !== null)
-		{
+	public function get_name() {
+		if ( $this->name !== null ) {
 			return $this->name;
 		}
 
@@ -122,10 +118,8 @@ class SimplePie_Author
 	 *
 	 * @return string|null
 	 */
-	public function get_link()
-	{
-		if ($this->link !== null)
-		{
+	public function get_link() {
+		if ( $this->link !== null ) {
 			return $this->link;
 		}
 
@@ -137,10 +131,8 @@ class SimplePie_Author
 	 *
 	 * @return string|null
 	 */
-	public function get_email()
-	{
-		if ($this->email !== null)
-		{
+	public function get_email() {
+		if ( $this->email !== null ) {
 			return $this->email;
 		}
 

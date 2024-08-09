@@ -29,7 +29,7 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 *
 	 * @var array
 	 */
-	protected $cookies = [];
+	protected $cookies = array();
 
 	/**
 	 * Create a new jar
@@ -38,9 +38,9 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 *
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not an array.
 	 */
-	public function __construct($cookies = []) {
-		if (is_array($cookies) === false) {
-			throw InvalidArgument::create(1, '$cookies', 'array', gettype($cookies));
+	public function __construct( $cookies = array() ) {
+		if ( is_array( $cookies ) === false ) {
+			throw InvalidArgument::create( 1, '$cookies', 'array', gettype( $cookies ) );
 		}
 
 		$this->cookies = $cookies;
@@ -53,12 +53,12 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 * @param string                        $key    Optional. The name for this cookie.
 	 * @return \WpOrg\Requests\Cookie
 	 */
-	public function normalize_cookie($cookie, $key = '') {
-		if ($cookie instanceof Cookie) {
+	public function normalize_cookie( $cookie, $key = '' ) {
+		if ( $cookie instanceof Cookie ) {
 			return $cookie;
 		}
 
-		return Cookie::parse($cookie, $key);
+		return Cookie::parse( $cookie, $key );
 	}
 
 	/**
@@ -68,8 +68,8 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 * @return boolean Does the item exist?
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetExists($offset) {
-		return isset($this->cookies[$offset]);
+	public function offsetExists( $offset ) {
+		return isset( $this->cookies[ $offset ] );
 	}
 
 	/**
@@ -79,12 +79,12 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 * @return string|null Item value (null if offsetExists is false)
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetGet($offset) {
-		if (!isset($this->cookies[$offset])) {
+	public function offsetGet( $offset ) {
+		if ( ! isset( $this->cookies[ $offset ] ) ) {
 			return null;
 		}
 
-		return $this->cookies[$offset];
+		return $this->cookies[ $offset ];
 	}
 
 	/**
@@ -96,12 +96,12 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 * @throws \WpOrg\Requests\Exception On attempting to use dictionary as list (`invalidset`)
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetSet($offset, $value) {
-		if ($offset === null) {
-			throw new Exception('Object is a dictionary, not a list', 'invalidset');
+	public function offsetSet( $offset, $value ) {
+		if ( $offset === null ) {
+			throw new Exception( 'Object is a dictionary, not a list', 'invalidset' );
 		}
 
-		$this->cookies[$offset] = $value;
+		$this->cookies[ $offset ] = $value;
 	}
 
 	/**
@@ -110,8 +110,8 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 * @param string $offset The key for the item to unset.
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetUnset($offset) {
-		unset($this->cookies[$offset]);
+	public function offsetUnset( $offset ) {
+		unset( $this->cookies[ $offset ] );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 */
 	#[ReturnTypeWillChange]
 	public function getIterator() {
-		return new ArrayIterator($this->cookies);
+		return new ArrayIterator( $this->cookies );
 	}
 
 	/**
@@ -129,9 +129,9 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 *
 	 * @param \WpOrg\Requests\HookManager $hooks Hooking system
 	 */
-	public function register(HookManager $hooks) {
-		$hooks->register('requests.before_request', [$this, 'before_request']);
-		$hooks->register('requests.before_redirect_check', [$this, 'before_redirect_check']);
+	public function register( HookManager $hooks ) {
+		$hooks->register( 'requests.before_request', array( $this, 'before_request' ) );
+		$hooks->register( 'requests.before_redirect_check', array( $this, 'before_redirect_check' ) );
 	}
 
 	/**
@@ -140,32 +140,32 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 * As per RFC 6265, cookies are separated by '; '
 	 *
 	 * @param string $url
-	 * @param array $headers
-	 * @param array $data
+	 * @param array  $headers
+	 * @param array  $data
 	 * @param string $type
-	 * @param array $options
+	 * @param array  $options
 	 */
-	public function before_request($url, &$headers, &$data, &$type, &$options) {
-		if (!$url instanceof Iri) {
-			$url = new Iri($url);
+	public function before_request( $url, &$headers, &$data, &$type, &$options ) {
+		if ( ! $url instanceof Iri ) {
+			$url = new Iri( $url );
 		}
 
-		if (!empty($this->cookies)) {
-			$cookies = [];
-			foreach ($this->cookies as $key => $cookie) {
-				$cookie = $this->normalize_cookie($cookie, $key);
+		if ( ! empty( $this->cookies ) ) {
+			$cookies = array();
+			foreach ( $this->cookies as $key => $cookie ) {
+				$cookie = $this->normalize_cookie( $cookie, $key );
 
 				// Skip expired cookies
-				if ($cookie->is_expired()) {
+				if ( $cookie->is_expired() ) {
 					continue;
 				}
 
-				if ($cookie->domain_matches($url->host)) {
+				if ( $cookie->domain_matches( $url->host ) ) {
 					$cookies[] = $cookie->format_for_header();
 				}
 			}
 
-			$headers['Cookie'] = implode('; ', $cookies);
+			$headers['Cookie'] = implode( '; ', $cookies );
 		}
 	}
 
@@ -174,14 +174,14 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	 *
 	 * @param \WpOrg\Requests\Response $response Response as received.
 	 */
-	public function before_redirect_check(Response $response) {
+	public function before_redirect_check( Response $response ) {
 		$url = $response->url;
-		if (!$url instanceof Iri) {
-			$url = new Iri($url);
+		if ( ! $url instanceof Iri ) {
+			$url = new Iri( $url );
 		}
 
-		$cookies           = Cookie::parse_from_headers($response->headers, $url);
-		$this->cookies     = array_merge($this->cookies, $cookies);
+		$cookies           = Cookie::parse_from_headers( $response->headers, $url );
+		$this->cookies     = array_merge( $this->cookies, $cookies );
 		$response->cookies = $this;
 	}
 }

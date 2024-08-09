@@ -8,7 +8,7 @@
  * @output wp-admin/js/word-count.js
  */
 
-( function() {
+( function () {
 	/**
 	 * Word counting utility
 	 *
@@ -78,7 +78,8 @@
 		connectorRegExp: /--|\u2014/g,
 
 		// Characters to be removed from input text.
-		removeRegExp: new RegExp( [
+		removeRegExp: new RegExp(
+			[
 			'[',
 
 				// Basic Latin (extract).
@@ -119,12 +120,14 @@
 				// Supplemental Punctuation.
 				'\u2E00-\u2E7F',
 			']'
-		].join( '' ), 'g' ),
+			].join( '' ),
+			'g'
+		),
 
 		// Remove UTF-16 surrogate points, see https://en.wikipedia.org/wiki/UTF-16#U.2BD800_to_U.2BDFFF
-		astralRegExp: /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
-		wordsRegExp: /\S\s+/g,
-		characters_excluding_spacesRegExp: /\S/g,
+	astralRegExp: /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
+	wordsRegExp: /\S\s+/g,
+	characters_excluding_spacesRegExp: /\S/g,
 
 		/*
 		 * Match anything that is not a formatting character, excluding:
@@ -137,8 +140,8 @@
 		 * \u2028 = line separator
 		 * \u2029 = paragraph separator
 		 */
-		characters_including_spacesRegExp: /[^\f\n\r\t\v\u00AD\u2028\u2029]/g,
-		l10n: window.wordCountL10n || {}
+	characters_including_spacesRegExp: /[^\f\n\r\t\v\u00AD\u2028\u2029]/g,
+	l10n: window.wordCountL10n || {}
 	};
 
 	/**
@@ -153,7 +156,7 @@
 	 *
 	 * @return {number} The number of items counted.
 	 */
-	WordCounter.prototype.count = function( text, type ) {
+	WordCounter.prototype.count = function ( text, type ) {
 		var count = 0;
 
 		// Use default type if none was provided.
@@ -214,7 +217,7 @@
 	};
 
 	// Add the WordCounter to the WP Utils.
-	window.wp = window.wp || {};
-	window.wp.utils = window.wp.utils || {};
+	window.wp                   = window.wp || {};
+	window.wp.utils             = window.wp.utils || {};
 	window.wp.utils.WordCounter = WordCounter;
 } )();

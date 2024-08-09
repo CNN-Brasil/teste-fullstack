@@ -3,7 +3,7 @@
  */
 
 /* eslint consistent-this: [ "error", "control" ] */
-(function( component ) {
+(function ( component ) {
 	'use strict';
 
 	var GalleryWidgetModel, GalleryWidgetControl, GalleryDetailsMediaFrame;
@@ -15,41 +15,54 @@
 	 * @class    wp.mediaWidgets~GalleryDetailsMediaFrame
 	 * @augments wp.media.view.MediaFrame.Post
 	 */
-	GalleryDetailsMediaFrame = wp.media.view.MediaFrame.Post.extend(/** @lends wp.mediaWidgets~GalleryDetailsMediaFrame.prototype */{
+	GalleryDetailsMediaFrame = wp.media.view.MediaFrame.Post.extend(
+		/** @lends wp.mediaWidgets~GalleryDetailsMediaFrame.prototype */        {
 
-		/**
-		 * Create the default states.
-		 *
-		 * @since 4.9.0
-		 * @return {void}
-		 */
-		createStates: function createStates() {
-			this.states.add([
-				new wp.media.controller.Library({
-					id:         'gallery',
-					title:      wp.media.view.l10n.createGalleryTitle,
-					priority:   40,
-					toolbar:    'main-gallery',
-					filterable: 'uploaded',
-					multiple:   'add',
-					editable:   true,
+			/**
+			 * Create the default states.
+			 *
+			 * @since 4.9.0
+			 * @return {void}
+			 */
+			createStates: function createStates() {
+				this.states.add(
+					[
+					new wp.media.controller.Library(
+						{
+							id:         'gallery',
+							title:      wp.media.view.l10n.createGalleryTitle,
+							priority:   40,
+							toolbar:    'main-gallery',
+							filterable: 'uploaded',
+							multiple:   'add',
+							editable:   true,
 
-					library:  wp.media.query( _.defaults({
-						type: 'image'
-					}, this.options.library ) )
-				}),
+							library:  wp.media.query(
+								_.defaults(
+									{
+										type: 'image'
+									},
+									this.options.library
+								)
+							)
+						}
+					),
 
-				// Gallery states.
-				new wp.media.controller.GalleryEdit({
-					library: this.options.selection,
-					editing: this.options.editing,
-					menu:    'gallery'
-				}),
+					// Gallery states.
+					new wp.media.controller.GalleryEdit(
+						{
+							library: this.options.selection,
+							editing: this.options.editing,
+							menu:    'gallery'
+						}
+					),
 
-				new wp.media.controller.GalleryAdd()
-			]);
+					new wp.media.controller.GalleryAdd()
+					]
+				);
+			}
 		}
-	} );
+	);
 
 	/**
 	 * Gallery widget model.
@@ -61,19 +74,24 @@
 	 * @class    wp.mediaWidgets.modelConstructors.media_gallery
 	 * @augments wp.mediaWidgets.MediaWidgetModel
 	 */
-	GalleryWidgetModel = component.MediaWidgetModel.extend(/** @lends wp.mediaWidgets.modelConstructors.media_gallery.prototype */{} );
+	GalleryWidgetModel = component.MediaWidgetModel.extend( /** @lends wp.mediaWidgets.modelConstructors.media_gallery.prototype */{} );
 
-	GalleryWidgetControl = component.MediaWidgetControl.extend(/** @lends wp.mediaWidgets.controlConstructors.media_gallery.prototype */{
+	GalleryWidgetControl = component.MediaWidgetControl.extend(
+		/** @lends wp.mediaWidgets.controlConstructors.media_gallery.prototype */        {
 
-		/**
-		 * View events.
-		 *
-		 * @since 4.9.0
-		 * @type {object}
-		 */
-		events: _.extend( {}, component.MediaWidgetControl.prototype.events, {
-			'click .media-widget-gallery-preview': 'editMedia'
-		} ),
+			/**
+			 * View events.
+			 *
+			 * @since 4.9.0
+			 * @type {object}
+			 */
+			events: _.extend(
+				{},
+				component.MediaWidgetControl.prototype.events,
+				{
+					'click .media-widget-gallery-preview': 'editMedia'
+				}
+			),
 
 		/**
 		 * Gallery widget control.
@@ -112,9 +130,12 @@
 			 * For a proposal to include attachments in the customized state, see #37887.
 			 */
 			if ( wp.customize && wp.customize.previewer ) {
-				control.selectedAttachments.on( 'change', function() {
-					wp.customize.previewer.send( 'refresh-widget-partial', control.model.get( 'widget_id' ) );
-				} );
+				control.selectedAttachments.on(
+					'change',
+					function () {
+						wp.customize.previewer.send( 'refresh-widget-partial', control.model.get( 'widget_id' ) );
+					}
+				);
 			}
 		},
 
@@ -131,23 +152,30 @@
 			oldIds = _.pluck( control.selectedAttachments.models, 'id' );
 
 			removedIds = _.difference( oldIds, newIds );
-			_.each( removedIds, function( removedId ) {
-				control.selectedAttachments.remove( control.selectedAttachments.get( removedId ) );
-			});
+			_.each(
+				removedIds,
+				function ( removedId ) {
+					control.selectedAttachments.remove( control.selectedAttachments.get( removedId ) );
+				}
+			);
 
 			addedIds = _.difference( newIds, oldIds );
 			if ( addedIds.length ) {
-				addedQuery = wp.media.query({
-					order: 'ASC',
-					orderby: 'post__in',
-					perPage: -1,
-					post__in: newIds,
-					query: true,
-					type: 'image'
-				});
-				addedQuery.more().done( function() {
-					control.selectedAttachments.reset( addedQuery.models );
-				});
+				addedQuery = wp.media.query(
+					{
+						order: 'ASC',
+						orderby: 'post__in',
+						perPage: -1,
+						post__in: newIds,
+						query: true,
+						type: 'image'
+					}
+				);
+				addedQuery.more().done(
+					function () {
+						control.selectedAttachments.reset( addedQuery.models );
+					}
+				);
 			}
 		},
 
@@ -161,13 +189,15 @@
 			var control = this, previewContainer, previewTemplate, data;
 
 			previewContainer = control.$el.find( '.media-widget-preview' );
-			previewTemplate = wp.template( 'wp-media-widget-gallery-preview' );
+			previewTemplate  = wp.template( 'wp-media-widget-gallery-preview' );
 
-			data = control.previewTemplateProps.toJSON();
+			data             = control.previewTemplateProps.toJSON();
 			data.attachments = {};
-			control.selectedAttachments.each( function( attachment ) {
-				data.attachments[ attachment.id ] = attachment.toJSON();
-			} );
+			control.selectedAttachments.each(
+				function ( attachment ) {
+					data.attachments[ attachment.id ] = attachment.toJSON();
+				}
+			);
 
 			previewContainer.html( previewTemplate( data ) );
 		},
@@ -197,31 +227,38 @@
 		editMedia: function editMedia() {
 			var control = this, selection, mediaFrame, mediaFrameProps;
 
-			selection = new wp.media.model.Selection( control.selectedAttachments.models, {
-				multiple: true
-			});
+			selection = new wp.media.model.Selection(
+				control.selectedAttachments.models,
+				{
+					multiple: true
+				}
+			);
 
-			mediaFrameProps = control.mapModelToMediaFrameProps( control.model.toJSON() );
+			mediaFrameProps   = control.mapModelToMediaFrameProps( control.model.toJSON() );
 			selection.gallery = new Backbone.Model( mediaFrameProps );
 			if ( mediaFrameProps.size ) {
 				control.displaySettings.set( 'size', mediaFrameProps.size );
 			}
-			mediaFrame = new GalleryDetailsMediaFrame({
-				frame: 'manage',
-				text: control.l10n.add_to_widget,
-				selection: selection,
-				mimeType: control.mime_type,
-				selectedDisplaySettings: control.displaySettings,
-				showDisplaySettings: control.showDisplaySettings,
-				metadata: mediaFrameProps,
-				editing:   true,
-				multiple:  true,
-				state: 'gallery-edit'
-			});
+			mediaFrame     = new GalleryDetailsMediaFrame(
+				{
+					frame: 'manage',
+					text: control.l10n.add_to_widget,
+					selection: selection,
+					mimeType: control.mime_type,
+					selectedDisplaySettings: control.displaySettings,
+					showDisplaySettings: control.showDisplaySettings,
+					metadata: mediaFrameProps,
+					editing:   true,
+					multiple:  true,
+					state: 'gallery-edit'
+				}
+			);
 			wp.media.frame = mediaFrame; // See wp.media().
 
 			// Handle selection of a media item.
-			mediaFrame.on( 'update', function onUpdate( newSelection ) {
+			mediaFrame.on(
+				'update',
+				function onUpdate( newSelection ) {
 				var state = mediaFrame.state(), resultSelection;
 
 				resultSelection = newSelection || state.get( 'selection' );
@@ -238,10 +275,13 @@
 				control.selectedAttachments.reset( resultSelection.models );
 
 				// Update models in the widget instance.
-				control.model.set( {
-					ids: _.pluck( resultSelection.models, 'id' )
-				} );
-			} );
+				control.model.set(
+					{
+						ids: _.pluck( resultSelection.models, 'id' )
+					}
+				);
+				}
+			);
 
 			mediaFrame.$el.addClass( 'media-widget' );
 			mediaFrame.open();
@@ -259,28 +299,35 @@
 		 */
 		selectMedia: function selectMedia() {
 			var control = this, selection, mediaFrame, mediaFrameProps;
-			selection = new wp.media.model.Selection( control.selectedAttachments.models, {
-				multiple: true
-			});
+			selection   = new wp.media.model.Selection(
+				control.selectedAttachments.models,
+				{
+					multiple: true
+				}
+			);
 
 			mediaFrameProps = control.mapModelToMediaFrameProps( control.model.toJSON() );
 			if ( mediaFrameProps.size ) {
 				control.displaySettings.set( 'size', mediaFrameProps.size );
 			}
-			mediaFrame = new GalleryDetailsMediaFrame({
-				frame: 'select',
-				text: control.l10n.add_to_widget,
-				selection: selection,
-				mimeType: control.mime_type,
-				selectedDisplaySettings: control.displaySettings,
-				showDisplaySettings: control.showDisplaySettings,
-				metadata: mediaFrameProps,
-				state: 'gallery'
-			});
+			mediaFrame     = new GalleryDetailsMediaFrame(
+				{
+					frame: 'select',
+					text: control.l10n.add_to_widget,
+					selection: selection,
+					mimeType: control.mime_type,
+					selectedDisplaySettings: control.displaySettings,
+					showDisplaySettings: control.showDisplaySettings,
+					metadata: mediaFrameProps,
+					state: 'gallery'
+				}
+			);
 			wp.media.frame = mediaFrame; // See wp.media().
 
 			// Handle selection of a media item.
-			mediaFrame.on( 'update', function onUpdate( newSelection ) {
+			mediaFrame.on(
+				'update',
+				function onUpdate( newSelection ) {
 				var state = mediaFrame.state(), resultSelection;
 
 				resultSelection = newSelection || state.get( 'selection' );
@@ -297,10 +344,13 @@
 				control.selectedAttachments.reset( resultSelection.models );
 
 				// Update widget instance.
-				control.model.set( {
-					ids: _.pluck( resultSelection.models, 'id' )
-				} );
-			} );
+				control.model.set(
+					{
+						ids: _.pluck( resultSelection.models, 'id' )
+					}
+				);
+				}
+			);
 
 			mediaFrame.$el.addClass( 'media-widget' );
 			mediaFrame.open();
@@ -325,17 +375,20 @@
 		 */
 		handleAttachmentDestroy: function handleAttachmentDestroy( attachment ) {
 			var control = this;
-			control.model.set( {
-				ids: _.difference(
-					control.model.get( 'ids' ),
-					[ attachment.id ]
-				)
-			} );
+			control.model.set(
+				{
+					ids: _.difference(
+						control.model.get( 'ids' ),
+						[ attachment.id ]
+					)
+				}
+			);
 		}
-	} );
+		}
+	);
 
 	// Exports.
 	component.controlConstructors.media_gallery = GalleryWidgetControl;
-	component.modelConstructors.media_gallery = GalleryWidgetModel;
+	component.modelConstructors.media_gallery   = GalleryWidgetModel;
 
 })( wp.mediaWidgets );

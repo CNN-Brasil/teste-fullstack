@@ -386,7 +386,7 @@ body.language-chooser {
  * HiDPI Displays
  */
 @media print,
-  (min-resolution: 120dpi) {
+	(min-resolution: 120dpi) {
 
 	.spinner {
 		background-image: url(../images/spinner-2x.gif);

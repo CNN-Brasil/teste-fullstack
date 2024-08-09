@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -46,41 +46,35 @@
  *
  * @package SimplePie
  */
-class SimplePie_Misc
-{
-	public static function time_hms($seconds)
-	{
+class SimplePie_Misc {
+
+	public static function time_hms( $seconds ) {
 		$time = '';
 
-		$hours = floor($seconds / 3600);
+		$hours     = floor( $seconds / 3600 );
 		$remainder = $seconds % 3600;
-		if ($hours > 0)
-		{
-			$time .= $hours.':';
+		if ( $hours > 0 ) {
+			$time .= $hours . ':';
 		}
 
-		$minutes = floor($remainder / 60);
+		$minutes = floor( $remainder / 60 );
 		$seconds = $remainder % 60;
-		if ($minutes < 10 && $hours > 0)
-		{
+		if ( $minutes < 10 && $hours > 0 ) {
 			$minutes = '0' . $minutes;
 		}
-		if ($seconds < 10)
-		{
+		if ( $seconds < 10 ) {
 			$seconds = '0' . $seconds;
 		}
 
-		$time .= $minutes.':';
+		$time .= $minutes . ':';
 		$time .= $seconds;
 
 		return $time;
 	}
 
-	public static function absolutize_url($relative, $base)
-	{
-		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
-		if ($iri === false)
-		{
+	public static function absolutize_url( $relative, $base ) {
+		$iri = SimplePie_IRI::absolutize( new SimplePie_IRI( $base ), $relative );
+		if ( $iri === false ) {
 			return false;
 		}
 		return $iri->get_uri();
@@ -94,36 +88,27 @@ class SimplePie_Misc
 	 * @param string $string HTML document
 	 * @return array
 	 */
-	public static function get_element($realname, $string)
-	{
+	public static function get_element( $realname, $string ) {
 		$return = array();
-		$name = preg_quote($realname, '/');
-		if (preg_match_all("/<($name)" . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . "(>(.*)<\/$name>|(\/)?>)/siU", $string, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE))
-		{
-			for ($i = 0, $total_matches = count($matches); $i < $total_matches; $i++)
-			{
-				$return[$i]['tag'] = $realname;
-				$return[$i]['full'] = $matches[$i][0][0];
-				$return[$i]['offset'] = $matches[$i][0][1];
-				if (strlen($matches[$i][3][0]) <= 2)
-				{
-					$return[$i]['self_closing'] = true;
+		$name   = preg_quote( $realname, '/' );
+		if ( preg_match_all( "/<($name)" . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . "(>(.*)<\/$name>|(\/)?>)/siU", $string, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE ) ) {
+			for ( $i = 0, $total_matches = count( $matches ); $i < $total_matches; $i++ ) {
+				$return[ $i ]['tag']    = $realname;
+				$return[ $i ]['full']   = $matches[ $i ][0][0];
+				$return[ $i ]['offset'] = $matches[ $i ][0][1];
+				if ( strlen( $matches[ $i ][3][0] ) <= 2 ) {
+					$return[ $i ]['self_closing'] = true;
+				} else {
+					$return[ $i ]['self_closing'] = false;
+					$return[ $i ]['content']      = $matches[ $i ][4][0];
 				}
-				else
-				{
-					$return[$i]['self_closing'] = false;
-					$return[$i]['content'] = $matches[$i][4][0];
-				}
-				$return[$i]['attribs'] = array();
-				if (isset($matches[$i][2][0]) && preg_match_all('/[\x09\x0A\x0B\x0C\x0D\x20]+([^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3D\x3E]*)(?:[\x09\x0A\x0B\x0C\x0D\x20]*=[\x09\x0A\x0B\x0C\x0D\x20]*(?:"([^"]*)"|\'([^\']*)\'|([^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?/', ' ' . $matches[$i][2][0] . ' ', $attribs, PREG_SET_ORDER))
-				{
-					for ($j = 0, $total_attribs = count($attribs); $j < $total_attribs; $j++)
-					{
-						if (count($attribs[$j]) === 2)
-						{
-							$attribs[$j][2] = $attribs[$j][1];
+				$return[ $i ]['attribs'] = array();
+				if ( isset( $matches[ $i ][2][0] ) && preg_match_all( '/[\x09\x0A\x0B\x0C\x0D\x20]+([^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3D\x3E]*)(?:[\x09\x0A\x0B\x0C\x0D\x20]*=[\x09\x0A\x0B\x0C\x0D\x20]*(?:"([^"]*)"|\'([^\']*)\'|([^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?/', ' ' . $matches[ $i ][2][0] . ' ', $attribs, PREG_SET_ORDER ) ) {
+					for ( $j = 0, $total_attribs = count( $attribs ); $j < $total_attribs; $j++ ) {
+						if ( count( $attribs[ $j ] ) === 2 ) {
+							$attribs[ $j ][2] = $attribs[ $j ][1];
 						}
-						$return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = SimplePie_Misc::entities_decode(end($attribs[$j]));
+						$return[ $i ]['attribs'][ strtolower( $attribs[ $j ][1] ) ]['data'] = self::entities_decode( end( $attribs[ $j ] ) );
 					}
 				}
 			}
@@ -131,31 +116,23 @@ class SimplePie_Misc
 		return $return;
 	}
 
-	public static function element_implode($element)
-	{
+	public static function element_implode( $element ) {
 		$full = "<$element[tag]";
-		foreach ($element['attribs'] as $key => $value)
-		{
-			$key = strtolower($key);
-			$full .= " $key=\"" . htmlspecialchars($value['data'], ENT_COMPAT, 'UTF-8') . '"';
+		foreach ( $element['attribs'] as $key => $value ) {
+			$key   = strtolower( $key );
+			$full .= " $key=\"" . htmlspecialchars( $value['data'], ENT_COMPAT, 'UTF-8' ) . '"';
 		}
-		if ($element['self_closing'])
-		{
+		if ( $element['self_closing'] ) {
 			$full .= ' />';
-		}
-		else
-		{
+		} else {
 			$full .= ">$element[content]</$element[tag]>";
 		}
 		return $full;
 	}
 
-	public static function error($message, $level, $file, $line)
-	{
-		if ((ini_get('error_reporting') & $level) > 0)
-		{
-			switch ($level)
-			{
+	public static function error( $message, $level, $file, $line ) {
+		if ( ( ini_get( 'error_reporting' ) & $level ) > 0 ) {
+			switch ( $level ) {
 				case E_USER_ERROR:
 					$note = 'PHP Error';
 					break;
@@ -171,111 +148,90 @@ class SimplePie_Misc
 			}
 
 			$log_error = true;
-			if (!function_exists('error_log'))
-			{
+			if ( ! function_exists( 'error_log' ) ) {
 				$log_error = false;
 			}
 
-			$log_file = @ini_get('error_log');
-			if (!empty($log_file) && ('syslog' !== $log_file) && !@is_writable($log_file))
-			{
+			$log_file = @ini_get( 'error_log' );
+			if ( ! empty( $log_file ) && ( 'syslog' !== $log_file ) && ! @is_writable( $log_file ) ) {
 				$log_error = false;
 			}
 
-			if ($log_error)
-			{
-				@error_log("$note: $message in $file on line $line", 0);
+			if ( $log_error ) {
+				@error_log( "$note: $message in $file on line $line", 0 );
 			}
 		}
 
 		return $message;
 	}
 
-	public static function fix_protocol($url, $http = 1)
-	{
-		$url = SimplePie_Misc::normalize_url($url);
-		$parsed = SimplePie_Misc::parse_url($url);
-		if ($parsed['scheme'] !== '' && $parsed['scheme'] !== 'http' && $parsed['scheme'] !== 'https')
-		{
-			return SimplePie_Misc::fix_protocol(SimplePie_Misc::compress_parse_url('http', $parsed['authority'], $parsed['path'], $parsed['query'], $parsed['fragment']), $http);
+	public static function fix_protocol( $url, $http = 1 ) {
+		$url    = self::normalize_url( $url );
+		$parsed = self::parse_url( $url );
+		if ( $parsed['scheme'] !== '' && $parsed['scheme'] !== 'http' && $parsed['scheme'] !== 'https' ) {
+			return self::fix_protocol( self::compress_parse_url( 'http', $parsed['authority'], $parsed['path'], $parsed['query'], $parsed['fragment'] ), $http );
 		}
 
-		if ($parsed['scheme'] === '' && $parsed['authority'] === '' && !file_exists($url))
-		{
-			return SimplePie_Misc::fix_protocol(SimplePie_Misc::compress_parse_url('http', $parsed['path'], '', $parsed['query'], $parsed['fragment']), $http);
+		if ( $parsed['scheme'] === '' && $parsed['authority'] === '' && ! file_exists( $url ) ) {
+			return self::fix_protocol( self::compress_parse_url( 'http', $parsed['path'], '', $parsed['query'], $parsed['fragment'] ), $http );
 		}
 
-		if ($http === 2 && $parsed['scheme'] !== '')
-		{
+		if ( $http === 2 && $parsed['scheme'] !== '' ) {
 			return "feed:$url";
-		}
-		elseif ($http === 3 && strtolower($parsed['scheme']) === 'http')
-		{
-			return substr_replace($url, 'podcast', 0, 4);
-		}
-		elseif ($http === 4 && strtolower($parsed['scheme']) === 'http')
-		{
-			return substr_replace($url, 'itpc', 0, 4);
+		} elseif ( $http === 3 && strtolower( $parsed['scheme'] ) === 'http' ) {
+			return substr_replace( $url, 'podcast', 0, 4 );
+		} elseif ( $http === 4 && strtolower( $parsed['scheme'] ) === 'http' ) {
+			return substr_replace( $url, 'itpc', 0, 4 );
 		}
 
 		return $url;
 	}
 
-	public static function array_merge_recursive($array1, $array2)
-	{
-		foreach ($array2 as $key => $value)
-		{
-			if (is_array($value))
-			{
-				$array1[$key] = SimplePie_Misc::array_merge_recursive($array1[$key], $value);
-			}
-			else
-			{
-				$array1[$key] = $value;
+	public static function array_merge_recursive( $array1, $array2 ) {
+		foreach ( $array2 as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$array1[ $key ] = self::array_merge_recursive( $array1[ $key ], $value );
+			} else {
+				$array1[ $key ] = $value;
 			}
 		}
 
 		return $array1;
 	}
 
-	public static function parse_url($url)
-	{
-		$iri = new SimplePie_IRI($url);
+	public static function parse_url( $url ) {
+		$iri = new SimplePie_IRI( $url );
 		return array(
-			'scheme' => (string) $iri->scheme,
+			'scheme'    => (string) $iri->scheme,
 			'authority' => (string) $iri->authority,
-			'path' => (string) $iri->path,
-			'query' => (string) $iri->query,
-			'fragment' => (string) $iri->fragment
+			'path'      => (string) $iri->path,
+			'query'     => (string) $iri->query,
+			'fragment'  => (string) $iri->fragment,
 		);
 	}
 
-	public static function compress_parse_url($scheme = '', $authority = '', $path = '', $query = '', $fragment = '')
-	{
-		$iri = new SimplePie_IRI('');
-		$iri->scheme = $scheme;
+	public static function compress_parse_url( $scheme = '', $authority = '', $path = '', $query = '', $fragment = '' ) {
+		$iri            = new SimplePie_IRI( '' );
+		$iri->scheme    = $scheme;
 		$iri->authority = $authority;
-		$iri->path = $path;
-		$iri->query = $query;
-		$iri->fragment = $fragment;
+		$iri->path      = $path;
+		$iri->query     = $query;
+		$iri->fragment  = $fragment;
 		return $iri->get_uri();
 	}
 
-	public static function normalize_url($url)
-	{
-		$iri = new SimplePie_IRI($url);
+	public static function normalize_url( $url ) {
+		$iri = new SimplePie_IRI( $url );
 		return $iri->get_uri();
 	}
 
-	public static function percent_encoding_normalization($match)
-	{
-		$integer = hexdec($match[1]);
-		if ($integer >= 0x41 && $integer <= 0x5A || $integer >= 0x61 && $integer <= 0x7A || $integer >= 0x30 && $integer <= 0x39 || $integer === 0x2D || $integer === 0x2E || $integer === 0x5F || $integer === 0x7E)
-		{
-			return chr($integer);
+	public static function percent_encoding_normalization( $match ) {
+		$integer = hexdec( $match[1] );
+		if ( $integer >= 0x41 && $integer <= 0x5A || $integer >= 0x61 && $integer <= 0x7A || $integer >= 0x30 && $integer <= 0x39 || $integer === 0x2D || $integer === 0x2E || $integer === 0x5F || $integer === 0x7E ) {
+			return chr( $integer );
 		}
 
-		return strtoupper($match[0]);
+		return strtoupper( $match[0] );
 	}
 
 	/**
@@ -285,11 +241,139 @@ class SimplePie_Misc
 	 * @param string $string Windows-1252 encoded string
 	 * @return string UTF-8 encoded string
 	 */
-	public static function windows_1252_to_utf8($string)
-	{
-		static $convert_table = array("\x80" => "\xE2\x82\xAC", "\x81" => "\xEF\xBF\xBD", "\x82" => "\xE2\x80\x9A", "\x83" => "\xC6\x92", "\x84" => "\xE2\x80\x9E", "\x85" => "\xE2\x80\xA6", "\x86" => "\xE2\x80\xA0", "\x87" => "\xE2\x80\xA1", "\x88" => "\xCB\x86", "\x89" => "\xE2\x80\xB0", "\x8A" => "\xC5\xA0", "\x8B" => "\xE2\x80\xB9", "\x8C" => "\xC5\x92", "\x8D" => "\xEF\xBF\xBD", "\x8E" => "\xC5\xBD", "\x8F" => "\xEF\xBF\xBD", "\x90" => "\xEF\xBF\xBD", "\x91" => "\xE2\x80\x98", "\x92" => "\xE2\x80\x99", "\x93" => "\xE2\x80\x9C", "\x94" => "\xE2\x80\x9D", "\x95" => "\xE2\x80\xA2", "\x96" => "\xE2\x80\x93", "\x97" => "\xE2\x80\x94", "\x98" => "\xCB\x9C", "\x99" => "\xE2\x84\xA2", "\x9A" => "\xC5\xA1", "\x9B" => "\xE2\x80\xBA", "\x9C" => "\xC5\x93", "\x9D" => "\xEF\xBF\xBD", "\x9E" => "\xC5\xBE", "\x9F" => "\xC5\xB8", "\xA0" => "\xC2\xA0", "\xA1" => "\xC2\xA1", "\xA2" => "\xC2\xA2", "\xA3" => "\xC2\xA3", "\xA4" => "\xC2\xA4", "\xA5" => "\xC2\xA5", "\xA6" => "\xC2\xA6", "\xA7" => "\xC2\xA7", "\xA8" => "\xC2\xA8", "\xA9" => "\xC2\xA9", "\xAA" => "\xC2\xAA", "\xAB" => "\xC2\xAB", "\xAC" => "\xC2\xAC", "\xAD" => "\xC2\xAD", "\xAE" => "\xC2\xAE", "\xAF" => "\xC2\xAF", "\xB0" => "\xC2\xB0", "\xB1" => "\xC2\xB1", "\xB2" => "\xC2\xB2", "\xB3" => "\xC2\xB3", "\xB4" => "\xC2\xB4", "\xB5" => "\xC2\xB5", "\xB6" => "\xC2\xB6", "\xB7" => "\xC2\xB7", "\xB8" => "\xC2\xB8", "\xB9" => "\xC2\xB9", "\xBA" => "\xC2\xBA", "\xBB" => "\xC2\xBB", "\xBC" => "\xC2\xBC", "\xBD" => "\xC2\xBD", "\xBE" => "\xC2\xBE", "\xBF" => "\xC2\xBF", "\xC0" => "\xC3\x80", "\xC1" => "\xC3\x81", "\xC2" => "\xC3\x82", "\xC3" => "\xC3\x83", "\xC4" => "\xC3\x84", "\xC5" => "\xC3\x85", "\xC6" => "\xC3\x86", "\xC7" => "\xC3\x87", "\xC8" => "\xC3\x88", "\xC9" => "\xC3\x89", "\xCA" => "\xC3\x8A", "\xCB" => "\xC3\x8B", "\xCC" => "\xC3\x8C", "\xCD" => "\xC3\x8D", "\xCE" => "\xC3\x8E", "\xCF" => "\xC3\x8F", "\xD0" => "\xC3\x90", "\xD1" => "\xC3\x91", "\xD2" => "\xC3\x92", "\xD3" => "\xC3\x93", "\xD4" => "\xC3\x94", "\xD5" => "\xC3\x95", "\xD6" => "\xC3\x96", "\xD7" => "\xC3\x97", "\xD8" => "\xC3\x98", "\xD9" => "\xC3\x99", "\xDA" => "\xC3\x9A", "\xDB" => "\xC3\x9B", "\xDC" => "\xC3\x9C", "\xDD" => "\xC3\x9D", "\xDE" => "\xC3\x9E", "\xDF" => "\xC3\x9F", "\xE0" => "\xC3\xA0", "\xE1" => "\xC3\xA1", "\xE2" => "\xC3\xA2", "\xE3" => "\xC3\xA3", "\xE4" => "\xC3\xA4", "\xE5" => "\xC3\xA5", "\xE6" => "\xC3\xA6", "\xE7" => "\xC3\xA7", "\xE8" => "\xC3\xA8", "\xE9" => "\xC3\xA9", "\xEA" => "\xC3\xAA", "\xEB" => "\xC3\xAB", "\xEC" => "\xC3\xAC", "\xED" => "\xC3\xAD", "\xEE" => "\xC3\xAE", "\xEF" => "\xC3\xAF", "\xF0" => "\xC3\xB0", "\xF1" => "\xC3\xB1", "\xF2" => "\xC3\xB2", "\xF3" => "\xC3\xB3", "\xF4" => "\xC3\xB4", "\xF5" => "\xC3\xB5", "\xF6" => "\xC3\xB6", "\xF7" => "\xC3\xB7", "\xF8" => "\xC3\xB8", "\xF9" => "\xC3\xB9", "\xFA" => "\xC3\xBA", "\xFB" => "\xC3\xBB", "\xFC" => "\xC3\xBC", "\xFD" => "\xC3\xBD", "\xFE" => "\xC3\xBE", "\xFF" => "\xC3\xBF");
+	public static function windows_1252_to_utf8( $string ) {
+		static $convert_table = array(
+			"\x80" => "\xE2\x82\xAC",
+			"\x81" => "\xEF\xBF\xBD",
+			"\x82" => "\xE2\x80\x9A",
+			"\x83" => "\xC6\x92",
+			"\x84" => "\xE2\x80\x9E",
+			"\x85" => "\xE2\x80\xA6",
+			"\x86" => "\xE2\x80\xA0",
+			"\x87" => "\xE2\x80\xA1",
+			"\x88" => "\xCB\x86",
+			"\x89" => "\xE2\x80\xB0",
+			"\x8A" => "\xC5\xA0",
+			"\x8B" => "\xE2\x80\xB9",
+			"\x8C" => "\xC5\x92",
+			"\x8D" => "\xEF\xBF\xBD",
+			"\x8E" => "\xC5\xBD",
+			"\x8F" => "\xEF\xBF\xBD",
+			"\x90" => "\xEF\xBF\xBD",
+			"\x91" => "\xE2\x80\x98",
+			"\x92" => "\xE2\x80\x99",
+			"\x93" => "\xE2\x80\x9C",
+			"\x94" => "\xE2\x80\x9D",
+			"\x95" => "\xE2\x80\xA2",
+			"\x96" => "\xE2\x80\x93",
+			"\x97" => "\xE2\x80\x94",
+			"\x98" => "\xCB\x9C",
+			"\x99" => "\xE2\x84\xA2",
+			"\x9A" => "\xC5\xA1",
+			"\x9B" => "\xE2\x80\xBA",
+			"\x9C" => "\xC5\x93",
+			"\x9D" => "\xEF\xBF\xBD",
+			"\x9E" => "\xC5\xBE",
+			"\x9F" => "\xC5\xB8",
+			"\xA0" => "\xC2\xA0",
+			"\xA1" => "\xC2\xA1",
+			"\xA2" => "\xC2\xA2",
+			"\xA3" => "\xC2\xA3",
+			"\xA4" => "\xC2\xA4",
+			"\xA5" => "\xC2\xA5",
+			"\xA6" => "\xC2\xA6",
+			"\xA7" => "\xC2\xA7",
+			"\xA8" => "\xC2\xA8",
+			"\xA9" => "\xC2\xA9",
+			"\xAA" => "\xC2\xAA",
+			"\xAB" => "\xC2\xAB",
+			"\xAC" => "\xC2\xAC",
+			"\xAD" => "\xC2\xAD",
+			"\xAE" => "\xC2\xAE",
+			"\xAF" => "\xC2\xAF",
+			"\xB0" => "\xC2\xB0",
+			"\xB1" => "\xC2\xB1",
+			"\xB2" => "\xC2\xB2",
+			"\xB3" => "\xC2\xB3",
+			"\xB4" => "\xC2\xB4",
+			"\xB5" => "\xC2\xB5",
+			"\xB6" => "\xC2\xB6",
+			"\xB7" => "\xC2\xB7",
+			"\xB8" => "\xC2\xB8",
+			"\xB9" => "\xC2\xB9",
+			"\xBA" => "\xC2\xBA",
+			"\xBB" => "\xC2\xBB",
+			"\xBC" => "\xC2\xBC",
+			"\xBD" => "\xC2\xBD",
+			"\xBE" => "\xC2\xBE",
+			"\xBF" => "\xC2\xBF",
+			"\xC0" => "\xC3\x80",
+			"\xC1" => "\xC3\x81",
+			"\xC2" => "\xC3\x82",
+			"\xC3" => "\xC3\x83",
+			"\xC4" => "\xC3\x84",
+			"\xC5" => "\xC3\x85",
+			"\xC6" => "\xC3\x86",
+			"\xC7" => "\xC3\x87",
+			"\xC8" => "\xC3\x88",
+			"\xC9" => "\xC3\x89",
+			"\xCA" => "\xC3\x8A",
+			"\xCB" => "\xC3\x8B",
+			"\xCC" => "\xC3\x8C",
+			"\xCD" => "\xC3\x8D",
+			"\xCE" => "\xC3\x8E",
+			"\xCF" => "\xC3\x8F",
+			"\xD0" => "\xC3\x90",
+			"\xD1" => "\xC3\x91",
+			"\xD2" => "\xC3\x92",
+			"\xD3" => "\xC3\x93",
+			"\xD4" => "\xC3\x94",
+			"\xD5" => "\xC3\x95",
+			"\xD6" => "\xC3\x96",
+			"\xD7" => "\xC3\x97",
+			"\xD8" => "\xC3\x98",
+			"\xD9" => "\xC3\x99",
+			"\xDA" => "\xC3\x9A",
+			"\xDB" => "\xC3\x9B",
+			"\xDC" => "\xC3\x9C",
+			"\xDD" => "\xC3\x9D",
+			"\xDE" => "\xC3\x9E",
+			"\xDF" => "\xC3\x9F",
+			"\xE0" => "\xC3\xA0",
+			"\xE1" => "\xC3\xA1",
+			"\xE2" => "\xC3\xA2",
+			"\xE3" => "\xC3\xA3",
+			"\xE4" => "\xC3\xA4",
+			"\xE5" => "\xC3\xA5",
+			"\xE6" => "\xC3\xA6",
+			"\xE7" => "\xC3\xA7",
+			"\xE8" => "\xC3\xA8",
+			"\xE9" => "\xC3\xA9",
+			"\xEA" => "\xC3\xAA",
+			"\xEB" => "\xC3\xAB",
+			"\xEC" => "\xC3\xAC",
+			"\xED" => "\xC3\xAD",
+			"\xEE" => "\xC3\xAE",
+			"\xEF" => "\xC3\xAF",
+			"\xF0" => "\xC3\xB0",
+			"\xF1" => "\xC3\xB1",
+			"\xF2" => "\xC3\xB2",
+			"\xF3" => "\xC3\xB3",
+			"\xF4" => "\xC3\xB4",
+			"\xF5" => "\xC3\xB5",
+			"\xF6" => "\xC3\xB6",
+			"\xF7" => "\xC3\xB7",
+			"\xF8" => "\xC3\xB8",
+			"\xF9" => "\xC3\xB9",
+			"\xFA" => "\xC3\xBA",
+			"\xFB" => "\xC3\xBB",
+			"\xFC" => "\xC3\xBC",
+			"\xFD" => "\xC3\xBD",
+			"\xFE" => "\xC3\xBE",
+			"\xFF" => "\xC3\xBF",
+		);
 
-		return strtr($string, $convert_table);
+		return strtr( $string, $convert_table );
 	}
 
 	/**
@@ -300,43 +384,35 @@ class SimplePie_Misc
 	 * @param string $output Encoding you want
 	 * @return string|boolean False if we can't convert it
 	 */
-	public static function change_encoding($data, $input, $output)
-	{
-		$input = SimplePie_Misc::encoding($input);
-		$output = SimplePie_Misc::encoding($output);
+	public static function change_encoding( $data, $input, $output ) {
+		$input  = self::encoding( $input );
+		$output = self::encoding( $output );
 
 		// We fail to fail on non US-ASCII bytes
-		if ($input === 'US-ASCII')
-		{
+		if ( $input === 'US-ASCII' ) {
 			static $non_ascii_octects = '';
-			if (!$non_ascii_octects)
-			{
-				for ($i = 0x80; $i <= 0xFF; $i++)
-				{
-					$non_ascii_octects .= chr($i);
+			if ( ! $non_ascii_octects ) {
+				for ( $i = 0x80; $i <= 0xFF; $i++ ) {
+					$non_ascii_octects .= chr( $i );
 				}
 			}
-			$data = substr($data, 0, strcspn($data, $non_ascii_octects));
+			$data = substr( $data, 0, strcspn( $data, $non_ascii_octects ) );
 		}
 
 		// This is first, as behaviour of this is completely predictable
-		if ($input === 'windows-1252' && $output === 'UTF-8')
-		{
-			return SimplePie_Misc::windows_1252_to_utf8($data);
+		if ( $input === 'windows-1252' && $output === 'UTF-8' ) {
+			return self::windows_1252_to_utf8( $data );
 		}
 		// This is second, as behaviour of this varies only with PHP version (the middle part of this expression checks the encoding is supported).
-		elseif (function_exists('mb_convert_encoding') && ($return = SimplePie_Misc::change_encoding_mbstring($data, $input, $output)))
-		{
+		elseif ( function_exists( 'mb_convert_encoding' ) && ( $return = self::change_encoding_mbstring( $data, $input, $output ) ) ) {
 			return $return;
- 		}
+		}
 		// This is third, as behaviour of this varies with OS userland and PHP version
-		elseif (function_exists('iconv') && ($return = SimplePie_Misc::change_encoding_iconv($data, $input, $output)))
-		{
+		elseif ( function_exists( 'iconv' ) && ( $return = self::change_encoding_iconv( $data, $input, $output ) ) ) {
 			return $return;
 		}
 		// This is last, as behaviour of this varies with OS userland and PHP version
-		elseif (class_exists('\UConverter') && ($return = SimplePie_Misc::change_encoding_uconverter($data, $input, $output)))
-		{
+		elseif ( class_exists( '\UConverter' ) && ( $return = self::change_encoding_uconverter( $data, $input, $output ) ) ) {
 			return $return;
 		}
 
@@ -344,48 +420,39 @@ class SimplePie_Misc
 		return false;
 	}
 
-	protected static function change_encoding_mbstring($data, $input, $output)
-	{
-		if ($input === 'windows-949')
-		{
+	protected static function change_encoding_mbstring( $data, $input, $output ) {
+		if ( $input === 'windows-949' ) {
 			$input = 'EUC-KR';
 		}
-		if ($output === 'windows-949')
-		{
+		if ( $output === 'windows-949' ) {
 			$output = 'EUC-KR';
 		}
-		if ($input === 'Windows-31J')
-		{
+		if ( $input === 'Windows-31J' ) {
 			$input = 'SJIS';
 		}
-		if ($output === 'Windows-31J')
-		{
+		if ( $output === 'Windows-31J' ) {
 			$output = 'SJIS';
 		}
 
 		// Check that the encoding is supported
-		if (!in_array($input, mb_list_encodings()))
-		{
+		if ( ! in_array( $input, mb_list_encodings() ) ) {
 			return false;
 		}
 
-		if (@mb_convert_encoding("\x80", 'UTF-16BE', $input) === "\x00\x80")
-		{
+		if ( @mb_convert_encoding( "\x80", 'UTF-16BE', $input ) === "\x00\x80" ) {
 			return false;
 		}
 
 		// Let's do some conversion
-		if ($return = @mb_convert_encoding($data, $output, $input))
-		{
+		if ( $return = @mb_convert_encoding( $data, $output, $input ) ) {
 			return $return;
 		}
 
 		return false;
 	}
 
-	protected static function change_encoding_iconv($data, $input, $output)
-	{
-		return @iconv($input, $output, $data);
+	protected static function change_encoding_iconv( $data, $input, $output ) {
+		return @iconv( $input, $output, $data );
 	}
 
 	/**
@@ -394,9 +461,8 @@ class SimplePie_Misc
 	 * @param string $output
 	 * @return string|false
 	 */
-	protected static function change_encoding_uconverter($data, $input, $output)
-	{
-		return @\UConverter::transcode($data, $output, $input);
+	protected static function change_encoding_uconverter( $data, $input, $output ) {
+		return @\UConverter::transcode( $data, $output, $input );
 	}
 
 	/**
@@ -410,11 +476,9 @@ class SimplePie_Misc
 	 * @param string $charset Character set to standardise
 	 * @return string Standardised name
 	 */
-	public static function encoding($charset)
-	{
+	public static function encoding( $charset ) {
 		// Normalization from UTS #22
-		switch (strtolower(preg_replace('/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset)))
-		{
+		switch ( strtolower( preg_replace( '/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset ) ) ) {
 			case 'adobestandardencoding':
 			case 'csadobestandardencoding':
 				return 'Adobe-Standard-Encoding';
@@ -1723,22 +1787,14 @@ class SimplePie_Misc
 		}
 	}
 
-	public static function get_curl_version()
-	{
-		if (is_array($curl = curl_version()))
-		{
+	public static function get_curl_version() {
+		if ( is_array( $curl = curl_version() ) ) {
 			$curl = $curl['version'];
-		}
-		elseif (substr($curl, 0, 5) === 'curl/')
-		{
-			$curl = substr($curl, 5, strcspn($curl, "\x09\x0A\x0B\x0C\x0D", 5));
-		}
-		elseif (substr($curl, 0, 8) === 'libcurl/')
-		{
-			$curl = substr($curl, 8, strcspn($curl, "\x09\x0A\x0B\x0C\x0D", 8));
-		}
-		else
-		{
+		} elseif ( substr( $curl, 0, 5 ) === 'curl/' ) {
+			$curl = substr( $curl, 5, strcspn( $curl, "\x09\x0A\x0B\x0C\x0D", 5 ) );
+		} elseif ( substr( $curl, 0, 8 ) === 'libcurl/' ) {
+			$curl = substr( $curl, 8, strcspn( $curl, "\x09\x0A\x0B\x0C\x0D", 8 ) );
+		} else {
 			$curl = 0;
 		}
 		return $curl;
@@ -1750,28 +1806,22 @@ class SimplePie_Misc
 	 * @param string $data Data to strip comments from
 	 * @return string Comment stripped string
 	 */
-	public static function strip_comments($data)
-	{
+	public static function strip_comments( $data ) {
 		$output = '';
-		while (($start = strpos($data, '<!--')) !== false)
-		{
-			$output .= substr($data, 0, $start);
-			if (($end = strpos($data, '-->', $start)) !== false)
-			{
-				$data = substr_replace($data, '', 0, $end + 3);
-			}
-			else
-			{
+		while ( ( $start = strpos( $data, '<!--' ) ) !== false ) {
+			$output .= substr( $data, 0, $start );
+			if ( ( $end = strpos( $data, '-->', $start ) ) !== false ) {
+				$data = substr_replace( $data, '', 0, $end + 3 );
+			} else {
 				$data = '';
 			}
 		}
 		return $output . $data;
 	}
 
-	public static function parse_date($dt)
-	{
+	public static function parse_date( $dt ) {
 		$parser = SimplePie_Parse_Date::get();
-		return $parser->parse($dt);
+		return $parser->parse( $dt );
 	}
 
 	/**
@@ -1781,9 +1831,8 @@ class SimplePie_Misc
 	 * @param string $data Input data
 	 * @return string Output data
 	 */
-	public static function entities_decode($data)
-	{
-		$decoder = new SimplePie_Decode_HTML_Entities($data);
+	public static function entities_decode( $data ) {
+		$decoder = new SimplePie_Decode_HTML_Entities( $data );
 		return $decoder->parse();
 	}
 
@@ -1793,84 +1842,64 @@ class SimplePie_Misc
 	 * @param string $data Data to strip comments from
 	 * @return string Comment stripped string
 	 */
-	public static function uncomment_rfc822($string)
-	{
-		$string = (string) $string;
+	public static function uncomment_rfc822( $string ) {
+		$string   = (string) $string;
 		$position = 0;
-		$length = strlen($string);
-		$depth = 0;
+		$length   = strlen( $string );
+		$depth    = 0;
 
 		$output = '';
 
-		while ($position < $length && ($pos = strpos($string, '(', $position)) !== false)
-		{
-			$output .= substr($string, $position, $pos - $position);
+		while ( $position < $length && ( $pos = strpos( $string, '(', $position ) ) !== false ) {
+			$output  .= substr( $string, $position, $pos - $position );
 			$position = $pos + 1;
-			if ($string[$pos - 1] !== '\\')
-			{
-				$depth++;
-				while ($depth && $position < $length)
-				{
-					$position += strcspn($string, '()', $position);
-					if ($string[$position - 1] === '\\')
-					{
-						$position++;
+			if ( $string[ $pos - 1 ] !== '\\' ) {
+				++$depth;
+				while ( $depth && $position < $length ) {
+					$position += strcspn( $string, '()', $position );
+					if ( $string[ $position - 1 ] === '\\' ) {
+						++$position;
 						continue;
-					}
-					elseif (isset($string[$position]))
-					{
-						switch ($string[$position])
-						{
+					} elseif ( isset( $string[ $position ] ) ) {
+						switch ( $string[ $position ] ) {
 							case '(':
-								$depth++;
+								++$depth;
 								break;
 
 							case ')':
-								$depth--;
+								--$depth;
 								break;
 						}
-						$position++;
-					}
-					else
-					{
+						++$position;
+					} else {
 						break;
 					}
 				}
-			}
-			else
-			{
+			} else {
 				$output .= '(';
 			}
 		}
-		$output .= substr($string, $position);
+		$output .= substr( $string, $position );
 
 		return $output;
 	}
 
-	public static function parse_mime($mime)
-	{
-		if (($pos = strpos($mime, ';')) === false)
-		{
-			return trim($mime);
+	public static function parse_mime( $mime ) {
+		if ( ( $pos = strpos( $mime, ';' ) ) === false ) {
+			return trim( $mime );
 		}
 
-		return trim(substr($mime, 0, $pos));
+		return trim( substr( $mime, 0, $pos ) );
 	}
 
-	public static function atom_03_construct_type($attribs)
-	{
-		if (isset($attribs['']['mode']) && strtolower(trim($attribs['']['mode']) === 'base64'))
-		{
+	public static function atom_03_construct_type( $attribs ) {
+		if ( isset( $attribs['']['mode'] ) && strtolower( trim( $attribs['']['mode'] ) === 'base64' ) ) {
 			$mode = SIMPLEPIE_CONSTRUCT_BASE64;
-		}
-		else
-		{
+		} else {
 			$mode = SIMPLEPIE_CONSTRUCT_NONE;
 		}
-		if (isset($attribs['']['type']))
-		{
-			switch (strtolower(trim($attribs['']['type'])))
-			{
+		if ( isset( $attribs['']['type'] ) ) {
+			switch ( strtolower( trim( $attribs['']['type'] ) ) ) {
 				case 'text':
 				case 'text/plain':
 					return SIMPLEPIE_CONSTRUCT_TEXT | $mode;
@@ -1891,12 +1920,9 @@ class SimplePie_Misc
 		return SIMPLEPIE_CONSTRUCT_TEXT | $mode;
 	}
 
-	public static function atom_10_construct_type($attribs)
-	{
-		if (isset($attribs['']['type']))
-		{
-			switch (strtolower(trim($attribs['']['type'])))
-			{
+	public static function atom_10_construct_type( $attribs ) {
+		if ( isset( $attribs['']['type'] ) ) {
+			switch ( strtolower( trim( $attribs['']['type'] ) ) ) {
 				case 'text':
 					return SIMPLEPIE_CONSTRUCT_TEXT;
 
@@ -1913,13 +1939,10 @@ class SimplePie_Misc
 		return SIMPLEPIE_CONSTRUCT_TEXT;
 	}
 
-	public static function atom_10_content_construct_type($attribs)
-	{
-		if (isset($attribs['']['type']))
-		{
-			$type = strtolower(trim($attribs['']['type']));
-			switch ($type)
-			{
+	public static function atom_10_content_construct_type( $attribs ) {
+		if ( isset( $attribs['']['type'] ) ) {
+			$type = strtolower( trim( $attribs['']['type'] ) );
+			switch ( $type ) {
 				case 'text':
 					return SIMPLEPIE_CONSTRUCT_TEXT;
 
@@ -1929,12 +1952,9 @@ class SimplePie_Misc
 				case 'xhtml':
 					return SIMPLEPIE_CONSTRUCT_XHTML;
 			}
-			if (in_array(substr($type, -4), array('+xml', '/xml')) || substr($type, 0, 5) === 'text/')
-			{
+			if ( in_array( substr( $type, -4 ), array( '+xml', '/xml' ) ) || substr( $type, 0, 5 ) === 'text/' ) {
 				return SIMPLEPIE_CONSTRUCT_NONE;
-			}
-			else
-			{
+			} else {
 				return SIMPLEPIE_CONSTRUCT_BASE64;
 			}
 		}
@@ -1942,25 +1962,22 @@ class SimplePie_Misc
 		return SIMPLEPIE_CONSTRUCT_TEXT;
 	}
 
-	public static function is_isegment_nz_nc($string)
-	{
-		return (bool) preg_match('/^([A-Za-z0-9\-._~\x{A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\x{10000}-\x{1FFFD}\x{20000}-\x{2FFFD}\x{30000}-\x{3FFFD}\x{40000}-\x{4FFFD}\x{50000}-\x{5FFFD}\x{60000}-\x{6FFFD}\x{70000}-\x{7FFFD}\x{80000}-\x{8FFFD}\x{90000}-\x{9FFFD}\x{A0000}-\x{AFFFD}\x{B0000}-\x{BFFFD}\x{C0000}-\x{CFFFD}\x{D0000}-\x{DFFFD}\x{E1000}-\x{EFFFD}!$&\'()*+,;=@]|(%[0-9ABCDEF]{2}))+$/u', $string);
+	public static function is_isegment_nz_nc( $string ) {
+		return (bool) preg_match( '/^([A-Za-z0-9\-._~\x{A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\x{10000}-\x{1FFFD}\x{20000}-\x{2FFFD}\x{30000}-\x{3FFFD}\x{40000}-\x{4FFFD}\x{50000}-\x{5FFFD}\x{60000}-\x{6FFFD}\x{70000}-\x{7FFFD}\x{80000}-\x{8FFFD}\x{90000}-\x{9FFFD}\x{A0000}-\x{AFFFD}\x{B0000}-\x{BFFFD}\x{C0000}-\x{CFFFD}\x{D0000}-\x{DFFFD}\x{E1000}-\x{EFFFD}!$&\'()*+,;=@]|(%[0-9ABCDEF]{2}))+$/u', $string );
 	}
 
-	public static function space_separated_tokens($string)
-	{
+	public static function space_separated_tokens( $string ) {
 		$space_characters = "\x20\x09\x0A\x0B\x0C\x0D";
-		$string_length = strlen($string);
+		$string_length    = strlen( $string );
 
-		$position = strspn($string, $space_characters);
-		$tokens = array();
+		$position = strspn( $string, $space_characters );
+		$tokens   = array();
 
-		while ($position < $string_length)
-		{
-			$len = strcspn($string, $space_characters, $position);
-			$tokens[] = substr($string, $position, $len);
+		while ( $position < $string_length ) {
+			$len       = strcspn( $string, $space_characters, $position );
+			$tokens[]  = substr( $string, $position, $len );
 			$position += $len;
-			$position += strspn($string, $space_characters, $position);
+			$position += strspn( $string, $space_characters, $position );
 		}
 
 		return $tokens;
@@ -1973,28 +1990,18 @@ class SimplePie_Misc
 	 * @param int $codepoint Unicode codepoint
 	 * @return string UTF-8 character
 	 */
-	public static function codepoint_to_utf8($codepoint)
-	{
+	public static function codepoint_to_utf8( $codepoint ) {
 		$codepoint = (int) $codepoint;
-		if ($codepoint < 0)
-		{
+		if ( $codepoint < 0 ) {
 			return false;
-		}
-		else if ($codepoint <= 0x7f)
-		{
-			return chr($codepoint);
-		}
-		else if ($codepoint <= 0x7ff)
-		{
-			return chr(0xc0 | ($codepoint >> 6)) . chr(0x80 | ($codepoint & 0x3f));
-		}
-		else if ($codepoint <= 0xffff)
-		{
-			return chr(0xe0 | ($codepoint >> 12)) . chr(0x80 | (($codepoint >> 6) & 0x3f)) . chr(0x80 | ($codepoint & 0x3f));
-		}
-		else if ($codepoint <= 0x10ffff)
-		{
-			return chr(0xf0 | ($codepoint >> 18)) . chr(0x80 | (($codepoint >> 12) & 0x3f)) . chr(0x80 | (($codepoint >> 6) & 0x3f)) . chr(0x80 | ($codepoint & 0x3f));
+		} elseif ( $codepoint <= 0x7f ) {
+			return chr( $codepoint );
+		} elseif ( $codepoint <= 0x7ff ) {
+			return chr( 0xc0 | ( $codepoint >> 6 ) ) . chr( 0x80 | ( $codepoint & 0x3f ) );
+		} elseif ( $codepoint <= 0xffff ) {
+			return chr( 0xe0 | ( $codepoint >> 12 ) ) . chr( 0x80 | ( ( $codepoint >> 6 ) & 0x3f ) ) . chr( 0x80 | ( $codepoint & 0x3f ) );
+		} elseif ( $codepoint <= 0x10ffff ) {
+			return chr( 0xf0 | ( $codepoint >> 18 ) ) . chr( 0x80 | ( ( $codepoint >> 12 ) & 0x3f ) ) . chr( 0x80 | ( ( $codepoint >> 6 ) & 0x3f ) ) . chr( 0x80 | ( $codepoint & 0x3f ) );
 		}
 
 		// U+FFFD REPLACEMENT CHARACTER
@@ -2011,21 +2018,16 @@ class SimplePie_Misc
 	 * @param string $str The input string.
 	 * @return array
 	 */
-	public static function parse_str($str)
-	{
+	public static function parse_str( $str ) {
 		$return = array();
-		$str = explode('&', $str);
+		$str    = explode( '&', $str );
 
-		foreach ($str as $section)
-		{
-			if (strpos($section, '=') !== false)
-			{
-				list($name, $value) = explode('=', $section, 2);
-				$return[urldecode($name)][] = urldecode($value);
-			}
-			else
-			{
-				$return[urldecode($section)][] = null;
+		foreach ( $str as $section ) {
+			if ( strpos( $section, '=' ) !== false ) {
+				list($name, $value)             = explode( '=', $section, 2 );
+				$return[ urldecode( $name ) ][] = urldecode( $value );
+			} else {
+				$return[ urldecode( $section ) ][] = null;
 			}
 		}
 
@@ -2036,119 +2038,95 @@ class SimplePie_Misc
 	 * Detect XML encoding, as per XML 1.0 Appendix F.1
 	 *
 	 * @todo Add support for EBCDIC
-	 * @param string $data XML data
+	 * @param string             $data XML data
 	 * @param SimplePie_Registry $registry Class registry
 	 * @return array Possible encodings
 	 */
-	public static function xml_encoding($data, $registry)
-	{
+	public static function xml_encoding( $data, $registry ) {
 		// UTF-32 Big Endian BOM
-		if (substr($data, 0, 4) === "\x00\x00\xFE\xFF")
-		{
+		if ( substr( $data, 0, 4 ) === "\x00\x00\xFE\xFF" ) {
 			$encoding[] = 'UTF-32BE';
 		}
 		// UTF-32 Little Endian BOM
-		elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00")
-		{
+		elseif ( substr( $data, 0, 4 ) === "\xFF\xFE\x00\x00" ) {
 			$encoding[] = 'UTF-32LE';
 		}
 		// UTF-16 Big Endian BOM
-		elseif (substr($data, 0, 2) === "\xFE\xFF")
-		{
+		elseif ( substr( $data, 0, 2 ) === "\xFE\xFF" ) {
 			$encoding[] = 'UTF-16BE';
 		}
 		// UTF-16 Little Endian BOM
-		elseif (substr($data, 0, 2) === "\xFF\xFE")
-		{
+		elseif ( substr( $data, 0, 2 ) === "\xFF\xFE" ) {
 			$encoding[] = 'UTF-16LE';
 		}
 		// UTF-8 BOM
-		elseif (substr($data, 0, 3) === "\xEF\xBB\xBF")
-		{
+		elseif ( substr( $data, 0, 3 ) === "\xEF\xBB\xBF" ) {
 			$encoding[] = 'UTF-8';
 		}
 		// UTF-32 Big Endian Without BOM
-		elseif (substr($data, 0, 20) === "\x00\x00\x00\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C")
-		{
-			if ($pos = strpos($data, "\x00\x00\x00\x3F\x00\x00\x00\x3E"))
-			{
-				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 20), 'UTF-32BE', 'UTF-8')));
-				if ($parser->parse())
-				{
+		elseif ( substr( $data, 0, 20 ) === "\x00\x00\x00\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C" ) {
+			if ( $pos = strpos( $data, "\x00\x00\x00\x3F\x00\x00\x00\x3E" ) ) {
+				$parser = $registry->create( 'XML_Declaration_Parser', array( self::change_encoding( substr( $data, 20, $pos - 20 ), 'UTF-32BE', 'UTF-8' ) ) );
+				if ( $parser->parse() ) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-32BE';
 		}
 		// UTF-32 Little Endian Without BOM
-		elseif (substr($data, 0, 20) === "\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C\x00\x00\x00")
-		{
-			if ($pos = strpos($data, "\x3F\x00\x00\x00\x3E\x00\x00\x00"))
-			{
-				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 20), 'UTF-32LE', 'UTF-8')));
-				if ($parser->parse())
-				{
+		elseif ( substr( $data, 0, 20 ) === "\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C\x00\x00\x00" ) {
+			if ( $pos = strpos( $data, "\x3F\x00\x00\x00\x3E\x00\x00\x00" ) ) {
+				$parser = $registry->create( 'XML_Declaration_Parser', array( self::change_encoding( substr( $data, 20, $pos - 20 ), 'UTF-32LE', 'UTF-8' ) ) );
+				if ( $parser->parse() ) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-32LE';
 		}
 		// UTF-16 Big Endian Without BOM
-		elseif (substr($data, 0, 10) === "\x00\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C")
-		{
-			if ($pos = strpos($data, "\x00\x3F\x00\x3E"))
-			{
-				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 10), 'UTF-16BE', 'UTF-8')));
-				if ($parser->parse())
-				{
+		elseif ( substr( $data, 0, 10 ) === "\x00\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C" ) {
+			if ( $pos = strpos( $data, "\x00\x3F\x00\x3E" ) ) {
+				$parser = $registry->create( 'XML_Declaration_Parser', array( self::change_encoding( substr( $data, 20, $pos - 10 ), 'UTF-16BE', 'UTF-8' ) ) );
+				if ( $parser->parse() ) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-16BE';
 		}
 		// UTF-16 Little Endian Without BOM
-		elseif (substr($data, 0, 10) === "\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C\x00")
-		{
-			if ($pos = strpos($data, "\x3F\x00\x3E\x00"))
-			{
-				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 10), 'UTF-16LE', 'UTF-8')));
-				if ($parser->parse())
-				{
+		elseif ( substr( $data, 0, 10 ) === "\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C\x00" ) {
+			if ( $pos = strpos( $data, "\x3F\x00\x3E\x00" ) ) {
+				$parser = $registry->create( 'XML_Declaration_Parser', array( self::change_encoding( substr( $data, 20, $pos - 10 ), 'UTF-16LE', 'UTF-8' ) ) );
+				if ( $parser->parse() ) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-16LE';
 		}
 		// US-ASCII (or superset)
-		elseif (substr($data, 0, 5) === "\x3C\x3F\x78\x6D\x6C")
-		{
-			if ($pos = strpos($data, "\x3F\x3E"))
-			{
-				$parser = $registry->create('XML_Declaration_Parser', array(substr($data, 5, $pos - 5)));
-				if ($parser->parse())
-				{
+		elseif ( substr( $data, 0, 5 ) === "\x3C\x3F\x78\x6D\x6C" ) {
+			if ( $pos = strpos( $data, "\x3F\x3E" ) ) {
+				$parser = $registry->create( 'XML_Declaration_Parser', array( substr( $data, 5, $pos - 5 ) ) );
+				if ( $parser->parse() ) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-8';
 		}
 		// Fallback to UTF-8
-		else
-		{
+		else {
 			$encoding[] = 'UTF-8';
 		}
 		return $encoding;
 	}
 
-	public static function output_javascript()
-	{
-		if (function_exists('ob_gzhandler'))
-		{
-			ob_start('ob_gzhandler');
+	public static function output_javascript() {
+		if ( function_exists( 'ob_gzhandler' ) ) {
+			ob_start( 'ob_gzhandler' );
 		}
-		header('Content-type: text/javascript; charset: UTF-8');
-		header('Cache-Control: must-revalidate');
-		header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 604800) . ' GMT'); // 7 days
+		header( 'Content-type: text/javascript; charset: UTF-8' );
+		header( 'Cache-Control: must-revalidate' );
+		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + 604800 ) . ' GMT' ); // 7 days
 		?>
 function embed_quicktime(type, bgcolor, width, height, link, placeholder, loop) {
 	if (placeholder != '') {
@@ -2179,66 +2157,51 @@ function embed_wmedia(width, height, link) {
 	 * Uses the git index if it exists, otherwise uses the modification time
 	 * of the newest file.
 	 */
-	public static function get_build()
-	{
-		$root = dirname(dirname(__FILE__));
-		if (file_exists($root . '/.git/index'))
-		{
-			return filemtime($root . '/.git/index');
-		}
-		elseif (file_exists($root . '/SimplePie'))
-		{
+	public static function get_build() {
+		$root = dirname( __DIR__ );
+		if ( file_exists( $root . '/.git/index' ) ) {
+			return filemtime( $root . '/.git/index' );
+		} elseif ( file_exists( $root . '/SimplePie' ) ) {
 			$time = 0;
-			foreach (glob($root . '/SimplePie/*.php') as $file)
-			{
-				if (($mtime = filemtime($file)) > $time)
-				{
+			foreach ( glob( $root . '/SimplePie/*.php' ) as $file ) {
+				if ( ( $mtime = filemtime( $file ) ) > $time ) {
 					$time = $mtime;
 				}
 			}
 			return $time;
-		}
-		elseif (file_exists(dirname(__FILE__) . '/Core.php'))
-		{
-			return filemtime(dirname(__FILE__) . '/Core.php');
+		} elseif ( file_exists( __DIR__ . '/Core.php' ) ) {
+			return filemtime( __DIR__ . '/Core.php' );
 		}
 
-		return filemtime(__FILE__);
+		return filemtime( __FILE__ );
 	}
 
 	/**
 	 * Format debugging information
 	 */
-	public static function debug(&$sp)
-	{
-		$info = 'SimplePie ' . SIMPLEPIE_VERSION . ' Build ' . SIMPLEPIE_BUILD . "\n";
+	public static function debug( &$sp ) {
+		$info  = 'SimplePie ' . SIMPLEPIE_VERSION . ' Build ' . SIMPLEPIE_BUILD . "\n";
 		$info .= 'PHP ' . PHP_VERSION . "\n";
-		if ($sp->error() !== null)
-		{
+		if ( $sp->error() !== null ) {
 			$info .= 'Error occurred: ' . $sp->error() . "\n";
-		}
-		else
-		{
+		} else {
 			$info .= "No error found.\n";
 		}
-		$info .= "Extensions:\n";
-		$extensions = array('pcre', 'curl', 'zlib', 'mbstring', 'iconv', 'xmlreader', 'xml');
-		foreach ($extensions as $ext)
-		{
-			if (extension_loaded($ext))
-			{
+		$info      .= "Extensions:\n";
+		$extensions = array( 'pcre', 'curl', 'zlib', 'mbstring', 'iconv', 'xmlreader', 'xml' );
+		foreach ( $extensions as $ext ) {
+			if ( extension_loaded( $ext ) ) {
 				$info .= "    $ext loaded\n";
-				switch ($ext)
-				{
+				switch ( $ext ) {
 					case 'pcre':
 						$info .= '      Version ' . PCRE_VERSION . "\n";
 						break;
 					case 'curl':
 						$version = curl_version();
-						$info .= '      Version ' . $version['version'] . "\n";
+						$info   .= '      Version ' . $version['version'] . "\n";
 						break;
 					case 'mbstring':
-						$info .= '      Overloading: ' . mb_get_info('func_overload') . "\n";
+						$info .= '      Overloading: ' . mb_get_info( 'func_overload' ) . "\n";
 						break;
 					case 'iconv':
 						$info .= '      Version ' . ICONV_VERSION . "\n";
@@ -2247,27 +2210,24 @@ function embed_wmedia(width, height, link) {
 						$info .= '      Version ' . LIBXML_DOTTED_VERSION . "\n";
 						break;
 				}
-			}
-			else
-			{
+			} else {
 				$info .= "    $ext not loaded\n";
 			}
 		}
 		return $info;
 	}
 
-	public static function silence_errors($num, $str)
-	{
+	public static function silence_errors( $num, $str ) {
 		// No-op
 	}
 
 	/**
 	 * Sanitize a URL by removing HTTP credentials.
+	 *
 	 * @param string $url the URL to sanitize.
 	 * @return string the same URL without HTTP credentials.
 	 */
-	public static function url_remove_credentials($url)
-	{
-		return preg_replace('#^(https?://)[^/:@]+:[^/:@]+@#i', '$1', $url);
+	public static function url_remove_credentials( $url ) {
+		return preg_replace( '#^(https?://)[^/:@]+:[^/:@]+@#i', '$1', $url );
 	}
 }

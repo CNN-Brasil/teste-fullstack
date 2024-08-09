@@ -427,7 +427,7 @@ if ( ! function_exists( 'array_key_last' ) ) {
 	 *
 	 * @param array $array An array.
 	 * @return string|int|null The last key of array if the array
-	 *.                        is not empty; `null` otherwise.
+	 * .                        is not empty; `null` otherwise.
 	 */
 	function array_key_last( array $array ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.arrayFound
 		if ( empty( $array ) ) {

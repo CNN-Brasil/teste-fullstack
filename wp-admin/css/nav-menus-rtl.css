@@ -1010,19 +1010,19 @@ body.menu-max-depth-11 { min-width: 1280px !important; }
 }
 
 @media only screen and (min-width: 783px) {
-    @supports (position: sticky) and (scroll-margin-bottom: 130px) {
+	@supports (position: sticky) and (scroll-margin-bottom: 130px) {
 
 		#nav-menu-footer {
-                position: sticky;
+				position: sticky;
 				bottom: 0;
 				z-index: 10;
 				box-shadow: 0 -1px 0 0 #ddd;
-        }
+		}
 
-        #save_menu_header {
-                display: none;
-        }
-    }
+		#save_menu_header {
+				display: none;
+		}
+	}
 }
 
 @media only screen and (max-width: 768px) {

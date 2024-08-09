@@ -59,17 +59,17 @@ final class Port {
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When a non-string input has been passed.
 	 * @throws \WpOrg\Requests\Exception                 When a non-supported port is requested ('portnotsupported').
 	 */
-	public static function get($type) {
-		if (!is_string($type)) {
-			throw InvalidArgument::create(1, '$type', 'string', gettype($type));
+	public static function get( $type ) {
+		if ( ! is_string( $type ) ) {
+			throw InvalidArgument::create( 1, '$type', 'string', gettype( $type ) );
 		}
 
-		$type = strtoupper($type);
-		if (!defined("self::{$type}")) {
-			$message = sprintf('Invalid port type (%s) passed', $type);
-			throw new Exception($message, 'portnotsupported');
+		$type = strtoupper( $type );
+		if ( ! defined( "self::{$type}" ) ) {
+			$message = sprintf( 'Invalid port type (%s) passed', $type );
+			throw new Exception( $message, 'portnotsupported' );
 		}
 
-		return constant("self::{$type}");
+		return constant( "self::{$type}" );
 	}
 }

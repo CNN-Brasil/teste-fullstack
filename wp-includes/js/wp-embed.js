@@ -21,7 +21,7 @@
 	window.wp = window.wp || {};
 
 	/* Abort if script was already executed. */
-	if ( !! window.wp.receiveEmbedMessage ) {
+	if ( ! ! window.wp.receiveEmbedMessage ) {
 		return;
 	}
 
@@ -30,7 +30,7 @@
 	 *
 	 * @param {MessageEvent} e
 	 */
-	window.wp.receiveEmbedMessage = function( e ) {
+	window.wp.receiveEmbedMessage = function ( e ) {
 		var data = e.data;
 
 		/* Verify shape of message. */
@@ -41,8 +41,8 @@
 			return;
 		}
 
-		var iframes = document.querySelectorAll( 'iframe[data-secret="' + data.secret + '"]' ),
-			blockquotes = document.querySelectorAll( 'blockquote[data-secret="' + data.secret + '"]' ),
+		var iframes          = document.querySelectorAll( 'iframe[data-secret="' + data.secret + '"]' ),
+			blockquotes      = document.querySelectorAll( 'blockquote[data-secret="' + data.secret + '"]' ),
 			allowedProtocols = new RegExp( '^https?:$', 'i' ),
 			i, source, height, sourceURL, targetURL;
 
@@ -96,7 +96,7 @@
 			secret = source.getAttribute( 'data-secret' );
 			if ( ! secret ) {
 				/* Add secret to iframe */
-				secret = Math.random().toString( 36 ).substring( 2, 12 );
+				secret      = Math.random().toString( 36 ).substring( 2, 12 );
 				source.src += '#?secret=' + secret;
 				source.setAttribute( 'data-secret', secret );
 			}
@@ -106,10 +106,13 @@
 			 * loaded before wp-embed.js was loaded. When the ready message is received by the post embed window, the
 			 * window will then (re-)send the height message right away.
 			 */
-			source.contentWindow.postMessage( {
-				message: 'ready',
-				secret: secret
-			}, '*' );
+			source.contentWindow.postMessage(
+				{
+					message: 'ready',
+					secret: secret
+				},
+				'*'
+			);
 		}
 	}
 

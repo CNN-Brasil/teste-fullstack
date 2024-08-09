@@ -30,16 +30,16 @@ class Headers extends CaseInsensitiveDictionary {
 	 * @param string $offset Name of the header to retrieve.
 	 * @return string|null Header value
 	 */
-	public function offsetGet($offset) {
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+	public function offsetGet( $offset ) {
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		if (!isset($this->data[$offset])) {
+		if ( ! isset( $this->data[ $offset ] ) ) {
 			return null;
 		}
 
-		return $this->flatten($this->data[$offset]);
+		return $this->flatten( $this->data[ $offset ] );
 	}
 
 	/**
@@ -50,20 +50,20 @@ class Headers extends CaseInsensitiveDictionary {
 	 *
 	 * @throws \WpOrg\Requests\Exception On attempting to use dictionary as list (`invalidset`)
 	 */
-	public function offsetSet($offset, $value) {
-		if ($offset === null) {
-			throw new Exception('Object is a dictionary, not a list', 'invalidset');
+	public function offsetSet( $offset, $value ) {
+		if ( $offset === null ) {
+			throw new Exception( 'Object is a dictionary, not a list', 'invalidset' );
 		}
 
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		if (!isset($this->data[$offset])) {
-			$this->data[$offset] = [];
+		if ( ! isset( $this->data[ $offset ] ) ) {
+			$this->data[ $offset ] = array();
 		}
 
-		$this->data[$offset][] = $value;
+		$this->data[ $offset ][] = $value;
 	}
 
 	/**
@@ -74,20 +74,20 @@ class Headers extends CaseInsensitiveDictionary {
 	 *
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not valid as an array key.
 	 */
-	public function getValues($offset) {
-		if (!is_string($offset) && !is_int($offset)) {
-			throw InvalidArgument::create(1, '$offset', 'string|int', gettype($offset));
+	public function getValues( $offset ) {
+		if ( ! is_string( $offset ) && ! is_int( $offset ) ) {
+			throw InvalidArgument::create( 1, '$offset', 'string|int', gettype( $offset ) );
 		}
 
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		if (!isset($this->data[$offset])) {
+		if ( ! isset( $this->data[ $offset ] ) ) {
 			return null;
 		}
 
-		return $this->data[$offset];
+		return $this->data[ $offset ];
 	}
 
 	/**
@@ -101,16 +101,16 @@ class Headers extends CaseInsensitiveDictionary {
 	 *
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not a string or an array.
 	 */
-	public function flatten($value) {
-		if (is_string($value)) {
+	public function flatten( $value ) {
+		if ( is_string( $value ) ) {
 			return $value;
 		}
 
-		if (is_array($value)) {
-			return implode(',', $value);
+		if ( is_array( $value ) ) {
+			return implode( ',', $value );
 		}
 
-		throw InvalidArgument::create(1, '$value', 'string|array', gettype($value));
+		throw InvalidArgument::create( 1, '$value', 'string|array', gettype( $value ) );
 	}
 
 	/**
@@ -122,6 +122,6 @@ class Headers extends CaseInsensitiveDictionary {
 	 * @return \ArrayIterator
 	 */
 	public function getIterator() {
-		return new FilteredIterator($this->data, [$this, 'flatten']);
+		return new FilteredIterator( $this->data, array( $this, 'flatten' ) );
 	}
 }

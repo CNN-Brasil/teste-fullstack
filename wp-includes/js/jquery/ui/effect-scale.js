@@ -7,53 +7,65 @@
  * https://jquery.org/license
  */
 
-//>>label: Scale Effect
-//>>group: Effects
-//>>description: Grows or shrinks an element and its content.
-//>>docs: https://api.jqueryui.com/scale-effect/
-//>>demos: https://jqueryui.com/effect/
+// >>label: Scale Effect
+// >>group: Effects
+// >>description: Grows or shrinks an element and its content.
+// >>docs: https://api.jqueryui.com/scale-effect/
+// >>demos: https://jqueryui.com/effect/
 
-( function( factory ) {
+( function ( factory ) {
 	"use strict";
 
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( [
+		define(
+			[
 			"jquery",
 			"../version",
 			"../effect",
 			"./effect-size"
-		], factory );
+			],
+			factory
+		);
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-} )( function( $ ) {
-"use strict";
+} )(
+	function ( $ ) {
+		"use strict";
 
-return $.effects.define( "scale", function( options, done ) {
+		return $.effects.define(
+			"scale",
+			function ( options, done ) {
 
-	// Create element
-	var el = $( this ),
-		mode = options.mode,
-		percent = parseInt( options.percent, 10 ) ||
-			( parseInt( options.percent, 10 ) === 0 ? 0 : ( mode !== "effect" ? 0 : 100 ) ),
+					// Create element
+					var el  = $( this ),
+					mode    = options.mode,
+					percent = parseInt( options.percent, 10 ) ||
+				( parseInt( options.percent, 10 ) === 0 ? 0 : ( mode !== "effect" ? 0 : 100 ) ),
 
-		newOptions = $.extend( true, {
-			from: $.effects.scaledDimensions( el ),
-			to: $.effects.scaledDimensions( el, percent, options.direction || "both" ),
-			origin: options.origin || [ "middle", "center" ]
-		}, options );
+					newOptions = $.extend(
+						true,
+						{
+							from: $.effects.scaledDimensions( el ),
+							to: $.effects.scaledDimensions( el, percent, options.direction || "both" ),
+							origin: options.origin || [ "middle", "center" ]
+						},
+						options
+					);
 
-	// Fade option to support puff
-	if ( options.fade ) {
-		newOptions.from.opacity = 1;
-		newOptions.to.opacity = 0;
+					// Fade option to support puff
+				if ( options.fade ) {
+					newOptions.from.opacity = 1;
+					newOptions.to.opacity   = 0;
+				}
+
+					$.effects.effect.size.call( this, newOptions, done );
+			}
+		);
+
 	}
-
-	$.effects.effect.size.call( this, newOptions, done );
-} );
-
-} );
+);

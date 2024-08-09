@@ -2370,11 +2370,11 @@
 /**
  * Button groups fix: can be removed together with the Back-compat for pre-5.3
  */
- .media-frame .setting .button-group {
-	 display: flex;
-	 margin: 0 !important;
-	 max-width: none !important;
- }
+.media-frame .setting .button-group {
+	display: flex;
+	margin: 0 !important;
+	max-width: none !important;
+}
 
 /**
  * Localization
@@ -2908,7 +2908,7 @@
  * HiDPI Displays
  */
 @media print,
-  (min-resolution: 120dpi) {
+	(min-resolution: 120dpi) {
 
 	.wp-core-ui .media-modal-icon {
 		background-image: url(../images/uploader-icons-2x.png);

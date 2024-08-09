@@ -226,14 +226,12 @@ endif;
 			/* translators: %s: Plugin file name. */
 			printf( __( 'Browsing %s (active)' ), '<strong>' . esc_html( $file ) . '</strong>' );
 		}
-	} else {
-		if ( is_writable( $real_file ) ) {
+	} elseif ( is_writable( $real_file ) ) {
 			/* translators: %s: Plugin file name. */
 			printf( __( 'Editing %s (inactive)' ), '<strong>' . esc_html( $file ) . '</strong>' );
-		} else {
-			/* translators: %s: Plugin file name. */
-			printf( __( 'Browsing %s (inactive)' ), '<strong>' . esc_html( $file ) . '</strong>' );
-		}
+	} else {
+		/* translators: %s: Plugin file name. */
+		printf( __( 'Browsing %s (inactive)' ), '<strong>' . esc_html( $file ) . '</strong>' );
 	}
 	?>
 </h2>

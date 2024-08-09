@@ -53,14 +53,12 @@ function render_block_core_media_text( $attributes, $content ) {
 				$media_tag_processor->set_attribute( 'id', $unique_id );
 			}
 		}
-	} else {
-		if ( $media_tag_processor->next_tag( $wrapping_figure_query ) ) {
-			if ( $image_fill ) {
-				$media_tag_processor->set_attribute( 'style', 'background-image:url(' . esc_url( $current_featured_image ) . ');background-position:' . $focal_point . ';' );
-			} else {
-				// Insert a unique ID to identify the figure tag.
-				$media_tag_processor->set_attribute( 'id', $unique_id );
-			}
+	} elseif ( $media_tag_processor->next_tag( $wrapping_figure_query ) ) {
+		if ( $image_fill ) {
+			$media_tag_processor->set_attribute( 'style', 'background-image:url(' . esc_url( $current_featured_image ) . ');background-position:' . $focal_point . ';' );
+		} else {
+			// Insert a unique ID to identify the figure tag.
+			$media_tag_processor->set_attribute( 'id', $unique_id );
 		}
 	}
 

@@ -5,7 +5,7 @@
 /* jshint curly: false, eqeqeq: false */
 /* global ajaxurl, tagBox, array_unique_noempty */
 
-( function( $ ) {
+( function ( $ ) {
 	var tagDelimiter = wp.i18n._x( ',', 'tag delimiter' ) || ',';
 
 	/**
@@ -22,18 +22,21 @@
 	 *
 	 * @return {Array} A new array containing only the unique items.
 	 */
-	window.array_unique_noempty = function( array ) {
+	window.array_unique_noempty = function ( array ) {
 		var out = [];
 
 		// Trim the values and ensure they are unique.
-		$.each( array, function( key, val ) {
-			val = val || '';
-			val = val.trim();
+		$.each(
+			array,
+			function ( key, val ) {
+				val = val || '';
+				val = val.trim();
 
-			if ( val && $.inArray( val, out ) === -1 ) {
-				out.push( val );
+				if ( val && $.inArray( val, out ) === -1 ) {
+					out.push( val );
+				}
 			}
-		} );
+		);
 
 		return out;
 	};
@@ -60,12 +63,12 @@
 		 *
 		 * @return {string} The cleaned up tags.
 		 */
-		clean : function( tags ) {
+		clean : function ( tags ) {
 			if ( ',' !== tagDelimiter ) {
 				tags = tags.replace( new RegExp( tagDelimiter, 'g' ), ',' );
 			}
 
-			tags = tags.replace(/\s*,\s*/g, ',').replace(/,+/g, ',').replace(/[,\s]+$/, '').replace(/^[,\s]+/, '');
+			tags = tags.replace( /\s*,\s*/g, ',' ).replace( /,+/g, ',' ).replace( /[,\s]+$/, '' ).replace( /^[,\s]+/, '' );
 
 			if ( ',' !== tagDelimiter ) {
 				tags = tags.replace( /,/g, tagDelimiter );
@@ -85,24 +88,27 @@
 		 *
 		 * @return {boolean} Always returns false.
 		 */
-		parseTags : function(el) {
-			var id = el.id,
-				num = id.split('-check-num-')[1],
-				taxbox = $(el).closest('.tagsdiv'),
-				thetags = taxbox.find('.the-tags'),
+		parseTags : function (el) {
+			var id           = el.id,
+				num          = id.split( '-check-num-' )[1],
+				taxbox       = $( el ).closest( '.tagsdiv' ),
+				thetags      = taxbox.find( '.the-tags' ),
 				current_tags = thetags.val().split( tagDelimiter ),
-				new_tags = [];
+				new_tags     = [];
 
 			delete current_tags[num];
 
 			// Sanitize the current tags and push them as if they're new tags.
-			$.each( current_tags, function( key, val ) {
-				val = val || '';
-				val = val.trim();
-				if ( val ) {
-					new_tags.push( val );
+			$.each(
+				current_tags,
+				function ( key, val ) {
+					val = val || '';
+					val = val.trim();
+					if ( val ) {
+						new_tags.push( val );
+					}
 				}
-			});
+			);
 
 			thetags.val( this.clean( new_tags.join( tagDelimiter ) ) );
 
@@ -121,16 +127,17 @@
 		 *
 		 * @return {void}
 		 */
-		quickClicks : function( el ) {
-			var thetags = $('.the-tags', el),
-				tagchecklist = $('.tagchecklist', el),
-				id = $(el).attr('id'),
+		quickClicks : function ( el ) {
+			var thetags      = $( '.the-tags', el ),
+				tagchecklist = $( '.tagchecklist', el ),
+				id           = $( el ).attr( 'id' ),
 				current_tags, disabled;
 
-			if ( ! thetags.length )
+			if ( ! thetags.length ) {
 				return;
+			}
 
-			disabled = thetags.prop('disabled');
+			disabled = thetags.prop( 'disabled' );
 
 			current_tags = thetags.val().split( tagDelimiter );
 			tagchecklist.empty();
@@ -147,64 +154,73 @@
 			 *
 			 * @return {void}
 			 */
-			$.each( current_tags, function( key, val ) {
-				var listItem, xbutton;
+			$.each(
+				current_tags,
+				function ( key, val ) {
+					var listItem, xbutton;
 
-				val = val || '';
-				val = val.trim();
+					val = val || '';
+					val = val.trim();
 
-				if ( ! val )
-					return;
+					if ( ! val ) {
+						return;
+					}
 
-				// Create a new list item, and ensure the text is properly escaped.
-				listItem = $( '<li />' ).text( val );
+					// Create a new list item, and ensure the text is properly escaped.
+					listItem = $( '<li />' ).text( val );
 
-				// If tags editing isn't disabled, create the X button.
-				if ( ! disabled ) {
-					/*
-					 * Build the X buttons, hide the X icon with aria-hidden and
-					 * use visually hidden text for screen readers.
-					 */
-					xbutton = $( '<button type="button" id="' + id + '-check-num-' + key + '" class="ntdelbutton">' +
-						'<span class="remove-tag-icon" aria-hidden="true"></span>' +
-						'<span class="screen-reader-text">' + wp.i18n.__( 'Remove term:' ) + ' ' + listItem.html() + '</span>' +
-						'</button>' );
+					// If tags editing isn't disabled, create the X button.
+					if ( ! disabled ) {
+						/*
+						 * Build the X buttons, hide the X icon with aria-hidden and
+						 * use visually hidden text for screen readers.
+						 */
+						xbutton = $(
+							'<button type="button" id="' + id + '-check-num-' + key + '" class="ntdelbutton">' +
+							'<span class="remove-tag-icon" aria-hidden="true"></span>' +
+							'<span class="screen-reader-text">' + wp.i18n.__( 'Remove term:' ) + ' ' + listItem.html() + '</span>' +
+							'</button>'
+						);
 
-					/**
-					 * Handles the click and keypress event of the tag remove button.
-					 *
-					 * Makes sure the focus ends up in the tag input field when using
-					 * the keyboard to delete the tag.
-					 *
-					 * @since 4.2.0
-					 *
-					 * @param {Event} e The click or keypress event to handle.
-					 *
-					 * @return {void}
-					 */
-					xbutton.on( 'click keypress', function( e ) {
-						// On click or when using the Enter/Spacebar keys.
-						if ( 'click' === e.type || 13 === e.keyCode || 32 === e.keyCode ) {
-							/*
-							 * When using the keyboard, move focus back to the
-							 * add new tag field. Note: when releasing the pressed
-							 * key this will fire the `keyup` event on the input.
-							 */
-							if ( 13 === e.keyCode || 32 === e.keyCode ) {
- 								$( this ).closest( '.tagsdiv' ).find( 'input.newtag' ).trigger( 'focus' );
- 							}
+						/**
+						 * Handles the click and keypress event of the tag remove button.
+						 *
+						 * Makes sure the focus ends up in the tag input field when using
+						 * the keyboard to delete the tag.
+						 *
+						 * @since 4.2.0
+						 *
+						 * @param {Event} e The click or keypress event to handle.
+						 *
+						 * @return {void}
+						 */
+						xbutton.on(
+							'click keypress',
+							function ( e ) {
+								// On click or when using the Enter/Spacebar keys.
+								if ( 'click' === e.type || 13 === e.keyCode || 32 === e.keyCode ) {
+									/*
+									 * When using the keyboard, move focus back to the
+									 * add new tag field. Note: when releasing the pressed
+									 * key this will fire the `keyup` event on the input.
+									 */
+									if ( 13 === e.keyCode || 32 === e.keyCode ) {
+										$( this ).closest( '.tagsdiv' ).find( 'input.newtag' ).trigger( 'focus' );
+									}
 
-							tagBox.userAction = 'remove';
-							tagBox.parseTags( this );
-						}
-					});
+									tagBox.userAction = 'remove';
+									tagBox.parseTags( this );
+								}
+							}
+						);
 
-					listItem.prepend( '&nbsp;' ).prepend( xbutton );
+						listItem.prepend( '&nbsp;' ).prepend( xbutton );
+					}
+
+					// Append the list item to the tag list.
+					tagchecklist.append( listItem );
 				}
-
-				// Append the list item to the tag list.
-				tagchecklist.append( listItem );
-			});
+			);
 
 			// The buttons list is built now, give feedback to screen reader users.
 			tagBox.screenReadersMessage();
@@ -227,14 +243,14 @@
 		 *
 		 * @return {boolean} Always returns false.
 		 */
-		flushTags : function( el, a, f ) {
+		flushTags : function ( el, a, f ) {
 			var tagsval, newtags, text,
-				tags = $( '.the-tags', el ),
+				tags   = $( '.the-tags', el ),
 				newtag = $( 'input.newtag', el );
 
 			a = a || false;
 
-			text = a ? $(a).text() : newtag.val();
+			text = a ? $( a ).text() : newtag.val();
 
 			/*
 			 * Return if there's no new tag or if the input field is empty.
@@ -255,10 +271,12 @@
 			tags.val( newtags );
 			this.quickClicks( el );
 
-			if ( ! a )
-				newtag.val('');
-			if ( 'undefined' == typeof( f ) )
+			if ( ! a ) {
+				newtag.val( '' );
+			}
+			if ( 'undefined' == typeof( f ) ) {
 				newtag.trigger( 'focus' );
+			}
 
 			return false;
 		},
@@ -277,8 +295,8 @@
 		 *
 		 * @return {void}
 		 */
-		get : function( id ) {
-			var tax = id.substr( id.indexOf('-') + 1 );
+		get : function ( id ) {
+			var tax = id.substr( id.indexOf( '-' ) + 1 );
 
 			/**
 			 * Puts a received tag cloud into a DOM element.
@@ -292,28 +310,35 @@
 			 *
 			 * @return {void}
 			 */
-			$.post( ajaxurl, { 'action': 'get-tagcloud', 'tax': tax }, function( r, stat ) {
-				if ( 0 === r || 'success' != stat ) {
-					return;
+			$.post(
+				ajaxurl,
+				{ 'action': 'get-tagcloud', 'tax': tax },
+				function ( r, stat ) {
+					if ( 0 === r || 'success' != stat ) {
+						return;
+					}
+
+					r = $( '<div id="tagcloud-' + tax + '" class="the-tagcloud">' + r + '</div>' );
+
+					/**
+					 * Adds a new tag when a tag in the tagcloud is clicked.
+					 *
+					 * @since 2.9.0
+					 *
+					 * @return {boolean} Returns false to prevent the default action.
+					 */
+					$( 'a', r ).on(
+						'click',
+						function () {
+							tagBox.userAction = 'add';
+							tagBox.flushTags( $( '#' + tax ), this );
+							return false;
+						}
+					);
+
+					$( '#' + id ).after( r );
 				}
-
-				r = $( '<div id="tagcloud-' + tax + '" class="the-tagcloud">' + r + '</div>' );
-
-				/**
-				 * Adds a new tag when a tag in the tagcloud is clicked.
-				 *
-				 * @since 2.9.0
-				 *
-				 * @return {boolean} Returns false to prevent the default action.
-				 */
-				$( 'a', r ).on( 'click', function() {
-					tagBox.userAction = 'add';
-					tagBox.flushTags( $( '#' + tax ), this );
-					return false;
-				});
-
-				$( '#' + id ).after( r );
-			});
+			);
 		},
 
 		/**
@@ -332,7 +357,7 @@
 		 *
 		 * @return {void}
 		 */
-		screenReadersMessage: function() {
+		screenReadersMessage: function () {
 			var message;
 
 			switch ( this.userAction ) {
@@ -364,17 +389,22 @@
 		 *
 		 * @return {void}
 		 */
-		init : function() {
-			var ajaxtag = $('div.ajaxtag');
+		init : function () {
+			var ajaxtag = $( 'div.ajaxtag' );
 
-			$('.tagsdiv').each( function() {
-				tagBox.quickClicks( this );
-			});
+			$( '.tagsdiv' ).each(
+				function () {
+					tagBox.quickClicks( this );
+				}
+			);
 
-			$( '.tagadd', ajaxtag ).on( 'click', function() {
-				tagBox.userAction = 'add';
-				tagBox.flushTags( $( this ).closest( '.tagsdiv' ) );
-			});
+			$( '.tagadd', ajaxtag ).on(
+				'click',
+				function () {
+					tagBox.userAction = 'add';
+					tagBox.flushTags( $( this ).closest( '.tagsdiv' ) );
+				}
+			);
 
 			/**
 			 * Handles pressing enter on the new tag input field.
@@ -388,16 +418,21 @@
 			 *
 			 * @return {void}
 			 */
-			$( 'input.newtag', ajaxtag ).on( 'keypress', function( event ) {
-				if ( 13 == event.which ) {
-					tagBox.userAction = 'add';
-					tagBox.flushTags( $( this ).closest( '.tagsdiv' ) );
-					event.preventDefault();
-					event.stopPropagation();
+			$( 'input.newtag', ajaxtag ).on(
+				'keypress',
+				function ( event ) {
+					if ( 13 == event.which ) {
+						tagBox.userAction = 'add';
+						tagBox.flushTags( $( this ).closest( '.tagsdiv' ) );
+						event.preventDefault();
+						event.stopPropagation();
+					}
 				}
-			}).each( function( i, element ) {
-				$( element ).wpTagsSuggest();
-			});
+			).each(
+				function ( i, element ) {
+					$( element ).wpTagsSuggest();
+				}
+			);
 
 			/**
 			 * Before a post is saved the value currently in the new tag input field will be
@@ -407,11 +442,16 @@
 			 *
 			 * @return {void}
 			 */
-			$('#post').on( 'submit', function(){
-				$('div.tagsdiv').each( function() {
-					tagBox.flushTags(this, false, 1);
-				});
-			});
+			$( '#post' ).on(
+				'submit',
+				function () {
+					$( 'div.tagsdiv' ).each(
+						function () {
+							tagBox.flushTags( this, false, 1 );
+						}
+					);
+				}
+			);
 
 			/**
 			 * Handles clicking on the tag cloud link.
@@ -422,19 +462,25 @@
 			 *
 			 * @return {void}
 			 */
-			$('.tagcloud-link').on( 'click', function(){
-				// On the first click, fetch the tag cloud and insert it in the DOM.
-				tagBox.get( $( this ).attr( 'id' ) );
-				// Update button state, remove previous click event and attach a new one to toggle the cloud.
-				$( this )
+			$( '.tagcloud-link' ).on(
+				'click',
+				function () {
+					// On the first click, fetch the tag cloud and insert it in the DOM.
+					tagBox.get( $( this ).attr( 'id' ) );
+					// Update button state, remove previous click event and attach a new one to toggle the cloud.
+					$( this )
 					.attr( 'aria-expanded', 'true' )
 					.off()
-					.on( 'click', function() {
-						$( this )
+					.on(
+						'click',
+						function () {
+							$( this )
 							.attr( 'aria-expanded', 'false' === $( this ).attr( 'aria-expanded' ) ? 'true' : 'false' )
 							.siblings( '.the-tagcloud' ).toggle();
-					});
-			});
+						}
+					);
+				}
+			);
 		}
 	};
 }( jQuery ));

@@ -2,15 +2,15 @@
  * @output wp-includes/js/wplink.js
  */
 
- /* global wpLink */
+/* global wpLink */
 
-( function( $, wpLinkL10n, wp ) {
+( function ( $, wpLinkL10n, wp ) {
 	var editor, searchTimer, River, Query, correctedURL,
 		emailRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$/i,
-		urlRegexp = /^(https?|ftp):\/\/[A-Z0-9.-]+\.[A-Z]{2,63}[^ "]*$/i,
-		inputs = {},
-		rivers = {},
-		isTouch = ( 'ontouchend' in document );
+		urlRegexp   = /^(https?|ftp):\/\/[A-Z0-9.-]+\.[A-Z]{2,63}[^ "]*$/i,
+		inputs      = {},
+		rivers      = {},
+		isTouch     = ( 'ontouchend' in document );
 
 	function getLink() {
 		if ( editor ) {
@@ -29,64 +29,85 @@
 		textarea: '',
 		modalOpen: false,
 
-		init: function() {
-			inputs.wrap = $('#wp-link-wrap');
-			inputs.dialog = $( '#wp-link' );
+		init: function () {
+			inputs.wrap     = $( '#wp-link-wrap' );
+			inputs.dialog   = $( '#wp-link' );
 			inputs.backdrop = $( '#wp-link-backdrop' );
-			inputs.submit = $( '#wp-link-submit' );
-			inputs.close = $( '#wp-link-close' );
+			inputs.submit   = $( '#wp-link-submit' );
+			inputs.close    = $( '#wp-link-close' );
 
 			// Input.
-			inputs.text = $( '#wp-link-text' );
-			inputs.url = $( '#wp-link-url' );
-			inputs.nonce = $( '#_ajax_linking_nonce' );
+			inputs.text         = $( '#wp-link-text' );
+			inputs.url          = $( '#wp-link-url' );
+			inputs.nonce        = $( '#_ajax_linking_nonce' );
 			inputs.openInNewTab = $( '#wp-link-target' );
-			inputs.search = $( '#wp-link-search' );
+			inputs.search       = $( '#wp-link-search' );
 
 			// Build rivers.
-			rivers.search = new River( $( '#search-results' ) );
-			rivers.recent = new River( $( '#most-recent-results' ) );
+			rivers.search   = new River( $( '#search-results' ) );
+			rivers.recent   = new River( $( '#most-recent-results' ) );
 			rivers.elements = inputs.dialog.find( '.query-results' );
 
 			// Get search notice text.
-			inputs.queryNotice = $( '#query-notice-message' );
+			inputs.queryNotice            = $( '#query-notice-message' );
 			inputs.queryNoticeTextDefault = inputs.queryNotice.find( '.query-notice-default' );
-			inputs.queryNoticeTextHint = inputs.queryNotice.find( '.query-notice-hint' );
+			inputs.queryNoticeTextHint    = inputs.queryNotice.find( '.query-notice-hint' );
 
 			// Bind event handlers.
 			inputs.dialog.on( 'keydown', wpLink.keydown );
 			inputs.dialog.on( 'keyup', wpLink.keyup );
-			inputs.submit.on( 'click', function( event ) {
-				event.preventDefault();
-				wpLink.update();
-			});
+			inputs.submit.on(
+				'click',
+				function ( event ) {
+					event.preventDefault();
+					wpLink.update();
+				}
+			);
 
-			inputs.close.add( inputs.backdrop ).add( '#wp-link-cancel button' ).on( 'click', function( event ) {
-				event.preventDefault();
-				wpLink.close();
-			});
+			inputs.close.add( inputs.backdrop ).add( '#wp-link-cancel button' ).on(
+				'click',
+				function ( event ) {
+					event.preventDefault();
+					wpLink.close();
+				}
+			);
 
 			rivers.elements.on( 'river-select', wpLink.updateFields );
 
 			// Display 'hint' message when search field or 'query-results' box are focused.
-			inputs.search.on( 'focus.wplink', function() {
-				inputs.queryNoticeTextDefault.hide();
-				inputs.queryNoticeTextHint.removeClass( 'screen-reader-text' ).show();
-			} ).on( 'blur.wplink', function() {
-				inputs.queryNoticeTextDefault.show();
-				inputs.queryNoticeTextHint.addClass( 'screen-reader-text' ).hide();
-			} );
+			inputs.search.on(
+				'focus.wplink',
+				function () {
+					inputs.queryNoticeTextDefault.hide();
+					inputs.queryNoticeTextHint.removeClass( 'screen-reader-text' ).show();
+				}
+			).on(
+				'blur.wplink',
+				function () {
+					inputs.queryNoticeTextDefault.show();
+					inputs.queryNoticeTextHint.addClass( 'screen-reader-text' ).hide();
+				}
+			);
 
-			inputs.search.on( 'keyup input', function() {
-				window.clearTimeout( searchTimer );
-				searchTimer = window.setTimeout( function() {
-					wpLink.searchInternalLinks();
-				}, 500 );
-			});
+			inputs.search.on(
+				'keyup input',
+				function () {
+					window.clearTimeout( searchTimer );
+					searchTimer = window.setTimeout(
+						function () {
+							wpLink.searchInternalLinks();
+						},
+						500
+					);
+				}
+			);
 
-			inputs.url.on( 'paste', function() {
-				setTimeout( wpLink.correctURL, 0 );
-			} );
+			inputs.url.on(
+				'paste',
+				function () {
+					setTimeout( wpLink.correctURL, 0 );
+				}
+			);
 
 			inputs.url.on( 'blur', wpLink.correctURL );
 		},
@@ -101,7 +122,7 @@
 			}
 		},
 
-		open: function( editorId, url, text ) {
+		open: function ( editorId, url, text ) {
 			var ed,
 				$body = $( document.body );
 
@@ -148,11 +169,11 @@
 			$( document ).trigger( 'wplink-open', inputs.wrap );
 		},
 
-		isMCE: function() {
+		isMCE: function () {
 			return editor && ! editor.isHidden();
 		},
 
-		refresh: function( url, text ) {
+		refresh: function ( url, text ) {
 			var linkText = '';
 
 			// Refresh rivers (clear links, check visibility).
@@ -189,10 +210,12 @@
 				 * If this is moved above the selection changes,
 				 * IE will show a flashing cursor over the dialog.
 				 */
-				window.setTimeout( function() {
-					inputs.url[0].select();
-					inputs.url.trigger( 'focus' );
-				} );
+				window.setTimeout(
+					function () {
+						inputs.url[0].select();
+						inputs.url.trigger( 'focus' );
+					}
+				);
 			}
 
 			// Load the most recent results if this is the first time opening the panel.
@@ -203,11 +226,11 @@
 			correctedURL = inputs.url.val().replace( /^http:\/\//, '' );
 		},
 
-		hasSelectedText: function( linkNode ) {
+		hasSelectedText: function ( linkNode ) {
 			var node, nodes, i, html = editor.selection.getContent();
 
 			// Partial html and not a fully selected anchor element.
-			if ( /</.test( html ) && ( ! /^<a [^>]+>[^<]+<\/a>$/.test( html ) || html.indexOf('href=') === -1 ) ) {
+			if ( /</.test( html ) && ( ! /^<a [^>]+>[^<]+<\/a>$/.test( html ) || html.indexOf( 'href=' ) === -1 ) ) {
 				return false;
 			}
 
@@ -230,14 +253,14 @@
 			return true;
 		},
 
-		mceRefresh: function( searchStr, text ) {
+		mceRefresh: function ( searchStr, text ) {
 			var linkText, href,
 				linkNode = getLink(),
 				onlyText = this.hasSelectedText( linkNode );
 
 			if ( linkNode.length ) {
 				linkText = linkNode.text();
-				href = linkNode.attr( 'href' );
+				href     = linkNode.attr( 'href' );
 
 				if ( ! linkText.trim() ) {
 					linkText = text || '';
@@ -263,11 +286,13 @@
 				}
 
 				// Always reset the search.
-				window.setTimeout( function() {
-					wpLink.searchInternalLinks();
-				} );
+				window.setTimeout(
+					function () {
+						wpLink.searchInternalLinks();
+					}
+				);
 			} else {
-				linkText = editor.selection.getContent({ format: 'text' }) || text || '';
+				linkText = editor.selection.getContent( { format: 'text' } ) || text || '';
 				this.setDefaultValues( linkText );
 			}
 
@@ -280,7 +305,7 @@
 			}
 		},
 
-		close: function( reset ) {
+		close: function ( reset ) {
 			$( document.body ).removeClass( 'modal-open' );
 			$( '#wpwrap' ).removeAttr( 'aria-hidden' );
 			wpLink.modalOpen = false;
@@ -310,7 +335,7 @@
 			$( document ).trigger( 'wplink-close', inputs.wrap );
 		},
 
-		getAttrs: function() {
+		getAttrs: function () {
 			wpLink.correctURL();
 
 			return {
@@ -319,7 +344,7 @@
 			};
 		},
 
-		buildHtml: function(attrs) {
+		buildHtml: function (attrs) {
 			var html = '<a href="' + attrs.href + '"';
 
 			if ( attrs.target ) {
@@ -329,7 +354,7 @@
 			return html + '>';
 		},
 
-		update: function() {
+		update: function () {
 			if ( wpLink.isMCE() ) {
 				wpLink.mceUpdate();
 			} else {
@@ -337,7 +362,7 @@
 			}
 		},
 
-		htmlUpdate: function() {
+		htmlUpdate: function () {
 			var attrs, text, html, begin, end, cursor, selection,
 				textarea = wpLink.textarea;
 
@@ -346,9 +371,9 @@
 			}
 
 			attrs = wpLink.getAttrs();
-			text = inputs.text.val();
+			text  = inputs.text.val();
 
-			var parser = document.createElement( 'a' );
+			var parser  = document.createElement( 'a' );
 			parser.href = attrs.href;
 
 			if ( 'javascript:' === parser.protocol || 'data:' === parser.protocol ) { // jshint ignore:line
@@ -360,7 +385,7 @@
 				return;
 			}
 
-			html = wpLink.buildHtml(attrs);
+			html = wpLink.buildHtml( attrs );
 
 			// Insert HTML.
 			if ( document.selection && wpLink.range ) {
@@ -375,11 +400,11 @@
 				wpLink.range = null;
 			} else if ( typeof textarea.selectionStart !== 'undefined' ) {
 				// W3C.
-				begin = textarea.selectionStart;
-				end = textarea.selectionEnd;
+				begin     = textarea.selectionStart;
+				end       = textarea.selectionEnd;
 				selection = text || textarea.value.substring( begin, end );
-				html = html + selection + '</a>';
-				cursor = begin + html.length;
+				html      = html + selection + '</a>';
+				cursor    = begin + html.length;
 
 				// If no text is selected, place the cursor inside the closing tag.
 				if ( begin === end && ! selection ) {
@@ -404,11 +429,11 @@
 			wp.a11y.speak( wpLinkL10n.linkInserted );
 		},
 
-		mceUpdate: function() {
+		mceUpdate: function () {
 			var attrs = wpLink.getAttrs(),
 				$link, text, hasText;
 
-			var parser = document.createElement( 'a' );
+			var parser  = document.createElement( 'a' );
 			parser.href = attrs.href;
 
 			if ( 'javascript:' === parser.protocol || 'data:' === parser.protocol ) { // jshint ignore:line
@@ -423,31 +448,33 @@
 
 			$link = getLink();
 
-			editor.undoManager.transact( function() {
-				if ( ! $link.length ) {
-					editor.execCommand( 'mceInsertLink', false, { href: '_wp_link_placeholder', 'data-wp-temp-link': 1 } );
-					$link = editor.$( 'a[data-wp-temp-link="1"]' ).removeAttr( 'data-wp-temp-link' );
-					hasText = $link.text().trim();
-				}
-
-				if ( ! $link.length ) {
-					editor.execCommand( 'unlink' );
-				} else {
-					if ( inputs.wrap.hasClass( 'has-text-field' ) ) {
-						text = inputs.text.val();
-
-						if ( text ) {
-							$link.text( text );
-						} else if ( ! hasText ) {
-							$link.text( attrs.href );
-						}
+			editor.undoManager.transact(
+				function () {
+					if ( ! $link.length ) {
+							editor.execCommand( 'mceInsertLink', false, { href: '_wp_link_placeholder', 'data-wp-temp-link': 1 } );
+							$link   = editor.$( 'a[data-wp-temp-link="1"]' ).removeAttr( 'data-wp-temp-link' );
+							hasText = $link.text().trim();
 					}
 
-					attrs['data-wplink-edit'] = null;
-					attrs['data-mce-href'] = attrs.href;
-					$link.attr( attrs );
+					if ( ! $link.length ) {
+						editor.execCommand( 'unlink' );
+					} else {
+						if ( inputs.wrap.hasClass( 'has-text-field' ) ) {
+							text = inputs.text.val();
+
+							if ( text ) {
+									$link.text( text );
+							} else if ( ! hasText ) {
+								$link.text( attrs.href );
+							}
+						}
+
+						attrs['data-wplink-edit'] = null;
+						attrs['data-mce-href']    = attrs.href;
+						$link.attr( attrs );
+					}
 				}
-			} );
+			);
 
 			wpLink.close( 'noReset' );
 			editor.focus();
@@ -466,7 +493,7 @@
 			wp.a11y.speak( wpLinkL10n.linkInserted );
 		},
 
-		updateFields: function( e, li ) {
+		updateFields: function ( e, li ) {
 			inputs.url.val( li.children( '.item-permalink' ).val() );
 
 			if ( inputs.wrap.hasClass( 'has-text-field' ) && ! inputs.text.val() ) {
@@ -474,10 +501,10 @@
 			}
 		},
 
-		getUrlFromSelection: function( selection ) {
+		getUrlFromSelection: function ( selection ) {
 			if ( ! selection ) {
 				if ( this.isMCE() ) {
-					selection = editor.selection.getContent({ format: 'text' });
+					selection = editor.selection.getContent( { format: 'text' } );
 				} else if ( document.selection && wpLink.range ) {
 					selection = wpLink.range.text;
 				} else if ( typeof this.textarea.selectionStart !== 'undefined' ) {
@@ -499,20 +526,20 @@
 			return '';
 		},
 
-		setDefaultValues: function( selection ) {
+		setDefaultValues: function ( selection ) {
 			inputs.url.val( this.getUrlFromSelection( selection ) );
 
 			// Empty the search field and swap the "rivers".
-			inputs.search.val('');
+			inputs.search.val( '' );
 			wpLink.searchInternalLinks();
 
 			// Update save prompt.
 			inputs.submit.val( wpLinkL10n.save );
 		},
 
-		searchInternalLinks: function() {
+		searchInternalLinks: function () {
 			var waiting,
-				search = inputs.search.val() || '',
+				search         = inputs.search.val() || '',
 				minInputLength = parseInt( wpLinkL10n.minInputLength, 10 ) || 3;
 
 			if ( search.length >= minInputLength ) {
@@ -520,40 +547,43 @@
 				rivers.search.show();
 
 				// Don't search if the keypress didn't change the title.
-				if ( wpLink.lastSearch == search )
+				if ( wpLink.lastSearch == search ) {
 					return;
+				}
 
 				wpLink.lastSearch = search;
-				waiting = inputs.search.parent().find( '.spinner' ).addClass( 'is-active' );
+				waiting           = inputs.search.parent().find( '.spinner' ).addClass( 'is-active' );
 
 				rivers.search.change( search );
-				rivers.search.ajax( function() {
-					waiting.removeClass( 'is-active' );
-				});
+				rivers.search.ajax(
+					function () {
+						waiting.removeClass( 'is-active' );
+					}
+				);
 			} else {
 				rivers.search.hide();
 				rivers.recent.show();
 			}
 		},
 
-		next: function() {
+		next: function () {
 			rivers.search.next();
 			rivers.recent.next();
 		},
 
-		prev: function() {
+		prev: function () {
 			rivers.search.prev();
 			rivers.recent.prev();
 		},
 
-		keydown: function( event ) {
+		keydown: function ( event ) {
 			var fn, id;
 
 			// Escape key.
 			if ( 27 === event.keyCode ) {
 				wpLink.close();
 				event.stopImmediatePropagation();
-			// Tab key.
+				// Tab key.
 			} else if ( 9 === event.keyCode ) {
 				id = event.target.id;
 
@@ -586,7 +616,7 @@
 			event.preventDefault();
 		},
 
-		keyup: function( event ) {
+		keyup: function ( event ) {
 			// Up Arrow and Down Arrow keys.
 			if ( 38 === event.keyCode || 40 === event.keyCode ) {
 				clearInterval( wpLink.keyInterval );
@@ -594,211 +624,258 @@
 			}
 		},
 
-		delayedCallback: function( func, delay ) {
+		delayedCallback: function ( func, delay ) {
 			var timeoutTriggered, funcTriggered, funcArgs, funcContext;
 
-			if ( ! delay )
+			if ( ! delay ) {
 				return func;
+			}
 
-			setTimeout( function() {
-				if ( funcTriggered )
-					return func.apply( funcContext, funcArgs );
-				// Otherwise, wait.
-				timeoutTriggered = true;
-			}, delay );
+			setTimeout(
+				function () {
+					if ( funcTriggered ) {
+							return func.apply( funcContext, funcArgs );
+					}
+					// Otherwise, wait.
+					timeoutTriggered = true;
+				},
+				delay
+			);
 
-			return function() {
-				if ( timeoutTriggered )
+			return function () {
+				if ( timeoutTriggered ) {
 					return func.apply( this, arguments );
+				}
 				// Otherwise, wait.
-				funcArgs = arguments;
-				funcContext = this;
+				funcArgs      = arguments;
+				funcContext   = this;
 				funcTriggered = true;
 			};
 		}
 	};
 
-	River = function( element, search ) {
-		var self = this;
-		this.element = element;
-		this.ul = element.children( 'ul' );
+	River = function ( element, search ) {
+		var self           = this;
+		this.element       = element;
+		this.ul            = element.children( 'ul' );
 		this.contentHeight = element.children( '#link-selector-height' );
-		this.waiting = element.find('.river-waiting');
+		this.waiting       = element.find( '.river-waiting' );
 
 		this.change( search );
 		this.refresh();
 
-		$( '#wp-link .query-results, #wp-link #link-selector' ).on( 'scroll', function() {
-			self.maybeLoad();
-		});
-		element.on( 'click', 'li', function( event ) {
-			self.select( $( this ), event );
-		});
+		$( '#wp-link .query-results, #wp-link #link-selector' ).on(
+			'scroll',
+			function () {
+				self.maybeLoad();
+			}
+		);
+		element.on(
+			'click',
+			'li',
+			function ( event ) {
+				self.select( $( this ), event );
+			}
+		);
 	};
 
-	$.extend( River.prototype, {
-		refresh: function() {
-			this.deselect();
-			this.visible = this.element.is( ':visible' );
-		},
-		show: function() {
-			if ( ! this.visible ) {
+	$.extend(
+		River.prototype,
+		{
+			refresh: function () {
 				this.deselect();
-				this.element.show();
-				this.visible = true;
-			}
-		},
-		hide: function() {
-			this.element.hide();
-			this.visible = false;
-		},
-		// Selects a list item and triggers the river-select event.
-		select: function( li, event ) {
-			var liHeight, elHeight, liTop, elTop;
+				this.visible = this.element.is( ':visible' );
+			},
+			show: function () {
+				if ( ! this.visible ) {
+					this.deselect();
+					this.element.show();
+					this.visible = true;
+				}
+			},
+			hide: function () {
+				this.element.hide();
+				this.visible = false;
+			},
+			// Selects a list item and triggers the river-select event.
+			select: function ( li, event ) {
+				var liHeight, elHeight, liTop, elTop;
 
-			if ( li.hasClass( 'unselectable' ) || li == this.selected )
-				return;
+				if ( li.hasClass( 'unselectable' ) || li == this.selected ) {
+					return;
+				}
 
-			this.deselect();
-			this.selected = li.addClass( 'selected' );
-			// Make sure the element is visible.
-			liHeight = li.outerHeight();
-			elHeight = this.element.height();
-			liTop = li.position().top;
-			elTop = this.element.scrollTop();
+				this.deselect();
+				this.selected = li.addClass( 'selected' );
+				// Make sure the element is visible.
+				liHeight = li.outerHeight();
+				elHeight = this.element.height();
+				liTop    = li.position().top;
+				elTop    = this.element.scrollTop();
 
-			if ( liTop < 0 ) // Make first visible element.
-				this.element.scrollTop( elTop + liTop );
-			else if ( liTop + liHeight > elHeight ) // Make last visible element.
-				this.element.scrollTop( elTop + liTop - elHeight + liHeight );
+				if ( liTop < 0 ) { // Make first visible element.
+					this.element.scrollTop( elTop + liTop );
+				} else if ( liTop + liHeight > elHeight ) { // Make last visible element.
+					this.element.scrollTop( elTop + liTop - elHeight + liHeight );
+				}
 
-			// Trigger the river-select event.
-			this.element.trigger( 'river-select', [ li, event, this ] );
-		},
-		deselect: function() {
-			if ( this.selected )
-				this.selected.removeClass( 'selected' );
-			this.selected = false;
-		},
-		prev: function() {
-			if ( ! this.visible )
-				return;
+				// Trigger the river-select event.
+				this.element.trigger( 'river-select', [ li, event, this ] );
+			},
+			deselect: function () {
+				if ( this.selected ) {
+					this.selected.removeClass( 'selected' );
+				}
+				this.selected = false;
+			},
+			prev: function () {
+				if ( ! this.visible ) {
+					return;
+				}
 
-			var to;
-			if ( this.selected ) {
-				to = this.selected.prev( 'li' );
-				if ( to.length )
+				var to;
+				if ( this.selected ) {
+					to = this.selected.prev( 'li' );
+					if ( to.length ) {
+						this.select( to );
+					}
+				}
+			},
+			next: function () {
+				if ( ! this.visible ) {
+					return;
+				}
+
+				var to = this.selected ? this.selected.next( 'li' ) : $( 'li:not(.unselectable):first', this.element );
+				if ( to.length ) {
 					this.select( to );
-			}
-		},
-		next: function() {
-			if ( ! this.visible )
-				return;
+				}
+			},
+			ajax: function ( callback ) {
+				var self = this,
+				delay    = this.query.page == 1 ? 0 : wpLink.minRiverAJAXDuration,
+				response = wpLink.delayedCallback(
+					function ( results, params ) {
+						self.process( results, params );
+						if ( callback ) {
+								callback( results, params );
+						}
+					},
+					delay
+				);
 
-			var to = this.selected ? this.selected.next( 'li' ) : $( 'li:not(.unselectable):first', this.element );
-			if ( to.length )
-				this.select( to );
-		},
-		ajax: function( callback ) {
-			var self = this,
-				delay = this.query.page == 1 ? 0 : wpLink.minRiverAJAXDuration,
-				response = wpLink.delayedCallback( function( results, params ) {
-					self.process( results, params );
-					if ( callback )
-						callback( results, params );
-				}, delay );
+				this.query.ajax( response );
+			},
+			change: function ( search ) {
+				if ( this.query && this._search == search ) {
+					return;
+				}
 
-			this.query.ajax( response );
-		},
-		change: function( search ) {
-			if ( this.query && this._search == search )
-				return;
-
-			this._search = search;
-			this.query = new Query( search );
-			this.element.scrollTop( 0 );
-		},
-		process: function( results, params ) {
-			var list = '', alt = true, classes = '',
+				this._search = search;
+				this.query   = new Query( search );
+				this.element.scrollTop( 0 );
+			},
+			process: function ( results, params ) {
+				var list  = '', alt = true, classes = '',
 				firstPage = params.page == 1;
 
-			if ( ! results ) {
-				if ( firstPage ) {
-					list += '<li class="unselectable no-matches-found"><span class="item-title"><em>' +
+				if ( ! results ) {
+					if ( firstPage ) {
+						list += '<li class="unselectable no-matches-found"><span class="item-title"><em>' +
 						wpLinkL10n.noMatchesFound + '</em></span></li>';
+					}
+				} else {
+					$.each(
+						results,
+						function () {
+							classes  = alt ? 'alternate' : '';
+							classes += this.title ? '' : ' no-title';
+							list    += classes ? '<li class="' + classes + '">' : '<li>';
+							list    += '<input type="hidden" class="item-permalink" value="' + this.permalink + '" />';
+							list    += '<span class="item-title">';
+							list    += this.title ? this.title : wpLinkL10n.noTitle;
+							list    += '</span><span class="item-info">' + this.info + '</span></li>';
+							alt      = ! alt;
+						}
+					);
 				}
-			} else {
-				$.each( results, function() {
-					classes = alt ? 'alternate' : '';
-					classes += this.title ? '' : ' no-title';
-					list += classes ? '<li class="' + classes + '">' : '<li>';
-					list += '<input type="hidden" class="item-permalink" value="' + this.permalink + '" />';
-					list += '<span class="item-title">';
-					list += this.title ? this.title : wpLinkL10n.noTitle;
-					list += '</span><span class="item-info">' + this.info + '</span></li>';
-					alt = ! alt;
-				});
-			}
 
-			this.ul[ firstPage ? 'html' : 'append' ]( list );
-		},
-		maybeLoad: function() {
-			var self = this,
-				el = this.element,
-				bottom = el.scrollTop() + el.height();
+				this.ul[ firstPage ? 'html' : 'append' ]( list );
+			},
+			maybeLoad: function () {
+				var self = this,
+				el       = this.element,
+				bottom   = el.scrollTop() + el.height();
 
-			if ( ! this.query.ready() || bottom < this.contentHeight.height() - wpLink.riverBottomThreshold )
-				return;
-
-			setTimeout(function() {
-				var newTop = el.scrollTop(),
-					newBottom = newTop + el.height();
-
-				if ( ! self.query.ready() || newBottom < self.contentHeight.height() - wpLink.riverBottomThreshold )
+				if ( ! this.query.ready() || bottom < this.contentHeight.height() - wpLink.riverBottomThreshold ) {
 					return;
+				}
 
-				self.waiting.addClass( 'is-active' );
-				el.scrollTop( newTop + self.waiting.outerHeight() );
+				setTimeout(
+					function () {
+						var newTop = el.scrollTop(),
+						newBottom  = newTop + el.height();
 
-				self.ajax( function() {
-					self.waiting.removeClass( 'is-active' );
-				});
-			}, wpLink.timeToTriggerRiver );
+						if ( ! self.query.ready() || newBottom < self.contentHeight.height() - wpLink.riverBottomThreshold ) {
+							return;
+						}
+
+						self.waiting.addClass( 'is-active' );
+						el.scrollTop( newTop + self.waiting.outerHeight() );
+
+						self.ajax(
+							function () {
+								self.waiting.removeClass( 'is-active' );
+							}
+						);
+					},
+					wpLink.timeToTriggerRiver
+				);
+			}
 		}
-	});
+	);
 
-	Query = function( search ) {
-		this.page = 1;
+	Query = function ( search ) {
+		this.page      = 1;
 		this.allLoaded = false;
-		this.querying = false;
-		this.search = search;
+		this.querying  = false;
+		this.search    = search;
 	};
 
-	$.extend( Query.prototype, {
-		ready: function() {
-			return ! ( this.querying || this.allLoaded );
-		},
-		ajax: function( callback ) {
-			var self = this,
-				query = {
+	$.extend(
+		Query.prototype,
+		{
+			ready: function () {
+				return ! ( this.querying || this.allLoaded );
+			},
+			ajax: function ( callback ) {
+				var self = this,
+				query    = {
 					action : 'wp-link-ajax',
 					page : this.page,
 					'_ajax_linking_nonce' : inputs.nonce.val()
 				};
 
-			if ( this.search )
-				query.search = this.search;
+				if ( this.search ) {
+					query.search = this.search;
+				}
 
-			this.querying = true;
+				this.querying = true;
 
-			$.post( window.ajaxurl, query, function( r ) {
-				self.page++;
-				self.querying = false;
-				self.allLoaded = ! r;
-				callback( r, query );
-			}, 'json' );
+				$.post(
+					window.ajaxurl,
+					query,
+					function ( r ) {
+						self.page++;
+						self.querying  = false;
+						self.allLoaded = ! r;
+						callback( r, query );
+					},
+					'json'
+				);
+			}
 		}
-	});
+	);
 
 	$( wpLink.init );
 })( jQuery, window.wpLinkL10n, window.wp );

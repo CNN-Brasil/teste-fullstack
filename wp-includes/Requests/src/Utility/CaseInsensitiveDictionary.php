@@ -24,16 +24,16 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	 *
 	 * @var array
 	 */
-	protected $data = [];
+	protected $data = array();
 
 	/**
 	 * Creates a case insensitive dictionary.
 	 *
 	 * @param array $data Dictionary/map to convert to case-insensitive
 	 */
-	public function __construct(array $data = []) {
-		foreach ($data as $offset => $value) {
-			$this->offsetSet($offset, $value);
+	public function __construct( array $data = array() ) {
+		foreach ( $data as $offset => $value ) {
+			$this->offsetSet( $offset, $value );
 		}
 	}
 
@@ -44,12 +44,12 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	 * @return boolean Does the item exist?
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetExists($offset) {
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+	public function offsetExists( $offset ) {
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		return isset($this->data[$offset]);
+		return isset( $this->data[ $offset ] );
 	}
 
 	/**
@@ -59,16 +59,16 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	 * @return string|null Item value (null if the item key doesn't exist)
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetGet($offset) {
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+	public function offsetGet( $offset ) {
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		if (!isset($this->data[$offset])) {
+		if ( ! isset( $this->data[ $offset ] ) ) {
 			return null;
 		}
 
-		return $this->data[$offset];
+		return $this->data[ $offset ];
 	}
 
 	/**
@@ -80,16 +80,16 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	 * @throws \WpOrg\Requests\Exception On attempting to use dictionary as list (`invalidset`)
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetSet($offset, $value) {
-		if ($offset === null) {
-			throw new Exception('Object is a dictionary, not a list', 'invalidset');
+	public function offsetSet( $offset, $value ) {
+		if ( $offset === null ) {
+			throw new Exception( 'Object is a dictionary, not a list', 'invalidset' );
 		}
 
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		$this->data[$offset] = $value;
+		$this->data[ $offset ] = $value;
 	}
 
 	/**
@@ -98,12 +98,12 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	 * @param string $offset The key for the item to unset.
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetUnset($offset) {
-		if (is_string($offset)) {
-			$offset = strtolower($offset);
+	public function offsetUnset( $offset ) {
+		if ( is_string( $offset ) ) {
+			$offset = strtolower( $offset );
 		}
 
-		unset($this->data[$offset]);
+		unset( $this->data[ $offset ] );
 	}
 
 	/**
@@ -113,7 +113,7 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	 */
 	#[ReturnTypeWillChange]
 	public function getIterator() {
-		return new ArrayIterator($this->data);
+		return new ArrayIterator( $this->data );
 	}
 
 	/**

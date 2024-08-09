@@ -544,8 +544,8 @@ class WP_REST_Widget_Types_Controller extends WP_REST_Controller {
 
 	 * @since 5.8.0
 	 *
-	 * @param string    $widget   The widget's PHP class name (see class-wp-widget.php).
-	 * @param array     $instance Widget instance settings.
+	 * @param string $widget   The widget's PHP class name (see class-wp-widget.php).
+	 * @param array  $instance Widget instance settings.
 	 * @return string
 	 */
 	private function get_widget_preview( $widget, $instance ) {

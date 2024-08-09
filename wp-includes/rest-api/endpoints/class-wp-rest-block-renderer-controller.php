@@ -125,8 +125,7 @@ class WP_REST_Block_Renderer_Controller extends WP_REST_Controller {
 					)
 				);
 			}
-		} else {
-			if ( ! current_user_can( 'edit_posts' ) ) {
+		} elseif ( ! current_user_can( 'edit_posts' ) ) {
 				return new WP_Error(
 					'block_cannot_read',
 					__( 'Sorry, you are not allowed to read blocks as this user.' ),
@@ -134,7 +133,6 @@ class WP_REST_Block_Renderer_Controller extends WP_REST_Controller {
 						'status' => rest_authorization_required_code(),
 					)
 				);
-			}
 		}
 
 		return true;

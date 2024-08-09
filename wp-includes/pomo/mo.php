@@ -220,7 +220,7 @@ if ( ! class_exists( 'MO', false ) ) :
 		 * @return bool True if the import was successful, otherwise false.
 		 */
 		public function import_from_reader( $reader ) {
-			$endian_string = MO::get_byteorder( $reader->readint32() );
+			$endian_string = self::get_byteorder( $reader->readint32() );
 			if ( false === $endian_string ) {
 				return false;
 			}

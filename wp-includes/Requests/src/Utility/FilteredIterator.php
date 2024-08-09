@@ -33,14 +33,14 @@ final class FilteredIterator extends ArrayIterator {
 	 *
 	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $data argument is not iterable.
 	 */
-	public function __construct($data, $callback) {
-		if (InputValidator::is_iterable($data) === false) {
-			throw InvalidArgument::create(1, '$data', 'iterable', gettype($data));
+	public function __construct( $data, $callback ) {
+		if ( InputValidator::is_iterable( $data ) === false ) {
+			throw InvalidArgument::create( 1, '$data', 'iterable', gettype( $data ) );
 		}
 
-		parent::__construct($data);
+		parent::__construct( $data );
 
-		if (is_callable($callback)) {
+		if ( is_callable( $callback ) ) {
 			$this->callback = $callback;
 		}
 	}
@@ -55,7 +55,7 @@ final class FilteredIterator extends ArrayIterator {
 	 * @return void
 	 */
 	#[ReturnTypeWillChange]
-	public function __unserialize($data) {}
+	public function __unserialize( $data ) {}
 	// phpcs:enable
 
 	/**
@@ -66,7 +66,7 @@ final class FilteredIterator extends ArrayIterator {
 	 * @return void
 	 */
 	public function __wakeup() {
-		unset($this->callback);
+		unset( $this->callback );
 	}
 
 	/**
@@ -78,8 +78,8 @@ final class FilteredIterator extends ArrayIterator {
 	public function current() {
 		$value = parent::current();
 
-		if (is_callable($this->callback)) {
-			$value = call_user_func($this->callback, $value);
+		if ( is_callable( $this->callback ) ) {
+			$value = call_user_func( $this->callback, $value );
 		}
 
 		return $value;
@@ -93,5 +93,5 @@ final class FilteredIterator extends ArrayIterator {
 	 * @return void
 	 */
 	#[ReturnTypeWillChange]
-	public function unserialize($data) {}
+	public function unserialize( $data ) {}
 }

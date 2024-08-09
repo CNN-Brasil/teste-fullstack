@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -47,8 +47,8 @@
  * @package SimplePie
  * @subpackage Caching
  */
-class SimplePie_Cache_File implements SimplePie_Cache_Base
-{
+class SimplePie_Cache_File implements SimplePie_Cache_Base {
+
 	/**
 	 * Location string
 	 *
@@ -85,12 +85,11 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 * @param string $name Unique ID for the cache
 	 * @param string $type Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data
 	 */
-	public function __construct($location, $name, $type)
-	{
-		$this->location = $location;
-		$this->filename = $name;
+	public function __construct( $location, $name, $type ) {
+		$this->location  = $location;
+		$this->filename  = $name;
 		$this->extension = $type;
-		$this->name = "$this->location/$this->filename.$this->extension";
+		$this->name      = "$this->location/$this->filename.$this->extension";
 	}
 
 	/**
@@ -99,17 +98,14 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 * @param array|SimplePie $data Data to store in the cache. If passed a SimplePie object, only cache the $data property
 	 * @return bool Successfulness
 	 */
-	public function save($data)
-	{
-		if (file_exists($this->name) && is_writable($this->name) || file_exists($this->location) && is_writable($this->location))
-		{
-			if ($data instanceof SimplePie)
-			{
+	public function save( $data ) {
+		if ( file_exists( $this->name ) && is_writable( $this->name ) || file_exists( $this->location ) && is_writable( $this->location ) ) {
+			if ( $data instanceof SimplePie ) {
 				$data = $data->data;
 			}
 
-			$data = serialize($data);
-			return (bool) file_put_contents($this->name, $data);
+			$data = serialize( $data );
+			return (bool) file_put_contents( $this->name, $data );
 		}
 		return false;
 	}
@@ -119,11 +115,9 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 *
 	 * @return array Data for SimplePie::$data
 	 */
-	public function load()
-	{
-		if (file_exists($this->name) && is_readable($this->name))
-		{
-			return unserialize(file_get_contents($this->name));
+	public function load() {
+		if ( file_exists( $this->name ) && is_readable( $this->name ) ) {
+			return unserialize( file_get_contents( $this->name ) );
 		}
 		return false;
 	}
@@ -133,9 +127,8 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 *
 	 * @return int Timestamp
 	 */
-	public function mtime()
-	{
-		return @filemtime($this->name);
+	public function mtime() {
+		return @filemtime( $this->name );
 	}
 
 	/**
@@ -143,9 +136,8 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 *
 	 * @return bool Success status
 	 */
-	public function touch()
-	{
-		return @touch($this->name);
+	public function touch() {
+		return @touch( $this->name );
 	}
 
 	/**
@@ -153,11 +145,9 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 *
 	 * @return bool Success status
 	 */
-	public function unlink()
-	{
-		if (file_exists($this->name))
-		{
-			return unlink($this->name);
+	public function unlink() {
+		if ( file_exists( $this->name ) ) {
+			return unlink( $this->name );
 		}
 		return false;
 	}

@@ -214,7 +214,7 @@ class WP_Script_Modules {
 		foreach ( $this->get_dependencies( array_keys( $this->get_marked_for_enqueue() ), array( 'static' ) ) as $id => $script_module ) {
 			// Don't preload if it's marked for enqueue.
 			if ( true !== $script_module['enqueue'] ) {
-				echo sprintf(
+				printf(
 					'<link rel="modulepreload" href="%s" id="%s">',
 					esc_url( $this->get_src( $id ) ),
 					esc_attr( $id . '-js-modulepreload' )

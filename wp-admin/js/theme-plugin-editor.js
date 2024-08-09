@@ -8,7 +8,7 @@ if ( ! window.wp ) {
 	window.wp = {};
 }
 
-wp.themePluginEditor = (function( $ ) {
+wp.themePluginEditor = (function ( $ ) {
 	'use strict';
 	var component, TreeLinks,
 		__ = wp.i18n.__, _n = wp.i18n._n, sprintf = wp.i18n.sprintf;
@@ -38,16 +38,16 @@ wp.themePluginEditor = (function( $ ) {
 			$.extend( component, settings );
 		}
 
-		component.noticeTemplate = wp.template( 'wp-file-editor-notice' );
+		component.noticeTemplate   = wp.template( 'wp-file-editor-notice' );
 		component.noticesContainer = component.form.find( '.editor-notices' );
-		component.submitButton = component.form.find( ':input[name=submit]' );
-		component.spinner = component.form.find( '.submit .spinner' );
+		component.submitButton     = component.form.find( ':input[name=submit]' );
+		component.spinner          = component.form.find( '.submit .spinner' );
 		component.form.on( 'submit', component.submit );
 		component.textarea = component.form.find( '#newcontent' );
 		component.textarea.on( 'change', component.onChange );
-		component.warning = $( '.file-editor-warning' );
+		component.warning          = $( '.file-editor-warning' );
 		component.docsLookUpButton = component.form.find( '#docs-lookup' );
-		component.docsLookUpList = component.form.find( '#docs-list' );
+		component.docsLookUpList   = component.form.find( '#docs-list' );
 
 		if ( component.warning.length > 0 ) {
 			component.showWarning();
@@ -59,28 +59,36 @@ wp.themePluginEditor = (function( $ ) {
 			 * its own managed dismiss buttons and also to prevent the editor from showing a notice
 			 * when the file had linting errors to begin with.
 			 */
-			_.defer( function() {
-				component.initCodeEditor();
-			} );
+			_.defer(
+				function () {
+					component.initCodeEditor();
+				}
+			);
 		}
 
 		$( component.initFileBrowser );
 
-		$( window ).on( 'beforeunload', function() {
-			if ( component.dirty ) {
-				return __( 'The changes you made will be lost if you navigate away from this page.' );
+		$( window ).on(
+			'beforeunload',
+			function () {
+				if ( component.dirty ) {
+					return __( 'The changes you made will be lost if you navigate away from this page.' );
+				}
+				return undefined;
 			}
-			return undefined;
-		} );
+		);
 
-		component.docsLookUpList.on( 'change', function() {
-			var option = $( this ).val();
-			if ( '' === option ) {
-				component.docsLookUpButton.prop( 'disabled', true );
-			} else {
-				component.docsLookUpButton.prop( 'disabled', false );
+		component.docsLookUpList.on(
+			'change',
+			function () {
+				var option = $( this ).val();
+				if ( '' === option ) {
+					component.docsLookUpButton.prop( 'disabled', true );
+				} else {
+					component.docsLookUpButton.prop( 'disabled', false );
+				}
 			}
-		} );
+		);
 	};
 
 	/**
@@ -89,7 +97,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * @since 4.9.0
 	 * @return {void}
 	 */
-	component.showWarning = function() {
+	component.showWarning = function () {
 		// Get the text within the modal.
 		var rawMessage = component.warning.find( '.file-editor-warning-message' ).text();
 		// Hide all the #wpwrap content from assistive technologies.
@@ -108,9 +116,12 @@ wp.themePluginEditor = (function( $ ) {
 		component.warningTabbables.on( 'keydown', component.constrainTabbing );
 		component.warning.on( 'click', '.file-editor-warning-dismiss', component.dismissWarning );
 		// Make screen readers announce the warning message after a short delay (necessary for some screen readers).
-		setTimeout( function() {
-			wp.a11y.speak( wp.sanitize.stripTags( rawMessage.replace( /\s+/g, ' ' ) ), 'assertive' );
-		}, 1000 );
+		setTimeout(
+			function () {
+				wp.a11y.speak( wp.sanitize.stripTags( rawMessage.replace( /\s+/g, ' ' ) ), 'assertive' );
+			},
+			1000
+		);
 	};
 
 	/**
@@ -120,7 +131,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * @param {Object} event jQuery event object.
 	 * @return {void}
 	 */
-	component.constrainTabbing = function( event ) {
+	component.constrainTabbing = function ( event ) {
 		var firstTabbable, lastTabbable;
 
 		if ( 9 !== event.which ) {
@@ -128,7 +139,7 @@ wp.themePluginEditor = (function( $ ) {
 		}
 
 		firstTabbable = component.warningTabbables.first()[0];
-		lastTabbable = component.warningTabbables.last()[0];
+		lastTabbable  = component.warningTabbables.last()[0];
 
 		if ( lastTabbable === event.target && ! event.shiftKey ) {
 			firstTabbable.focus();
@@ -145,11 +156,14 @@ wp.themePluginEditor = (function( $ ) {
 	 * @since 4.9.0
 	 * @return {void}
 	 */
-	component.dismissWarning = function() {
+	component.dismissWarning = function () {
 
-		wp.ajax.post( 'dismiss-wp-pointer', {
-			pointer: component.themeOrPlugin + '_editor_notice'
-		});
+		wp.ajax.post(
+			'dismiss-wp-pointer',
+			{
+				pointer: component.themeOrPlugin + '_editor_notice'
+			}
+		);
 
 		// Hide modal.
 		component.warning.remove();
@@ -163,7 +177,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * @since 4.9.0
 	 * @return {void}
 	 */
-	component.onChange = function() {
+	component.onChange = function () {
 		component.dirty = true;
 		component.removeNotice( 'file_saved' );
 	};
@@ -175,12 +189,15 @@ wp.themePluginEditor = (function( $ ) {
 	 * @param {jQuery.Event} event - Event.
 	 * @return {void}
 	 */
-	component.submit = function( event ) {
+	component.submit = function ( event ) {
 		var data = {}, request;
 		event.preventDefault(); // Prevent form submission in favor of Ajax below.
-		$.each( component.form.serializeArray(), function() {
-			data[ this.name ] = this.value;
-		} );
+		$.each(
+			component.form.serializeArray(),
+			function () {
+				data[ this.name ] = this.value;
+			}
+		);
 
 		// Use value from codemirror if present.
 		if ( component.instance ) {
@@ -211,42 +228,50 @@ wp.themePluginEditor = (function( $ ) {
 			component.removeNotice( component.lastSaveNoticeCode );
 		}
 
-		request.done( function( response ) {
-			component.lastSaveNoticeCode = 'file_saved';
-			component.addNotice({
-				code: component.lastSaveNoticeCode,
-				type: 'success',
-				message: response.message,
-				dismissible: true
-			});
-			component.dirty = false;
-		} );
-
-		request.fail( function( response ) {
-			var notice = $.extend(
-				{
-					code: 'save_error',
-					message: __( 'Something went wrong. Your change may not have been saved. Please try again. There is also a chance that you may need to manually fix and upload the file over FTP.' )
-				},
-				response,
-				{
-					type: 'error',
-					dismissible: true
-				}
-			);
-			component.lastSaveNoticeCode = notice.code;
-			component.addNotice( notice );
-		} );
-
-		request.always( function() {
-			component.spinner.removeClass( 'is-active' );
-			component.isSaving = false;
-
-			component.textarea.prop( 'readonly', false );
-			if ( component.instance ) {
-				component.instance.codemirror.setOption( 'readOnly', false );
+		request.done(
+			function ( response ) {
+				component.lastSaveNoticeCode = 'file_saved';
+				component.addNotice(
+					{
+						code: component.lastSaveNoticeCode,
+						type: 'success',
+						message: response.message,
+						dismissible: true
+					}
+				);
+				component.dirty = false;
 			}
-		} );
+		);
+
+		request.fail(
+			function ( response ) {
+				var notice                   = $.extend(
+					{
+						code: 'save_error',
+						message: __( 'Something went wrong. Your change may not have been saved. Please try again. There is also a chance that you may need to manually fix and upload the file over FTP.' )
+					},
+					response,
+					{
+						type: 'error',
+						dismissible: true
+					}
+				);
+				component.lastSaveNoticeCode = notice.code;
+				component.addNotice( notice );
+			}
+		);
+
+		request.always(
+			function () {
+				component.spinner.removeClass( 'is-active' );
+				component.isSaving = false;
+
+				component.textarea.prop( 'readonly', false );
+				if ( component.instance ) {
+						component.instance.codemirror.setOption( 'readOnly', false );
+				}
+			}
+		);
 	};
 
 	/**
@@ -262,7 +287,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * @param {Function} [notice.onDismiss] - Callback for when a user dismisses the notice.
 	 * @return {jQuery} Notice element.
 	 */
-	component.addNotice = function( notice ) {
+	component.addNotice = function ( notice ) {
 		var noticeElement;
 
 		if ( ! notice.code ) {
@@ -275,12 +300,15 @@ wp.themePluginEditor = (function( $ ) {
 		noticeElement = $( component.noticeTemplate( notice ) );
 		noticeElement.hide();
 
-		noticeElement.find( '.notice-dismiss' ).on( 'click', function() {
-			component.removeNotice( notice.code );
-			if ( notice.onDismiss ) {
-				notice.onDismiss( notice );
+		noticeElement.find( '.notice-dismiss' ).on(
+			'click',
+			function () {
+				component.removeNotice( notice.code );
+				if ( notice.onDismiss ) {
+					notice.onDismiss( notice );
+				}
 			}
-		} );
+		);
 
 		wp.a11y.speak( notice.message );
 
@@ -298,11 +326,14 @@ wp.themePluginEditor = (function( $ ) {
 	 * @param {string} code - Notice code.
 	 * @return {boolean} Whether a notice was removed.
 	 */
-	component.removeNotice = function( code ) {
+	component.removeNotice = function ( code ) {
 		if ( component.noticeElements[ code ] ) {
-			component.noticeElements[ code ].slideUp( 'fast', function() {
-				$( this ).remove();
-			} );
+			component.noticeElements[ code ].slideUp(
+				'fast',
+				function () {
+					$( this ).remove();
+				}
+			);
 			delete component.noticeElements[ code ];
 			return true;
 		}
@@ -327,7 +358,7 @@ wp.themePluginEditor = (function( $ ) {
 		 *
 		 * @return {void}
 		 */
-		codeEditorSettings.onTabPrevious = function() {
+		codeEditorSettings.onTabPrevious = function () {
 			$( '#templateside' ).find( ':tabbable' ).last().trigger( 'focus' );
 		};
 
@@ -338,7 +369,7 @@ wp.themePluginEditor = (function( $ ) {
 		 *
 		 * @return {void}
 		 */
-		codeEditorSettings.onTabNext = function() {
+		codeEditorSettings.onTabNext = function () {
 			$( '#template' ).find( ':tabbable:not(.CodeMirror-code)' ).first().trigger( 'focus' );
 		};
 
@@ -350,7 +381,7 @@ wp.themePluginEditor = (function( $ ) {
 		 * @param {Array} errors - List of linting errors.
 		 * @return {void}
 		 */
-		codeEditorSettings.onChangeLintingErrors = function( errors ) {
+		codeEditorSettings.onChangeLintingErrors = function ( errors ) {
 			component.lintErrors = errors;
 
 			// Only disable the button in onUpdateErrorNotice when there are errors so users can still feel they can click the button.
@@ -373,24 +404,29 @@ wp.themePluginEditor = (function( $ ) {
 			component.submitButton.toggleClass( 'disabled', errorAnnotations.length > 0 );
 
 			if ( 0 !== errorAnnotations.length ) {
-				noticeElement = component.addNotice({
-					code: 'lint_errors',
-					type: 'error',
-					message: sprintf(
+				noticeElement = component.addNotice(
+					{
+						code: 'lint_errors',
+						type: 'error',
+						message: sprintf(
 						/* translators: %s: Error count. */
-						_n(
-							'There is %s error which must be fixed before you can update this file.',
-							'There are %s errors which must be fixed before you can update this file.',
-							errorAnnotations.length
+							_n(
+								'There is %s error which must be fixed before you can update this file.',
+								'There are %s errors which must be fixed before you can update this file.',
+								errorAnnotations.length
+							),
+							String( errorAnnotations.length )
 						),
-						String( errorAnnotations.length )
-					),
 					dismissible: false
-				});
-				noticeElement.find( 'input[type=checkbox]' ).on( 'click', function() {
-					codeEditorSettings.onChangeLintingErrors( [] );
-					component.removeNotice( 'lint_errors' );
-				} );
+					}
+				);
+				noticeElement.find( 'input[type=checkbox]' ).on(
+					'click',
+					function () {
+						codeEditorSettings.onChangeLintingErrors( [] );
+						component.removeNotice( 'lint_errors' );
+					}
+				);
 			} else {
 				component.removeNotice( 'lint_errors' );
 			}
@@ -401,17 +437,22 @@ wp.themePluginEditor = (function( $ ) {
 
 		// Improve the editor accessibility.
 		$( editor.codemirror.display.lineDiv )
-			.attr({
-				role: 'textbox',
-				'aria-multiline': 'true',
-				'aria-labelledby': 'theme-plugin-editor-label',
-				'aria-describedby': 'editor-keyboard-trap-help-1 editor-keyboard-trap-help-2 editor-keyboard-trap-help-3 editor-keyboard-trap-help-4'
-			});
+			.attr(
+				{
+					role: 'textbox',
+					'aria-multiline': 'true',
+					'aria-labelledby': 'theme-plugin-editor-label',
+					'aria-describedby': 'editor-keyboard-trap-help-1 editor-keyboard-trap-help-2 editor-keyboard-trap-help-3 editor-keyboard-trap-help-4'
+				}
+			);
 
 		// Focus the editor when clicking on its label.
-		$( '#theme-plugin-editor-label' ).on( 'click', function() {
-			editor.codemirror.focus();
-		});
+		$( '#theme-plugin-editor-label' ).on(
+			'click',
+			function () {
+				editor.codemirror.focus();
+			}
+		);
 
 		component.instance = editor;
 	};
@@ -433,19 +474,23 @@ wp.themePluginEditor = (function( $ ) {
 		$templateside.find( '.notice' ).parents( '[aria-expanded]' ).attr( 'aria-expanded', true );
 
 		// Find Tree elements and enhance them.
-		$templateside.find( '[role="tree"]' ).each( function() {
-			var treeLinks = new TreeLinks( this );
-			treeLinks.init();
-		} );
+		$templateside.find( '[role="tree"]' ).each(
+			function () {
+				var treeLinks = new TreeLinks( this );
+				treeLinks.init();
+			}
+		);
 
 		// Scroll the current file into view.
-		$templateside.find( '.current-file:first' ).each( function() {
-			if ( this.scrollIntoViewIfNeeded ) {
-				this.scrollIntoViewIfNeeded();
-			} else {
-				this.scrollIntoView( false );
+		$templateside.find( '.current-file:first' ).each(
+			function () {
+				if ( this.scrollIntoViewIfNeeded ) {
+						this.scrollIntoViewIfNeeded();
+				} else {
+					this.scrollIntoView( false );
+				}
 			}
-		} );
+		);
 	};
 
 	/* jshint ignore:start */
@@ -492,20 +537,20 @@ wp.themePluginEditor = (function( $ ) {
 				return;
 			}
 
-			node.tabIndex = -1;
-			this.tree = treeObj;
-			this.groupTreeitem = group;
-			this.domNode = node;
-			this.label = node.textContent.trim();
+			node.tabIndex         = -1;
+			this.tree             = treeObj;
+			this.groupTreeitem    = group;
+			this.domNode          = node;
+			this.label            = node.textContent.trim();
 			this.stopDefaultClick = false;
 
-			if (node.getAttribute('aria-label')) {
-				this.label = node.getAttribute('aria-label').trim();
+			if (node.getAttribute( 'aria-label' )) {
+				this.label = node.getAttribute( 'aria-label' ).trim();
 			}
 
 			this.isExpandable = false;
-			this.isVisible = false;
-			this.inGroup = false;
+			this.isVisible    = false;
+			this.inGroup      = false;
 
 			if (group) {
 				this.inGroup = true;
@@ -516,7 +561,7 @@ wp.themePluginEditor = (function( $ ) {
 			while (elem) {
 
 				if (elem.tagName.toLowerCase() == 'ul') {
-					elem.setAttribute('role', 'group');
+					elem.setAttribute( 'role', 'group' );
 					this.isExpandable = true;
 					break;
 				}
@@ -524,46 +569,47 @@ wp.themePluginEditor = (function( $ ) {
 				elem = elem.nextElementSibling;
 			}
 
-			this.keyCode = Object.freeze({
-				RETURN: 13,
-				SPACE: 32,
-				PAGEUP: 33,
-				PAGEDOWN: 34,
-				END: 35,
-				HOME: 36,
-				LEFT: 37,
-				UP: 38,
-				RIGHT: 39,
-				DOWN: 40
-			});
+			this.keyCode = Object.freeze(
+				{
+					RETURN: 13,
+					SPACE: 32,
+					PAGEUP: 33,
+					PAGEDOWN: 34,
+					END: 35,
+					HOME: 36,
+					LEFT: 37,
+					UP: 38,
+					RIGHT: 39,
+					DOWN: 40
+				}
+			);
 		};
 
 		TreeitemLink.prototype.init = function () {
 			this.domNode.tabIndex = -1;
 
-			if (!this.domNode.getAttribute('role')) {
-				this.domNode.setAttribute('role', 'treeitem');
+			if ( ! this.domNode.getAttribute( 'role' )) {
+				this.domNode.setAttribute( 'role', 'treeitem' );
 			}
 
-			this.domNode.addEventListener('keydown', this.handleKeydown.bind(this));
-			this.domNode.addEventListener('click', this.handleClick.bind(this));
-			this.domNode.addEventListener('focus', this.handleFocus.bind(this));
-			this.domNode.addEventListener('blur', this.handleBlur.bind(this));
+			this.domNode.addEventListener( 'keydown', this.handleKeydown.bind( this ) );
+			this.domNode.addEventListener( 'click', this.handleClick.bind( this ) );
+			this.domNode.addEventListener( 'focus', this.handleFocus.bind( this ) );
+			this.domNode.addEventListener( 'blur', this.handleBlur.bind( this ) );
 
 			if (this.isExpandable) {
-				this.domNode.firstElementChild.addEventListener('mouseover', this.handleMouseOver.bind(this));
-				this.domNode.firstElementChild.addEventListener('mouseout', this.handleMouseOut.bind(this));
-			}
-			else {
-				this.domNode.addEventListener('mouseover', this.handleMouseOver.bind(this));
-				this.domNode.addEventListener('mouseout', this.handleMouseOut.bind(this));
+				this.domNode.firstElementChild.addEventListener( 'mouseover', this.handleMouseOver.bind( this ) );
+				this.domNode.firstElementChild.addEventListener( 'mouseout', this.handleMouseOut.bind( this ) );
+			} else {
+				this.domNode.addEventListener( 'mouseover', this.handleMouseOver.bind( this ) );
+				this.domNode.addEventListener( 'mouseout', this.handleMouseOut.bind( this ) );
 			}
 		};
 
 		TreeitemLink.prototype.isExpanded = function () {
 
 			if (this.isExpandable) {
-				return this.domNode.getAttribute('aria-expanded') === 'true';
+				return this.domNode.getAttribute( 'aria-expanded' ) === 'true';
 			}
 
 			return false;
@@ -573,23 +619,22 @@ wp.themePluginEditor = (function( $ ) {
 		/* EVENT HANDLERS */
 
 		TreeitemLink.prototype.handleKeydown = function (event) {
-			var tgt = event.currentTarget,
-				flag = false,
+			var tgt   = event.currentTarget,
+				flag  = false,
 				_char = event.key,
 				clickEvent;
 
 			function isPrintableCharacter(str) {
-				return str.length === 1 && str.match(/\S/);
+				return str.length === 1 && str.match( /\S/ );
 			}
 
 			function printableCharacter(item) {
 				if (_char == '*') {
-					item.tree.expandAllSiblingItems(item);
+					item.tree.expandAllSiblingItems( item );
 					flag = true;
-				}
-				else {
-					if (isPrintableCharacter(_char)) {
-						item.tree.setFocusByFirstCharacter(item, _char);
+				} else {
+					if (isPrintableCharacter( _char )) {
+						item.tree.setFocusByFirstCharacter( item, _char );
 						flag = true;
 					}
 				}
@@ -605,49 +650,44 @@ wp.themePluginEditor = (function( $ ) {
 				if (event.keyCode == this.keyCode.SPACE || event.keyCode == this.keyCode.RETURN) {
 					event.stopPropagation();
 					this.stopDefaultClick = true;
-				}
-				else {
-					if (isPrintableCharacter(_char)) {
-						printableCharacter(this);
+				} else {
+					if (isPrintableCharacter( _char )) {
+						printableCharacter( this );
 					}
 				}
-			}
-			else {
+			} else {
 				switch (event.keyCode) {
 					case this.keyCode.SPACE:
 					case this.keyCode.RETURN:
 						if (this.isExpandable) {
 							if (this.isExpanded()) {
-								this.tree.collapseTreeitem(this);
-							}
-							else {
-								this.tree.expandTreeitem(this);
+								this.tree.collapseTreeitem( this );
+							} else {
+								this.tree.expandTreeitem( this );
 							}
 							flag = true;
-						}
-						else {
+						} else {
 							event.stopPropagation();
 							this.stopDefaultClick = true;
 						}
 						break;
 
 					case this.keyCode.UP:
-						this.tree.setFocusToPreviousItem(this);
+						this.tree.setFocusToPreviousItem( this );
 						flag = true;
 						break;
 
 					case this.keyCode.DOWN:
-						this.tree.setFocusToNextItem(this);
+						this.tree.setFocusToNextItem( this );
 						flag = true;
 						break;
 
 					case this.keyCode.RIGHT:
 						if (this.isExpandable) {
 							if (this.isExpanded()) {
-								this.tree.setFocusToNextItem(this);
-							}
-							else {
-								this.tree.expandTreeitem(this);
+								this.tree.setFocusToNextItem( this );
+							} else {
+								this.tree.expandTreeitem( this );
 							}
 						}
 						flag = true;
@@ -655,12 +695,11 @@ wp.themePluginEditor = (function( $ ) {
 
 					case this.keyCode.LEFT:
 						if (this.isExpandable && this.isExpanded()) {
-							this.tree.collapseTreeitem(this);
+							this.tree.collapseTreeitem( this );
 							flag = true;
-						}
-						else {
+						} else {
 							if (this.inGroup) {
-								this.tree.setFocusToParentItem(this);
+								this.tree.setFocusToParentItem( this );
 								flag = true;
 							}
 						}
@@ -677,8 +716,8 @@ wp.themePluginEditor = (function( $ ) {
 						break;
 
 					default:
-						if (isPrintableCharacter(_char)) {
-							printableCharacter(this);
+						if (isPrintableCharacter( _char )) {
+							printableCharacter( this );
 						}
 						break;
 				}
@@ -699,10 +738,9 @@ wp.themePluginEditor = (function( $ ) {
 
 			if (this.isExpandable) {
 				if (this.isExpanded()) {
-					this.tree.collapseTreeitem(this);
-				}
-				else {
-					this.tree.expandTreeitem(this);
+					this.tree.collapseTreeitem( this );
+				} else {
+					this.tree.expandTreeitem( this );
 				}
 				event.stopPropagation();
 			}
@@ -713,7 +751,7 @@ wp.themePluginEditor = (function( $ ) {
 			if (this.isExpandable) {
 				node = node.firstElementChild;
 			}
-			node.classList.add('focus');
+			node.classList.add( 'focus' );
 		};
 
 		TreeitemLink.prototype.handleBlur = function (event) {
@@ -721,15 +759,15 @@ wp.themePluginEditor = (function( $ ) {
 			if (this.isExpandable) {
 				node = node.firstElementChild;
 			}
-			node.classList.remove('focus');
+			node.classList.remove( 'focus' );
 		};
 
 		TreeitemLink.prototype.handleMouseOver = function (event) {
-			event.currentTarget.classList.add('hover');
+			event.currentTarget.classList.add( 'hover' );
 		};
 
 		TreeitemLink.prototype.handleMouseOut = function (event) {
-			event.currentTarget.classList.remove('hover');
+			event.currentTarget.classList.remove( 'hover' );
 		};
 
 		return TreeitemLink;
@@ -776,11 +814,11 @@ wp.themePluginEditor = (function( $ ) {
 
 			this.domNode = node;
 
-			this.treeitems = [];
+			this.treeitems  = [];
 			this.firstChars = [];
 
 			this.firstTreeitem = null;
-			this.lastTreeitem = null;
+			this.lastTreeitem  = null;
 
 		};
 
@@ -789,19 +827,19 @@ wp.themePluginEditor = (function( $ ) {
 			function findTreeitems(node, tree, group) {
 
 				var elem = node.firstElementChild;
-				var ti = group;
+				var ti   = group;
 
 				while (elem) {
 
 					if ((elem.tagName.toLowerCase() === 'li' && elem.firstElementChild.tagName.toLowerCase() === 'span') || elem.tagName.toLowerCase() === 'a') {
-						ti = new TreeitemLink(elem, tree, group);
+						ti = new TreeitemLink( elem, tree, group );
 						ti.init();
-						tree.treeitems.push(ti);
-						tree.firstChars.push(ti.label.substring(0, 1).toLowerCase());
+						tree.treeitems.push( ti );
+						tree.firstChars.push( ti.label.substring( 0, 1 ).toLowerCase() );
 					}
 
 					if (elem.firstElementChild) {
-						findTreeitems(elem, tree, ti);
+						findTreeitems( elem, tree, ti );
 					}
 
 					elem = elem.nextElementSibling;
@@ -809,11 +847,11 @@ wp.themePluginEditor = (function( $ ) {
 			}
 
 			// Initialize pop up menus.
-			if (!this.domNode.getAttribute('role')) {
-				this.domNode.setAttribute('role', 'tree');
+			if ( ! this.domNode.getAttribute( 'role' )) {
+				this.domNode.setAttribute( 'role', 'tree' );
 			}
 
-			findTreeitems(this.domNode, this, false);
+			findTreeitems( this.domNode, this, false );
 
 			this.updateVisibleTreeitems();
 
@@ -829,8 +867,7 @@ wp.themePluginEditor = (function( $ ) {
 				if (ti === treeitem) {
 					ti.domNode.tabIndex = 0;
 					ti.domNode.focus();
-				}
-				else {
+				} else {
 					ti.domNode.tabIndex = -1;
 				}
 			}
@@ -852,7 +889,7 @@ wp.themePluginEditor = (function( $ ) {
 			}
 
 			if (nextItem) {
-				this.setFocusToItem(nextItem);
+				this.setFocusToItem( nextItem );
 			}
 
 		};
@@ -872,29 +909,29 @@ wp.themePluginEditor = (function( $ ) {
 			}
 
 			if (prevItem) {
-				this.setFocusToItem(prevItem);
+				this.setFocusToItem( prevItem );
 			}
 		};
 
 		TreeLinks.prototype.setFocusToParentItem = function (currentItem) {
 
 			if (currentItem.groupTreeitem) {
-				this.setFocusToItem(currentItem.groupTreeitem);
+				this.setFocusToItem( currentItem.groupTreeitem );
 			}
 		};
 
 		TreeLinks.prototype.setFocusToFirstItem = function () {
-			this.setFocusToItem(this.firstTreeitem);
+			this.setFocusToItem( this.firstTreeitem );
 		};
 
 		TreeLinks.prototype.setFocusToLastItem = function () {
-			this.setFocusToItem(this.lastTreeitem);
+			this.setFocusToItem( this.lastTreeitem );
 		};
 
 		TreeLinks.prototype.expandTreeitem = function (currentItem) {
 
 			if (currentItem.isExpandable) {
-				currentItem.domNode.setAttribute('aria-expanded', true);
+				currentItem.domNode.setAttribute( 'aria-expanded', true );
 				this.updateVisibleTreeitems();
 			}
 
@@ -905,7 +942,7 @@ wp.themePluginEditor = (function( $ ) {
 				var ti = this.treeitems[i];
 
 				if ((ti.groupTreeitem === currentItem.groupTreeitem) && ti.isExpandable) {
-					this.expandTreeitem(ti);
+					this.expandTreeitem( ti );
 				}
 			}
 
@@ -917,15 +954,14 @@ wp.themePluginEditor = (function( $ ) {
 
 			if (currentItem.isExpanded()) {
 				groupTreeitem = currentItem;
-			}
-			else {
+			} else {
 				groupTreeitem = currentItem.groupTreeitem;
 			}
 
 			if (groupTreeitem) {
-				groupTreeitem.domNode.setAttribute('aria-expanded', false);
+				groupTreeitem.domNode.setAttribute( 'aria-expanded', false );
 				this.updateVisibleTreeitems();
-				this.setFocusToItem(groupTreeitem);
+				this.setFocusToItem( groupTreeitem );
 			}
 
 		};
@@ -943,7 +979,7 @@ wp.themePluginEditor = (function( $ ) {
 
 				while (parent && (parent !== this.domNode)) {
 
-					if (parent.getAttribute('aria-expanded') == 'false') {
+					if (parent.getAttribute( 'aria-expanded' ) == 'false') {
 						ti.isVisible = false;
 					}
 					parent = parent.parentNode;
@@ -961,22 +997,22 @@ wp.themePluginEditor = (function( $ ) {
 			_char = _char.toLowerCase();
 
 			// Get start index for search based on position of currentItem.
-			start = this.treeitems.indexOf(currentItem) + 1;
+			start = this.treeitems.indexOf( currentItem ) + 1;
 			if (start === this.treeitems.length) {
 				start = 0;
 			}
 
 			// Check remaining slots in the menu.
-			index = this.getIndexFirstChars(start, _char);
+			index = this.getIndexFirstChars( start, _char );
 
 			// If not found in remaining slots, check from beginning.
 			if (index === -1) {
-				index = this.getIndexFirstChars(0, _char);
+				index = this.getIndexFirstChars( 0, _char );
 			}
 
 			// If match was found...
 			if (index > -1) {
-				this.setFocusToItem(this.treeitems[index]);
+				this.setFocusToItem( this.treeitems[index] );
 			}
 		};
 
@@ -1014,7 +1050,7 @@ wp.themePluginEditor.l10n = wp.themePluginEditor.l10n || {
 	saveError: '',
 	lintError: {
 		alternative: 'wp.i18n',
-		func: function() {
+		func: function () {
 			return {
 				singular: '',
 				plural: ''

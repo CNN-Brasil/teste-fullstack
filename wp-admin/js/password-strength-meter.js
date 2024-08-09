@@ -5,8 +5,8 @@
 /* global zxcvbn */
 window.wp = window.wp || {};
 
-(function($){
-	var __ = wp.i18n.__,
+(function ($) {
+	var __      = wp.i18n.__,
 		sprintf = wp.i18n.sprintf;
 
 	/**
@@ -31,12 +31,14 @@ window.wp = window.wp || {};
 		 *
 		 * @return {number} The password strength score.
 		 */
-		meter : function( password1, disallowedList, password2 ) {
-			if ( ! Array.isArray( disallowedList ) )
+		meter : function ( password1, disallowedList, password2 ) {
+			if ( ! Array.isArray( disallowedList ) ) {
 				disallowedList = [ disallowedList.toString() ];
+			}
 
-			if (password1 != password2 && password2 && password2.length > 0)
+			if (password1 != password2 && password2 && password2.length > 0) {
 				return 5;
+			}
 
 			if ( 'undefined' === typeof window.zxcvbn ) {
 				// Password strength unknown.
@@ -59,7 +61,7 @@ window.wp = window.wp || {};
 		 *
 		 * @return {string[]} The array of words to be disallowed.
 		 */
-		userInputBlacklist : function() {
+		userInputBlacklist : function () {
 			window.console.log(
 				sprintf(
 					/* translators: 1: Deprecated function name, 2: Version number, 3: Alternative function name. */
@@ -84,7 +86,7 @@ window.wp = window.wp || {};
 		 *
 		 * @return {string[]} The array of words to be disallowed.
 		 */
-		userInputDisallowedList : function() {
+		userInputDisallowedList : function () {
 			var i, userInputFieldsLength, rawValuesLength, currentField,
 				rawValues       = [],
 				disallowedList  = [],
@@ -121,13 +123,16 @@ window.wp = window.wp || {};
 			 * Remove empty values, short words and duplicates. Short words are likely to
 			 * cause many false positives.
 			 */
-			disallowedList = $.grep( disallowedList, function( value, key ) {
-				if ( '' === value || 4 > value.length ) {
-					return false;
-				}
+			disallowedList = $.grep(
+				disallowedList,
+				function ( value, key ) {
+					if ( '' === value || 4 > value.length ) {
+						return false;
+					}
 
-				return $.inArray( value, disallowedList ) === key;
-			});
+					return $.inArray( value, disallowedList ) === key;
+				}
+			);
 
 			return disallowedList;
 		}
@@ -146,4 +151,4 @@ window.wp = window.wp || {};
 	 * @type {wp.passwordStrength.meter}
 	 */
 	window.passwordStrength = wp.passwordStrength.meter;
-})(jQuery);
+})( jQuery );

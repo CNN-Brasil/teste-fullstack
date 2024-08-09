@@ -1712,10 +1712,8 @@ function sanitize_term( $term, $taxonomy, $context = 'display' ) {
 			if ( isset( $term->$field ) ) {
 				$term->$field = sanitize_term_field( $field, $term->$field, $term_id, $taxonomy, $context );
 			}
-		} else {
-			if ( isset( $term[ $field ] ) ) {
+		} elseif ( isset( $term[ $field ] ) ) {
 				$term[ $field ] = sanitize_term_field( $field, $term[ $field ], $term_id, $taxonomy, $context );
-			}
 		}
 	}
 
@@ -3181,9 +3179,9 @@ function wp_unique_term_slug( $slug, $term ) {
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
- * @param int          $term_id  The ID of the term.
- * @param string       $taxonomy The taxonomy of the term.
- * @param array        $args {
+ * @param int    $term_id  The ID of the term.
+ * @param string $taxonomy The taxonomy of the term.
+ * @param array  $args {
  *     Optional. Array of arguments for updating a term.
  *
  *     @type string $alias_of    Slug of the term to make this term an alias of.

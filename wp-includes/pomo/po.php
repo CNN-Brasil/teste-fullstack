@@ -41,7 +41,7 @@ if ( ! class_exists( 'PO', false ) ) :
 			foreach ( $this->headers as $header => $value ) {
 				$header_string .= "$header: $value\n";
 			}
-			$poified = PO::poify( $header_string );
+			$poified = self::poify( $header_string );
 			if ( $this->comments_before_headers ) {
 				$before_headers = $this->prepend_each_line( rtrim( $this->comments_before_headers ) . "\n", '# ' );
 			} else {
@@ -214,7 +214,7 @@ if ( ! class_exists( 'PO', false ) ) :
 		 */
 		public static function comment_block( $text, $char = ' ' ) {
 			$text = wordwrap( $text, PO_MAX_LINE_LEN - 3 );
-			return PO::prepend_each_line( $text, "#$char " );
+			return self::prepend_each_line( $text, "#$char " );
 		}
 
 		/**
@@ -230,31 +230,31 @@ if ( ! class_exists( 'PO', false ) ) :
 			}
 			$po = array();
 			if ( ! empty( $entry->translator_comments ) ) {
-				$po[] = PO::comment_block( $entry->translator_comments );
+				$po[] = self::comment_block( $entry->translator_comments );
 			}
 			if ( ! empty( $entry->extracted_comments ) ) {
-				$po[] = PO::comment_block( $entry->extracted_comments, '.' );
+				$po[] = self::comment_block( $entry->extracted_comments, '.' );
 			}
 			if ( ! empty( $entry->references ) ) {
-				$po[] = PO::comment_block( implode( ' ', $entry->references ), ':' );
+				$po[] = self::comment_block( implode( ' ', $entry->references ), ':' );
 			}
 			if ( ! empty( $entry->flags ) ) {
-				$po[] = PO::comment_block( implode( ', ', $entry->flags ), ',' );
+				$po[] = self::comment_block( implode( ', ', $entry->flags ), ',' );
 			}
 			if ( $entry->context ) {
-				$po[] = 'msgctxt ' . PO::poify( $entry->context );
+				$po[] = 'msgctxt ' . self::poify( $entry->context );
 			}
-			$po[] = 'msgid ' . PO::poify( $entry->singular );
+			$po[] = 'msgid ' . self::poify( $entry->singular );
 			if ( ! $entry->is_plural ) {
 				$translation = empty( $entry->translations ) ? '' : $entry->translations[0];
-				$translation = PO::match_begin_and_end_newlines( $translation, $entry->singular );
-				$po[]        = 'msgstr ' . PO::poify( $translation );
+				$translation = self::match_begin_and_end_newlines( $translation, $entry->singular );
+				$po[]        = 'msgstr ' . self::poify( $translation );
 			} else {
-				$po[]         = 'msgid_plural ' . PO::poify( $entry->plural );
+				$po[]         = 'msgid_plural ' . self::poify( $entry->plural );
 				$translations = empty( $entry->translations ) ? array( '', '' ) : $entry->translations;
 				foreach ( $translations as $i => $translation ) {
-					$translation = PO::match_begin_and_end_newlines( $translation, $entry->plural );
-					$po[]        = "msgstr[$i] " . PO::poify( $translation );
+					$translation = self::match_begin_and_end_newlines( $translation, $entry->plural );
+					$po[]        = "msgstr[$i] " . self::poify( $translation );
 				}
 			}
 			return implode( "\n", $po );
@@ -310,7 +310,7 @@ if ( ! class_exists( 'PO', false ) ) :
 					$this->add_entry( $res['entry'] );
 				}
 			}
-			PO::read_line( $f, 'clear' );
+			self::read_line( $f, 'clear' );
 			if ( false === $res ) {
 				return false;
 			}
@@ -343,7 +343,7 @@ if ( ! class_exists( 'PO', false ) ) :
 			$msgstr_index = 0;
 			while ( true ) {
 				++$lineno;
-				$line = PO::read_line( $f );
+				$line = self::read_line( $f );
 				if ( ! $line ) {
 					if ( feof( $f ) ) {
 						if ( self::is_final( $context ) ) {
@@ -364,7 +364,7 @@ if ( ! class_exists( 'PO', false ) ) :
 				if ( preg_match( '/^#/', $line, $m ) ) {
 					// The comment is the start of a new entry.
 					if ( self::is_final( $context ) ) {
-						PO::read_line( $f, 'put-back' );
+						self::read_line( $f, 'put-back' );
 						--$lineno;
 						break;
 					}
@@ -376,7 +376,7 @@ if ( ! class_exists( 'PO', false ) ) :
 					$this->add_comment_to_entry( $entry, $line );
 				} elseif ( preg_match( '/^msgctxt\s+(".*")/', $line, $m ) ) {
 					if ( self::is_final( $context ) ) {
-						PO::read_line( $f, 'put-back' );
+						self::read_line( $f, 'put-back' );
 						--$lineno;
 						break;
 					}
@@ -384,10 +384,10 @@ if ( ! class_exists( 'PO', false ) ) :
 						return false;
 					}
 					$context         = 'msgctxt';
-					$entry->context .= PO::unpoify( $m[1] );
+					$entry->context .= self::unpoify( $m[1] );
 				} elseif ( preg_match( '/^msgid\s+(".*")/', $line, $m ) ) {
 					if ( self::is_final( $context ) ) {
-						PO::read_line( $f, 'put-back' );
+						self::read_line( $f, 'put-back' );
 						--$lineno;
 						break;
 					}
@@ -395,29 +395,29 @@ if ( ! class_exists( 'PO', false ) ) :
 						return false;
 					}
 					$context          = 'msgid';
-					$entry->singular .= PO::unpoify( $m[1] );
+					$entry->singular .= self::unpoify( $m[1] );
 				} elseif ( preg_match( '/^msgid_plural\s+(".*")/', $line, $m ) ) {
 					if ( 'msgid' !== $context ) {
 						return false;
 					}
 					$context          = 'msgid_plural';
 					$entry->is_plural = true;
-					$entry->plural   .= PO::unpoify( $m[1] );
+					$entry->plural   .= self::unpoify( $m[1] );
 				} elseif ( preg_match( '/^msgstr\s+(".*")/', $line, $m ) ) {
 					if ( 'msgid' !== $context ) {
 						return false;
 					}
 					$context             = 'msgstr';
-					$entry->translations = array( PO::unpoify( $m[1] ) );
+					$entry->translations = array( self::unpoify( $m[1] ) );
 				} elseif ( preg_match( '/^msgstr\[(\d+)\]\s+(".*")/', $line, $m ) ) {
 					if ( 'msgid_plural' !== $context && 'msgstr_plural' !== $context ) {
 						return false;
 					}
 					$context                      = 'msgstr_plural';
 					$msgstr_index                 = $m[1];
-					$entry->translations[ $m[1] ] = PO::unpoify( $m[2] );
+					$entry->translations[ $m[1] ] = self::unpoify( $m[2] );
 				} elseif ( preg_match( '/^".*"$/', $line ) ) {
-					$unpoified = PO::unpoify( $line );
+					$unpoified = self::unpoify( $line );
 					switch ( $context ) {
 						case 'msgid':
 							$entry->singular .= $unpoified;

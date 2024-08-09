@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -51,8 +51,8 @@
  * @package SimplePie
  * @subpackage API
  */
-class SimplePie_Copyright
-{
+class SimplePie_Copyright {
+
 	/**
 	 * Copyright URL
 	 *
@@ -75,9 +75,8 @@ class SimplePie_Copyright
 	 * For documentation on all the parameters, see the corresponding
 	 * properties and their accessors
 	 */
-	public function __construct($url = null, $label = null)
-	{
-		$this->url = $url;
+	public function __construct( $url = null, $label = null ) {
+		$this->url   = $url;
 		$this->label = $label;
 	}
 
@@ -86,10 +85,9 @@ class SimplePie_Copyright
 	 *
 	 * @return string
 	 */
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
-		return md5(serialize($this));
+		return md5( serialize( $this ) );
 	}
 
 	/**
@@ -97,10 +95,8 @@ class SimplePie_Copyright
 	 *
 	 * @return string|null URL to copyright information
 	 */
-	public function get_url()
-	{
-		if ($this->url !== null)
-		{
+	public function get_url() {
+		if ( $this->url !== null ) {
 			return $this->url;
 		}
 
@@ -112,10 +108,8 @@ class SimplePie_Copyright
 	 *
 	 * @return string|null
 	 */
-	public function get_attribution()
-	{
-		if ($this->label !== null)
-		{
+	public function get_attribution() {
+		if ( $this->label !== null ) {
 			return $this->label;
 		}
 

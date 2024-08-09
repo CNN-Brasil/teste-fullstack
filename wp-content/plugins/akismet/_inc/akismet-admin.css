@@ -1,7 +1,7 @@
 #akismet-plugin-container {
 	background-color: var(--akismet-color-light-grey);
 	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
-    --akismet-color-charcoal: #272635;
+	--akismet-color-charcoal: #272635;
 	--akismet-color-light-grey: #f6f7f7;
 	--akismet-color-mid-grey: #a7aaad;
 	--akismet-color-dark-grey: #646970;

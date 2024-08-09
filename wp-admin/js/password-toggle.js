@@ -10,16 +10,18 @@
 
 	toggleElements = document.querySelectorAll( '.pwd-toggle' );
 
-	toggleElements.forEach( function (toggle) {
-		toggle.classList.remove( 'hide-if-no-js' );
-		toggle.addEventListener( 'click', togglePassword );
-	} );
+	toggleElements.forEach(
+		function (toggle) {
+			toggle.classList.remove( 'hide-if-no-js' );
+			toggle.addEventListener( 'click', togglePassword );
+		}
+	);
 
 	function togglePassword() {
 		status = this.getAttribute( 'data-toggle' );
-		input = this.parentElement.children.namedItem( 'pwd' );
-		icon = this.getElementsByClassName( 'dashicons' )[ 0 ];
-		label = this.getElementsByClassName( 'text' )[ 0 ];
+		input  = this.parentElement.children.namedItem( 'pwd' );
+		icon   = this.getElementsByClassName( 'dashicons' )[ 0 ];
+		label  = this.getElementsByClassName( 'text' )[ 0 ];
 
 		if ( 0 === parseInt( status, 10 ) ) {
 			this.setAttribute( 'data-toggle', 1 );

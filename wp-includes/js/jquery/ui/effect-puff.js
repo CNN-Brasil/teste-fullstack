@@ -7,39 +7,53 @@
  * https://jquery.org/license
  */
 
-//>>label: Puff Effect
-//>>group: Effects
-//>>description: Creates a puff effect by scaling the element up and hiding it at the same time.
-//>>docs: https://api.jqueryui.com/puff-effect/
-//>>demos: https://jqueryui.com/effect/
+// >>label: Puff Effect
+// >>group: Effects
+// >>description: Creates a puff effect by scaling the element up and hiding it at the same time.
+// >>docs: https://api.jqueryui.com/puff-effect/
+// >>demos: https://jqueryui.com/effect/
 
-( function( factory ) {
+( function ( factory ) {
 	"use strict";
 
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( [
+		define(
+			[
 			"jquery",
 			"../version",
 			"../effect",
 			"./effect-scale"
-		], factory );
+			],
+			factory
+		);
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-} )( function( $ ) {
-"use strict";
+} )(
+	function ( $ ) {
+		"use strict";
 
-return $.effects.define( "puff", "hide", function( options, done ) {
-	var newOptions = $.extend( true, {}, options, {
-		fade: true,
-		percent: parseInt( options.percent, 10 ) || 150
-	} );
+		return $.effects.define(
+			"puff",
+			"hide",
+			function ( options, done ) {
+					var newOptions = $.extend(
+						true,
+						{},
+						options,
+						{
+							fade: true,
+							percent: parseInt( options.percent, 10 ) || 150
+						}
+					);
 
-	$.effects.effect.scale.call( this, newOptions, done );
-} );
+					$.effects.effect.scale.call( this, newOptions, done );
+			}
+		);
 
-} );
+	}
+);

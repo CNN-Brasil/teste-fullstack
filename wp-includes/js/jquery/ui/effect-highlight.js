@@ -7,54 +7,68 @@
  * https://jquery.org/license
  */
 
-//>>label: Highlight Effect
-//>>group: Effects
-//>>description: Highlights the background of an element in a defined color for a custom duration.
-//>>docs: https://api.jqueryui.com/highlight-effect/
-//>>demos: https://jqueryui.com/effect/
+// >>label: Highlight Effect
+// >>group: Effects
+// >>description: Highlights the background of an element in a defined color for a custom duration.
+// >>docs: https://api.jqueryui.com/highlight-effect/
+// >>demos: https://jqueryui.com/effect/
 
-( function( factory ) {
+( function ( factory ) {
 	"use strict";
 
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( [
+		define(
+			[
 			"jquery",
 			"../version",
 			"../effect"
-		], factory );
+			],
+			factory
+		);
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-} )( function( $ ) {
-"use strict";
+} )(
+	function ( $ ) {
+		"use strict";
 
-return $.effects.define( "highlight", "show", function( options, done ) {
-	var element = $( this ),
-		animation = {
-			backgroundColor: element.css( "backgroundColor" )
-		};
+		return $.effects.define(
+			"highlight",
+			"show",
+			function ( options, done ) {
+					var element = $( this ),
+					animation   = {
+						backgroundColor: element.css( "backgroundColor" )
+				};
 
-	if ( options.mode === "hide" ) {
-		animation.opacity = 0;
+				if ( options.mode === "hide" ) {
+					animation.opacity = 0;
+				}
+
+				$.effects.saveStyle( element );
+
+				element
+				.css(
+					{
+						backgroundImage: "none",
+						backgroundColor: options.color || "#ffff99"
+						}
+				)
+					.animate(
+						animation,
+						{
+							queue: false,
+							duration: options.duration,
+							easing: options.easing,
+							complete: done
+						}
+					);
+			}
+		);
+
 	}
-
-	$.effects.saveStyle( element );
-
-	element
-		.css( {
-			backgroundImage: "none",
-			backgroundColor: options.color || "#ffff99"
-		} )
-		.animate( animation, {
-			queue: false,
-			duration: options.duration,
-			easing: options.easing,
-			complete: done
-		} );
-} );
-
-} );
+);

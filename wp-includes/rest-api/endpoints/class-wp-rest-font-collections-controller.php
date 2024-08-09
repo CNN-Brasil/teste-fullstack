@@ -150,14 +150,14 @@ class WP_REST_Font_Collections_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	* Prepare a single collection output for response.
-	*
-	* @since 6.5.0
-	*
-	* @param WP_Font_Collection $item    Font collection object.
-	* @param WP_REST_Request    $request Request object.
-	* @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
-	*/
+	 * Prepare a single collection output for response.
+	 *
+	 * @since 6.5.0
+	 *
+	 * @param WP_Font_Collection $item    Font collection object.
+	 * @param WP_REST_Request    $request Request object.
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
 	public function prepare_item_for_response( $item, $request ) {
 		$fields = $this->get_fields_for_response( $request );
 		$data   = array();

@@ -6,19 +6,21 @@
 
 window.wp = window.wp || {};
 
-wp.svgPainter = ( function( $, window, document, undefined ) {
+wp.svgPainter = ( function ( $, window, document, undefined ) {
 	'use strict';
 	var selector, base64, painter,
 		colorscheme = {},
-		elements = [];
+		elements    = [];
 
-	$( function() {
-		// Detection for browser SVG capability.
-		if ( document.implementation.hasFeature( 'http://www.w3.org/TR/SVG11/feature#Image', '1.1' ) ) {
-			$( document.body ).removeClass( 'no-svg' ).addClass( 'svg' );
-			wp.svgPainter.init();
+	$(
+		function () {
+			// Detection for browser SVG capability.
+			if ( document.implementation.hasFeature( 'http://www.w3.org/TR/SVG11/feature#Image', '1.1' ) ) {
+					$( document.body ).removeClass( 'no-svg' ).addClass( 'svg' );
+					wp.svgPainter.init();
+			}
 		}
-	});
+	);
 
 	/**
 	 * Needed only for IE9
@@ -31,46 +33,46 @@ wp.svgPainter = ( function( $, window, document, undefined ) {
 	 * Licensed under the MIT license
 	 * http://www.opensource.org/licenses/mit-license.php
 	 */
-	base64 = ( function() {
+	base64 = ( function () {
 		var c,
-			b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+			b64  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
 			a256 = '',
-			r64 = [256],
+			r64  = [256],
 			r256 = [256],
-			i = 0;
+			i    = 0;
 
 		function init() {
-			while( i < 256 ) {
-				c = String.fromCharCode(i);
-				a256 += c;
+			while ( i < 256 ) {
+				c       = String.fromCharCode( i );
+				a256   += c;
 				r256[i] = i;
-				r64[i] = b64.indexOf(c);
+				r64[i]  = b64.indexOf( c );
 				++i;
 			}
 		}
 
 		function code( s, discard, alpha, beta, w1, w2 ) {
 			var tmp, length,
-				buffer = 0,
-				i = 0,
-				result = '',
+				buffer       = 0,
+				i            = 0,
+				result       = '',
 				bitsInBuffer = 0;
 
-			s = String(s);
+			s      = String( s );
 			length = s.length;
 
-			while( i < length ) {
-				c = s.charCodeAt(i);
+			while ( i < length ) {
+				c = s.charCodeAt( i );
 				c = c < 256 ? alpha[c] : -1;
 
-				buffer = ( buffer << w1 ) + c;
+				buffer        = ( buffer << w1 ) + c;
 				bitsInBuffer += w1;
 
-				while( bitsInBuffer >= w2 ) {
+				while ( bitsInBuffer >= w2 ) {
 					bitsInBuffer -= w2;
-					tmp = buffer >> bitsInBuffer;
-					result += beta.charAt(tmp);
-					buffer ^= tmp << bitsInBuffer;
+					tmp           = buffer >> bitsInBuffer;
+					result       += beta.charAt( tmp );
+					buffer ^      = tmp << bitsInBuffer;
 				}
 				++i;
 			}
@@ -99,15 +101,15 @@ wp.svgPainter = ( function( $, window, document, undefined ) {
 			}
 
 			coded = coded.replace( /[^A-Za-z0-9\+\/\=]/g, '' );
-			coded = String(coded).split('=');
-			i = coded.length;
+			coded = String( coded ).split( '=' );
+			i     = coded.length;
 
 			do {
 				--i;
 				coded[i] = code( coded[i], true, r64, a256, 6, 8 );
 			} while ( i > 0 );
 
-			coded = coded.join('');
+			coded = coded.join( '' );
 			return coded;
 		}
 
@@ -118,8 +120,8 @@ wp.svgPainter = ( function( $, window, document, undefined ) {
 	})();
 
 	return {
-		init: function() {
-			painter = this;
+		init: function () {
+			painter  = this;
 			selector = $( '#adminmenu .wp-menu-image, #wpadminbar .ab-item' );
 
 			this.setColors();
@@ -127,7 +129,7 @@ wp.svgPainter = ( function( $, window, document, undefined ) {
 			this.paint();
 		},
 
-		setColors: function( colors ) {
+		setColors: function ( colors ) {
 			if ( typeof colors === 'undefined' && typeof window._wpColorScheme !== 'undefined' ) {
 				colors = window._wpColorScheme;
 			}
@@ -137,42 +139,56 @@ wp.svgPainter = ( function( $, window, document, undefined ) {
 			}
 		},
 
-		findElements: function() {
-			selector.each( function() {
-				var $this = $(this), bgImage = $this.css( 'background-image' );
+		findElements: function () {
+			selector.each(
+				function () {
+					var $this = $( this ), bgImage = $this.css( 'background-image' );
 
-				if ( bgImage && bgImage.indexOf( 'data:image/svg+xml;base64' ) != -1 ) {
-					elements.push( $this );
+					if ( bgImage && bgImage.indexOf( 'data:image/svg+xml;base64' ) != -1 ) {
+							elements.push( $this );
+					}
 				}
-			});
+			);
 		},
 
-		paint: function() {
+		paint: function () {
 			// Loop through all elements.
-			$.each( elements, function( index, $element ) {
-				var $menuitem = $element.parent().parent();
+			$.each(
+				elements,
+				function ( index, $element ) {
+					var $menuitem = $element.parent().parent();
 
-				if ( $menuitem.hasClass( 'current' ) || $menuitem.hasClass( 'wp-has-current-submenu' ) ) {
-					// Paint icon in 'current' color.
-					painter.paintElement( $element, 'current' );
-				} else {
-					// Paint icon in base color.
-					painter.paintElement( $element, 'base' );
+					if ( $menuitem.hasClass( 'current' ) || $menuitem.hasClass( 'wp-has-current-submenu' ) ) {
+						// Paint icon in 'current' color.
+						painter.paintElement( $element, 'current' );
+					} else {
+						// Paint icon in base color.
+						painter.paintElement( $element, 'base' );
 
-					// Set hover callbacks.
-					$menuitem.on( 'mouseenter', function() {
-						painter.paintElement( $element, 'focus' );
-					} ).on( 'mouseleave', function() {
-						// Match the delay from hoverIntent.
-						window.setTimeout( function() {
-							painter.paintElement( $element, 'base' );
-						}, 100 );
-					} );
+						// Set hover callbacks.
+						$menuitem.on(
+							'mouseenter',
+							function () {
+								painter.paintElement( $element, 'focus' );
+							}
+						).on(
+							'mouseleave',
+							function () {
+								// Match the delay from hoverIntent.
+								window.setTimeout(
+									function () {
+										painter.paintElement( $element, 'base' );
+									},
+									100
+								);
+							}
+						);
+					}
 				}
-			});
+			);
 		},
 
-		paintElement: function( $element, colorType ) {
+		paintElement: function ( $element, colorType ) {
 			var xml, encoded, color;
 
 			if ( ! colorType || ! colorscheme.hasOwnProperty( colorType ) ) {
@@ -206,17 +222,18 @@ wp.svgPainter = ( function( $, window, document, undefined ) {
 					} else {
 						xml = base64.atob( encoded[1] );
 					}
-				} catch ( error ) {}
+				} catch ( error ) {
+				}
 
 				if ( xml ) {
 					// Replace `fill` attributes.
-					xml = xml.replace( /fill="(.+?)"/g, 'fill="' + color + '"');
+					xml = xml.replace( /fill="(.+?)"/g, 'fill="' + color + '"' );
 
 					// Replace `style` attributes.
-					xml = xml.replace( /style="(.+?)"/g, 'style="fill:' + color + '"');
+					xml = xml.replace( /style="(.+?)"/g, 'style="fill:' + color + '"' );
 
 					// Replace `fill` properties in `<style>` tags.
-					xml = xml.replace( /fill:.*?;/g, 'fill: ' + color + ';');
+					xml = xml.replace( /fill:.*?;/g, 'fill: ' + color + ';' );
 
 					if ( 'btoa' in window ) {
 						xml = window.btoa( xml );

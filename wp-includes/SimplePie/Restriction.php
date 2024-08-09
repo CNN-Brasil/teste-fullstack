@@ -11,16 +11,16 @@
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
  *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
  *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ *  * Neither the name of the SimplePie Team nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -51,8 +51,8 @@
  * @package SimplePie
  * @subpackage API
  */
-class SimplePie_Restriction
-{
+class SimplePie_Restriction {
+
 	/**
 	 * Relationship ('allow'/'deny')
 	 *
@@ -83,11 +83,10 @@ class SimplePie_Restriction
 	 * For documentation on all the parameters, see the corresponding
 	 * properties and their accessors
 	 */
-	public function __construct($relationship = null, $type = null, $value = null)
-	{
+	public function __construct( $relationship = null, $type = null, $value = null ) {
 		$this->relationship = $relationship;
-		$this->type = $type;
-		$this->value = $value;
+		$this->type         = $type;
+		$this->value        = $value;
 	}
 
 	/**
@@ -95,10 +94,9 @@ class SimplePie_Restriction
 	 *
 	 * @return string
 	 */
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
-		return md5(serialize($this));
+		return md5( serialize( $this ) );
 	}
 
 	/**
@@ -106,10 +104,8 @@ class SimplePie_Restriction
 	 *
 	 * @return string|null Either 'allow' or 'deny'
 	 */
-	public function get_relationship()
-	{
-		if ($this->relationship !== null)
-		{
+	public function get_relationship() {
+		if ( $this->relationship !== null ) {
 			return $this->relationship;
 		}
 
@@ -121,10 +117,8 @@ class SimplePie_Restriction
 	 *
 	 * @return string|null
 	 */
-	public function get_type()
-	{
-		if ($this->type !== null)
-		{
+	public function get_type() {
+		if ( $this->type !== null ) {
 			return $this->type;
 		}
 
@@ -136,10 +130,8 @@ class SimplePie_Restriction
 	 *
 	 * @return string|null
 	 */
-	public function get_value()
-	{
-		if ($this->value !== null)
-		{
+	public function get_value() {
+		if ( $this->value !== null ) {
 			return $this->value;
 		}
 

@@ -1,10 +1,10 @@
 /*------------------------------------------------------------------------------
-  16.0 - Themes
+	16.0 - Themes
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-  16.1 - Manage Themes
+	16.1 - Manage Themes
 ------------------------------------------------------------------------------*/
 
 .themes-php {
@@ -1003,7 +1003,7 @@ body.folded .theme-browser ~ .theme-overlay .theme-wrap {
 
 
 /*------------------------------------------------------------------------------
-  16.2 - Install Themes
+	16.2 - Install Themes
 ------------------------------------------------------------------------------*/
 
 .update-php .wrap {
@@ -1161,13 +1161,13 @@ p.no-themes-local {
 
 .update-from-upload-comparison tr:last-child td {
 	height: 1.4rem;
-    vertical-align: top;
+	vertical-align: top;
 }
 
 .update-from-upload-comparison tr:first-child th {
 	font-weight: bold;
 	height: 1.4rem;
-    vertical-align: bottom;
+	vertical-align: bottom;
 }
 
 .update-from-upload-comparison td.name-label {
@@ -1188,7 +1188,7 @@ p.no-themes-local {
 }
 
 /*------------------------------------------------------------------------------
-  16.3 - Custom Header Screen
+	16.3 - Custom Header Screen
 ------------------------------------------------------------------------------*/
 
 .appearance_page_custom-header #headimg {
@@ -1223,7 +1223,7 @@ p.no-themes-local {
 
 
 /*------------------------------------------------------------------------------
-  16.4 - Custom Background Screen
+	16.4 - Custom Background Screen
 ------------------------------------------------------------------------------*/
 
 div#custom-background-image {
@@ -1347,7 +1347,7 @@ div#custom-background-image img {
 }
 
 /*------------------------------------------------------------------------------
-  23.0 - Full Overlay w/ Sidebar
+	23.0 - Full Overlay w/ Sidebar
 ------------------------------------------------------------------------------*/
 
 body.full-overlay-active {
@@ -1775,7 +1775,7 @@ body.full-overlay-active {
 
 
 /*------------------------------------------------------------------------------
-  24.0 - Customize Loader
+	24.0 - Customize Loader
 ------------------------------------------------------------------------------*/
 
 .no-customize-support .hide-if-no-customize,
@@ -1951,7 +1951,7 @@ body.full-overlay-active {
  * HiDPI Displays
  */
 @media print,
-  (min-resolution: 120dpi) {
+	(min-resolution: 120dpi) {
 	.wp-full-overlay .collapse-sidebar-arrow {
 		background-image: url(../images/arrows-2x.png);
 		background-size: 15px 123px;

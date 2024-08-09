@@ -5,22 +5,31 @@
  * This class handles the shortcode functionality for displaying lottery results.
  *
  * @package CNN_Brasil_Loterias
+ * @since 1.0.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
- * Class CNN_Loterias_Shortcode
+ * CNN_Loterias_Shortcode Class.
  */
 class CNN_Loterias_Shortcode {
+
 	/**
-	 * Register the shortcode.
+	 * Initialize the Shortcode class.
+	 *
+	 * @since 1.0.0
 	 */
-	public static function register() {
+	public static function init() {
 		add_shortcode( 'loterias', array( __CLASS__, 'display' ) );
 	}
 
 	/**
 	 * Display the lottery results.
 	 *
+	 * @since 1.0.0
 	 * @param array $atts Shortcode attributes.
 	 * @return string HTML output of the lottery results.
 	 */
@@ -42,103 +51,70 @@ class CNN_Loterias_Shortcode {
 		$result = CNN_Loterias_API::fetch_results( $loteria, $concurso );
 
 		if ( is_wp_error( $result ) ) {
-			$error_message = $result->get_error_message();
-			$error_data    = $result->get_error_data();
-
-			if ( $debug && current_user_can( 'manage_options' ) ) {
-				return '<p>Error fetching lottery results: ' . esc_html( $error_message ) . '</p>'
-					. '<pre>' . esc_html( wp_json_encode( $error_data, JSON_PRETTY_PRINT ) ) . '</pre>';
-			} else {
-				return '<p>Unable to fetch lottery results. Please try again later.</p>';
-			}
+			return self::render_error( $result->get_error_message(), $debug );
 		}
 
-		$color         = self::map_loteria_color( $loteria );
-		$date_with_day = self::format_date_with_day( $result['data'] );
+		$result['loteria_nome']   = self::get_loteria_name( $loteria );
+		$result['data_formatada'] = isset( $result['data'] ) ? self::format_date_with_day( $result['data'] ) : 'Data não disponível';
 
-		ob_start();
-		?>
-		<style>
-			.cnn-loteria-result .header,
-			.cnn-loteria-result .dezena {
-				background-color: <?php echo esc_html( $color ); ?>;
-			}
-		</style>
-		<div class="cnn-loteria-result">
-			<div class="header">
-				<h2>Concurso <?php echo esc_html( $result['concurso'] ); ?> • <?php echo esc_html( $date_with_day ); ?></h2>
-			</div>
-			<?php if ( isset( $result['dezenas'] ) && is_array( $result['dezenas'] ) ) : ?>
-				<div class="dezenas">
-					<?php foreach ( $result['dezenas'] as $dezena ) : ?>
-						<div class="dezena"><?php echo esc_html( $dezena ); ?></div>
-					<?php endforeach; ?>
-				</div>
-			<?php else : ?>
-				<p>Números sorteados não disponíveis.</p>
-			<?php endif; ?>
-			<hr class="divider">
-			<?php if ( empty( $result['premiacoes'] ) ) : ?>
-				<p><em>Informações de premiação não disponíveis para este concurso.</em></p>
-			<?php else : ?>
-				<div class="premio-area">
-					<p>PRÊMIO</p>
-					<h3>R$ <?php echo esc_html( number_format( $result['premiacoes'][0]['valorPremio'] ?? 0, 2, ',', '.' ) ); ?></h3>
-					<hr class="divider">
-				</div>
-				<div class="premiacoes-titles">
-					<span class="descricao">Faixas</span>
-					<span class="ganhadores">Ganhadores</span>
-					<span class="valor-premio">Prêmio</span>
-				</div>
-				<hr class="divider">
-				<div class="premiacoes">
-					<?php foreach ( $result['premiacoes'] as $premio ) : ?>
-						<div class="premiacao-row">
-							<span class="descricao"><?php echo esc_html( self::map_descricao( $premio['descricao'] ?? '' ) ); ?></span>
-							<span class="ganhadores"><?php echo esc_html( $premio['ganhadores'] ?? 0 ); ?></span>
-							<span class="valor-premio">R$ <?php echo esc_html( number_format( $premio['valorPremio'] ?? 0, 2, ',', '.' ) ); ?></span>
-						</div>
-						<hr class="divider">
-					<?php endforeach; ?>
-				</div>
-				<?php if ( isset( $result['acumulou'] ) ) : ?>
-					<p><?php echo $result['acumulou'] ? 'Acumulou!' : 'Não acumulou.'; ?></p>
-				<?php endif; ?>
-				<?php if ( isset( $result['valorEstimadoProximoConcurso'] ) ) : ?>
-					<p>Estimativa de prêmio do próximo concurso: R$ <?php echo esc_html( number_format( $result['valorEstimadoProximoConcurso'], 2, ',', '.' ) ); ?></p>
-				<?php endif; ?>
-			<?php endif; ?>
-		</div>
-		<?php if ( $debug && current_user_can( 'manage_options' ) ) : ?>
-			<pre><?php echo esc_html( wp_json_encode( $result, JSON_PRETTY_PRINT ) ); ?></pre>
-		<?php endif; ?>
-		<?php
-		return ob_get_clean();
+		$result['debug_info'] = array(
+			'loteria'      => $loteria,
+			'concurso'     => $concurso,
+			'api_response' => $result,
+		);
+
+		return self::render_template( $result, $loteria, $debug );
 	}
 
 	/**
-	 * Map the description to a more user-friendly format.
+	 * Render the template.
 	 *
-	 * @param string $descricao The original description.
-	 * @return string The mapped description.
+	 * @since 1.0.0
+	 * @param array   $result  The lottery results.
+	 * @param string  $loteria The lottery type.
+	 * @param boolean $debug   Whether to display debug information.
+	 * @return string The rendered HTML.
 	 */
-	private static function map_descricao( $descricao ) {
-		$map = array(
-			'6 acertos' => 'Sena',
-			'5 acertos' => 'Quina',
-			'4 acertos' => 'Quadra',
-		);
-		return isset( $map[ $descricao ] ) ? $map[ $descricao ] : $descricao;
+	private static function render_template( $result, $loteria, $debug ) {
+		$color                = self::map_loteria_color( $loteria );
+		$format_date_with_day = array( __CLASS__, 'format_date_with_day' );
+		$map_descricao        = array( __CLASS__, 'map_descricao' );
+
+		ob_start();
+		include CNN_LOTERIAS_PLUGIN_DIR . 'templates/lottery-results.php';
+		$output = ob_get_clean();
+
+		if ( $debug && current_user_can( 'manage_options' ) ) {
+			$output .= '<pre>' . esc_html( wp_json_encode( $result['debug_info'], JSON_PRETTY_PRINT ) ) . '</pre>';
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Render an error message.
+	 *
+	 * @since 1.0.0
+	 * @param string  $message The error message.
+	 * @param boolean $debug   Whether to display debug information.
+	 * @return string The rendered HTML.
+	 */
+	private static function render_error( $message, $debug ) {
+		if ( $debug && current_user_can( 'manage_options' ) ) {
+			return '<p>Error: ' . esc_html( $message ) . '</p>';
+		} else {
+			return '<p>' . esc_html__( 'Unable to fetch lottery results. Please try again later.', 'cnn-brasil-loterias' ) . '</p>';
+		}
 	}
 
 	/**
 	 * Map the lottery type to its corresponding color.
 	 *
+	 * @since 1.0.0
 	 * @param string $loteria The lottery type.
 	 * @return string The color code.
 	 */
-	private static function map_loteria_color( $loteria ) {
+	public static function map_loteria_color( $loteria ) {
 		$color_map = array(
 			'megasena'   => '#2D976A',
 			'lotofacil'  => '#921788',
@@ -156,10 +132,11 @@ class CNN_Loterias_Shortcode {
 	/**
 	 * Format the date with the day of the week.
 	 *
+	 * @since 1.0.0
 	 * @param string $date The date in d/m/Y format.
 	 * @return string The formatted date with the day of the week.
 	 */
-	private static function format_date_with_day( $date ) {
+	public static function format_date_with_day( $date ) {
 		$date_obj = DateTime::createFromFormat( 'd/m/Y', $date );
 		if ( ! $date_obj ) {
 			return $date;
@@ -167,15 +144,53 @@ class CNN_Loterias_Shortcode {
 
 		$days_of_week = array(
 			'Sunday'    => 'Domingo',
-			'Monday'    => 'Segunda-Feira',
-			'Tuesday'   => 'Terça-Feira',
-			'Wednesday' => 'Quarta-Feira',
-			'Thursday'  => 'Quinta-Feira',
-			'Friday'    => 'Sexta-Feira',
+			'Monday'    => 'Segunda-feira',
+			'Tuesday'   => 'Terça-feira',
+			'Wednesday' => 'Quarta-feira',
+			'Thursday'  => 'Quinta-feira',
+			'Friday'    => 'Sexta-feira',
 			'Saturday'  => 'Sábado',
 		);
 
 		$day_of_week = $days_of_week[ $date_obj->format( 'l' ) ];
-		return $day_of_week . ' ' . $date_obj->format( 'd/m/Y' );
+		return $day_of_week . ', ' . $date_obj->format( 'd/m/Y' );
+	}
+
+	/**
+	 * Map the description to a more user-friendly format.
+	 *
+	 * @since 1.0.0
+	 * @param string $descricao The original description.
+	 * @return string The mapped description.
+	 */
+	public static function map_descricao( $descricao ) {
+		$map = array(
+			'6 acertos' => 'Sena',
+			'5 acertos' => 'Quina',
+			'4 acertos' => 'Quadra',
+		);
+		return isset( $map[ $descricao ] ) ? $map[ $descricao ] : $descricao;
+	}
+
+	/**
+	 * Get the full name of the lottery.
+	 *
+	 * @since 1.0.0
+	 * @param string $loteria The lottery type.
+	 * @return string The full name of the lottery.
+	 */
+	public static function get_loteria_name( $loteria ) {
+		$names = array(
+			'megasena'   => 'Mega-Sena',
+			'lotofacil'  => 'Lotofácil',
+			'quina'      => 'Quina',
+			'lotomania'  => 'Lotomania',
+			'timemania'  => 'Timemania',
+			'duplasena'  => 'Dupla Sena',
+			'federal'    => 'Loteria Federal',
+			'diadesorte' => 'Dia de Sorte',
+			'supersete'  => 'Super Sete',
+		);
+		return isset( $names[ $loteria ] ) ? $names[ $loteria ] : ucfirst( $loteria );
 	}
 }

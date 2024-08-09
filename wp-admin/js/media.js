@@ -12,7 +12,7 @@
 
 /* global ajaxurl, _wpMediaGridSettings, showNotice, findPosts, ClipboardJS */
 
-( function( $ ){
+( function ( $ ) {
 	window.findPosts = {
 		/**
 		 * Opens a dialog to attach media to a post.
@@ -28,7 +28,7 @@
 		 *
 		 * @return {boolean} Always returns false.
 		 */
-		open: function( af_name, af_val ) {
+		open: function ( af_name, af_val ) {
 			var overlay = $( '.ui-find-overlay' );
 
 			if ( overlay.length === 0 ) {
@@ -46,11 +46,14 @@
 			$( '#find-posts' ).show();
 
 			// Close the dialog when the escape key is pressed.
-			$('#find-posts-input').trigger( 'focus' ).on( 'keyup', function( event ){
-				if ( event.which == 27 ) {
-					findPosts.close();
+			$( '#find-posts-input' ).trigger( 'focus' ).on(
+				'keyup',
+				function ( event ) {
+					if ( event.which == 27 ) {
+						findPosts.close();
+					}
 				}
-			});
+			);
 
 			// Retrieves a list of applicable posts for media attachment and shows them.
 			findPosts.send();
@@ -67,9 +70,9 @@
 		 *
 		 * @return {void}
 		 */
-		close: function() {
-			$('#find-posts-response').empty();
-			$('#find-posts').hide();
+		close: function () {
+			$( '#find-posts-response' ).empty();
+			$( '#find-posts' ).hide();
 			$( '.ui-find-overlay' ).hide();
 		},
 
@@ -83,10 +86,13 @@
 		 *
 		 * @return {void}
 		 */
-		overlay: function() {
-			$( '.ui-find-overlay' ).on( 'click', function () {
-				findPosts.close();
-			});
+		overlay: function () {
+			$( '.ui-find-overlay' ).on(
+				'click',
+				function () {
+					findPosts.close();
+				}
+			);
 		},
 
 		/**
@@ -102,12 +108,12 @@
 		 *
 		 * @return {void}
 		 */
-		send: function() {
-			var post = {
-					ps: $( '#find-posts-input' ).val(),
-					action: 'find_posts',
-					_ajax_nonce: $('#_ajax_nonce').val()
-				},
+		send: function () {
+			var post    = {
+				ps: $( '#find-posts-input' ).val(),
+				action: 'find_posts',
+				_ajax_nonce: $( '#_ajax_nonce' ).val()
+			},
 				spinner = $( '.find-box-search .spinner' );
 
 			spinner.addClass( 'is-active' );
@@ -116,21 +122,30 @@
 			 * Send a POST request to admin_ajax.php, hide the spinner and replace the list
 			 * of posts with the response data. If an error occurs, display it.
 			 */
-			$.ajax( ajaxurl, {
-				type: 'POST',
-				data: post,
-				dataType: 'json'
-			}).always( function() {
-				spinner.removeClass( 'is-active' );
-			}).done( function( x ) {
-				if ( ! x.success ) {
+			$.ajax(
+				ajaxurl,
+				{
+					type: 'POST',
+					data: post,
+					dataType: 'json'
+				}
+			).always(
+				function () {
+					spinner.removeClass( 'is-active' );
+				}
+			).done(
+				function ( x ) {
+					if ( ! x.success ) {
+							$( '#find-posts-response' ).text( wp.i18n.__( 'An error has occurred. Please reload the page and try again.' ) );
+					}
+
+					$( '#find-posts-response' ).html( x.data );
+				}
+			).fail(
+				function () {
 					$( '#find-posts-response' ).text( wp.i18n.__( 'An error has occurred. Please reload the page and try again.' ) );
 				}
-
-				$( '#find-posts-response' ).html( x.data );
-			}).fail( function() {
-				$( '#find-posts-response' ).text( wp.i18n.__( 'An error has occurred. Please reload the page and try again.' ) );
-			});
+			);
 		}
 	};
 
@@ -140,101 +155,127 @@
 	 *
 	 * @return {void}
 	 */
-	$( function() {
-		var settings,
+	$(
+		function () {
+			var settings,
 			$mediaGridWrap             = $( '#wp-media-grid' ),
 			copyAttachmentURLClipboard = new ClipboardJS( '.copy-attachment-url.media-library' ),
 			copyAttachmentURLSuccessTimeout;
 
-		// Opens a manage media frame into the grid.
-		if ( $mediaGridWrap.length && window.wp && window.wp.media ) {
-			settings = _wpMediaGridSettings;
+			// Opens a manage media frame into the grid.
+			if ( $mediaGridWrap.length && window.wp && window.wp.media ) {
+					settings = _wpMediaGridSettings;
 
-			var frame = window.wp.media({
-				frame: 'manage',
-				container: $mediaGridWrap,
-				library: settings.queryVars
-			}).open();
+					var frame = window.wp.media(
+						{
+							frame: 'manage',
+							container: $mediaGridWrap,
+							library: settings.queryVars
+						}
+					).open();
 
-			// Fire a global ready event.
-			$mediaGridWrap.trigger( 'wp-media-grid-ready', frame );
-		}
-
-		// Prevents form submission if no post has been selected.
-		$( '#find-posts-submit' ).on( 'click', function( event ) {
-			if ( ! $( '#find-posts-response input[type="radio"]:checked' ).length )
-				event.preventDefault();
-		});
-
-		// Submits the search query when hitting the enter key in the search input.
-		$( '#find-posts .find-box-search :input' ).on( 'keypress', function( event ) {
-			if ( 13 == event.which ) {
-				findPosts.send();
-				return false;
+					// Fire a global ready event.
+					$mediaGridWrap.trigger( 'wp-media-grid-ready', frame );
 			}
-		});
 
-		// Binds the click event to the search button.
-		$( '#find-posts-search' ).on( 'click', findPosts.send );
-
-		// Binds the close dialog click event.
-		$( '#find-posts-close' ).on( 'click', findPosts.close );
-
-		// Binds the bulk action events to the submit buttons.
-		$( '#doaction' ).on( 'click', function( event ) {
-
-			/*
-			 * Handle the bulk action based on its value.
-			 */
-			$( 'select[name="action"]' ).each( function() {
-				var optionValue = $( this ).val();
-
-				if ( 'attach' === optionValue ) {
-					event.preventDefault();
-					findPosts.open();
-				} else if ( 'delete' === optionValue ) {
-					if ( ! showNotice.warn() ) {
+			// Prevents form submission if no post has been selected.
+			$( '#find-posts-submit' ).on(
+				'click',
+				function ( event ) {
+					if ( ! $( '#find-posts-response input[type="radio"]:checked' ).length ) {
 						event.preventDefault();
 					}
 				}
-			});
-		});
+			);
 
-		/**
-		 * Enables clicking on the entire table row.
-		 *
-		 * @return {void}
-		 */
-		$( '.find-box-inside' ).on( 'click', 'tr', function() {
-			$( this ).find( '.found-radio input' ).prop( 'checked', true );
-		});
+			// Submits the search query when hitting the enter key in the search input.
+			$( '#find-posts .find-box-search :input' ).on(
+				'keypress',
+				function ( event ) {
+					if ( 13 == event.which ) {
+							findPosts.send();
+							return false;
+					}
+				}
+			);
 
-		/**
-		 * Handles media list copy media URL button.
-		 *
-		 * @since 6.0.0
-		 *
-		 * @param {MouseEvent} event A click event.
-		 * @return {void}
-		 */
-		copyAttachmentURLClipboard.on( 'success', function( event ) {
-			var triggerElement = $( event.trigger ),
-				successElement = $( '.success', triggerElement.closest( '.copy-to-clipboard-container' ) );
+			// Binds the click event to the search button.
+			$( '#find-posts-search' ).on( 'click', findPosts.send );
 
-			// Clear the selection and move focus back to the trigger.
-			event.clearSelection();
+			// Binds the close dialog click event.
+			$( '#find-posts-close' ).on( 'click', findPosts.close );
 
-			// Show success visual feedback.
-			clearTimeout( copyAttachmentURLSuccessTimeout );
-			successElement.removeClass( 'hidden' );
+			// Binds the bulk action events to the submit buttons.
+			$( '#doaction' ).on(
+				'click',
+				function ( event ) {
 
-			// Hide success visual feedback after 3 seconds since last success and unfocus the trigger.
-			copyAttachmentURLSuccessTimeout = setTimeout( function() {
-				successElement.addClass( 'hidden' );
-			}, 3000 );
+					/*
+					* Handle the bulk action based on its value.
+						*/
+					$( 'select[name="action"]' ).each(
+						function () {
+							var optionValue = $( this ).val();
 
-			// Handle success audible feedback.
-			wp.a11y.speak( wp.i18n.__( 'The file URL has been copied to your clipboard' ) );
-		} );
-	});
+							if ( 'attach' === optionValue ) {
+									event.preventDefault();
+									findPosts.open();
+							} else if ( 'delete' === optionValue ) {
+								if ( ! showNotice.warn() ) {
+									event.preventDefault();
+								}
+							}
+						}
+					);
+				}
+			);
+
+			/**
+			 * Enables clicking on the entire table row.
+			 *
+			 * @return {void}
+			 */
+			$( '.find-box-inside' ).on(
+				'click',
+				'tr',
+				function () {
+					$( this ).find( '.found-radio input' ).prop( 'checked', true );
+				}
+			);
+
+			/**
+			 * Handles media list copy media URL button.
+			 *
+			 * @since 6.0.0
+			 *
+			 * @param {MouseEvent} event A click event.
+			 * @return {void}
+			 */
+			copyAttachmentURLClipboard.on(
+				'success',
+				function ( event ) {
+					var triggerElement = $( event.trigger ),
+					successElement     = $( '.success', triggerElement.closest( '.copy-to-clipboard-container' ) );
+
+					// Clear the selection and move focus back to the trigger.
+					event.clearSelection();
+
+					// Show success visual feedback.
+					clearTimeout( copyAttachmentURLSuccessTimeout );
+					successElement.removeClass( 'hidden' );
+
+					// Hide success visual feedback after 3 seconds since last success and unfocus the trigger.
+					copyAttachmentURLSuccessTimeout = setTimeout(
+						function () {
+							successElement.addClass( 'hidden' );
+						},
+						3000
+					);
+
+					// Handle success audible feedback.
+					wp.a11y.speak( wp.i18n.__( 'The file URL has been copied to your clipboard' ) );
+				}
+			);
+		}
+	);
 })( jQuery );

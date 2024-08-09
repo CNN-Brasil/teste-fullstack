@@ -321,10 +321,8 @@ switch ( $action ) {
 			if ( ! wp_delete_attachment( $post_id, $force ) ) {
 				wp_die( __( 'Error in deleting the attachment.' ) );
 			}
-		} else {
-			if ( ! wp_delete_post( $post_id, true ) ) {
+		} elseif ( ! wp_delete_post( $post_id, true ) ) {
 				wp_die( __( 'Error in deleting the item.' ) );
-			}
 		}
 
 		wp_redirect( add_query_arg( 'deleted', 1, $sendback ) );

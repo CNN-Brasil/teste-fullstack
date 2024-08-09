@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------
-  11.2 - Post Revisions
+	11.2 - Post Revisions
 ------------------------------------------------------------------------------*/
 .revisions-control-frame,
 .revisions-diff-frame {
@@ -558,7 +558,7 @@ div.revisions-controls > .wp-slider > .ui-slider-handle {
  * HiDPI Displays
  */
 @media print,
-  (min-resolution: 120dpi) {
+	(min-resolution: 120dpi) {
 	.revision-tick.completed-false {
 		background-image: url(../images/spinner-2x.gif);
 	}
