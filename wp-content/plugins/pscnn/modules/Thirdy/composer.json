@@ -1,0 +1,19 @@
+{
+    "name": "henrique/phug",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Henrique\\Phug\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Henrique Melo",
+            "email": "hlsmelo@outlook.com"
+        }
+    ],
+    "require": {
+        "phug/phug": "^1.13",
+        "predis/predis": "^2.2"
+    }
+}
