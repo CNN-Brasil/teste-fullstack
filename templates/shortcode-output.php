@@ -28,9 +28,8 @@ if (!$decoded_data || !isset($decoded_data['data'])) {
     return;
 }
 
-$date_string = $decoded_data['data'];
-$date_object = DateTime::createFromFormat('d/m/Y', $date_string);
-$weekday = strftime('%A', $date_object->getTimestamp());
+$formatter = new IntlDateFormatter('pt_BR', IntlDateFormatter::FULL, IntlDateFormatter::NONE, 'America/Sao_Paulo', IntlDateFormatter::GREGORIAN);
+$weekday = $formatter->format($date_object);
 
 $weekday_replacements = [
     'segunda' => 'Segunda-Feira',
