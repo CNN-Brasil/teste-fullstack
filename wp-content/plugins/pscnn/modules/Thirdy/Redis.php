@@ -54,10 +54,10 @@ class Redis {
      * @param array $list - The data
      * @param integer $ttl - Timelife in seconds
      *
-     * @return string
+     * @return bool
      */
 
-    static public function set($list, $ttl = DAY_IN_SECONDS) {
+    static public function set($list, $ttl = DAY_IN_SECONDS): bool {
         $done = true;
 
         foreach ($list as $key => $value) {

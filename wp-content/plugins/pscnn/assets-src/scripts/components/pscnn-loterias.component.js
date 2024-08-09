@@ -44,8 +44,9 @@
             },
             getData(loteria, concurso) {
                 const self = this;
+                const url = `${pscnn.apiBaseUrl}hlsmelo/pscnn/v1/loterias`;
 
-                axios.get('/wp-json/hlsmelo/pscnn/v1/loterias', {
+                axios.get(url, {
                     params: {
                         loteria,
                         concurso,

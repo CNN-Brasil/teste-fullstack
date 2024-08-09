@@ -13,9 +13,10 @@ class Loterias {
      * @param string $loteria - loteria's name
      * @param mixed $concurso - "ultimo" or concurso's number
      *
+     * @return array
      */
 
-    static public function search($loteria, $concurso) {
+    static public function search($loteria, $concurso): array {
         $data = null;
 
         if ($concurso === 'latest') {
@@ -48,9 +49,10 @@ class Loterias {
      *
      * @param \WP_REST_Request $request - It is provided automatically.
      *
+     * @return void
      */
 
-    static public function list(\WP_REST_Request $request) {
+    static public function list(\WP_REST_Request $request): void {
         $loteria = $request->get_param('loteria');
         $concurso = $request->get_param('concurso');
         $concurso = ($concurso === 'ultimo') ? 'latest' : $concurso;
@@ -68,7 +70,7 @@ class Loterias {
      * @return bool
      */
 
-    static protected function store($data) {
+    static protected function store($data): bool {
         $loteria = $data['loteria'];
         $concurso = $data['concurso'];
 
@@ -95,16 +97,13 @@ class Loterias {
      * @param string $loteria - loteria's name
      * @param mixed $concurso - "ultimo" or concurso's number
      *
+     * @return array
      */
 
-    static protected function get_from_cache($loteria, $concurso) {
-        $from_cache = Redis::get("{$loteria}:{$concurso}");
+    static protected function get_from_cache($loteria, $concurso): array {
+        $data = Redis::get("{$loteria}:{$concurso}");
 
-        if ($from_cache === null) {
-            return [];
-        }
-
-        return json_decode($from_cache, true);
+        return in_array($data, ['false', false]) ? [] : json_decode($data, true);
     }
 
     /**
@@ -117,7 +116,7 @@ class Loterias {
      * @return string
      */
 
-    static protected function get_data_for_cache($data) {
+    static protected function get_data_for_cache($data): string {
         // phpcs:ignore
         return json_encode($data);
     }
@@ -130,9 +129,10 @@ class Loterias {
      * @param string $loteria - loteria's name
      * @param mixed $concurso - "ultimo" or concurso's number
      *
+     * @return array
      */
 
-    static protected function get_from_db($loteria, $concurso) {
+    static protected function get_from_db($loteria, $concurso): array {
         $from_cache = self::get_from_cache($loteria, $concurso);
 
         if (!empty($from_cache)) {
@@ -160,6 +160,10 @@ class Loterias {
         ]);
         // phpcs:enable
 
+        if (empty($posts)) {
+            return [];
+        }
+
         $data = get_post_meta($posts[0]->ID, 'dados_concurso', true);
         Redis::set(["{$loteria}:{$concurso}" => self::get_data_for_cache($data)]);
 
@@ -174,9 +178,10 @@ class Loterias {
      * @param string $loteria - loteria's name
      * @param mixed $concurso - "ultimo" or concurso's number
      *
+     * @return array
      */
 
-    static protected function get_from_api($loteria, $concurso) {
+    static protected function get_from_api($loteria, $concurso): array {
         $from_cache = self::get_from_cache($loteria, $concurso);
 
         if (!empty($from_cache)) {

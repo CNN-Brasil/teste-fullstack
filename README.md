@@ -16,7 +16,7 @@ $ docker-composer up -d
 $ composer composer-reinstall
 ```
 - O projeto poderá ser acessado através do endereço: http://localhost:8080
-- Após acessar o projeto deve-se entre na área do admin e ativar o plugin
+- Após acessar o projeto deve-se entre na área do admin e ativar o plugin "Pasquali Solution CNN Fullstack Test"
 - O nome do shortcode é 'pscnn-loterias' e pode ser utilizado das seguintes formas:
     - ```[pscnn-loterias]``` - onde por padrão os parâmetros "loteria" e "concurso" são "megasena" e "ultimo" respectivamente
     - ```[pscnn-loterias loteria="quina"]``` - para definir o parâmento "loteria"

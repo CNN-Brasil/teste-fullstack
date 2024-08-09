@@ -36,11 +36,13 @@ class PSCNN {
         }
 
         $version = get_plugin_data(__FILE__)['Version'];
-        $path = plugin_dir_url(__FILE__) . '/assets/';
+        $path = plugin_dir_url(__FILE__) . 'assets';
 
         wp_enqueue_style('main', "{$path}/styles/main.min.css", [], false);
 
         wp_enqueue_script('axios', 'https://unpkg.com/axios/dist/axios.min.js');
+        wp_localize_script('axios', 'pscnn', ['apiBaseUrl' => get_rest_url() ]);
+
         wp_enqueue_script('vue', 'https://br.vuejs.org/js/vue.min.js');
         wp_enqueue_script('currency', 'https://unpkg.com/currency.js@~2.0.0/dist/currency.min.js');
 
