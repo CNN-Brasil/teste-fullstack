@@ -1,43 +1,144 @@
-## Desafio Fullstack - CNN Brasil
-O teste consiste em criar um plugin WordPress com um shortcode que exibirá os resultados dos jogos das Loterias Caixa.
+<h1 align="center">Olá 👋, eu sou Ramon Mendes - Desenvolvedor de Software</h1>
+<h3 align="center">Um desenvolvedor back-end apaixonado por tecnologia</h3>
 
-### Índice
-1. [Funcionamento do plugin](#funcionamento-do-plugin)
-2. [Instruções para o teste](#instruções-para-o-teste)
-3. [Requisitos](#requisitos)
+<h1 align="center">Bem-vindo ao CNN Brasil Loterias</h1>
 
-#### Funcionamento do plugin
-- Ao ativar o plugin, ele já deve estar funcional, não deve ser necessário nenhum tipo de configuração ou ajuste prévio;
-- Deve ser criado um post-type chamado "Loterias", em que os resultados já buscados deverão ser salvos.
-- O shortcode deve poder ser utilizado em qualquer tema WordPress, em qualquer página ou post, inclusive via back-end com PHP;
-- Caso o parâmetro "concurso" do shortcode seja o número de um concurso e não "ultimo", deve-se primeiro verificar se o concurso já está cadastrado no post-type "Loterias", e seja consultada a API de loterias apenas caso o concurso não esteja registrado no post-type;
-- Caso o parâmetro "concurso" do shortcode seja "ultimo", deve-se acessar diretamente a API, e após isso, verificar se o concurso já está registrado no post-type, e caso não esteja, cadastrar ele;
-- Após fazer as buscas pelo concurso, o resultado será exibido no front-end com um layout personalizado.
+<h2 align="center">Plugin WordPress para Resultados de Loteria</h2>
 
-#### Instruções para o teste
-A avaliação do teste será feita aqui no GitHub, então não se esqueça de seguir esses passos:
-- Faça um fork deste repositório;
-- Desenvolva todo o projeto na branch master;
-- Após finalizado, abra uma PR com o código para este repositório;
+<p align="center">
+  <img src="https://placeholder-for-cnn-brasil-loterias-logo.com/logo.png" alt="logo-cnn-brasil-loterias" />
+</p>
 
-A API que deve ser consultada é a seguinte:
-- https://github.com/guto-alves/loterias-api
+<h3 align="center">Um plugin WordPress para exibir resultados de loterias da Caixa</h3>
 
-O layout do Figma está no seguinte arquivo:
-- https://www.figma.com/file/F7T7TCcoObWXdjUyngIENl/Desafio-Fullstack---CNN-Brasil
+<p align="center">
+  🔭 Este projeto é um <a href="https://github.com/RamonSouzaDev/cnn-brasil-loterias">plugin WordPress para exibir resultados de loterias</a><br>
+  🌱 Desenvolvido com <strong>WordPress, PHP, Docker, e Redis</strong><br>
+  📫 Como entrar em contato: <strong>dwmom@hotmail.com</strong>
+</p>
 
-O repositório utiliza composer para validação do código. Você está livre para utilizar as ferramentas do composer, como autoload caso queira, porém, não utilize outras dependências do PHP.
+<h3 align="left">Conecte-se comigo:</h3>
+<p align="left">
+  <a href="https://linkedin.com/in/ramon-mendes-b44456164/" target="blank">
+    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="ramon-mendes-b44456164/" height="30" width="40" />
+  </a>
+</p>
 
-#### Requisitos
-- O plugin deve ser compatível com a versão mais recente do WordPress;
-- Deve-se usar preferencialmente funções e hooks nativos do WordPress ao invés de funções nativas do PHP;
-- Todo tipo de query ou chamada de API deve ser cacheada;
-- O código deve seguir os padrões estabelecidos pelo WordPress Coding Standards e WP VIP Coding Standards;
-- O código deve ser orientado a objetos;
-- O código deve ser validado utilizando PHPCS;
-- O layout do front-end do shortcode deve seguir o que foi apresentado no Figma;
-- Todo o código do projeto deve estar em um único plugin.
+<h3 align="left">Linguagens e Ferramentas:</h3>
+<p align="left"> 
+  <a href="https://www.php.net" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/>
+  </a>
+  <a href="https://wordpress.org/" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/wordpress/wordpress-plain.svg" alt="wordpress" width="40" height="40"/>
+  </a>
+  <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/>
+  </a>
+  <a href="https://redis.io" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redis/redis-original-wordmark.svg" alt="redis" width="40" height="40"/>
+  </a>
+</p>
 
-O shortcode deverá aceitar os seguintes parâmetros:
-- loteria: O nome da loteria, por exemplo, "megasena"
-- concurso: O número do concurso da loteria, podendo ser um número ou "ultimo", caso não seja preenchido, considerar sempre "ultimo" como padrão
+<h2>Instalação</h2>
+
+<ol>
+  <li>Clone o repositório:
+    <pre><code>git clone https://github.com/RamonSouzaDev/cnn-brasil-loterias.git</code></pre>
+  </li>
+  <li>Entre na pasta do projeto:
+    <pre><code>cd cnn-brasil-loterias</code></pre>
+  </li>
+  <li>Execute o ambiente Docker:
+    <pre><code>docker-compose up --build</code></pre>
+  </li>
+  <li>Acesse o WordPress em <code>http://localhost:8080</code> e ative o plugin CNN Brasil Loterias no painel de administração.</li>
+</ol>
+
+<h2>Uso</h2>
+
+<p>Use o shortcode <code>[loterias]</code> para exibir os resultados da loteria em qualquer página ou post.</p>
+
+<p>Exemplos:</p>
+<ul>
+  <li><code>[loterias loteria="megasena"]</code></li>
+  <li><code>[loterias loteria="lotofacil" concurso="ultimo"]</code></li>
+  <li><code>[loterias loteria="quina" concurso="5821" debug="true"]</code></li>
+</ul>
+
+<h3>Parâmetros do Shortcode</h3>
+<table>
+  <tr>
+    <th>Parâmetro</th>
+    <th>Descrição</th>
+    <th>Valores Possíveis</th>
+  </tr>
+  <tr>
+    <td><code>loteria</code></td>
+    <td>Tipo de loteria</td>
+    <td>megasena, lotofacil, quina, etc.</td>
+  </tr>
+  <tr>
+    <td><code>concurso</code></td>
+    <td>Número do concurso (opcional)</td>
+    <td>Número específico ou "ultimo"</td>
+  </tr>
+  <tr>
+    <td><code>debug</code></td>
+    <td>Modo de depuração (opcional)</td>
+    <td>true ou false</td>
+  </tr>
+</table>
+
+<h2>Desenvolvimento</h2>
+
+<h3>Estrutura do Plugin</h3>
+
+<p>O plugin é composto pelas seguintes classes principais:</p>
+
+<table>
+  <tr>
+    <th>Classe</th>
+    <th>Descrição</th>
+  </tr>
+  <tr>
+    <td><code>CNN_Brasil_Loterias</code></td>
+    <td>Classe principal do plugin</td>
+  </tr>
+  <tr>
+    <td><code>CNN_Loterias_API</code></td>
+    <td>Gerencia as interações com a API de loterias</td>
+  </tr>
+  <tr>
+    <td><code>CNN_Loterias_Shortcode</code></td>
+    <td>Processa e exibe o shortcode de resultados</td>
+  </tr>
+  <tr>
+    <td><code>Redis_Client</code></td>
+    <td>Gerencia o cache usando Redis</td>
+  </tr>
+</table>
+
+<h3>Testes Unitários</h3>
+
+<p>Para executar os testes unitários, use o seguinte comando dentro do contêiner Docker:</p>
+
+<pre><code>./vendor/bin/phpunit</code></pre>
+
+<h2>Contribuindo</h2>
+
+<p>Contribuições são bem-vindas! Por favor, leia o arquivo CONTRIBUTING.md para detalhes sobre nosso código de conduta e o processo para enviar pull requests.</p>
+
+<h2>Licença</h2>
+
+<p>Este projeto está licenciado sob a Licença MIT - veja o arquivo <a href="LICENSE.md">LICENSE.md</a> para detalhes.</p>
+
+<h2>Contato</h2>
+
+<p>
+  Ramon Mendes - <a href="https://twitter.com/RamonMendesDev">@RamonMendesDev</a> - dwmom@hotmail.com
+</p>
+
+<p>
+  Link do Projeto: <a href="https://github.com/RamonSouzaDev/cnn-brasil-loterias">https://github.com/RamonSouzaDev/cnn-brasil-loterias</a>
+</p>

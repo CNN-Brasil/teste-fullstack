@@ -67,6 +67,10 @@ final class CNN_Brasil_Loterias {
 	private function includes() {
 		include_once CNN_LOTERIAS_PLUGIN_DIR . 'includes/class-cnn-loterias-api.php';
 		include_once CNN_LOTERIAS_PLUGIN_DIR . 'includes/class-cnn-loterias-shortcode.php';
+	
+		if (!class_exists('Redis')) {
+			include_once CNN_LOTERIAS_PLUGIN_DIR . 'includes/class-redis-client.php';
+		}
 	}
 
 	/**

@@ -9,88 +9,95 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
+
+require_once plugin_dir_path(__FILE__) . 'class-redis-client.php';
 
 /**
  * CNN_Loterias_API Class.
  */
 class CNN_Loterias_API {
+    /**
+     * Initialize the API class.
+     *
+     * @since 1.0.0
+     */
+    public static function init() {
+        // Initialization code here if needed.
+    }
 
-	/**
-	 * Initialize the API class.
-	 *
-	 * @since 1.0.0
-	 */
-	public static function init() {
-		// Initialization code here if needed.
-	}
+    /**
+     * Fetch lottery results from the API.
+     *
+     * @since 1.0.0
+     * @param string $loteria The lottery type.
+     * @param string $concurso The lottery draw number.
+     * @return array|WP_Error The lottery results or WP_Error on failure.
+     */
+    public static function fetch_results( $loteria, $concurso ) {
+        $cache_key = "cnn_loteria_{$loteria}_{$concurso}";
+        
+        $redis_client = new Redis_Client();
+        $result = $redis_client->get($cache_key);
 
-	/**
-	 * Fetch lottery results from the API.
-	 *
-	 * @since 1.0.0
-	 * @param string $loteria  The lottery type.
-	 * @param string $concurso The lottery draw number.
-	 * @return array|WP_Error The lottery results or WP_Error on failure.
-	 */
-	public static function fetch_results( $loteria, $concurso ) {
-		$cache_key = "cnn_loteria_{$loteria}_{$concurso}";
-		$result    = wp_cache_get( $cache_key, 'cnn_loterias' );
+        if ($result === false) {
+            $url = self::get_api_url( $loteria, $concurso );
+            $response = wp_remote_get( $url );
 
-		if ( false === $result ) {
-			$url      = self::get_api_url( $loteria, $concurso );
-			$response = wp_remote_get( $url );
+            if ( is_wp_error( $response ) ) {
+                return new WP_Error( 'api_error', __( 'Failed to fetch lottery data', 'cnn-brasil-loterias' ) );
+            }
 
-			if ( is_wp_error( $response ) ) {
-				return new WP_Error( 'api_error', __( 'Failed to fetch lottery data', 'cnn-brasil-loterias' ) );
-			}
+            $body = wp_remote_retrieve_body( $response );
+            $data = json_decode( $body, true );
 
-			$body = wp_remote_retrieve_body( $response );
-			$data = json_decode( $body, true );
+            if ( empty( $data ) || ! is_array( $data ) ) {
+                return new WP_Error( 'api_error', __( 'Invalid data received from API', 'cnn-brasil-loterias' ) );
+            }
 
-			if ( empty( $data ) || ! is_array( $data ) ) {
-				return new WP_Error( 'api_error', __( 'Invalid data received from API', 'cnn-brasil-loterias' ) );
-			}
+            $result = self::standardize_result( $data );
 
-			$result = self::standardize_result( $data );
-			wp_cache_set( $cache_key, $result, 'cnn_loterias', HOUR_IN_SECONDS );
-		}
+            // Store the result in Redis for 1 hour
+            $redis_client->set($cache_key, serialize($result), 3600);
+        } else {
+            $result = unserialize($result);
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Get the API URL based on lottery type and draw number.
-	 *
-	 * @since 1.0.0
-	 * @param string $loteria  The lottery type.
-	 * @param string $concurso The lottery draw number.
-	 * @return string The API URL.
-	 */
-	private static function get_api_url( $loteria, $concurso ) {
-		$base_url = 'https://loteriascaixa-api.herokuapp.com/api';
-		return ( 'ultimo' === $concurso || 'latest' === $concurso )
-			? "{$base_url}/{$loteria}/latest"
-			: "{$base_url}/{$loteria}/{$concurso}";
-	}
+    /**
+     * Get the API URL based on lottery type and draw number.
+     *
+     * @since 1.0.0
+     * @param string $loteria The lottery type.
+     * @param string $concurso The lottery draw number.
+     * @return string The API URL.
+     */
+    private static function get_api_url( $loteria, $concurso ) {
+        $base_url = 'https://loteriascaixa-api.herokuapp.com/api';
+        return ( 'ultimo' === $concurso || 'latest' === $concurso )
+            ? "{$base_url}/{$loteria}/latest"
+            : "{$base_url}/{$loteria}/{$concurso}";
+    }
 
-	/**
-	 * Standardize the API result.
-	 *
-	 * @since 1.0.0
-	 * @param array $data The API response data.
-	 * @return array Standardized result.
-	 */
-	private static function standardize_result( $data ) {
-		return array(
-			'loteria'                      => $data['loteria'] ?? '',
-			'concurso'                     => $data['concurso'] ?? '',
-			'data'                         => $data['data'] ?? '',
-			'dezenas'                      => $data['dezenas'] ?? array(),
-			'premiacoes'                   => $data['premiacoes'] ?? array(),
-			'acumulou'                     => $data['acumulou'] ?? false,
-			'valorEstimadoProximoConcurso' => $data['valorEstimadoProximoConcurso'] ?? 0,
-		);
-	}
+    /**
+     * Standardize the API result.
+     *
+     * @since 1.0.0
+     * @param array $data The API response data.
+     * @return array Standardized result.
+     */
+    private static function standardize_result( $data ) {
+        return array(
+            'loteria' => $data['loteria'] ?? '',
+            'concurso' => $data['concurso'] ?? '',
+            'data' => $data['data'] ?? '',
+            'dezenas' => $data['dezenas'] ?? array(),
+            'premiacoes' => $data['premiacoes'] ?? array(),
+            'acumulou' => $data['acumulou'] ?? false,
+            'valorEstimadoProximoConcurso' => $data['valorEstimadoProximoConcurso'] ?? 0,
+        );
+    }
 }
