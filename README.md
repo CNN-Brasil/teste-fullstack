@@ -17,6 +17,20 @@
   📫 Como entrar em contato: <strong>dwmom@hotmail.com</strong>
 </p>
 
+<h2>Tutorial em Vídeo</h2>
+
+<p>Para uma demonstração visual de como instalar e usar o plugin, assista ao nosso tutorial em vídeo:</p>
+
+<p align="center">
+  <a href="https://youtu.be/6Hm5ZW7_zHY" target="_blank">
+    <img src="https://img.youtube.com/vi/6Hm5ZW7_zHY/0.jpg" alt="Tutorial em Vídeo do CNN Brasil Loterias" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/6Hm5ZW7_zHY" target="_blank">Clique aqui para assistir ao tutorial</a>
+</p>
+
 <h3 align="left">Conecte-se comigo:</h3>
 <p align="left">
   <a href="https://linkedin.com/in/ramon-mendes-b44456164/" target="blank">
@@ -118,12 +132,6 @@
     <td>Gerencia o cache usando Redis</td>
   </tr>
 </table>
-
-<h3>Testes Unitários</h3>
-
-<p>Para executar os testes unitários, use o seguinte comando dentro do contêiner Docker:</p>
-
-<pre><code>./vendor/bin/phpunit</code></pre>
 
 <h2>Contribuindo</h2>
 
