@@ -1,0 +1,28 @@
+name: WordPress CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+    
+    - name: Install dependencies
+      run: composer install
+    
+    - name: Run PHP linter
+      run: find . -name "*.php" -print0 | xargs -0 -n1 php -l
+    
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit
