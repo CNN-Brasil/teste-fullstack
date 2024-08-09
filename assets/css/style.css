@@ -1,0 +1,190 @@
+/**
+ * Internal Loterias
+ *
+ * @package Loterias
+ */
+
+/*
+Plugin Name: Loterias
+Plugin URI: https://github.com/ctoveloz/teste-fullstack
+Description: Loterias Tigrin
+Version: 1.0.0
+Author: Cristiano Matos
+License: MIT
+Copyright: Copyright (c) 2024, Cristiano Matos
+*/
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto; 
+}
+
+.grid-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    flex: 1 1 100%;
+    box-sizing: border-box;
+}
+
+.bg-megasena {
+    background-color: #2D976A;
+}
+
+.bg-quina {
+    background-color: #261383;
+}
+
+.bg-lotofacil {
+    background-color: #921788;
+}
+
+.bg-lotomania {
+    background-color: #F58123;
+}
+
+.bg-duplasena {
+    background-color: #A41628;
+}
+
+.bg-federal {
+    background-color: #133497;
+}
+
+.bg-diadesorte {
+    background-color: #CA8536;
+}
+
+.bg-supersete {
+    background-color: #A9CF50;
+}
+
+.color-default {
+    background-color: #000000;
+}
+
+.color-megasena {
+    color: #2D976A;
+}
+
+.color-quina {
+    color: #261383;
+}
+
+.color-lotofacil {
+    color: #921788;
+}
+
+.color-lotomania {
+    color: #F58123;
+}
+
+.color-duplasena {
+    color: #A41628;
+}
+
+.color-federal {
+    color: #133497;
+}
+
+.color-diadesorte {
+    color: #CA8536;
+}
+
+.color-supersete {
+    color: #A9CF50;
+}
+
+.color-default {
+    color: #000000;
+}
+
+.loteria-resultado{
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.loteria-resultado header h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: white;      
+    text-align: center;
+}
+
+.sorteadas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    margin-top: 42px;
+}
+
+.sorteadas li {
+    font-weight: 800;
+    color: white;
+    font-size: 1.25rem;
+    padding: 18px 22px;
+    border-radius: 50%;
+}
+
+.premio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.premio .title, 
+.premio .valor {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.premio .valor {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.faixas-resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    font-size: 1.25rem;
+}
+
+.faixas-resultado thead,
+.faixas-resultado tbody tr {
+    border-bottom: 1px solid #CBCBCB;
+}
+
+.faixas-resultado tbody tr:last-child {
+    border-bottom: none;
+}
+
+.faixas-resultado thead th {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    padding: 15px 0;
+}   
+
+.faixas-resultado table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.faixas-resultado tbody tr th {
+    font-weight: normal;
+    padding: 15px 0;
+}
