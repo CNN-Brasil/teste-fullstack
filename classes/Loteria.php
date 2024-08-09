@@ -12,48 +12,6 @@ class Loteria
 
 
 
-    /* public function AcessaApiXXXXXXXXXXXXXXXX()
-    {
-        $concursoInfo = "";
-        //verificando se existe um  concurso "setado"
-        if (!empty($this->concurso)) {
-            $concursoInfo = "/" . $this->concurso;
-        } else {
-        }
-
-
-        // URL da API que você deseja acessar
-        $url = 'https://loteriascaixa-api.herokuapp.com/api/' . $this->loteria . '' . $concursoInfo;
- 
-
-        // Inicia uma nova sessão cURL
-        $ch = curl_init();
-
-        // Configura a URL para onde a requisição será enviada
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        // Configura cURL para retornar o resultado como uma string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // Executa a requisição
-        $response = curl_exec($ch);
-
-        // Verifica se houve erros
-        if (curl_errno($ch)) {
-            echo 'Erro: ' . curl_error($ch);
-        } else {
-            // Converte a resposta JSON em um array associativo PHP
-            $data = json_decode($response, true);
-            $this->grid($data);
-        }
-
-        // Fecha a sessão cURL
-        curl_close($ch);
-
-
-        return $this;
-    }*/
-
 
 
 
@@ -87,6 +45,7 @@ class Loteria
         if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < 3600)) {
             // Lê os dados do cache
             $data = json_decode(file_get_contents($cacheFile), true);
+            
         } else {
             // Inicia uma nova sessão cURL
             $ch = curl_init();
@@ -126,23 +85,16 @@ class Loteria
 
     private function grid($data)
     {
-
         if (!isset($data[0])) {
             $dados = $data;
             $data = array($dados);
-        } else {
         }
-
-
-
 
         $loteria = $this->loteria;
         $html = '<div id="resultados" class="' . $loteria . ' font">';
         $linha = 0;
-        foreach ($data as $dd) :
 
-            #---------------------------------------------------------------------------------------
-            #--------Aqui eu vou verificar se alguns campos possuem ou não valores------------------
+        foreach ($data as $dd) {
             if (!isset($dd['concurso'])) {
                 $dd['concurso'] = "não informado";
             }
@@ -158,46 +110,110 @@ class Loteria
             if (!isset($dd['premiacoes'])) {
                 $dd['premiacoes'] = array();
             }
-            #---------------------------------------------------------------------------------------
-            #---------------------------------------------------------------------------------------
 
             if ($linha < 3) {
-                $html .= "<h2> Concurso: " . $dd['concurso'] . " " . $dd['data'] . "</h2>";
-                $html .= "<ul id='dezenas'>";
-                foreach ($dd['dezenasOrdemSorteio'] as $d) :
-                    $html .= "<li>" . $d . "</li>";
-                endforeach;
-                $html .= "</ul>";
-
-                $html .= "<div> ";
-                $html .= "</div>";
-                $html .= "<h3><p>Premio: </p> <p>" . $dd['valorAcumuladoConcursoEspecial'] . "</p></h3>";
-
-
-                $html .= "<table>";
-
-                $html .= "<thead>";
-                $html .= "<td>faixa: </td>";
-                $html .= "<td>ganhadores: </td>";
-                $html .= "<td>premio: </td>";
-                $html .= "</thead>";
-
-                foreach ($dd['premiacoes'] as $pp) {
-                    $html .= "<tr>";
-                    $html .= "<td>" . $pp['faixa'] . "</td>";
-                    $html .= "<td>" . $pp['ganhadores'] . "</td> ";
-                    $html .= "<td>" . $pp['valorPremio'] . " </td>";
-                    $html .= "</tr>";
+                // Cria o título do post
+                $post_title = $loteria;
+                if ($dd['concurso'] !== "não informado") {
+                    $post_title .= " - Concurso " . $dd['concurso'];
                 }
-                $html .= "</table>";
 
+                // Verifica se já existe um post com este título
+                $existing_post_content = $this->get_existing_post_content($post_title);
+                if ($existing_post_content) {
+                    // Se o post já existe, usa o conteúdo existente
+                    $html .= $existing_post_content;
+                } else {
+                    // Se o post não existir, cria o novo conteúdo
+                    $html .= "<h2> Concurso: " . $dd['concurso'] . " " . $dd['data'] . "</h2>";
+                    $html .= "<ul id='dezenas'>";
+                    foreach ($dd['dezenasOrdemSorteio'] as $d) {
+                        $html .= "<li>" . $d . "</li>";
+                    }
+                    $html .= "</ul>";
 
+                    $html .= "<div> ";
+                    $html .= "</div>";
+                    $html .= "<h3><p>Premio: </p> <p>" . $dd['valorAcumuladoConcursoEspecial'] . "</p></h3>";
 
-                //$html .= "<hr><div>";
+                    $html .= "<table>";
+                    $html .= "<thead>";
+                    $html .= "<td>faixa: </td>";
+                    $html .= "<td>ganhadores: </td>";
+                    $html .= "<td>premio: </td>";
+                    $html .= "</thead>";
+
+                    foreach ($dd['premiacoes'] as $pp) {
+                        $html .= "<tr>";
+                        $html .= "<td>" . $pp['faixa'] . "</td>";
+                        $html .= "<td>" . $pp['ganhadores'] . "</td>";
+                        $html .= "<td>" . $pp['valorPremio'] . " </td>";
+                        $html .= "</tr>";
+                    }
+                    $html .= "</table>";
+
+                    // Salva o novo post
+                    $this->save_to_custom_post($post_title, $html);
+                }
                 $linha++;
             }
-        endforeach;
+        }
         $html .= "</div>";
         $this->dados = $html;
     }
+
+    private function get_existing_post_content($title)
+    {
+        // Verifica se o post já existe
+        $existing_post = get_page_by_title($title, OBJECT, 'loterias');
+        if ($existing_post) {
+            // Se o post já existir, retorna o conteúdo
+            return $existing_post->post_content;
+        }
+        return false;
+    }
+
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+
+
+
+
+
+
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    private function save_to_custom_post($title, $content)
+    {
+
+
+        // Verifica se o post já existe
+        $existing_post = get_page_by_title($title, OBJECT, 'loterias');
+        if ($existing_post) {
+            // Se o post já existir, apenas atualiza o conteúdo
+            $post_id = $existing_post->ID;
+            $post_data = array(
+                'ID'           => $post_id,
+                'post_content' => $content,
+            );
+            wp_update_post($post_data);
+        } else {
+            // Se o post não existir, cria um novo
+            $post_data = array(
+                'post_title'   => $title,
+                'post_content' => $content,
+                'post_status'  => 'publish',
+                'post_type'    => 'loterias',
+            );
+            $post_id = wp_insert_post($post_data);
+        }
+    }
+
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    /*************************************************************************************************/
 }
