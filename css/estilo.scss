@@ -1,0 +1,298 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+.font {
+    font-family: "Inter", sans-serif !important; /* Primary font */
+    font-family: Arial, sans-serif !important; /* Fallback font */
+}
+
+#resultados {
+    width: 88.18359375vw;
+    max-width: 99%;
+
+    /*******************/
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    /*******************/
+
+    h2 {
+        color: white;
+        height: 6.640625vw;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        font-size: 1.953125vw;
+        margin-bottom: 4.1015625vw;
+    }
+
+    h3 {
+        font-family: "Inter", sans-serif;
+        margin-top: 4.1015625vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 2.34375vw;
+        p {
+            padding: 0;
+            margin-bottom: 1.46484375vw;
+        }
+        padding-bottom: 4.1015625vw;
+        border-bottom: 1px solid #cbcbcb;
+        margin-bottom: 7.51953125vw;
+    }
+    table {
+        font-size: 1.953125vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 75%;
+        tr,
+        thead {
+            td {
+                text-align: center;
+                height: 5.56640625vw;
+                border-bottom: 1px solid #433c3c;
+            }
+        }
+        margin-bottom: 3.80859375vw;
+    }
+
+    #dezenas {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-bottom: 1px solid #cbcbcb;
+        li {
+            color: white;
+            font-family: Inter;
+            font-size: 1.953125vw;
+            font-weight: 800;
+            line-height: 2.36328125vw;
+            margin-right: 1.5625vw;
+            margin-left: 1.5625vw;
+            margin-bottom: 3.7109375vw;
+            width: 6.54296875vw;
+            height: 6.54296875vw;
+            border-radius: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+/*****************************************************/
+.megasena {
+    $cor1: #298c5f;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+.quina {
+    $cor1: #261383;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+.quina {
+    $cor1: #261383;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+.lotofacil {
+    $cor1: #261383;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+
+.lotomania {
+    $cor1: #f58123;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+
+.timemania {
+    $cor1: #3daf3e;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+.duplasena {
+    $cor1: #a41628;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+
+.federal {
+    $cor1: #133497;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+.diadesorte {
+    $cor1: #CA8536;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/
+.supersorte{
+    $cor1: #A9CF50;
+    width: 88.18359375vw;
+    max-width: 99%;
+    h2 {
+        background-color: $cor1;
+    }
+    #dezenas {
+        li {
+            background-color: $cor1;
+        }
+    }
+    table {
+        thead {
+            td {
+                color: $cor1;
+            }
+        }
+    }
+}
+/*****************************************************/

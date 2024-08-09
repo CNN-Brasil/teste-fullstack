@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.font {
+  font-family: "Inter", sans-serif !important; /* Primary font */
+  font-family: Arial, sans-serif !important; /* Fallback font */
+}
+
+#resultados {
+  width: 88.18359375vw;
+  max-width: 99%;
+  /*******************/
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  /*******************/
+}
+#resultados h2 {
+  color: white;
+  height: 6.640625vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1.953125vw;
+  margin-bottom: 4.1015625vw;
+}
+#resultados h3 {
+  font-family: "Inter", sans-serif;
+  margin-top: 4.1015625vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.34375vw;
+  padding-bottom: 4.1015625vw;
+  border-bottom: 1px solid #cbcbcb;
+  margin-bottom: 7.51953125vw;
+}
+#resultados h3 p {
+  padding: 0;
+  margin-bottom: 1.46484375vw;
+}
+#resultados table {
+  font-size: 1.953125vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  margin-bottom: 3.80859375vw;
+}
+#resultados table tr td,
+#resultados table thead td {
+  text-align: center;
+  height: 5.56640625vw;
+  border-bottom: 1px solid #433c3c;
+}
+#resultados #dezenas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-bottom: 1px solid #cbcbcb;
+}
+#resultados #dezenas li {
+  color: white;
+  font-family: Inter;
+  font-size: 1.953125vw;
+  font-weight: 800;
+  line-height: 2.36328125vw;
+  margin-right: 1.5625vw;
+  margin-left: 1.5625vw;
+  margin-bottom: 3.7109375vw;
+  width: 6.54296875vw;
+  height: 6.54296875vw;
+  border-radius: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*****************************************************/
+.megasena {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.megasena h2 {
+  background-color: #298c5f;
+}
+.megasena #dezenas li {
+  background-color: #298c5f;
+}
+.megasena table thead td {
+  color: #298c5f;
+}
+
+/*****************************************************/
+.quina {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.quina h2 {
+  background-color: #261383;
+}
+.quina #dezenas li {
+  background-color: #261383;
+}
+.quina table thead td {
+  color: #261383;
+}
+
+/*****************************************************/
+.quina {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.quina h2 {
+  background-color: #261383;
+}
+.quina #dezenas li {
+  background-color: #261383;
+}
+.quina table thead td {
+  color: #261383;
+}
+
+/*****************************************************/
+.lotofacil {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.lotofacil h2 {
+  background-color: #261383;
+}
+.lotofacil #dezenas li {
+  background-color: #261383;
+}
+.lotofacil table thead td {
+  color: #261383;
+}
+
+/*****************************************************/
+.lotomania {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.lotomania h2 {
+  background-color: #f58123;
+}
+.lotomania #dezenas li {
+  background-color: #f58123;
+}
+.lotomania table thead td {
+  color: #f58123;
+}
+
+/*****************************************************/
+.timemania {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.timemania h2 {
+  background-color: #3daf3e;
+}
+.timemania #dezenas li {
+  background-color: #3daf3e;
+}
+.timemania table thead td {
+  color: #3daf3e;
+}
+
+/*****************************************************/
+.duplasena {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.duplasena h2 {
+  background-color: #a41628;
+}
+.duplasena #dezenas li {
+  background-color: #a41628;
+}
+.duplasena table thead td {
+  color: #a41628;
+}
+
+/*****************************************************/
+.federal {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.federal h2 {
+  background-color: #133497;
+}
+.federal #dezenas li {
+  background-color: #133497;
+}
+.federal table thead td {
+  color: #133497;
+}
+
+/*****************************************************/
+.diadesorte {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.diadesorte h2 {
+  background-color: #CA8536;
+}
+.diadesorte #dezenas li {
+  background-color: #CA8536;
+}
+.diadesorte table thead td {
+  color: #CA8536;
+}
+
+/*****************************************************/
+.supersorte {
+  width: 88.18359375vw;
+  max-width: 99%;
+}
+.supersorte h2 {
+  background-color: #A9CF50;
+}
+.supersorte #dezenas li {
+  background-color: #A9CF50;
+}
+.supersorte table thead td {
+  color: #A9CF50;
+}
+
+/*****************************************************//*# sourceMappingURL=estilo.css.map */
