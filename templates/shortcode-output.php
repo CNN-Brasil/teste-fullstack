@@ -20,7 +20,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-setlocale(LC_TIME, 'pt_BR.UTF-8', 'Portuguese_Brazil');
 $decoded_data = json_decode($data, true);
 
 if (!$decoded_data || !isset($decoded_data['data'])) {
@@ -30,24 +29,29 @@ if (!$decoded_data || !isset($decoded_data['data'])) {
 
 $date_string = $decoded_data['data'];
 $date_object = DateTime::createFromFormat('d/m/Y', $date_string);
-$weekday = strftime('%A', $date_object->getTimestamp());
+
+if (!$date_object) {
+    echo '<div class="error">Data inválida fornecida.</div>';
+    return;
+}
+
+$formatter = new IntlDateFormatter('pt_BR', IntlDateFormatter::FULL, IntlDateFormatter::NONE, 'America/Sao_Paulo', IntlDateFormatter::GREGORIAN);
+$weekday = $formatter->format($date_object);
 
 $weekday_replacements = [
-    'segunda' => 'Segunda-Feira',
-    'terça' => 'Terça-Feira',
-    'quarta' => 'Quarta-Feira',
-    'quinta' => 'Quinta-Feira',
-    'sexta' => 'Sexta-Feira',
+    'segunda-feira' => 'Segunda-Feira',
+    'terça-feira' => 'Terça-Feira',
+    'quarta-feira' => 'Quarta-Feira',
+    'quinta-feira' => 'Quinta-Feira',
+    'sexta-feira' => 'Sexta-Feira',
     'sábado' => 'Sábado',
     'domingo' => 'Domingo',
 ];
 
-$weekday_lower = strtolower($weekday);
+$weekday_lower = strtolower(explode(',', $weekday)[0]);
 $weekday_adjusted = $weekday_replacements[$weekday_lower] ?? ucfirst($weekday_lower);
 
-$formatted_date = ucfirst(strftime('%A, %d/%m/%Y', $date_object->getTimestamp()));
-$formatted_date = str_replace(ucfirst($weekday_lower), $weekday_adjusted, $formatted_date);
-$formatted_date = str_replace(',', '', $formatted_date);
+$formatted_date = $weekday_adjusted . ' ' . $date_object->format('d/m/Y');
 
 $background_class = match ($decoded_data['loteria'] ?? 'default') {
     'megasena' => 'bg-megasena',
