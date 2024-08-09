@@ -16,6 +16,13 @@ $ docker-composer up -d
 $ composer composer-reinstall
 ```
 - O projeto poderá ser acessado através do endereço: http://localhost:8080
+- Após acessar o projeto deve-se entre na área do admin e ativar o plugin
+- O nome do shortcode é 'pscnn-loterias' e pode ser utilizado das seguintes formas:
+    - ```[pscnn-loterias]``` - onde por padrão os parâmetros "loteria" e "concurso" são "megasena" e "ultimo" respectivamente
+    - ```[pscnn-loterias loteria="quina"]``` - para definir o parâmento "loteria"
+    - ```[pscnn-loterias loteria="quina" concurso="numeroDoConcurso"]``` - para definir o parâmento "loteria" e o parâmetro "concurso"
+
+** O parametro "concurso" pode ter dois tipos de valores sendo eles: o "numero do concurso predendido" ou "ultimo" para obter o último concurso realizado naquela loteria 
 
 #### Funcionamento do plugin
 - Ao ativar o plugin, ele já deve estar funcional, não deve ser necessário nenhum tipo de configuração ou ajuste prévio;

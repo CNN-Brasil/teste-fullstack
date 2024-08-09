@@ -21,7 +21,16 @@ use PSCNN\Modules\Shortcodes;
 class PSCNN {
     const TEXT_DOMAIN = 'pscnn-test';
 
-    static public function add_scripts() {
+    /**
+     * The PSCNN::add_scripts method adds script dependencies and styles
+     *  and is called by global initialization in the wp_enqueue_scripts action
+     *
+     * @since 0.0.1
+     *
+     * @return void
+     */
+
+    static public function add_scripts(): void {
         if (!function_exists('get_plugin_data')) {
             require_once ABSPATH . '/wp-admin/includes/plugin.php';
         }
@@ -38,7 +47,15 @@ class PSCNN {
         wp_enqueue_script('main', "{$path}/scripts/main.min.js", ['vue', 'axios'], $version, ['in_footer' => true]);
     }
 
-    static public function init() {
+    /**
+     * Method PSCNN::init is called when activating the plugin to take care of its initialization.
+     *
+     * @since 0.0.1
+     *
+     *  @return void
+     */
+
+    static public function init(): void {
         require_once __DIR__ . '/vendor/autoload.php';
 
         Post_Types::init();
