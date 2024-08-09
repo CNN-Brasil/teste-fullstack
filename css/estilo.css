@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-.font {
+#resultado {
   font-family: "Inter", sans-serif !important; /* Primary font */
 }
 
 #resultados {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   width: 88.18359375vw;
   max-width: 99%;
+  margin-bottom: 2vw;
   /*******************/
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -14,6 +18,8 @@
   /*******************/
 }
 #resultados h2 {
+  margin: 0;
+  font-family: "Inter", sans-serif !important; /* Primary font */
   color: white;
   height: 6.640625vw;
   display: flex;
@@ -23,6 +29,8 @@
   margin-bottom: 4.1015625vw;
 }
 #resultados h3 {
+  margin: 0;
+  font-family: "Inter", sans-serif !important; /* Primary font */
   font-family: "Inter", sans-serif;
   margin-top: 4.1015625vw;
   display: flex;
@@ -48,6 +56,7 @@
 }
 #resultados table tr td,
 #resultados table thead td {
+  font-weight: bold;
   text-align: center;
   height: 5.56640625vw;
   border-bottom: 1px solid #433c3c;
@@ -79,6 +88,7 @@
 .megasena {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #298c5f;
 }
 .megasena h2 {
   background-color: #298c5f;
@@ -94,6 +104,7 @@
 .quina {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #261383;
 }
 .quina h2 {
   background-color: #261383;
@@ -109,6 +120,7 @@
 .quina {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #261383;
 }
 .quina h2 {
   background-color: #261383;
@@ -124,6 +136,7 @@
 .lotofacil {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #261383;
 }
 .lotofacil h2 {
   background-color: #261383;
@@ -139,6 +152,7 @@
 .lotomania {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #f58123;
 }
 .lotomania h2 {
   background-color: #f58123;
@@ -154,6 +168,7 @@
 .timemania {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #3daf3e;
 }
 .timemania h2 {
   background-color: #3daf3e;
@@ -169,6 +184,7 @@
 .duplasena {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #a41628;
 }
 .duplasena h2 {
   background-color: #a41628;
@@ -184,6 +200,7 @@
 .federal {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #133497;
 }
 .federal h2 {
   background-color: #133497;
@@ -199,30 +216,32 @@
 .diadesorte {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #ca8536;
 }
 .diadesorte h2 {
-  background-color: #CA8536;
+  background-color: #ca8536;
 }
 .diadesorte #dezenas li {
-  background-color: #CA8536;
+  background-color: #ca8536;
 }
 .diadesorte table thead td {
-  color: #CA8536;
+  color: #ca8536;
 }
 
 /*****************************************************/
 .supersorte {
   width: 88.18359375vw;
   max-width: 99%;
+  border: 1px solid #a9cf50;
 }
 .supersorte h2 {
-  background-color: #A9CF50;
+  background-color: #a9cf50;
 }
 .supersorte #dezenas li {
-  background-color: #A9CF50;
+  background-color: #a9cf50;
 }
 .supersorte table thead td {
-  color: #A9CF50;
+  color: #a9cf50;
 }
 
 /*****************************************************//*# sourceMappingURL=estilo.css.map */

@@ -1,13 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
-.font {
+#resultado {
     font-family: "Inter", sans-serif !important; /* Primary font */
 }
- 
 
 #resultados {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     width: 88.18359375vw;
     max-width: 99%;
+    margin-bottom: 2vw;
 
     /*******************/
     font-family: "Inter", sans-serif;
@@ -15,8 +18,10 @@
     font-weight: 800;
     font-style: normal;
     /*******************/
- 
+
     h2 {
+        margin: 0;
+        font-family: "Inter", sans-serif !important; /* Primary font */
         color: white;
         height: 6.640625vw;
         display: flex;
@@ -27,6 +32,8 @@
     }
 
     h3 {
+        margin: 0;
+        font-family: "Inter", sans-serif !important; /* Primary font */
         font-family: "Inter", sans-serif;
         margin-top: 4.1015625vw;
         display: flex;
@@ -51,6 +58,7 @@
         tr,
         thead {
             td {
+                font-weight: bold;
                 text-align: center;
                 height: 5.56640625vw;
                 border-bottom: 1px solid #433c3c;
@@ -88,6 +96,7 @@
     $cor1: #298c5f;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -109,6 +118,7 @@
     $cor1: #261383;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -130,6 +140,7 @@
     $cor1: #261383;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -151,6 +162,7 @@
     $cor1: #261383;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -173,6 +185,7 @@
     $cor1: #f58123;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -195,6 +208,7 @@
     $cor1: #3daf3e;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -216,6 +230,7 @@
     $cor1: #a41628;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -238,6 +253,7 @@
     $cor1: #133497;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -256,9 +272,10 @@
 }
 /*****************************************************/
 .diadesorte {
-    $cor1: #CA8536;
+    $cor1: #ca8536;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }
@@ -276,10 +293,11 @@
     }
 }
 /*****************************************************/
-.supersorte{
-    $cor1: #A9CF50;
+.supersorte {
+    $cor1: #a9cf50;
     width: 88.18359375vw;
     max-width: 99%;
+    border: 1px solid $cor1;
     h2 {
         background-color: $cor1;
     }

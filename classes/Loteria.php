@@ -9,8 +9,8 @@ class Loteria
     public $concurso;
     public $loteria;
     public $dados;
-
-
+    private $convert;
+    /*****Aqui eu vou especificar se quero ou não  que converta alguma informação ******/
 
 
 
@@ -25,8 +25,36 @@ class Loteria
         $concursoInfo = "";
         if (!empty($this->concurso)) {
             $concursoInfo = "/" . $this->concurso;
-        }
+        } 
+        elseif ($this->concurso == "ultimo") { $concursoInfo = "/" . 'latest'; } 
+        else { $concursoInfo = "/" . 'latest'; }
 
+        $postTitle = $this->loteria . " - Concurso " . $this->concurso;
+
+
+
+
+
+
+
+        /*************************************************************************** */
+        /**Aqui eu vou ver primeiro, se o numero do concurso foi "setado"**/
+        if (isset($this->concurso)):
+            // informanndo que  eu quero que o conteudo deve ser convertido para array;
+            $this->convert = 1;
+            // Verifica se já existe um post com este título
+            $existing_post_content = $this->get_existing_post_content($postTitle);
+            if ($existing_post_content) {
+                echo $existing_post_content;
+                return $this;
+            }
+        endif;
+        /************************************************************************** */
+
+
+
+
+        #url que vai ser acessaada
         $url = 'https://loteriascaixa-api.herokuapp.com/api/' . $this->loteria . $concursoInfo;
 
         // Definindo o nome do arquivo de cache com base na URL
@@ -45,7 +73,6 @@ class Loteria
         if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < 3600)) {
             // Lê os dados do cache
             $data = json_decode(file_get_contents($cacheFile), true);
-            
         } else {
             // Inicia uma nova sessão cURL
             $ch = curl_init();
@@ -72,10 +99,15 @@ class Loteria
             curl_close($ch);
         }
 
+
+        // Atualiza o conteúdo do post com a nova resposta da API
         $this->grid($data);
 
         return $this;
     }
+
+
+
     /*************************************************************************************************/
     /*************************************************************************************************/
     /*************************************************************************************************/
@@ -85,16 +117,20 @@ class Loteria
 
     private function grid($data)
     {
+
+
         if (!isset($data[0])) {
             $dados = $data;
             $data = array($dados);
         }
+
 
         $loteria = $this->loteria;
         $html = '<div id="resultados" class="' . $loteria . ' font">';
         $linha = 0;
 
         foreach ($data as $dd) {
+
             if (!isset($dd['concurso'])) {
                 $dd['concurso'] = "não informado";
             }
@@ -111,65 +147,70 @@ class Loteria
                 $dd['premiacoes'] = array();
             }
 
-            if ($linha < 3) {
-                // Cria o título do post
-                $post_title = $loteria;
-                if ($dd['concurso'] !== "não informado") {
-                    $post_title .= " - Concurso " . $dd['concurso'];
-                }
 
-                // Verifica se já existe um post com este título
-                $existing_post_content = $this->get_existing_post_content($post_title);
-                if ($existing_post_content) {
-                    // Se o post já existe, usa o conteúdo existente
-                    $html .= $existing_post_content;
-                } else {
-                    // Se o post não existir, cria o novo conteúdo
-                    $html .= "<h2> Concurso: " . $dd['concurso'] . " " . $dd['data'] . "</h2>";
-                    $html .= "<ul id='dezenas'>";
-                    foreach ($dd['dezenasOrdemSorteio'] as $d) {
-                        $html .= "<li>" . $d . "</li>";
-                    }
-                    $html .= "</ul>";
-
-                    $html .= "<div> ";
-                    $html .= "</div>";
-                    $html .= "<h3><p>Premio: </p> <p>" . $dd['valorAcumuladoConcursoEspecial'] . "</p></h3>";
-
-                    $html .= "<table>";
-                    $html .= "<thead>";
-                    $html .= "<td>faixa: </td>";
-                    $html .= "<td>ganhadores: </td>";
-                    $html .= "<td>premio: </td>";
-                    $html .= "</thead>";
-
-                    foreach ($dd['premiacoes'] as $pp) {
-                        $html .= "<tr>";
-                        $html .= "<td>" . $pp['faixa'] . "</td>";
-                        $html .= "<td>" . $pp['ganhadores'] . "</td>";
-                        $html .= "<td>" . $pp['valorPremio'] . " </td>";
-                        $html .= "</tr>";
-                    }
-                    $html .= "</table>";
-
-                    // Salva o novo post
-                    $this->save_to_custom_post($post_title, $html);
-                }
-                $linha++;
+            // Cria o título do post
+            $post_title = $loteria;
+            if ($dd['concurso'] !== "não informado") {
+                $post_title .= " - Concurso " . $dd['concurso'];
             }
+
+     
+                // Se o post não existir, cria o novo conteúdo
+                $html .= "<h2> Concurso: " . $dd['concurso'] . " " . $dd['data'] . "</h2>";
+                $html .= "<ul id='dezenas'>";
+                foreach ($dd['dezenasOrdemSorteio'] as $d) {
+                    $html .= "<li>" . $d . "</li>";
+                }
+                $html .= "</ul>";
+
+                $html .= "<div> ";
+                $html .= "</div>";
+                $html .= "<h3><p>Premio: </p> <p>" . $dd['valorAcumuladoConcursoEspecial'] . "</p></h3>";
+
+                $html .= "<table>";
+                $html .= "<thead>";
+                $html .= "<td>Faixa: </td>";
+                $html .= "<td>Ganhadores: </td>";
+                $html .= "<td>Premio: </td>";
+                $html .= "</thead>";
+
+                foreach ($dd['premiacoes'] as $pp) {
+                    $html .= "<tr>";
+                    $html .= "<td>" . $pp['faixa'] . "</td>";
+                    $html .= "<td>" . $pp['ganhadores'] . "</td>";
+                    $html .= "<td>" . $pp['valorPremio'] . " </td>";
+                    $html .= "</tr>";
+                }
+                $html .= "</table></div>";
+
+                // Salva o novo post
+                $this->save_to_custom_post($post_title, $html);
+            
+            $linha++;
         }
         $html .= "</div>";
         $this->dados = $html;
     }
+    /*************************************************************************************************/
+    /*************************************************************************************************/
+    /*************************************************************************************************/
 
     private function get_existing_post_content($title)
     {
         // Verifica se o post já existe
         $existing_post = get_page_by_title($title, OBJECT, 'loterias');
-        if ($existing_post) {
-            // Se o post já existir, retorna o conteúdo
+
+        if ($existing_post) { // Verifica se o post foi encontrado
+            // Se o post já existir e $this->convert for 1, retorna o conteúdo do post
+            if ($this->convert == 1) {
+                return $existing_post->post_content;
+            }
+
+            // Retorna o conteúdo do post
             return $existing_post->post_content;
         }
+
+        // Retorna false se o post não existir
         return false;
     }
 
