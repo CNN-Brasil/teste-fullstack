@@ -11,7 +11,7 @@ function meu_plugin_autoload($class)
         $relative_class = substr($class, strlen($prefix));
         
         // Substituir namespaces por barras e criar o caminho completo do arquivo
-        $class_file = plugin_dir_path(__FILE__) . 'classes/' . str_replace('\\', '/', $relative_class) . '.php';
+        $class_file = plugin_dir_path(__FILE__) . 'classes/class-' . str_replace('\\', '/', $relative_class) . '.php';
         
         // Debug: Mostrar o caminho do arquivo
         // exit($class_file);
