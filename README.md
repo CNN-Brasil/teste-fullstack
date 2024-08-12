@@ -22,6 +22,7 @@ Use o seguinte shortcode em suas postagens ou páginas para exibir os resultados
 
 ```plaintext
 [lottery_results loteria="megasena" concurso="2009"]
+```plaintext
 
 sendo os parametros "loteria" e "concurso" variáveis que podem ser escolhidos , trazendo diferentes resultados!
 
