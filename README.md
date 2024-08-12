@@ -20,10 +20,12 @@ Para instalar o plugin, siga estes passos:
 
 Use o seguinte shortcode em suas postagens ou páginas para exibir os resultados de uma loteria:
 
-```plaintext
-[lottery_results loteria="megasena" concurso="2009"]
-```plaintext
-
 sendo os parametros "loteria" e "concurso" variáveis que podem ser escolhidos , trazendo diferentes resultados!
 
 Divirtam-se!
+
+EX.: 
+```plaintext
+[lottery_results loteria="megasena" concurso="2009"]
+
+
