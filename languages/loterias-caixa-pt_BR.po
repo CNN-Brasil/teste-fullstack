@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Loterias Caixa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-22 12:57+0000\n"
+"PO-Revision-Date: 2024-03-22 13:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.3\n"
+"X-Domain: loterias-caixa"
+
+#: src/includes/cpt-loteria.php:29
+msgid "Adicionar Nova"
+msgstr "Adicionar Nova"
+
+#: src/includes/cpt-loteria.php:28
+msgid "Adicionar Nova Loteria"
+msgstr "Adicionar Nova Loteria"
+
+#: src/includes/cpt-loteria.php:32
+msgid "Atualizar Loteria"
+msgstr "Atualizar Loteria"
+
+#: src/includes/cpt-loteria.php:34
+msgid "Buscar Loteria"
+msgstr "Buscar Loteria"
+
+#: src/includes/cpt-loteria.php:108
+msgid "clicando aqui"
+msgstr "clicando aqui"
+
+#: src/includes/cpt-loteria.php:71
+msgid "Concurso"
+msgstr "Concurso"
+
+#: src/includes/cpt-loteria.php:72
+msgid "Dada do concurso"
+msgstr "Dada do concurso"
+
+#: class.php:17
+msgid "Documentação"
+msgstr "Documentação"
+
+#: src/includes/cpt-loteria.php:31
+msgid "Editar Loteria"
+msgstr "Editar Loteria"
+
+#: src/includes/cpt-loteria.php:107
+msgid "Em caso de dúvidas, favor verificar nossa documentação no link abaixo"
+msgstr "Em caso de dúvidas, favor verificar nossa documentação no link abaixo"
+
+#. Author of the plugin
+msgid "Guiherme Moreno"
+msgstr ""
+
+#. Description of the plugin
+msgid "Exibe os resultados das Loterias da Caixa via shortcode."
+msgstr "Exibe os resultados das Loterias da Caixa via shortcode."
+
+#. URI of the plugin
+msgid "www.google.com"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "www.google.com"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:23 src/includes/cpt-loteria.php:24
+#: src/includes/cpt-loteria.php:25 src/includes/cpt-loteria.php:70
+msgid "Loteria"
+msgstr "Loteria"
+
+#: src/includes/cpt-loteria.php:22
+msgid "Loterias"
+msgstr "Loterias"
+
+#. Name of the plugin
+msgid "Loterias Caixa"
+msgstr "Loterias Caixa"
+
+#: src/includes/cpt-loteria.php:30
+msgid "Nova Loteria"
+msgstr "Nova Loteria"
+
+#: src/includes/cpt-loteria.php:35
+msgid "Não encontrado"
+msgstr "Não encontrado"
+
+#: src/includes/cpt-loteria.php:36
+msgid "Não encontrado na Lixeira"
+msgstr "Não encontrado na Lixeira"
+
+#: src/includes/cpt-loteria.php:106
+msgid ""
+"Não é recomendado criar uma loteria por aqui, recomendamos que faça uso do "
+"nosso shortcode em alguma página do seu site."
+msgstr ""
+"Não é recomendado criar uma loteria por aqui, recomendamos que faça uso do "
+"nosso shortcode em alguma página do seu site."
+
+#: src/includes/cpt-loteria.php:26
+msgid "Parent Item:"
+msgstr ""
+
+#: src/includes/cpt-loteria.php:73
+msgid "Prêmio estimado"
+msgstr "Prêmio estimado"
+
+#: src/includes/cpt-loteria.php:27
+msgid "Todas as Loterias"
+msgstr "Todas as Loterias"
+
+#: src/includes/cpt-loteria.php:33
+msgid "Ver Loteria"
+msgstr "Ver Loteria"
