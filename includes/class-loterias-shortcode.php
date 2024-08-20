@@ -7,8 +7,8 @@ class Loterias_Shortcode {
 
     public static function display_results($atts) {
         $atts = shortcode_atts(array(
-            'loteria' => 'megasena',
-            'concurso' => 'ultimo',
+            'loteria' => '',
+            'concurso' => '',
         ), $atts);
 
         $concurso = sanitize_text_field($atts['concurso']);
@@ -23,11 +23,12 @@ class Loterias_Shortcode {
             Loterias_CPT::save_results($loteria, $concurso, $results);
         }
 
-        // Exibe os resultados com o layout do Figma
         ob_start();
-        echo '<div class="loteria-result">';
-        // Formatação personalizada
-        echo '</div>';
+        echo Loterias_CPT::format_results_table($results);
         return ob_get_clean();
     }
+
+        
+
+    
 }
