@@ -100,7 +100,7 @@ class Loterias_CPT {
     
         // Método para formatar os resultados em uma tabela Bootstrap
         public static function format_results_table($results) {
-            var_dump($results);
+            //var_dump($results);
             $html = '<div class="grid text-center">';
             $html .= '<div class="g-col-12" style="background-color:#298C5F;width:903px;height:68px;
 ">Concurso: ' . $results['concurso'] . ' - '. $results['data'].'</div>';
