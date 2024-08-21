@@ -1,0 +1,212 @@
+/*!**********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/Resources/scss/app.scss ***!
+  \**********************************************************************************************************************/
+/**
+ * Colorize
+*/
+:root {
+  --primary-color:#298C5F;
+}
+
+.resultadosLoterias {
+  /* Variable scoping in SASS */
+  /** By Scope */
+  border: 1px solid #CBCBCB;
+  font-family: "Inter", sans-serif;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  /** Dezenas */
+  /** Premios */
+  /** Ganhadores */
+}
+.resultadosLoterias--maismilionaria {
+  --primary-color:#999;
+}
+.resultadosLoterias.--megasena {
+  --primary-color:#298C5F;
+}
+.resultadosLoterias.--lotofacil {
+  --primary-color:#921788;
+}
+.resultadosLoterias.--quina {
+  --primary-color:#261383;
+}
+.resultadosLoterias.--lotomania {
+  --primary-color:#F58123;
+}
+.resultadosLoterias.--timemania {
+  --primary-color:#3DAF3E;
+}
+.resultadosLoterias.--duplasena {
+  --primary-color:#A41628;
+}
+.resultadosLoterias.--federal {
+  --primary-color:#133497;
+}
+.resultadosLoterias.--diadesorte {
+  --primary-color:#CA8536;
+}
+.resultadosLoterias.--supersete {
+  --primary-color:#A9CF50;
+}
+.resultadosLoterias__item {
+  margin-bottom: -18px;
+}
+.resultadosLoterias__item > div {
+  border-bottom: 1px solid #CBCBCB;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+.resultadosLoterias__item > div:last-child {
+  border: 0;
+  padding-bottom: 0;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__item > div {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+}
+.resultadosLoterias__head {
+  background-color: var(--primary-color);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 8px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 0 15px;
+  gap: 0 6px;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__head {
+    font-size: 20px;
+    line-height: 24px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
+.resultadosLoterias__dezenasOrdemSorteio {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 15px 15px;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__dezenasOrdemSorteio {
+    gap: 10px 15px;
+  }
+}
+.resultadosLoterias__dezenas {
+  width: 67px;
+  height: 67px;
+  background-color: var(--primary-color);
+  border-radius: 100px;
+  color: #fff;
+  display: flex;
+  font-weight: 700;
+  height: 47px;
+  width: 47px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  letter-spacing: 0em;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__dezenas {
+    font-size: 20px;
+    line-height: 24px;
+    height: 67px;
+    width: 67px;
+  }
+}
+.resultadosLoterias__premio {
+  display: block;
+}
+.resultadosLoterias__premio > strong {
+  line-height: 3px;
+  letter-spacing: 0em;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__premio > strong {
+    font-size: 20px;
+  }
+}
+.resultadosLoterias__premioTitle {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__premioTitle {
+    font-size: 20px;
+  }
+}
+.resultadosLoterias__premioValor {
+  font-size: 18px;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__premioValor {
+    font-size: 24px;
+  }
+}
+.resultadosLoterias__ganhadores {
+  outline: none;
+}
+.resultadosLoterias__ganhadoresItem {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 15px 5px;
+  border-bottom: 1px solid #CBCBCB;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.resultadosLoterias__ganhadoresItem span {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  display: inline-block;
+  max-width: 188px;
+  width: 188px;
+}
+.resultadosLoterias__ganhadoresItem span:first-child {
+  max-width: 120px;
+  width: 120px;
+}
+.resultadosLoterias__ganhadoresItem span:last-child {
+  max-width: 196px;
+  width: 196px;
+}
+@media (min-width: 768px) {
+  .resultadosLoterias__ganhadoresItem span {
+    font-size: 20px;
+  }
+}
+.resultadosLoterias__ganhadoresItem.--head span {
+  font-weight: 800;
+  color: var(--primary-color);
+}

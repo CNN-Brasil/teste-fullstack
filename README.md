@@ -41,3 +41,11 @@ O repositório utiliza composer para validação do código. Você está livre p
 O shortcode deverá aceitar os seguintes parâmetros:
 - loteria: O nome da loteria, por exemplo, "megasena"
 - concurso: O número do concurso da loteria, podendo ser um número ou "ultimo", caso não seja preenchido, considerar sempre "ultimo" como padrão
+
+
+### Testes [[1](https://php.com.br/64?php-e-padrao-de-qualidade-de-codigo-conheca-o-phpcs)]
+
+```php
+# Teste PHP_CodeSniffer
+php vendor/bin/phpcs -l src/Classes/
+```
