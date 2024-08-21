@@ -1,0 +1,289 @@
+:root {
+    --lottery-maismilionaria: #F7C137;
+    --lottery-megasena: #2D976A;
+    --lottery-lotofacil: #921788;
+    --lottery-quina: #261383;
+    --lottery-lotomania: #F58123;
+    --lottery-timemania: #3DAF3E;
+    --lottery-duplasena: #A41628;
+    --lottery-federal: #133497;
+    --lottery-diadesorte: #CA8536;
+    --lottery-supersete: #A9CF50;
+    --lottery-separator: #CBCBCB;
+    --lottery-white: #FFFFFF;
+    --lottery-dark: #1E1E1E;
+    --lottery-error-bg: #f3b0b0;
+    --lottery-error-text: #bd2828;
+}
+
+/* Font Family Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+
+/* Bloco principal do card */
+.card-lottery {
+    padding: 0;
+    margin: 0;
+    background-color: var(--lottery-white);
+    text-align: center;
+}
+
+/* Header do card */
+.card-lottery__header {
+    padding: 24px;
+    color: var(--lottery-white);
+}
+
+/* Título do cartão */
+.card-lottery__title {
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.2px;
+    color: var(--lottery-white);
+    margin: 0;
+}
+
+/* Corpo do cartão */
+.card-lottery__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Bloco das dezenas */
+.card-lottery__dozens {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+/* Lista de dezenas */
+.card-lottery__dozens-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* Cada dezena */
+.card-lottery__dozen {
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24.2px;
+    color: var(--lottery-white);
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Bloco de premiação */
+.card-lottery__awards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    color: var(--lottery-dark);
+    border-top: 1px solid var(--lottery-separator);
+    border-bottom: 1px solid var(--lottery-separator);
+}
+
+/* Título da premiação */
+.card-lottery__awards-title {
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24.2px;
+    margin: 0;
+}
+
+/* Valor do prêmio principal */
+.card-lottery__awards-value {
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 29.05px;
+    margin: 0;
+}
+
+/* Bloco de vencedores */
+.card-lottery__winners {
+    overflow-x: auto;
+    padding: 56px 0 24px;
+}
+
+/* Tabela de vencedores */
+.card-lottery__winners-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Cabeçalho da tabela de vencedores */
+.card-lottery__winners-table thead th {
+    padding: 12px 0;
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24.2px;
+}
+
+/* Células do corpo da tabela */
+.card-lottery__winners-table tbody td {
+    padding: 12px 16px;
+    border-top: 1px solid var(--lottery-separator);
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24.2px;
+}
+
+/* error */
+.lottery-error{
+    padding: 24px;
+    background-color: var(--lottery-error-bg);
+    border-radius: 4px;
+    color: var(--lottery-error-text);
+    font-weight: 500;
+}
+
+/* maismilionaria */
+#maismilionaria .card-lottery__header,
+#maismilionaria .card-lottery__dozen{
+    background-color: var(--lottery-maismilionaria);
+}
+#maismilionaria .card-lottery__winners-table thead th {
+    color: var(--lottery-maismilionaria);
+}
+
+/* megasena */
+#megasena .card-lottery__header,
+#megasena .card-lottery__dozen{
+    background-color: var(--lottery-megasena);
+}
+#megasena .card-lottery__winners-table thead th {
+    color: var(--lottery-megasena);
+}
+
+/* lotofacil */
+#lotofacil .card-lottery__header,
+#lotofacil .card-lottery__dozen{
+    background-color: var(--lottery-lotofacil);
+}
+#lotofacil .card-lottery__winners-table thead th {
+    color: var(--lottery-lotofacil);
+}
+
+/* quina */
+#quina .card-lottery__header,
+#quina .card-lottery__dozen{
+    background-color: var(--lottery-quina);
+}
+#quina .card-lottery__winners-table thead th {
+    color: var(--lottery-quina);
+}
+
+/* lotomania */
+#lotomania .card-lottery__header,
+#lotomania .card-lottery__dozen{
+    background-color: var(--lottery-lotomania);
+}
+#lotomania .card-lottery__winners-table thead th {
+    color: var(--lottery-lotomania);
+}
+
+/* timemania */
+#timemania .card-lottery__header,
+#timemania .card-lottery__dozen{
+    background-color: var(--lottery-timemania);
+}
+#timemania .card-lottery__winners-table thead th {
+    color: var(--lottery-timemania);
+}
+
+/* duplasena */
+#duplasena .card-lottery__header,
+#duplasena .card-lottery__dozen{
+    background-color: var(--lottery-duplasena);
+}
+#duplasena .card-lottery__winners-table thead th {
+    color: var(--lottery-duplasena);
+}
+
+/* federal */
+#federal .card-lottery__header,
+#federal .card-lottery__dozen{
+    background-color: var(--lottery-federal);
+}
+#federal .card-lottery__winners-table thead th {
+    color: var(--lottery-federal);
+}
+#federal .card-lottery__dozen {
+    width: 60px;
+    height: 60px;
+    font-size: 14px;
+}
+
+/* diadesorte */
+#diadesorte .card-lottery__header,
+#diadesorte .card-lottery__dozen{
+    background-color: var(--lottery-diadesorte);
+}
+#diadesorte .card-lottery__winners-table thead th {
+    color: var(--lottery-diadesorte);
+}
+
+/* super-sete */
+#supersete .card-lottery__header,
+#supersete .card-lottery__dozen{
+    background-color: var(--lottery-supersete);
+}
+#supersete .card-lottery__winners-table thead th {
+    color: var(--lottery-supersete);
+}
+
+@media (max-width: 768px) {
+    .card-lottery__dozens {
+        padding: 24px;
+    }
+    .card-lottery__dozens-list {
+        gap: 8px;
+    }
+    .card-lottery__dozen {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .card-lottery__awards,
+    .card-lottery__header {
+        padding: 16px;
+    }
+    .card-lottery__awards-title,
+    .card-lottery__awards-value {
+        font-size: 16px;
+        line-height: 19.4px;
+    }
+
+    .card-lottery__winners {
+        padding: 32px 0 12px;
+    }
+    .card-lottery__winners-table thead th {
+        padding: 8px 0;
+        font-size: 16px;
+        line-height: 19.4px;
+    }
+    .card-lottery__winners-table tbody td {
+        padding: 8px 12px;
+        font-size: 16px;
+        line-height: 19.4px;
+    }
+}

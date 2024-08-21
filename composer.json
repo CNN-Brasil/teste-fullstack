@@ -1,7 +1,7 @@
 {
-    "name": "cnnbr/teste-fullstack",
+    "name": "rafaelscouto/lottery-challenge",
     "description": "Desafio prático para desenvolvedores Fullstack com PHP",
-    "type": "project",
+    "type": "wordpress-plugin",
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "phpcompatibility/phpcompatibility-wp": "^2.1",
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cnnbr\\TesteFullstack\\": "src/"
+            "LotteryChallenge\\": "includes/"
         }
     },
     "config": {
