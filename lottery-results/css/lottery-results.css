@@ -1,0 +1,183 @@
+.lottery-container {
+	font-family: 'Inter', sans-serif;
+	min-width: 900px;
+	min-height: 680px;
+}
+
+.lottery-container .lottery-header {
+	height: 68px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24.2px;
+	text-align: center;
+}
+
+.lottery-container .lottery-body .lottery-numbers {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+	gap: 10px;
+	padding-left: 200px !important;
+	padding-right: 200px !important;
+}
+
+.lottery-container .lottery-body .lottery-numbers-lotofacil, .lottery-numbers-lotomania {
+	gap: 30px !important;
+}
+
+.lottery-container .lottery-body .lottery-numbers .lottery-drawn-number {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	line-height: 67px;
+	height: 67px;
+	width: 67px;
+	border-radius: 50%;
+	font-weight: 800;
+	font-size: 20px;
+}
+
+.lottery-container .lottery-body .lottery-numbers .lottery-drawn-ticket {
+	font-size: 15px !important;
+}
+
+.lottery-container .lottery-body .lottery-numbers .lottery-drawn-team {
+	grid-column: span 7;
+	text-align: center;
+}
+
+.lottery-container .lottery-body .lottery-numbers .lottery-drawn-title {
+	grid-column: span 7;
+	font-weight: 800;
+	font-size: 24px;
+}
+
+.lottery-container .lottery-body .lottery-prize {
+	width: 100%;
+	text-align: center;
+	font-weight: 800;
+	font-size: 24px;
+	line-height: 29.05px;
+	text-align: center;
+}
+
+.lottery-container .lottery-body .lottery-winners {
+	display: flex;
+	width: 100%;
+	text-align: center;
+}
+
+.lottery-container .lottery-body .lottery-winners table {
+	width: 100%;
+}
+
+.lottery-container .lottery-body .lottery-winners table thead tr {
+	font-weight: 800;
+	font-size: 20px;
+	line-height: 24.2px;
+}
+
+.lottery-container .lottery-body .lottery-winners table tbody tr td {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24.2px;
+	height: 60px;
+	border-top: 1px solid #CBCBCB;
+}
+
+
+
+.lottery-container .lottery-body .lottery-body-section {
+	min-height: 110px;
+	justify-content: center;
+	align-items: center;
+	padding: 40px 0 20px 0;
+	border-top: 1px solid #CBCBCB;
+}
+
+
+
+.lottery-container .bg-megasena {
+	background-color: #2D976A;
+}
+
+.lottery-container .bg-quina {
+	background-color: #261383;
+}
+
+.lottery-container .bg-lotofacil {
+	background-color: #921788;
+}
+
+.lottery-container .bg-lotomania {
+	background-color: #F58123;
+}
+
+.lottery-container .bg-timemania {
+	background-color: #3DAF3E;
+}
+
+.lottery-container .bg-duplasena {
+	background-color: #A41628;
+}
+
+.lottery-container .bg-federal {
+	background-color: #133497;
+}
+
+.lottery-container .bg-diadesorte {
+	background-color: #CA8536;
+}
+
+.lottery-container .bg-supersete {
+	background-color: #A9CF50;
+}
+
+.lottery-container .text-white {
+	color: #FFFFFF;
+}
+
+.lottery-container .text-megasena {
+	color: #2D976A;
+}
+
+.lottery-container .text-quina {
+	color: #261383;
+}
+
+.lottery-container .text-lotofacil {
+	color: #921788;
+}
+
+.lottery-container .text-lotomania {
+	color: #F58123;
+}
+
+.lottery-container .text-timemania {
+	color: #3DAF3E;
+}
+
+.lottery-container .text-duplasena {
+	color: #A41628;
+}
+
+.lottery-container .text-federal {
+	color: #133497;
+}
+
+.lottery-container .text-diadesorte {
+	color: #CA8536;
+}
+
+.lottery-container .text-supersete {
+	color: #A9CF50;
+}
+
+
+.shadow-box {
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
