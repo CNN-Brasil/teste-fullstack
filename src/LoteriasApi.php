@@ -4,6 +4,17 @@ namespace LoteriasPlugin;
 
 class LoteriasApi
 {
+    /**
+     * Fetch the lottery result from the API based on the lottery name and contest number.
+     *
+     * This method checks if the result is cached using a WordPress transient. If not, it makes a remote
+     * request to the Loterias Caixa API to fetch the result. The API URL is constructed dynamically based
+     * on whether the contest number is 'ultimo' (latest) or a specific contest number.
+     *
+     * @param string $lottery The name of the lottery.
+     * @param string|int $contest The contest number or 'ultimo' to fetch the latest result.
+     * @return object|false Returns the lottery result as an object if successful, or false if the request fails.
+     */
     public function fetch_lottery_api_result($lottery, $contest)
     {
         $cache_key = 'loteria_' . $lottery . '_' . $contest;

@@ -6,12 +6,28 @@ class LoteriasShortcode
 {
     private $api;
 
+    /**
+     * Constructor that registers the shortcode and initializes the API class.
+     *
+     * This method registers the shortcode [loterias] and initializes the API handler
+     * to interact with the external lottery API.
+     */
     public function __construct()
     {
         add_shortcode('loterias', [$this, 'render_shortcode']);
         $this->api = new LoteriasApi();
     }
 
+    /**
+     * Renders the shortcode for displaying lottery results.
+     *
+     * This method handles the shortcode [loterias] with attributes for 'loteria' (lottery type)
+     * and 'concurso' (contest number or 'ultimo' for the latest contest). It fetches the result
+     * either from the database or the API and returns a formatted template.
+     *
+     * @param array $atts Shortcode attributes ('loteria' and 'concurso').
+     * @return string Rendered HTML template for the lottery result.
+     */
     public function render_shortcode($atts)
     {
         $atts = shortcode_atts([
@@ -48,6 +64,16 @@ class LoteriasShortcode
         return $this->get_template(get_post($post_id));
     }
 
+    /**
+     * Saves the lottery result in a custom post type.
+     *
+     * This method inserts a new 'loterias' post with the contest information and updates
+     * the metadata for the lottery results such as numbers, date, and prize details.
+     *
+     * @param string $lottery The lottery name.
+     * @param object $result The lottery result object from the API.
+     * @return int The ID of the saved post.
+     */
     private function save_lottery_result($lottery, $result)
     {
         $post_id = wp_insert_post([
@@ -75,6 +101,16 @@ class LoteriasShortcode
         return $post_id;
     }
 
+    /**
+     * Retrieves an existing contest from the database.
+     *
+     * This method checks if a contest result already exists in the database for a given lottery
+     * and contest number, using a cached result if available.
+     *
+     * @param string $lottery The lottery name.
+     * @param string|int $contest The contest number.
+     * @return object|false The contest post object if found, otherwise false.
+     */
     private function get_existing_contest($lottery, $contest)
     {
         $cache_key = 'existing_contest_' . $lottery . '_' . $contest;
@@ -105,6 +141,15 @@ class LoteriasShortcode
         return $result;
     }
 
+    /**
+     * Renders the lottery result template for a contest.
+     *
+     * This method gathers the metadata for the lottery contest and includes a PHP template
+     * to render the results for display on the front-end.
+     *
+     * @param object $post The post object representing the contest.
+     * @return string The rendered HTML template for the contest.
+     */
     private function get_template($post)
     {
         $lottery_name = get_post_meta($post->ID, 'lottery_name', true);
@@ -132,6 +177,14 @@ class LoteriasShortcode
         return ob_get_clean();
     }
 
+    /**
+     * Converts a date into the weekday in Portuguese.
+     *
+     * This method converts a given date string (in 'd/m/Y' format) into the day of the week
+     *
+     * @param string $date The date string in 'd/m/Y' format.
+     * @return string The day of the week in Portuguese.
+     */
     private function get_weekday($date)
     {
         $date = \DateTime::createFromFormat('d/m/Y', $date);
