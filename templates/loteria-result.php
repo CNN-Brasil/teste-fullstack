@@ -7,8 +7,9 @@ if (! defined('ABSPATH')) {
 ?>
 
 <div class="lottery-result <?php echo esc_attr($lottery_name); ?>">
+
     <div class="lottery-result__top">
-        <span><?php echo esc_html('Concurso'); ?> <?php echo esc_html($contest); ?> • <?php echo esc_html($date); ?></span>
+        <span><?php echo esc_html('Concurso'); ?> <?php echo esc_html($contest); ?> • <?php echo esc_html($weekday) . ' ' . esc_html($date); ?></span>
     </div>
 
     <div class="lottery-result__numbers">
@@ -42,4 +43,5 @@ if (! defined('ABSPATH')) {
             </div>
         <?php } ?>
     </div>
+
 </div>

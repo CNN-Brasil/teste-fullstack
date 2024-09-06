@@ -24,8 +24,10 @@ class LoteriasShortcode
 
         if ($contest === 'ultimo') {
             $api_result = $this->api->fetch_lottery_api_result($lottery, $contest);
-            if (isset($api_result->contest)) {
-                $contest = $api_result->contest;
+            if (isset($api_result->concurso)) {
+                $contest = $api_result->concurso;
+            } else {
+                return '<p>Erro ao buscar resultados da loteria.</p>';
             }
         }
 
@@ -34,9 +36,11 @@ class LoteriasShortcode
             return $this->get_template($existing_contest);
         }
 
-        $api_result = $this->api->fetch_lottery_api_result($lottery, $contest);
+        if (!isset($api_result)) {
+            $api_result = $this->api->fetch_lottery_api_result($lottery, $contest);
+        }
 
-        if (! $api_result) {
+        if (!$api_result) {
             return '<p>Erro ao buscar resultados da loteria.</p>';
         }
 
@@ -44,10 +48,8 @@ class LoteriasShortcode
         return $this->get_template(get_post($post_id));
     }
 
-
     private function save_lottery_result($lottery, $result)
     {
-
         $post_id = wp_insert_post([
             'post_title'  => 'Concurso ' . $result->concurso . ' - ' . ucfirst($lottery),
             'post_type'   => 'loterias',
@@ -59,7 +61,6 @@ class LoteriasShortcode
         update_post_meta($post_id, 'lottery_date', $result->data ?? '');
         update_post_meta($post_id, 'lottery_location', $result->local ?? '');
         update_post_meta($post_id, 'lottery_numbers', implode(',', (array) $result->dezenas));
-
         update_post_meta($post_id, 'lottery_collected_amount', $result->valorArrecadado ?? '');
         update_post_meta($post_id, 'lottery_accumulated', $result->acumulou ?? false);
 
@@ -100,9 +101,7 @@ class LoteriasShortcode
         ]);
 
         $result = $query->have_posts() ? $query->posts[0] : false;
-
         set_transient($cache_key, $result, HOUR_IN_SECONDS);
-
         return $result;
     }
 
@@ -111,6 +110,7 @@ class LoteriasShortcode
         $lottery_name = get_post_meta($post->ID, 'lottery_name', true);
         $contest = get_post_meta($post->ID, 'lottery_contest', true);
         $date = get_post_meta($post->ID, 'lottery_date', true);
+        $weekday = $this->get_weekday($date);
         $location = get_post_meta($post->ID, 'lottery_location', true);
         $numbers = explode(',', get_post_meta($post->ID, 'lottery_numbers', true));
         $collected_amount = get_post_meta($post->ID, 'lottery_collected_amount', true);
@@ -130,5 +130,14 @@ class LoteriasShortcode
         ob_start();
         include plugin_dir_path(__FILE__) . '../templates/loteria-result.php';
         return ob_get_clean();
+    }
+
+    private function get_weekday($date)
+    {
+        $date = \DateTime::createFromFormat('d/m/Y', $date);
+        if ($date) {
+            $formatter = new \IntlDateFormatter('pt_BR', \IntlDateFormatter::FULL, \IntlDateFormatter::NONE, null, null, 'EEEE');
+            return $formatter->format($date);
+        }
     }
 }
