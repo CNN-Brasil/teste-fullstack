@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+  --white: #ffffff;
+  --megasena: #2d976a;
+  --quina: #261383;
+  --lotofacil: #921788;
+  --lotomania: #F78100;
+  --timemania: #f58123;
+  --duplasena: #3daf3e;
+  --federal: #133497;
+  --diadesorte: #ca8536;
+  --superset: #a9cf50;
+  --maismilionaria: #2e3078;
+}
+
+/* Reset CSS */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+}
+
+/* Structure */
+.container {
+  font-family: "Inter", sans-serif;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  font-size: 1.5rem;
+}
+
+.lottery {
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.lottery__info {
+  color: var(--white);
+}
+
+.lottery__numbers__wrapper,
+.lottery__premium__wrapper {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lottery__numbers {
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.lottery__numbers {
+  flex-wrap: wrap;
+}
+
+.lottery__numbers span.megasena {
+  background-color: var(--megasena);
+}
+
+.lottery__numbers span {
+  border-radius: 50%;
+  padding: 1.3rem 1.6rem;
+  margin: 1.5rem 1.6rem;
+  color: var(--white);
+  font-weight: bold;
+}
+
+.lottery__premium {
+  font-size: 2rem;
+  text-align: center;
+  padding: 30px;
+  font-weight: bold;
+}
+
+.lottery__premium .lottery__premium__title {
+  text-transform: uppercase;
+}
+
+.lottery__premium .lottery__premium__cash {
+  margin-top: 20px;
+  font-size: 2.5rem;
+}
+
+.lottery__winners__header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.lottery__winners__header span.megasena {
+  color: var(--megasena);
+}
+
+.lottery__winners__header span {
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.lottery__winners__body__results {
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.lottery__winners__body__results span {
+  width: 100%;
+  text-align: center;
+}
+
+/* Concursos Styles */
+.megasena {
+  background-color: var(--megasena);
+}
+.lottery__numbers span.megasena {
+  background-color: var(--megasena);
+}
+.lottery__winners__header span.title-megasena {
+  color: var(--megasena);
+}
+
+.lotofacil {
+  background-color: var(--lotofacil);
+}
+.lottery__numbers span.lotofacil {
+  background-color: var(--lotofacil);
+}
+.lottery__winners__header span.title-lotofacil {
+  color: var(--lotofacil);
+}
+
+.quina {
+  background-color: var(--quina);
+}
+.lottery__numbers span.quina {
+  background-color: var(--quina);
+}
+.lottery__winners__header span.title-quina {
+  color: var(--quina);
+}
+
+.timemania {
+  background-color: var(--timemania);
+}
+.lottery__numbers span.timemania {
+  background-color: var(--timemania);
+}
+.lottery__winners__header span.title-timemania {
+  color: var(--timemania);
+}
+
+.duplasena {
+  background-color: var(--duplasena);
+}
+.lottery__numbers span.duplasena {
+  background-color: var(--duplasena);
+}
+.lottery__winners__header span.title-duplasena {
+  color: var(--duplasena);
+}
+
+.federal {
+  background-color: var(--federal);
+}
+.lottery__numbers span.federal {
+  background-color: var(--federal);
+}
+.lottery__winners__header span.title-federal {
+  color: var(--federal);
+}
+
+.diadesorte {
+  background-color: var(--diadesorte);
+}
+.lottery__numbers span.diadesorte {
+  background-color: var(--diadesorte);
+}
+.lottery__winners__header span.title-diadesorte {
+  color: var(--diadesorte);
+}
+
+.superset {
+  background-color: var(--superset);
+}
+.lottery__numbers span.superset {
+  background-color: var(--superset);
+}
+.lottery__winners__header span.title-superset {
+  color: var(--superset);
+}
+
+.maismilionaria {
+  background-color: var(--maismilionaria);
+}
+.lottery__numbers span.maismilionaria {
+  background-color: var(--maismilionaria);
+}
+.lottery__winners__header span.title-maismilionaria {
+  color: var(--maismilionaria);
+}
+
+.lotomania {
+  background-color: var(--lotomania);
+}
+.lottery__numbers span.lotomania {
+  background-color: var(--lotomania);
+}
+.lottery__winners__header span.title-lotomania {
+  color: var(--lotomania);
+}
