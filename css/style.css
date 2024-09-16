@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.megasena {
+    background-color: #209869;
+}
+
+.quina {
+    background-color: #260085;
+}
+
+.lotofacil {
+    background-color: #930089;
+}
+
+.lotomania {
+    background-color: #f78100;
+}
+
+.timemania {
+    background-color: #00b200;
+}
+
+.duplasena {
+    background-color: #c90000;
+}
+
+.federal {
+    background-color: #0066b3;
+}
+
+.diadesorte {
+    background-color: #d39e00;
+}
+
+.supersete {
+    background-color: #f78100;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);}
+
+.header h1 {
+    color: white;
+    /*background-color: #4CAF50;*/
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.numbers {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 15px;
+}
+
+.number {
+    /*background-color: #4CAF50;*/
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.prize {
+    text-align: center;
+}
+
+.prize h2 {
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.prize p {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+}
+
+.results {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+tr {
+    border-bottom: 1px solid #8080803b;
+}
