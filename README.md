@@ -1,5 +1,6 @@
 ## Execução do Projeto
 1 - Baixe o código e descompacte-o dentro da pasta de plugins do seu WordPress.
+
 2 - Acesse a área de administrador e ative o plugin, se necessário.
 
 ## Teste
