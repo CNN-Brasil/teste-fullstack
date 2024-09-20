@@ -1,0 +1,204 @@
+.loteria {
+	font-family: "Inter", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+	padding: 0;
+	background-color: white;
+	text-transform: capitalize;
+	max-width: 903px;
+	height: auto;
+	margin: 100px auto;
+	padding-bottom: 39px;
+}
+
+.loteria .header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Inter;
+	font-size: 17px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	color: white;
+	max-width: 903px;
+	height: 68px;
+}
+
+.loteria .sorteio-lista {
+	flex-wrap: wrap;
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 32px;
+	margin: 42px;
+}
+
+.loteria .sorteio-lista li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #FFF;
+	text-align: center;
+	font-family: Inter;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	height: 67px;
+	width: 67px;
+	border-radius: 50%;
+}
+
+.loteria .hr-linha {
+	width: 100%;
+	height: 1px;
+	flex-shrink: 0;
+	background: #CBCBCB;
+	border: none;
+}
+
+.loteria .valores {
+	padding: 42px;
+}
+
+.loteria .valores p {
+	color: #1E1E1E;
+	text-align: center;
+	font-family: Inter;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	text-transform: uppercase;
+}
+
+.loteria .valores p:last-child {
+	margin-top: 15px;
+}
+
+.loteria table {
+	width: 100%;
+	max-width: 903px;
+	margin: 0 auto;
+	border-collapse: collapse;
+	text-align: center;
+	margin-top: 77px;
+	padding-bottom: 39px;
+	font-family: Inter;
+	font-size: 20px;
+	font-style: normal;
+	line-height: normal;
+}
+
+.loteria tr {
+	border-bottom: 1px solid #CBCBCB;
+}
+
+.loteria tr:last-child {
+	border-bottom: 0;
+}
+
+.loteria th,
+.loteria td {
+	padding: 16px;
+}
+
+.loteria th {
+	font-weight: 800;
+}
+
+.loteria td {
+	color: #1E1E1E;
+	font-weight: 500;
+}
+
+.back-maismilionaria {
+	background-color: #33368d;
+}
+
+.back-megasena {
+	background-color: #26835c;
+}
+
+.back-lotofacil {
+	background-color: #921788;
+}
+
+.back-quina {
+	background-color: #2e189c;
+}
+
+.back-lotomania {
+	background-color: #f17d1e;
+}
+
+.back-timemania {
+	background-color: #34a336;
+}
+
+.back-duplasena {
+	background-color: #b8172c;
+}
+
+.back-federal {
+	background-color: #0c2b8a;
+}
+
+.back-diadesorte {
+	background-color: #d88b32;
+}
+
+.back-supersete {
+	background-color: #98bd44;
+}
+
+.back-padrao {
+	background-color: #32aa78;
+}
+
+.color-maismilionaria {
+	color: #33368d;
+}
+
+.color-megasena {
+	color: #26835c;
+}
+
+.color-lotofacil {
+	color: #921788;
+}
+
+.color-quina {
+	color: #2e189c;
+}
+
+.color-lotomania {
+	color: #f17d1e;
+}
+
+.color-timemania {
+	color: #34a336;
+}
+
+.color-duplasena {
+	color: #b8172c;
+}
+
+.color-federal {
+	color: #0c2b8a;
+}
+
+.color-diadesorte {
+	color: #d88b32;
+}
+
+.color-supersete {
+	color: #98bd44;
+}
+
+.color-padrao {
+	color: #32aa78;
+}
