@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+  --mega-sena: #298c5f;
+  --quina: #261383;
+  --loto-facil: #921788;
+  --loto-mania: #f58123;
+  --time-mania: #3daf3e;
+  --dupla-sena: #a41628;
+  --federal: #133497;
+  --dia-sorte: #ca8536;
+  --super-sete: #a9cf50;
+}
+
+.loteria-result {
+  font-family: "Inter", sans-serif;
+  background-color: #fff;
+  text-align: center;
+  max-width: 903px;
+  width: 100%;
+  padding-bottom: 1.438rem;
+}
+
+.loteria-result p {
+  margin: 0;
+  display: none;
+}
+
+.loteria-result h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.2px;
+  text-align: center;
+  padding: 22px 0;
+  background-color: #298c5f; /* Verde da Mega Sena */
+  color: white;
+  margin: 0;
+}
+
+.loteria-result .dezenas-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.625rem 0;
+  max-width: 562px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.loteria-result .dezena {
+  background-color: #298c5f; /* Verde da Mega Sena */
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  border-radius: 50%;
+  width: 67px;
+  height: 67px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loteria-result .premio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 0;
+  gap: 1.5rem;
+  border-top: 1px solid #cbcbcb;
+  border-bottom: 1px solid #cbcbcb;
+}
+
+.loteria-result .premio br {
+  display: none;
+}
+
+.loteria-result .premio .text-premio {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24.2px;
+  text-align: center;
+  color: #1e1e1e;
+}
+
+.loteria-result .premio .valor-premio {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 29.05px;
+  text-align: center;
+  color: #1e1e1e;
+}
+
+.loteria-result table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 3.813rem;
+}
+
+.loteria-result table thead tr,
+.loteria-result table tbody tr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loteria-result table thead th {
+  color: #298c5f;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24.2px;
+  text-align: center;
+  padding: 1rem 0;
+  max-width: 187.3px;
+  width: 100%;
+}
+
+.loteria-result table tbody tr,
+.loteria-result table thead {
+  border-bottom: 1px solid #cbcbcb;
+}
+
+.loteria-result table tbody tr:last-child {
+  border: none;
+}
+
+.loteria-result table td {
+  padding: 1rem 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24.2px;
+  text-align: center;
+  max-width: 187.3px;
+  width: 100%;
+  color: #1e1e1e;
+}
+
+.loteria-quina h3,
+.loteria-quina .dezena {
+  background-color: var(--quina);
+}
+
+.loteria-quina table thead th {
+  color: var(--quina);
+}
+
+.loteria-lotofacil h3,
+.loteria-lotofacil .dezena {
+  background-color: var(--loto-facil);
+}
+
+.loteria-lotofacil table thead th {
+  color: var(--loto-facil);
+}
+
+.loteria-lotomania h3,
+.loteria-lotomania .dezena {
+  background-color: var(--loto-mania);
+}
+
+.loteria-lotomania table thead th {
+  color: var(--loto-mania);
+}
+
+.loteria-timemania h3,
+.loteria-timemania .dezena {
+  background-color: var(--time-mania);
+}
+
+.loteria-timemania table thead th {
+  color: var(--time-mania);
+}
+
+.loteria-duplasena h3,
+.loteria-duplasena .dezena {
+  background-color: var(--dupla-sena);
+}
+
+.loteria-duplasena table thead th {
+  color: var(--dupla-sena);
+}
+
+.loteria-federal h3,
+.loteria-federal .dezena {
+  background-color: var(--federal);
+}
+
+.loteria-federal .dezena {
+  width: 98px;
+  height: 98px;
+}
+
+.loteria-federal table thead th {
+  color: var(--federal);
+}
+
+.loteria-diadesorte h3,
+.loteria-diadesorte .dezena {
+  background-color: var(--dia-sorte);
+}
+
+.loteria-diadesorte table thead th {
+  color: var(--dia-sorte);
+}
+
+.loteria-supersete h3,
+.loteria-supersete .dezena {
+  background-color: var(--super-sete);
+}
+
+.loteria-supersete table thead th {
+  color: var(--super-sete);
+}
+
+.loteria-lotofacil .dezenas-container,
+.loteria-duplasena .dezenas-container,
+.loteria-lotomania .dezenas-container {
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
