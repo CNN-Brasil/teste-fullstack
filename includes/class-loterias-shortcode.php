@@ -18,12 +18,36 @@ class Loterias_Shortcode {
             return '<p>Erro ao buscar o resultado da loteria.</p>';
         }
 
-        // Certificar que o resultado é um array, para evitar codificação duplicada
-        if (!is_array($resultado)) {
-            $resultado = json_decode($resultado, true); // Decodificar caso esteja em formato string JSON
+        // Verificar se o concurso já existe no CPT 'Loterias'
+        $existing_post = get_posts(array(
+            'post_type' => 'loterias',
+            'meta_query' => array(
+                array(
+                    'key' => 'concurso',
+                    'value' => $resultado['concurso'],
+                    'compare' => '='
+                )
+            )
+        ));
+
+        // Se o concurso não existe, criar um novo post no CPT 'Loterias'
+        if (empty($existing_post)) {
+            $post_id = wp_insert_post(array(
+                'post_title'   => $resultado['loteria'] . ' - Concurso ' . $resultado['concurso'],
+                'post_type'    => 'loterias',
+                'post_status'  => 'publish',
+            ));
+
+            // Salvar os metadados associados
+            if ($post_id) {
+                update_post_meta($post_id, 'loteria', $resultado['loteria']);
+                update_post_meta($post_id, 'concurso', $resultado['concurso']);
+                update_post_meta($post_id, 'data', $resultado['data']);
+                update_post_meta($post_id, 'dezenasOrdemSorteio', implode(', ', $resultado['dezenasOrdemSorteio']));
+            }
         }
 
-        // Iniciar o buffer de saída
+        // Exibir os resultados no front-end
         ob_start();
         ?>
         <div class="loteria-resultado">
@@ -57,5 +81,6 @@ class Loterias_Shortcode {
 }
 
 new Loterias_Shortcode();
+
 
 
