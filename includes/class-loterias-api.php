@@ -3,6 +3,9 @@ class Loterias_API {
     private $api_url = 'https://loteriascaixa-api.herokuapp.com/api/';
 
     public function buscar_resultado($loteria, $concurso = 'ultimo') {
+        if(!$concurso || $concurso == 'ultimo') {
+            $concurso = 'latest';
+        }
         // Implementação de cache
         $cache_key = "resultado_{$loteria}_{$concurso}";
         $cached_result = get_transient($cache_key);
