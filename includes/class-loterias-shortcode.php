@@ -5,6 +5,27 @@ class Loterias_Shortcode {
         add_shortcode('loteria_resultado', array($this, 'render_shortcode'));
     }
 
+    function obterDiaSemana($data) {
+        $dataFormatada = DateTime::createFromFormat('d/m/Y', $data);
+        if ($dataFormatada) {
+            
+            $diasDaSemana = [
+                'Sunday' => 'Domingo',
+                'Monday' => 'Segunda-feira',
+                'Tuesday' => 'Terça-feira',
+                'Wednesday' => 'Quarta-feira',
+                'Thursday' => 'Quinta-feira',
+                'Friday' => 'Sexta-feira',
+                'Saturday' => 'Sábado'
+            ];
+
+            $diaSemanaIngles = $dataFormatada->format('l');
+            return $diasDaSemana[$diaSemanaIngles] ?? $diaSemanaIngles;
+        }
+
+        return false;
+    }
+
     public function render_shortcode($atts) {
         $atts = shortcode_atts(array(
             'loteria'  => 'megasena',
@@ -50,32 +71,45 @@ class Loterias_Shortcode {
         // Exibir os resultados no front-end
         ob_start();
         ?>
-        <div class="loteria-resultado">
-            <h2>Resultado da Loteria: <?php echo esc_html($resultado['loteria']); ?></h2>
-            <p><strong>Concurso nº:</strong> <?php echo esc_html($resultado['concurso']); ?></p>
-            <p><strong>Data:</strong> <?php echo esc_html($resultado['data']); ?></p>
-            <p><strong>Local:</strong> <?php echo esc_html($resultado['local']); ?></p>
-            <p><strong>Dezenas sorteadas:</strong> <?php echo implode(', ', $resultado['dezenasOrdemSorteio']); ?></p>
-
-            <h3>Premiações</h3>
-            <ul>
-                <?php foreach ($resultado['premiacoes'] as $premiacao): ?>
-                    <li>
-                        <strong><?php echo esc_html($premiacao['descricao']); ?>:</strong>
-                        <?php echo esc_html($premiacao['ganhadores']); ?> ganhador(es), prêmio de R$ <?php echo number_format($premiacao['valorPremio'], 2, ',', '.'); ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-
-            <h3>Próximo Concurso</h3>
-            <p><strong>Concurso nº:</strong> <?php echo esc_html($resultado['proximoConcurso']); ?></p>
-            <p><strong>Data:</strong> <?php echo esc_html($resultado['dataProximoConcurso']); ?></p>
-            <p><strong>Prêmio Estimado:</strong> R$ <?php echo number_format($resultado['valorEstimadoProximoConcurso'], 2, ',', '.'); ?></p>
-
-            <p><strong>Acumulou?</strong> <?php echo $resultado['acumulou'] ? 'Sim' : 'Não'; ?></p>
+        <div class="loterias-caixa">
+        <div class="card-header color-theme <?php echo esc_html($resultado['loteria']); ?>">
+            Concurso <?php echo esc_html($resultado['concurso']); ?> • 
+            <?php echo esc_html($this->obterDiaSemana($resultado['data']) ?: 'Data inválida'); ?> 
+            <?php echo esc_html($resultado['data']); ?>
+        </div>
+            <div class="card-dezenas">
+                <ul>
+                    <?php foreach ($resultado['dezenas'] as $dezena): ?>
+                        <li class="color-theme <?php echo esc_html($resultado['loteria']); ?>">
+                            <?php echo esc_html($dezena); ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="card-premio">
+                <p>Prêmio</p>
+                R$ <?php echo number_format($resultado['valorEstimadoProximoConcurso'], 2, ',', '.'); ?>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="color-theme <?php echo esc_html($resultado['loteria']); ?>">Faixas</th>
+                        <th class="color-theme <?php echo esc_html($resultado['loteria']); ?>">Ganhadores</th>
+                        <th class="color-theme <?php echo esc_html($resultado['loteria']); ?>">Prêmio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($resultado['premiacoes'] as $premiacao): ?>
+                        <tr>
+                            <td><?php echo esc_html($premiacao['descricao']); ?></td>
+                            <td><?php echo esc_html($premiacao['ganhadores']); ?></td>
+                            <td>R$ <?php echo number_format($premiacao['valorPremio'], 2, ',', '.'); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
         <?php
-
         return ob_get_clean(); // Retornar o conteúdo bufferizado
     }
 }
