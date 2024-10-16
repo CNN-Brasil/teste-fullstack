@@ -1,0 +1,1 @@
+// Scripts específicos do plugin
