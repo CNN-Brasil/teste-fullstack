@@ -1,86 +1,185 @@
-/* cores do Plugin básico para garantir consistência entre navegadores */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* Estilos Gerais */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
 }
 
-
-.container {
-    max-width: 800px;
-    background: #FFF;
+.loterias-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: hidden;
+    max-width: 1200px; /* Largura máxima da área */
+    width: 100%;
+    min-height: 700px;
 }
 
-
-.header {
-    background-color: #4CAF50; 
-    color: white;
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 18px;
-}
-
-
-.numbers {
+/* Lista de tipos de jogos no topo */
+#jogos-list {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    padding: 20px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-.number {
-    background-color: #a1d3a1; 
+.jogo-item {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: #4caf50;
     color: white;
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.jogo-item:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#resultado-container {
+    flex-grow: 1;
+    width: 100%; /* Ocupar 100% da largura */
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 700px; /* Altura mínima fixa */
+}
+
+/* Estilo dos números sorteados */
+.numeros-sorteados {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* 10 números por linha */
+    justify-items: center;
+    gap: 10px; /* Espaçamento entre os números */
+    margin: 20px 0;
+    max-width: 100%; /* Evitar que ultrapasse a largura do container */
+}
+
+.numero {
+    background-color: #4caf50;
+    color: white;
+    font-size: 1.4em;
+    padding: 18px;
+    border-radius: 50%; /* Faz com que o elemento seja redondo */
+    width: 50px;
+    height: 50px;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px;
-    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Adiciona uma leve sombra */
+}
+
+.premio-total {
+    margin-top: 20px;
+    font-size: 1.3em;
+    color: #4caf50;
     font-weight: bold;
 }
 
-
-.prize, table {
+.premiacoes-table {
     width: 100%;
-    text-align: center;
-    padding: 20px;
-}
-
-table {
+    margin-top: 20px;
     border-collapse: collapse;
 }
 
-th, td {
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
+.premiacoes-table th,
+.premiacoes-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
-th {
-    background-color: #f9f9f9;
+.premiacoes-table th {
+    background-color: #f5f5f5;
+    font-size: 1.1em;
+    font-weight: 600;
 }
 
-.footer {
-    background-color: #f9f9f9;
-    padding: 10px;
-    display: flex;
-    justify-content: space-evenly;
+.premiacoes-table td {
+    background-color: #fff;
 }
 
-.color-box {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    margin-right: 5px;
+.premiacoes-table td,
+.premiacoes-table th {
+    min-height: 50px; /* Altura mínima para cada célula */
+}
+
+/* Responsividade */
+@media screen and (max-width: 1024px) {
+    .loterias-container {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    #jogos-list {
+        flex-wrap: wrap;
+    }
+
+    .jogo-item {
+        width: 45%;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .loterias-container {
+        padding: 10px;
+    }
+
+    #jogos-list {
+        flex-wrap: wrap;
+    }
+
+    .jogo-item {
+        width: 45%;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .loterias-container {
+        padding: 10px;
+    }
+
+    #jogos-list {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .jogo-item {
+        width: 100%;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .numero {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2em;
+        padding: 10px;
+    }
+
+    .premiacoes-table th,
+    .premiacoes-table td {
+        padding: 5px;
+        font-size: 12px;
+    }
 }
