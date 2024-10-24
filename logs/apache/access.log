@@ -1,0 +1,11 @@
+127.0.0.1 - - [24/Oct/2024:08:22:44 -0300] "POST /wp-cron.php?doing_wp_cron=1729768964.1604599952697753906250 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2024:08:23:24 -0300] "GET /wp-admin/ HTTP/1.1" 302 -
+127.0.0.1 - - [24/Oct/2024:08:23:25 -0300] "GET /wp-login.php?redirect_to=http%3A%2F%2Fcnn-loterias.local%2Fwp-admin%2F&reauth=1 HTTP/1.1" 200 4097
+127.0.0.1 - - [24/Oct/2024:08:23:39 -0300] "POST /wp-login.php HTTP/1.1" 302 -
+127.0.0.1 - - [24/Oct/2024:08:23:40 -0300] "GET /wp-admin/ HTTP/1.1" 200 71984
+127.0.0.1 - - [24/Oct/2024:08:23:49 -0300] "GET /wp-admin/admin-ajax.php?action=wp-compression-test&test=1&_ajax_nonce=854269d017&1729769029447 HTTP/1.1" 200 1114
+127.0.0.1 - - [24/Oct/2024:08:23:51 -0300] "GET /wp-admin/admin-ajax.php?action=wp-compression-test&test=2&_ajax_nonce=854269d017&1729769031458 HTTP/1.1" 200 572
+127.0.0.1 - - [24/Oct/2024:08:23:50 -0300] "POST /wp-cron.php?doing_wp_cron=1729769030.3395419120788574218750 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2024:08:23:52 -0300] "GET /wp-admin/admin-ajax.php?action=wp-compression-test&test=yes&_ajax_nonce=854269d017&1729769032211 HTTP/1.1" 200 1
+127.0.0.1 - - [24/Oct/2024:08:23:49 -0300] "POST /wp-admin/admin-ajax.php HTTP/1.1" 200 92
+127.0.0.1 - - [24/Oct/2024:08:23:49 -0300] "GET /wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_primary&pagenow=dashboard HTTP/1.1" 200 1031
