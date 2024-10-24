@@ -6,3 +6,487 @@
 [24-Oct-2024 11:59:02 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
 [24-Oct-2024 11:59:02 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
 [24-Oct-2024 11:59:03 UTC] WordPress database error Deadlock found when trying to get lock; try restarting transaction for query DELETE FROM `wp_options` WHERE `option_name` = '_site_transient_timeout_wp_theme_files_patterns-c9b1d044e959ed678c3e8985d604b2e7' made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), WP_Hook->do_action, WP_Hook->apply_filters, _register_theme_block_patterns, WP_Theme->get_block_patterns, WP_Theme->get_pattern_cache, get_site_transient, delete_site_option, delete_network_option, delete_option
+[24-Oct-2024 12:34:35 UTC] PHP Parse error:  syntax error, unexpected token "}" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 55
+[24-Oct-2024 12:36:36 UTC] PHP Parse error:  syntax error, unexpected token "}" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 55
+[24-Oct-2024 12:41:09 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 12:41:09 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 12:41:09 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 13:00:43 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:00:43 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:00:43 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:00:43 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:02:32 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:02:32 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:02:32 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:02:32 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:16 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:03:16 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:03:16 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:16 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:27 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:03:27 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:03:27 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:27 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\rest-api\endpoints\class-wp-rest-posts-controller.php(1904): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\rest-api\endpoints\class-wp-rest-posts-controller.php(586): WP_REST_Posts_Controller->prepare_item_for_response(Object(WP_Post), Object(WP_REST_Request))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\rest-api\class-wp-rest-server.php(1246): WP_REST_Posts_Controller->get_item(Object(WP_REST_Request))
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\rest-api\class-wp-rest-server.php(1076): WP_REST_Server->respond_to_request(Object(WP_REST_Request), '/wp/v2/posts/(?...', Array, NULL)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\rest-api.php(559): WP_REST_Server->dispatch(Object(WP_REST_Request))
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\rest-api.php(2999): rest_do_request(Object(WP_REST_Request))
+#12 [internal function]: rest_preload_api_request(Array, '/wp/v2/posts/5?...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-editor.php(761): array_reduce(Array, 'rest_preload_ap...', Array)
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-admin\edit-form-blocks.php(81): block_editor_rest_api_preload(Array, Object(WP_Block_Editor_Context))
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-admin\post.php(190): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:38 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:03:38 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:03:38 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:38 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:49 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:03:49 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:03:49 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:49 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:57 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:03:57 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:03:57 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:03:57 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:22:36 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:22:36 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:22:36 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:22:36 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:23:06 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 75
+[24-Oct-2024 13:23:06 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 76
+[24-Oct-2024 13:23:06 UTC] PHP Warning:  Undefined array key "numeros" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:23:06 UTC] PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:77
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(77): implode(', ', NULL)
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 77
+[24-Oct-2024 13:23:19 UTC] PHP Warning:  Array to string conversion in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php on line 446
+[24-Oct-2024 14:40:01 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 168
+[24-Oct-2024 14:40:11 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 168
+[24-Oct-2024 14:46:15 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 168
+[24-Oct-2024 14:55:00 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 172
+[24-Oct-2024 14:55:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 172
+[24-Oct-2024 14:55:31 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 172
+[24-Oct-2024 14:58:25 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 172
+[24-Oct-2024 14:59:08 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 172
+[24-Oct-2024 14:59:10 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 172
+[24-Oct-2024 14:59:34 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 15:00:34 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 15:01:04 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 15:01:47 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 15:02:33 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 16:25:32 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 16:35:14 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 179
+[24-Oct-2024 16:37:25 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 179
+[24-Oct-2024 16:38:45 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 193
+[24-Oct-2024 16:40:26 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 205
+[24-Oct-2024 16:40:26 UTC] PHP Fatal error:  Uncaught Exception: Failed to parse time string (22/10/2024) at position 0 (2): Unexpected character in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:107
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(107): DateTime->__construct('22/10/2024')
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 107
+[24-Oct-2024 16:41:46 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 193
+[24-Oct-2024 16:42:36 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 191
+[24-Oct-2024 16:42:36 UTC] PHP Fatal error:  Uncaught Exception: Failed to parse time string (22/10/2024) at position 0 (2): Unexpected character in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:94
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php(94): DateTime->__construct('22/10/2024')
+#1 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#15 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#16 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 94
+[24-Oct-2024 16:44:22 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 200
+[24-Oct-2024 16:44:24 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 200
+[24-Oct-2024 16:44:26 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 200
+[24-Oct-2024 16:45:17 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 16:45:26 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 171
+[24-Oct-2024 17:15:45 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:16:08 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:16:43 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:18:29 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:20:30 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:21:34 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:22:16 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:22:20 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 17:22:20 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 17:22:20 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 17:23:01 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:23:05 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:23:44 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 17:23:48 UTC] PHP Warning:  Undefined array key "premio" in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 97
+[24-Oct-2024 20:22:56 UTC] PHP Warning:  Array to string conversion in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php on line 446
+[24-Oct-2024 20:45:22 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:113
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 113
+[24-Oct-2024 20:47:48 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:113
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 113
+[24-Oct-2024 20:49:36 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:113
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 113
+[24-Oct-2024 20:50:11 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:112
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:51:05 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:112
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:52:02 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:112
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:52:04 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:112
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:06 UTC] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:112
+Stack trace:
+#0 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(446): loterias_shortcode(Array, '', 'loteria')
+#1 [internal function]: do_shortcode_tag(Array)
+#2 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\shortcodes.php(282): preg_replace_callback('/\\[(\\[?)(loteri...', 'do_shortcode_ta...', '[loteria loteri...')
+#3 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-hook.php(332): do_shortcode('[loteria loteri...')
+#4 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\plugin.php(208): WP_Hook->apply_filters('[loteria loteri...', Array)
+#5 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks\post-content.php(52): apply_filters('the_content', '<!-- wp:shortco...')
+#6 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(529): render_block_core_post_content(Array, '<!-- wp:shortco...', Object(WP_Block))
+#7 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\class-wp-block.php(509): WP_Block->render()
+#8 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2102): WP_Block->render()
+#9 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\blocks.php(2156): render_block(Array)
+#10 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\block-template.php(266): do_blocks('<!-- wp:templat...')
+#11 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-canvas.php(13): get_the_block_template_html()
+#12 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\template-loader.php(107): include('C:\\Users\\disne\\...')
+#13 C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-blog-header.php(19): require_once('C:\\Users\\disne\\...')
+#14 C:\Users\disne\Local-Site\cnn-loterias\app\public\index.php(18): require('C:\\Users\\disne\\...')
+#15 {main}
+  thrown in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type int in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 20:53:29 UTC] PHP Warning:  Trying to access array offset on value of type float in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php on line 112
+[24-Oct-2024 21:15:10 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-admin\admin-header.php on line 10
+[24-Oct-2024 21:15:10 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\option.php on line 1716
+[24-Oct-2024 21:15:10 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\option.php on line 1717
+[24-Oct-2024 21:15:13 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:15:13 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:15:13 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:16:08 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:16:08 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:17:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-admin\admin-header.php on line 10
+[24-Oct-2024 21:17:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\option.php on line 1716
+[24-Oct-2024 21:17:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\option.php on line 1717
+[24-Oct-2024 21:17:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-admin\admin-header.php on line 10
+[24-Oct-2024 21:17:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\option.php on line 1716
+[24-Oct-2024 21:17:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-content\plugins\loterias-plugin\loterias-plugin.php:83) in C:\Users\disne\Local-Site\cnn-loterias\app\public\wp-includes\option.php on line 1717
+[24-Oct-2024 21:18:00 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:26:32 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
+[24-Oct-2024 21:26:32 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_imagick.dll (Não foi possível encontrar o módulo especificado), C:/Users/disne/AppData/Roaming/Local/lightning-services/php-8.2.23+0/bin/win64/ext\php_php_imagick.dll.dll (Não foi possível encontrar o módulo especificado)) in Unknown on line 0
