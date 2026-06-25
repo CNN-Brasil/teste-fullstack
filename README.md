@@ -56,9 +56,15 @@ O teste consiste no desenvolvimento de um plugin para WordPress com as seguintes
 
 ### Funcionalidades Essenciais (WordPress)
 
-1. **Cron job:**
+1. **Cron Job para Atualização Automática**
 
-   * Crie um cron job que atualize os dados **15 vezes** ao longo do dia.
+   * Implemente um cron job utilizando o sistema de agendamento do WordPress (`WP-Cron`).
+
+   * O cron job deve atualizar os dados dos produtos consumidos da API externa **15 vezes ao longo do dia** (aproximadamente a cada 96 minutos).
+
+   * A atualização deve sobrescrever os dados existentes no cache, armazenando também a nova data e hora da sincronização.
+
+   * O processo deve ocorrer de forma automática, sem necessidade de intervenção manual ou interface administrativa.
 
 ### Funcionalidades Essenciais (WordPress API)
 
