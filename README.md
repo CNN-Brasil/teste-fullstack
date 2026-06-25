@@ -54,23 +54,11 @@ O teste consiste no desenvolvimento de um plugin para WordPress com as seguintes
 
    * Exemplo de uso esperado: `wp meuplugin cache clear`.
 
-### Funcionalidades Essenciais (WordPress Admin)
+### Funcionalidades Essenciais (WordPress)
 
-1. **Página no WP Admin:**
+1. **Cron job:**
 
-   * Crie um novo item de menu no painel administrativo do WordPress (no menu lateral).
-
-   * Esse item do menu deve possuir duas páginas.
-
-   * Uma página deve exibir uma lista dos produtos salvos em cache.
-
-     * A listagem deve utilizar o sistema de tabela nativo do WordPress (`WP_List_Table`) para exibir os dados de forma organizada.
-
-   * A outra deve ser usada para controle de cache.
-
-     * Nessa página deve-se mostrar a data e hora da última vez que o cache foi salvo, e também deve-se ter um botão para fazer a limpeza manual do cache
-
-   * **Comportamento do Cache:** Caso não haja dados no cache (ou o cache esteja expirado), a consulta à API externa deve ser feita novamente, e os novos dados devem ser salvos em cache com a nova data/hora da consulta.
+   * Crie um cron job que atualize os dados **15 vezes** ao longo do dia.
 
 ### Funcionalidades Essenciais (WordPress API)
 
@@ -118,7 +106,7 @@ O layout da aplicação pode ser feito seguindo o arquivo do Figma: https://www.
 
 * Justifique suas escolhas de renderização no `README.md`, explicando por que cada estratégia foi utilizada para cada página.
 
-### O que esperamos ver em seu repositório (Entrega no GitHub)
+### O que iremos avaliar
 
 Você deverá criar um **repositório privado no GitHub** e conceder acesso ao usuário que foi enviado a você.
 
@@ -126,20 +114,12 @@ Neste repositório, esperamos encontrar a seguinte estrutura e conteúdo:
 
 1. **Código-fonte do plugin (somente o código do plugin, não incluindo coisas do WordPress):**
 
-   * Implementação das funcionalidades do plugin (WP Admin, APIs REST, WP-CLI e Cache).
+   * Implementação das funcionalidades do plugin (Cron job, APIs REST, WP-CLI e Cache).
 
-   * **Estrutura de Projeto:** Organização lógica do código do plugin (ex: arquivos de classes, métodos, etc.).
-
-   * **Boas Práticas:** Demonstração de código limpo, reusabilidade, legibilidade e manutenibilidade (seguindo padrões como PSR, DDD, Clean Code e WPCS).
-
-   * **Tratamento de Erros:** Tratamento de erros mínimo e mensagens claras.
+   * Organização lógica do código do plugin (ex: arquivos de classes, métodos, etc.), conhecimento e aplicação de boas praticas de desenvolvimento.
 
 2. **Código-fonte da Aplicação Next.js:**
 
    * Implementação das páginas de listagem e detalhe de produto.
 
-   * **Estrutura de Projeto:** Organização lógica do código (ex: componentes, serviços, rotas e lógica bem definidas).
-
-   * **Boas Práticas:** Demonstração de código limpo, reusabilidade, legibilidade e manutenibilidade (seguindo padrões como DDD, Clean Code).
-
-   * **Trat
+   * **Estrutura de Projeto:** Organização lógica do código, conhecimento e aplicação de boas praticas de desenvolvimento.
